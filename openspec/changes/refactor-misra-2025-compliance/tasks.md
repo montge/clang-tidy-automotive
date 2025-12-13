@@ -103,10 +103,14 @@
 - [x] 4.3.9 Implement missing Rules 21.x-23.x checks (21.1, 21.2 implemented, tested)
 
 ### 4.4 New Check Implementation (Priority 2 - Advisory Rules)
-- [ ] 4.4.1 Implement advisory rules by priority/feasibility
+- [x] 4.4.1 Implement advisory rules by priority/feasibility
+  - Rule 4.2: AvoidTrigraphCheck (automotive-c23-adv-4.2)
+  - Rule 12.4: AvoidConstantWrapAroundCheck (automotive-c23-adv-12.4)
 
 ### 4.5 Directive Implementation
-- [ ] 4.5.1 Implement feasible directive checks
+- [x] 4.5.1 Implement feasible directive checks
+  - Rule 15.2: GotoLabelSameBlockCheck (automotive-c23-req-15.2)
+  - Dir 4.10: MissingHeaderGuardCheck (automotive-c23-req-dir-4.10)
 - [x] 4.5.2 Document manual-review-only directives
 
 ## 5. SonarQube Integration

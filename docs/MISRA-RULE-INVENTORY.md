@@ -16,11 +16,11 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 
 | Category | Total | Implemented | Clang | Planned | Manual |
 |----------|-------|-------------|-------|---------|--------|
-| Directives | 18 | 2 | 0 | 3 | 13 |
+| Directives | 18 | 3 | 0 | 2 | 13 |
 | Mandatory | 4 | 2 | 2 | 0 | 0 |
-| Required | 113 | 41 | 15 | 24 | 33 |
-| Advisory | 41 | 19 | 8 | 7 | 7 |
-| **Total** | **176** | **64** | **25** | **34** | **53** |
+| Required | 113 | 42 | 15 | 23 | 33 |
+| Advisory | 41 | 21 | 8 | 5 | 7 |
+| **Total** | **176** | **68** | **25** | **30** | **53** |
 
 ## Implemented Checks
 
@@ -37,12 +37,14 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-missing-compound` | 15.6 | Required | Missing braces on control flow |
 | `automotive-missing-else` | 15.7 | Required | Missing else after else-if |
 | `automotive-c23-adv-15.4` | 15.4 | Advisory | Multiple loop terminators |
+| `automotive-c23-req-15.2` | 15.2 | Required | Goto and label in same block |
 | `automotive-unused-label` | 2.6 | Advisory | Unused labels |
 
 ### Expression Checks
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
 | `automotive-c23-req-10.1` | 10.1 | Required | Inappropriate essential type |
+| `automotive-c23-adv-12.4` | 12.4 | Advisory | Constant expression wrap-around |
 | `automotive-c23-adv-13.4` | 13.4 | Advisory | Assignment used as expression |
 | `automotive-c23-req-13.5` | 13.5 | Required | Side effects in logical operands |
 | `automotive-c23-mand-13.6` | 13.6 | Mandatory | Side effects in sizeof operand |
@@ -58,6 +60,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 ### Literal Checks
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
+| `automotive-c23-adv-4.2` | 4.2 | Advisory | Trigraph sequences |
 | `automotive-avoid-octal-number` | 7.1 | Required | Octal literal constants |
 | `automotive-avoid-lowercase-literal-suffix` | 7.3 | Required | Lowercase 'l' suffix |
 | `automotive-unterminated-escape-sequence` | 4.1 | Required | Incomplete escape sequences |
@@ -121,6 +124,11 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-c23-req-21.2` | 21.2 | Required | Reserved identifier declarations |
 | `automotive-avoid-restrict-type` | 8.14 | Required | restrict qualifier usage |
 | `automotive-missing-static-internal-linkage` | 8.8 | Required | Missing static for internal linkage |
+
+### Directive Checks
+| Check ID | MISRA Directive | Category | Description |
+|----------|-----------------|----------|-------------|
+| `automotive-c23-req-dir-4.10` | Dir 4.10 | Required | Missing header guard protection |
 
 ### Preprocessor Checks
 | Check ID | MISRA Rule | Category | Description |
@@ -223,10 +231,11 @@ These rules cannot be fully verified by static analysis:
 ### Medium Priority (Advisory Rules)
 - Dir 4.2: Language subset selection
 - ~~Rule 2.7: Unused parameters~~ (Implemented)
-- Rule 4.2: Trigraph sequences
+- ~~Rule 4.2: Trigraph sequences~~ (Implemented)
 - ~~Rule 8.9: Local object scope~~ (Implemented)
-- Rule 12.4: Constant expressions
-- Rule 15.2: Goto in same block
+- ~~Rule 12.4: Constant expressions~~ (Implemented)
+- ~~Rule 15.2: Goto in same block~~ (Implemented)
+- ~~Dir 4.10: Header guards~~ (Implemented)
 
 ## Integration with SonarQube
 
