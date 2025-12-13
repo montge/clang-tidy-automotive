@@ -92,15 +92,15 @@
 - [x] 4.2.5 Update documentation (8 doc files updated)
 
 ### 4.3 New Check Implementation (Priority 1 - Required Rules)
-- [ ] 4.3.1 Implement missing Rules 1.x-2.x checks
+- [ ] 4.3.1 Implement missing Rules 1.x-2.x checks (2.7 implemented)
 - [ ] 4.3.2 Implement missing Rules 5.x-6.x checks
 - [ ] 4.3.3 Implement missing Rules 8.x-9.x checks
-- [ ] 4.3.4 Implement missing Rules 10.x-11.x checks
-- [ ] 4.3.5 Implement missing Rules 12.x-13.x checks
+- [ ] 4.3.4 Implement missing Rules 10.x-11.x checks (11.8 implemented)
+- [ ] 4.3.5 Implement missing Rules 12.x-13.x checks (12.2, 13.5 implemented)
 - [ ] 4.3.6 Implement missing Rules 14.x-17.x checks
-- [ ] 4.3.7 Implement missing Rules 18.x-19.x checks
+- [ ] 4.3.7 Implement missing Rules 18.x-19.x checks (18.4 implemented)
 - [x] 4.3.8 Implement missing Rules 20.x checks (20.1, 20.2 implemented)
-- [x] 4.3.9 Implement missing Rules 21.x-23.x checks (21.1 implemented)
+- [x] 4.3.9 Implement missing Rules 21.x-23.x checks (21.1, 21.2 implemented)
 
 ### 4.4 New Check Implementation (Priority 2 - Advisory Rules)
 - [ ] 4.4.1 Implement advisory rules by priority/feasibility
