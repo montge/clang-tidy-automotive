@@ -13,15 +13,17 @@
 
 namespace clang::tidy::automotive {
 
-/// Detects single-bit bit-fields with signed types.
+/// @ingroup misra-c25-types
+/// @brief Detects single-bit bit-fields with signed types.
 ///
 /// A signed bit-field with width of 1 can only represent values 0 and -1,
 /// which is rarely the intended behavior and often leads to confusion.
 /// Developers typically expect single-bit fields to represent boolean values
 /// (0 or 1), which requires an unsigned type.
 ///
-/// Related MISRA C:2025 Rule: 6.2 - Single-bit named bit-fields shall not be
-/// of a signed type.
+/// @par MISRA C:2025 Rule 6.2
+/// Single-bit named bit-fields shall not be of a signed type.
+/// @par Category: Required
 ///
 /// Example:
 /// \code

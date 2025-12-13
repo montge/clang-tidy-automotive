@@ -13,13 +13,16 @@
 
 namespace clang::tidy::automotive {
 
-/// Detects usage of goto statements in code.
+/// @ingroup misra-c25-statements
+/// @brief Detects usage of goto statements in code.
 ///
 /// The goto statement can lead to unstructured control flow, making code
 /// harder to understand, maintain, and verify. This check flags all goto
 /// statement usage to encourage structured programming practices.
 ///
-/// Related MISRA C:2025 Rule: 15.1 - The goto statement should not be used.
+/// @par MISRA C:2025 Rule 15.1
+/// The goto statement should not be used.
+/// @par Category: Advisory
 ///
 /// Example:
 /// \code

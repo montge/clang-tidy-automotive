@@ -13,15 +13,18 @@
 
 namespace clang::tidy::automotive {
 
-/// Detects usage of dynamic memory allocation functions from stdlib.h.
+/// @ingroup misra-c25-stdlib
+/// @brief Detects usage of dynamic memory allocation functions from stdlib.h.
 ///
 /// Dynamic memory allocation (malloc, calloc, realloc, free) can lead to
 /// memory leaks, fragmentation, and allocation failures that are difficult
 /// to handle. In safety-critical systems, static memory allocation is
 /// preferred for predictable behavior and deterministic execution.
 ///
-/// Related MISRA C:2025 Rule: 21.3 - The memory allocation and deallocation
-/// functions of <stdlib.h> shall not be used.
+/// @par MISRA C:2025 Rule 21.3
+/// The memory allocation and deallocation functions of <stdlib.h> shall not
+/// be used.
+/// @par Category: Required
 ///
 /// Example:
 /// \code
