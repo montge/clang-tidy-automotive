@@ -1,9 +1,9 @@
-// Test file for: automotive-avoid-stdlib-exit-call
+// Test file for: automotive-avoid-stdlib-exit
 // Related MISRA C:2025 Rule: 21.8
 //
 // This file tests the detection of exit/abort function usage
 
-// RUN: %check_clang_tidy %s automotive-avoid-stdlib-exit-call %t
+// RUN: %check_clang_tidy %s automotive-avoid-stdlib-exit %t
 
 #include <stdlib.h>
 

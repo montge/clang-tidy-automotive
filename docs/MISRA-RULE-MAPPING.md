@@ -14,11 +14,11 @@ This document maps clang-tidy-automotive checks to MISRA C:2025 rules and direct
 | 6.2 | Types | `automotive-avoid-signed-single-bitfield` | ✅ Implemented |
 | 7.1 | Literals | `automotive-avoid-octal-number` | ✅ Implemented |
 | 7.3 | Literals | `automotive-avoid-lowercase-literal-suffix` | ✅ Implemented |
-| 8.1 | Declarations | `automotive-implicit-function-decl`, `automotive-implict-int` | ✅ Implemented |
+| 8.1 | Declarations | `automotive-implicit-function-decl`, `automotive-implicit-int` | ✅ Implemented |
 | 8.2 | Declarations | `automotive-uncomplete-function-prototype` | ✅ Implemented |
 | 8.3 | Declarations | `automotive-function-declaration-mismatch` | ✅ Implemented |
 | 8.7 | Declarations | `automotive-missing-static-internal-linkage` | ✅ Implemented |
-| 8.9 | Declarations | `automotive-static-inline` | ✅ Implemented |
+| 8.9 | Declarations | `automotive-missing-static-inline` | ✅ Implemented |
 | 8.14 | Declarations | `automotive-avoid-restrict-type` | ✅ Implemented |
 | 9.5 | Initialization | `automotive-unique-enum-value` | ✅ Implemented |
 | 11.9 | Pointers | `automotive-wrong-null-pointer-value` | ✅ Implemented |
@@ -44,12 +44,12 @@ This document maps clang-tidy-automotive checks to MISRA C:2025 rules and direct
 | 20.5 | Preprocessor | `automotive-avoid-undef` | ✅ Implemented |
 | 20.10 | Preprocessor | `automotive-avoid-hash-operator` | ✅ Implemented |
 | 20.11 | Preprocessor | `automotive-avoid-multiple-hash-operators` | ✅ Implemented |
-| 21.3 | Std Library | `automotive-avoid-stdlib-malloc-call` | ✅ Implemented |
+| 21.3 | Std Library | `automotive-avoid-stdlib-malloc` | ✅ Implemented |
 | 21.4 | Std Library | `automotive-avoid-setjmp-header` | ✅ Implemented |
 | 21.5 | Std Library | `automotive-avoid-signal-header` | ✅ Implemented |
 | 21.7 | Std Library | `automotive-avoid-ascii-to-number` | ✅ Implemented |
-| 21.8 | Std Library | `automotive-avoid-stdlib-exit-call`, `automotive-avoid-stdlib-system-call` | ✅ Implemented |
-| 21.24 | Std Library | `automotive-avoid-stdlib-rand-call` | ✅ Implemented |
+| 21.8 | Std Library | `automotive-avoid-stdlib-exit`, `automotive-avoid-stdlib-system` | ✅ Implemented |
+| 21.24 | Std Library | `automotive-avoid-stdlib-rand` | ✅ Implemented |
 
 ## Detailed Mapping by Category
 
@@ -91,12 +91,12 @@ This document maps clang-tidy-automotive checks to MISRA C:2025 rules and direct
 
 | Rule | Description | Check | Notes |
 |------|-------------|-------|-------|
-| 8.1 | Explicit types | `automotive-implict-int` | Required |
+| 8.1 | Explicit types | `automotive-implicit-int` | Required |
 | 8.1 | Function prototypes | `automotive-implicit-function-decl` | Required |
 | 8.2 | Prototype form | `automotive-uncomplete-function-prototype` | Required |
 | 8.3 | Compatible types | `automotive-function-declaration-mismatch` | Required |
 | 8.7 | External linkage | `automotive-missing-static-internal-linkage` | Advisory |
-| 8.9 | Static inline | `automotive-static-inline` | Advisory |
+| 8.9 | Static inline | `automotive-missing-static-inline` | Advisory |
 | 8.14 | Restrict qualifier | `automotive-avoid-restrict-type` | Required |
 
 ### Initialization (Rules 9.x)
@@ -183,13 +183,13 @@ This document maps clang-tidy-automotive checks to MISRA C:2025 rules and direct
 
 | Rule | Description | Check | Notes |
 |------|-------------|-------|-------|
-| 21.3 | Dynamic memory | `automotive-avoid-stdlib-malloc-call` | Required |
+| 21.3 | Dynamic memory | `automotive-avoid-stdlib-malloc` | Required |
 | 21.4 | setjmp.h | `automotive-avoid-setjmp-header` | Required |
 | 21.5 | signal.h | `automotive-avoid-signal-header` | Required |
 | 21.7 | atoi/atof/atol | `automotive-avoid-ascii-to-number` | Required |
-| 21.8 | exit/abort | `automotive-avoid-stdlib-exit-call` | Required |
-| 21.8 | system() | `automotive-avoid-stdlib-system-call` | Required |
-| 21.24 | rand/srand | `automotive-avoid-stdlib-rand-call` | Required |
+| 21.8 | exit/abort | `automotive-avoid-stdlib-exit` | Required |
+| 21.8 | system() | `automotive-avoid-stdlib-system` | Required |
+| 21.24 | rand/srand | `automotive-avoid-stdlib-rand` | Required |
 
 ## Coverage Summary
 

@@ -1,9 +1,9 @@
-// Test file for: automotive-avoid-stdlib-malloc-call
+// Test file for: automotive-avoid-stdlib-malloc
 // Related MISRA C:2025 Rule: 21.3
 //
 // This file tests the detection of dynamic memory allocation functions
 
-// RUN: %check_clang_tidy %s automotive-avoid-stdlib-malloc-call %t
+// RUN: %check_clang_tidy %s automotive-avoid-stdlib-malloc %t
 
 #include <stdlib.h>
 

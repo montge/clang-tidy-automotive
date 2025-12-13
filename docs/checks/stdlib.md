@@ -19,7 +19,7 @@ Checks for standard library usage (MISRA C:2025 Rules 21.x).
 
 ---
 
-## automotive-avoid-stdlib-malloc-call
+## automotive-avoid-stdlib-malloc
 
 Detects usage of dynamic memory allocation functions.
 
@@ -142,7 +142,7 @@ if (*endptr != '\0') {
 
 ---
 
-## automotive-avoid-stdlib-exit-call
+## automotive-avoid-stdlib-exit
 
 Detects usage of exit, abort, _Exit.
 
@@ -161,7 +161,7 @@ Abrupt termination:
 
 ---
 
-## automotive-avoid-stdlib-system-call
+## automotive-avoid-stdlib-system
 
 Detects usage of the system() function.
 
@@ -180,7 +180,7 @@ Security and predictability risks:
 
 ---
 
-## automotive-avoid-stdlib-rand-call
+## automotive-avoid-stdlib-rand
 
 Detects usage of rand() and srand().
 

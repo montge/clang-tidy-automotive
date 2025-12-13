@@ -1,9 +1,9 @@
-// Test file for: automotive-no-return-void
+// Test file for: automotive-missing-return-void
 // Related MISRA C:2025 Rule: 15.6
 //
 // This file tests the detection of return statements with values in void functions
 
-// RUN: %check_clang_tidy %s automotive-no-return-void %t
+// RUN: %check_clang_tidy %s automotive-missing-return-void %t
 
 //===----------------------------------------------------------------------===//
 // Violation Cases (should trigger warnings)

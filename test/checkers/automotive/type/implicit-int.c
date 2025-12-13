@@ -1,10 +1,10 @@
-// Test file for: automotive-implict-int
+// Test file for: automotive-implicit-int
 // Related MISRA C:2025 Rule: 8.1
 //
 // This file tests the detection of implicit int declarations
 // Note: Most of these are C90 only and may cause warnings in C99+
 
-// RUN: %check_clang_tidy %s automotive-implict-int %t -- -- -std=c90
+// RUN: %check_clang_tidy %s automotive-implicit-int %t -- -- -std=c90
 
 //===----------------------------------------------------------------------===//
 // Violation Cases (should trigger warnings)
