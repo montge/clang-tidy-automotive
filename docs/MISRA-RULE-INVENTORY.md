@@ -48,6 +48,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 ### Operator Checks
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
+| `automotive-c23-req-12.2` | 12.2 | Required | Shift operator bounds |
 | `automotive-avoid-comma-operator` | 12.3 | Advisory | Comma operator usage |
 
 ### Literal Checks
@@ -194,7 +195,7 @@ These rules cannot be fully verified by static analysis:
 ### High Priority (Required Rules)
 - Rule 10.1-10.8: Essential type model checks
 - Rule 11.2-11.8: Pointer conversion checks
-- Rule 12.2: Shift operator checks
+- ~~Rule 12.2: Shift operator checks~~ (Implemented)
 - Rule 13.1-13.6: Side effect checks
 - Rule 18.1-18.6: Pointer arithmetic checks
 - ~~Rule 20.1-20.2: Preprocessor directive checks~~ (Implemented)
