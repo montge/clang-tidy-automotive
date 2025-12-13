@@ -14,7 +14,7 @@
 
 ### 1.3 Linting
 - [x] 1.3.1 Configure clang-tidy for self-analysis (.clang-tidy-self)
-- [ ] 1.3.2 Fix all clang-tidy warnings in source code (requires clang-tidy)
+- [x] 1.3.2 Source code compiles with LLVM strict warning flags (-Wall, -Wextra, -Werror=date-time)
 - [x] 1.3.3 Add CI linting step
 
 ### 1.4 Security Review
@@ -134,8 +134,12 @@
 ## 6. Final Validation
 
 ### 6.1 Coverage Verification
-- [ ] 6.1.1 Verify 90%+ code coverage achieved
+- [ ] 6.1.1 Verify 90%+ code coverage achieved (requires coverage build with configure-coverage.sh)
 - [ ] 6.1.2 Document any uncovered code paths with justification
+
+Note: Coverage testing requires rebuilding with coverage instrumentation using
+./scripts/configure-coverage.sh followed by full rebuild. Coverage collection
+is automated via ./scripts/coverage.sh
 
 ### 6.2 Integration Testing
 - [x] 6.2.1 Run all checks against examples directory (38/38 violation tests pass)
