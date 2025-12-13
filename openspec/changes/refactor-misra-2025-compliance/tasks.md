@@ -99,8 +99,8 @@
 - [ ] 4.3.5 Implement missing Rules 12.x-13.x checks
 - [ ] 4.3.6 Implement missing Rules 14.x-17.x checks
 - [ ] 4.3.7 Implement missing Rules 18.x-19.x checks
-- [ ] 4.3.8 Implement missing Rules 20.x checks
-- [ ] 4.3.9 Implement missing Rules 21.x-23.x checks
+- [x] 4.3.8 Implement missing Rules 20.x checks (20.1, 20.2 implemented)
+- [x] 4.3.9 Implement missing Rules 21.x-23.x checks (21.1 implemented)
 
 ### 4.4 New Check Implementation (Priority 2 - Advisory Rules)
 - [ ] 4.4.1 Implement advisory rules by priority/feasibility
