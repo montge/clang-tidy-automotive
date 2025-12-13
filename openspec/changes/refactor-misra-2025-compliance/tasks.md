@@ -93,7 +93,7 @@
 
 ### 4.3 New Check Implementation (Priority 1 - Required Rules)
 - [x] 4.3.1 Implement missing Rules 1.x-2.x checks (2.7 implemented, tested)
-- [ ] 4.3.2 Implement missing Rules 5.x-6.x checks
+- [x] 4.3.2 Implement missing Rules 5.x-6.x checks (5.4, 5.6, 5.7 implemented)
 - [x] 4.3.3 Implement missing Rules 8.x-9.x checks (8.9 implemented, tested)
 - [x] 4.3.4 Implement missing Rules 10.x-11.x checks (10.1, 11.3, 11.4, 11.8 implemented, tested)
 - [x] 4.3.5 Implement missing Rules 12.x-13.x checks (12.2, 13.4, 13.5, 13.6 implemented, tested)

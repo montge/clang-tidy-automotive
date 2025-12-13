@@ -18,9 +18,9 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|-------|-------------|-------|---------|--------|
 | Directives | 18 | 2 | 0 | 3 | 13 |
 | Mandatory | 4 | 2 | 2 | 0 | 0 |
-| Required | 113 | 38 | 15 | 27 | 33 |
+| Required | 113 | 41 | 15 | 24 | 33 |
 | Advisory | 41 | 19 | 8 | 7 | 7 |
-| **Total** | **176** | **61** | **25** | **37** | **53** |
+| **Total** | **176** | **64** | **25** | **34** | **53** |
 
 ## Implemented Checks
 
@@ -61,6 +61,13 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-avoid-octal-number` | 7.1 | Required | Octal literal constants |
 | `automotive-avoid-lowercase-literal-suffix` | 7.3 | Required | Lowercase 'l' suffix |
 | `automotive-unterminated-escape-sequence` | 4.1 | Required | Incomplete escape sequences |
+
+### Identifier Checks
+| Check ID | MISRA Rule | Category | Description |
+|----------|------------|----------|-------------|
+| `automotive-c23-req-5.4` | 5.4 | Required | Macro identifier conflicts |
+| `automotive-c23-req-5.6` | 5.6 | Required | Duplicate typedef names |
+| `automotive-c23-req-5.7` | 5.7 | Required | Duplicate tag names |
 
 ### Type Checks
 | Check ID | MISRA Rule | Category | Description |
