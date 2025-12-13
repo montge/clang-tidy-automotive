@@ -43,6 +43,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|------------|----------|-------------|
 | `automotive-c23-adv-13.4` | 13.4 | Advisory | Assignment used as expression |
 | `automotive-c23-req-13.5` | 13.5 | Required | Side effects in logical operands |
+| `automotive-c23-mand-13.6` | 13.6 | Mandatory | Side effects in sizeof operand |
 | `automotive-c23-req-14.3` | 14.3 | Required | Invariant controlling expression |
 | `automotive-c23-req-14.4` | 14.4 | Required | Non-boolean in condition |
 
