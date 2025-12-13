@@ -96,6 +96,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-function-declaration-mismatch` | 8.3 | Required | Declaration/definition mismatch |
 | `automotive-missing-static-inline` | 8.10 | Required | Static inline functions |
 | `automotive-implicit-function-decl` | 17.3 | Mandatory | Implicit function declaration |
+| `automotive-c23-mand-17.6` | 17.6 | Mandatory | Static in array parameters |
 | `automotive-avoid-function-parameter-modification` | 17.8 | Advisory | Modifying function parameters |
 | `automotive-avoid-multiple-return-stmt` | 15.5 | Advisory | Multiple return statements |
 | `automotive-missing-return-value-handling` | 17.7 | Required | Ignoring return values |
