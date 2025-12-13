@@ -18,9 +18,9 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|-------|-------------|-------|---------|--------|
 | Directives | 18 | 2 | 0 | 3 | 13 |
 | Mandatory | 4 | 2 | 2 | 0 | 0 |
-| Required | 113 | 37 | 15 | 28 | 33 |
+| Required | 113 | 38 | 15 | 27 | 33 |
 | Advisory | 41 | 19 | 8 | 7 | 7 |
-| **Total** | **176** | **60** | **25** | **38** | **53** |
+| **Total** | **176** | **61** | **25** | **37** | **53** |
 
 ## Implemented Checks
 
@@ -42,6 +42,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 ### Expression Checks
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
+| `automotive-c23-req-10.1` | 10.1 | Required | Inappropriate essential type |
 | `automotive-c23-adv-13.4` | 13.4 | Advisory | Assignment used as expression |
 | `automotive-c23-req-13.5` | 13.5 | Required | Side effects in logical operands |
 | `automotive-c23-mand-13.6` | 13.6 | Mandatory | Side effects in sizeof operand |
@@ -202,7 +203,7 @@ These rules cannot be fully verified by static analysis:
 ## Planned Implementations
 
 ### High Priority (Required Rules)
-- Rule 10.1-10.8: Essential type model checks
+- Rule 10.2-10.8: Essential type model checks (10.1 Implemented)
 - Rule 11.2-11.7: Pointer conversion checks (11.8 Implemented)
 - ~~Rule 12.2: Shift operator checks~~ (Implemented)
 - Rule 13.1-13.4, 13.6: Side effect checks (13.5 Implemented)
@@ -216,7 +217,7 @@ These rules cannot be fully verified by static analysis:
 - Dir 4.2: Language subset selection
 - ~~Rule 2.7: Unused parameters~~ (Implemented)
 - Rule 4.2: Trigraph sequences
-- Rule 8.9: Local object scope
+- ~~Rule 8.9: Local object scope~~ (Implemented)
 - Rule 12.4: Constant expressions
 - Rule 15.2: Goto in same block
 
