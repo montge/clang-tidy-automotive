@@ -14,15 +14,34 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects octal literal constants (except zero).
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/foobar.html
+/// Octal literals are denoted by a leading zero, which can be easily
+/// overlooked or added accidentally. This can lead to confusion where a
+/// developer intends a decimal value but accidentally creates an octal
+/// constant, resulting in unexpected values.
+///
+/// Related MISRA C:2025 Rule: 7.1 - Octal constants shall not be used.
+///
+/// Example:
+/// \code
+///   int x = 0123;  // Warning: octal literal (decimal 83)
+///   int y = 0;     // OK: zero is allowed
+/// \endcode
 class AvoidOctalNumberCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidOctalNumberCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for integer literals.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched octal literals and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 

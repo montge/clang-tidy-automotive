@@ -13,14 +13,32 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects macro names that match C language keywords.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/Avoid-Macro-Named-As-CKeyword.html
+/// Defining macros with names that are C keywords can cause confusion and
+/// portability issues. It can make code extremely difficult to read and
+/// understand, as readers would expect keyword behavior but get macro
+/// expansion instead. This violates the principle of least surprise.
+///
+/// Related MISRA C:2025 Rule: 20.4 - A macro shall not be defined with the
+/// same name as a keyword.
+///
+/// Example:
+/// \code
+///   #define if 0  // Warning: macro named as C keyword
+/// \endcode
 class AvoidMacroNamedAsCkeywordCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidMacroNamedAsCkeywordCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers preprocessor callbacks for macro definition handling.
+  /// \param SM The source manager.
+  /// \param PP The preprocessor instance.
+  /// \param ModuleExpanderPP The module expander preprocessor.
   void registerPPCallbacks(const SourceManager &SM, Preprocessor *PP,
                            Preprocessor *ModuleExpanderPP) override;
 };

@@ -14,16 +14,34 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects line splicing (backslash-newline) within comments.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/comment-within-comment.html
+/// Line splicing inside comments can cause confusion about comment boundaries
+/// and may lead to unexpected behavior where code intended to be active gets
+/// commented out. This is particularly dangerous with // comments where a
+/// trailing backslash continues the comment to the next line.
+///
+/// Related MISRA C:2025 Rule: 3.2 - Line-splicing shall not be used in
+/// // comments.
+///
+/// Example:
+/// \code
+///   // This comment has line splicing \
+///      and continues here  // Warning
+/// \endcode
 class AvoidLinesplicingWithinCommentCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidLinesplicingWithinCommentCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context),
         Handler(*this, Options.get("FixitEnabled", false)) {}
 
+  /// Registers preprocessor callbacks for comment handling.
+  /// \param SM The source manager.
+  /// \param PP The preprocessor instance.
+  /// \param ModuleExpanderPP The module expander preprocessor.
   void registerPPCallbacks(const SourceManager &SM, Preprocessor *PP,
                            Preprocessor *ModuleExpanderPP) override;
 

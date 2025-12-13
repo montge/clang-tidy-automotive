@@ -1,0 +1,78 @@
+name: SonarCloud Analysis
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for accurate blame
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-20 clang++-20 llvm-20 ninja-build lcov
+
+      - name: Download LLVM source
+        run: ./download.sh
+
+      - name: Setup symlinks
+        run: ./setup.sh
+
+      - name: Install sonar-scanner and build-wrapper
+        uses: SonarSource/sonarcloud-github-c-cpp@v3
+
+      - name: Configure build with coverage
+        run: |
+          mkdir -p build
+          cd build
+          cmake -G Ninja \
+            -DCMAKE_CXX_COMPILER=clang++-20 \
+            -DCMAKE_C_COMPILER=clang-20 \
+            -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS="-fprofile-instr-generate -fcoverage-mapping" \
+            -DCMAKE_C_FLAGS="-fprofile-instr-generate -fcoverage-mapping" \
+            -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" \
+            -DLLVM_TARGETS_TO_BUILD="X86" \
+            ../llvm-project-llvmorg-20.1.8/llvm
+
+      - name: Build with build-wrapper
+        run: |
+          build-wrapper-linux-x86-64 --out-dir build-wrapper-output ninja -C build clang-tidy
+
+      - name: Run tests and collect coverage
+        run: |
+          cd build
+          # Run clang-tidy on test files to generate coverage data
+          export LLVM_PROFILE_FILE="coverage-%p.profraw"
+          for test_file in ../test/checkers/automotive/**/*.c; do
+            ./bin/clang-tidy "$test_file" --checks="automotive-*" -- 2>/dev/null || true
+          done
+          # Merge profile data
+          llvm-profdata-20 merge -sparse coverage-*.profraw -o coverage.profdata || true
+          # Generate LLVM coverage report
+          llvm-cov-20 export ./bin/clang-tidy -instr-profile=coverage.profdata \
+            -format=lcov \
+            -ignore-filename-regex='llvm-project-.*' \
+            -ignore-filename-regex='test/.*' \
+            > ../coverage.lcov 2>/dev/null || true
+
+      - name: Run sonar-scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+            -Dsonar.cfamily.compile-commands=build/compile_commands.json \
+            -Dsonar.cfamily.build-wrapper-output=build-wrapper-output \
+            -Dsonar.cfamily.llvm-cov.reportPath=coverage.lcov
