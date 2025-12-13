@@ -1,0 +1,20 @@
+# Kubernetes Service for Jekyll Documentation
+#
+# Exposes the Jekyll documentation server
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: clang-tidy-docs
+  labels:
+    app: clang-tidy-docs
+    component: documentation
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 4000
+      protocol: TCP
+      name: http
+  selector:
+    app: clang-tidy-docs

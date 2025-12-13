@@ -1,0 +1,64 @@
+# Kubernetes Deployment for Jekyll Documentation
+#
+# Usage:
+#   kubectl apply -f k8s/
+#   kubectl port-forward svc/clang-tidy-docs 4000:80
+#
+# Access: http://localhost:4000
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clang-tidy-docs
+  labels:
+    app: clang-tidy-docs
+    component: documentation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clang-tidy-docs
+  template:
+    metadata:
+      labels:
+        app: clang-tidy-docs
+        component: documentation
+    spec:
+      containers:
+        - name: jekyll
+          image: clang-tidy-docs:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+              name: http
+              protocol: TCP
+          env:
+            - name: JEKYLL_ENV
+              value: "production"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 4000
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 4000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          securityContext:
+            runAsNonRoot: false
+            readOnlyRootFilesystem: false
+      restartPolicy: Always

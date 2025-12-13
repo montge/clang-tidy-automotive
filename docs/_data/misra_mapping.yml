@@ -1,0 +1,187 @@
+# MISRA C:2025 Rule to Check Mapping
+# Machine-readable format for traceability
+
+rules:
+  - id: "2.4"
+    title: "Unused type declarations"
+    category: "Advisory"
+    checks:
+      - id: "automotive-unused-type"
+        status: "implemented"
+        tests:
+          - "c2023/2.3/unused-type.c"
+
+  - id: "3.1"
+    title: "Comment sequences within comments"
+    category: "Required"
+    checks:
+      - id: "automotive-avoid-comment-within-comment"
+        status: "implemented"
+
+  - id: "3.2"
+    title: "Line-splicing in // comments"
+    category: "Required"
+    checks:
+      - id: "automotive-avoid-line-splicing-within-comment"
+        status: "implemented"
+        tests:
+          - "c2023/3.2/avoid-line-splicing-within-comment.c"
+
+  - id: "6.1"
+    title: "Bit-field types"
+    category: "Required"
+    checks:
+      - id: "automotive-wrong-bitfield-type"
+        status: "implemented"
+        tests:
+          - "bitfield/wrong-bitfield-type.c"
+
+  - id: "6.2"
+    title: "Signed single-bit fields"
+    category: "Required"
+    checks:
+      - id: "automotive-avoid-signed-single-bitfield"
+        status: "implemented"
+        tests:
+          - "bitfield/avoid-signed-single-bitfield.c"
+
+  - id: "7.1"
+    title: "Octal constants"
+    category: "Required"
+    checks:
+      - id: "automotive-avoid-octal-number"
+        status: "implemented"
+        tests:
+          - "literal/avoid-octal-number.c"
+
+  - id: "7.3"
+    title: "Lowercase literal suffix"
+    category: "Required"
+    checks:
+      - id: "automotive-avoid-lowercase-literal-suffix"
+        status: "implemented"
+        tests:
+          - "literal/avoid-lowercase-literal-suffix.c"
+
+  - id: "8.1"
+    title: "Explicit types"
+    category: "Required"
+    checks:
+      - id: "automotive-implict-int"
+        status: "implemented"
+        tests:
+          - "type/implicit-int.c"
+      - id: "automotive-implicit-function-decl"
+        status: "implemented"
+        tests:
+          - "function/no-implicit-func-decl.c"
+
+  - id: "8.14"
+    title: "Restrict qualifier"
+    category: "Required"
+    checks:
+      - id: "automotive-avoid-restrict-type"
+        status: "implemented"
+        tests:
+          - "c2023/8.14/avoid-restrict-type.c"
+
+  - id: "15.1"
+    title: "Goto statement"
+    category: "Advisory"
+    checks:
+      - id: "automotive-avoid-goto"
+        status: "implemented"
+        tests:
+          - "statement/avoid-goto.c"
+
+  - id: "15.5"
+    title: "Single exit point"
+    category: "Advisory"
+    checks:
+      - id: "automotive-avoid-multiple-return-stmt"
+        status: "implemented"
+        tests:
+          - "return/multiple-return-stmt.c"
+
+  - id: "16.4"
+    title: "Default case"
+    category: "Required"
+    checks:
+      - id: "automotive-missing-default-in-switch"
+        status: "implemented"
+
+  - id: "19.2"
+    title: "Unions"
+    category: "Advisory"
+    checks:
+      - id: "automotive-avoid-union"
+        status: "implemented"
+        tests:
+          - "type/avoid-union.c"
+      - id: "automotive-avoid-bitfield-in-union"
+        status: "implemented"
+        tests:
+          - "bitfield/avoid-bitfield-in-union.c"
+
+  - id: "21.3"
+    title: "Dynamic memory"
+    category: "Required"
+    checks:
+      - id: "automotive-avoid-stdlib-malloc-call"
+        status: "implemented"
+        tests:
+          - "stdlib/avoid-stdlib-malloc.c"
+          - "c2023/21.3/avoid-stdlib-memory.c"
+
+  - id: "21.4"
+    title: "setjmp.h"
+    category: "Required"
+    checks:
+      - id: "automotive-avoid-setjmp-header"
+        status: "implemented"
+
+  - id: "21.5"
+    title: "signal.h"
+    category: "Required"
+    checks:
+      - id: "automotive-avoid-signal-header"
+        status: "implemented"
+        tests:
+          - "c2023/21.5/avoid-signal-header.c"
+
+  - id: "21.7"
+    title: "atoi/atof/atol"
+    category: "Required"
+    checks:
+      - id: "automotive-avoid-ascii-to-number"
+        status: "implemented"
+        tests:
+          - "stdlib/avoid-atox.c"
+
+  - id: "21.8"
+    title: "exit/abort/system"
+    category: "Required"
+    checks:
+      - id: "automotive-avoid-stdlib-exit-call"
+        status: "implemented"
+        tests:
+          - "stdlib/avoid-stdlib-exit.c"
+      - id: "automotive-avoid-stdlib-system-call"
+        status: "implemented"
+
+  - id: "21.24"
+    title: "rand/srand"
+    category: "Required"
+    checks:
+      - id: "automotive-avoid-stdlib-rand-call"
+        status: "implemented"
+        tests:
+          - "stdlib/avoid-stdlib-rand.c"
+
+# Summary statistics
+summary:
+  total_rules: 181
+  implemented: 46
+  partial: 5
+  not_implemented: 130
+  coverage_percent: 25

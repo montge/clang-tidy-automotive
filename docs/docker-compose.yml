@@ -1,0 +1,60 @@
+# Docker Compose for Jekyll Documentation
+#
+# Usage:
+#   cd docs
+#   docker-compose up        # Start server at http://localhost:4000
+#   docker-compose up -d     # Start in background
+#   docker-compose down      # Stop server
+#   docker-compose build     # Rebuild after Gemfile changes
+#
+# Development with live reload:
+#   Changes to .md files will automatically trigger rebuild
+
+version: '3.8'
+
+services:
+  jekyll:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: clang-tidy-docs
+    ports:
+      - "4000:4000"
+      - "35729:35729"  # LiveReload port
+    volumes:
+      # Mount source for live editing (excludes _site and vendor)
+      - .:/srv/jekyll:cached
+      # Use named volume for bundler cache (faster rebuilds)
+      - bundle-cache:/usr/local/bundle
+      # Exclude generated directories from sync
+      - /srv/jekyll/_site
+      - /srv/jekyll/.jekyll-cache
+    environment:
+      - JEKYLL_ENV=development
+      - BUNDLE_PATH=/usr/local/bundle
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Production build service (optional)
+  build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/srv/jekyll:cached
+      - ./_site:/srv/jekyll/_site
+      - bundle-cache:/usr/local/bundle
+    environment:
+      - JEKYLL_ENV=production
+    command: bundle exec jekyll build --destination /srv/jekyll/_site
+    profiles:
+      - build
+
+volumes:
+  bundle-cache:
+    name: clang-tidy-docs-bundle

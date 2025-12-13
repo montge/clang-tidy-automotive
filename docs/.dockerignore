@@ -1,0 +1,31 @@
+# Docker ignore file
+# Exclude files not needed in the Docker context
+
+# Generated directories
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# Version control
+.git/
+.gitignore
+
+# Editor files
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Kubernetes manifests (not needed in image)
+k8s/
+
+# Lock files (regenerated in container)
+# Gemfile.lock
+
+# Build artifacts
+*.log
