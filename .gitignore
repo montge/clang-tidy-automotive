@@ -18,3 +18,17 @@ src/rename_check.py
 build
 test-build
 openspec
+
+# SonarQube/SonarCloud
+.scannerwork/
+build-wrapper-output/
+sonarqube-issues.json
+
+# Coverage artifacts
+coverage.lcov
+*.profraw
+*.profdata
+
+# Doxygen output
+docs/api/html/
+docs/api/latex/
