@@ -4,9 +4,9 @@ This document defines the naming conventions for clang-tidy-automotive checks, c
 
 ## Check ID Convention
 
-All check IDs use the `automotive-` prefix. 
+All check IDs use the `automotive-` prefix. Two naming patterns are supported:
 
-### Descriptive Names
+### Pattern 1: Descriptive Names (Preferred)
 
 Descriptive names indicate what the check detects without requiring knowledge of MISRA rule numbers.
 
@@ -27,6 +27,37 @@ Descriptive names indicate what the check detects without requiring knowledge of
 | `unused` | Unused code element | `automotive-unused-macro` |
 | `implicit` | Implicit behavior that should be explicit | `automotive-implicit-function-decl` |
 | `uncomplete` | Incomplete declaration/definition | `automotive-uncomplete-function-prototype` |
+
+### Pattern 2: Rule-Based Names (Version-Specific)
+
+Use rule-based names when behavior differs between MISRA versions or when mapping directly to specific rules is essential for compliance tracking.
+
+**Format:** `automotive-{version}-{category}-{rule}`
+
+**Version Identifiers:**
+- `c23` - MISRA C:2023/2025
+- `c12` - MISRA C:2012
+- `x` - Generic/cross-version
+
+**Category Identifiers:**
+- `req` - Required rule
+- `adv` - Advisory rule
+- `man` - Mandatory rule
+- `dir` - Directive
+
+**Examples:**
+- `automotive-c23-req-14.3` - MISRA C:2023 Required Rule 14.3
+- `automotive-c23-adv-13.4` - MISRA C:2023 Advisory Rule 13.4
+- `automotive-x-req-16.2` - Cross-version Required Rule 16.2
+
+### When to Use Each Pattern
+
+| Scenario | Pattern | Rationale |
+|----------|---------|-----------|
+| General checks | Descriptive | Easier to understand and remember |
+| Version-specific behavior | Rule-based | Clear version targeting |
+| Reused clang-tidy checks | Rule-based | Map to MISRA rule explicitly |
+| Compliance tracking | Rule-based | Direct rule reference |
 
 ## Class Name Convention
 
@@ -64,14 +95,25 @@ class AvoidGotoCheck : public ClangTidyCheck {
 Register checks in the appropriate component's `*Component.cpp`:
 
 ```cpp
+// Descriptive check ID
 CheckFactories.registerCheck<AvoidGotoCheck>("automotive-avoid-goto");
+
+// Rule-based check ID
+CheckFactories.registerCheck<InvariantControlCheck>("automotive-c23-req-14.3");
 ```
+
+## MISRA Rule Mapping
+
+The relationship between check IDs and MISRA rules is documented in:
+- `docs/MISRA-RULE-INVENTORY.md` - Human-readable mapping
+- `config/misra-rule-mapping.json` - Machine-readable mapping for SonarQube
 
 ## Benefits
 
 * **Clarity in Code**: Developers understand checks without memorizing rule IDs
+* **Compliance-Friendly**: Rule-based IDs enable direct MISRA compliance reporting
 * **Scalability**: Supports multiple MISRA versions simultaneously
-* **Moveable**: A check can be moved to a more generic set of checks within LLVM without renaming
+* **Tool Integration**: Consistent IDs work with SonarQube, CI/CD, and reporting tools
 
 ## Adding a New Check
 
@@ -79,4 +121,7 @@ CheckFactories.registerCheck<AvoidGotoCheck>("automotive-avoid-goto");
 2. Name the class descriptively using a standard prefix
 3. Create files: `{ClassName}.h` and `{ClassName}.cpp`
 4. Register with the chosen check ID in the component file
-5. Add test file in `test/checkers/automotive/`
+5. Update `docs/MISRA-RULE-INVENTORY.md` with the rule mapping
+6. Add test file in `test/checkers/automotive/`
+7. Add example in `examples/rules/`
+

@@ -37,7 +37,7 @@
 - [x] 2.1.4 Establish baseline coverage measurement
 
 ### 2.2 Test Organization
-- [ ] 2.2.1 Reorganize test directory structure by rule category
+- [x] 2.2.1 Reorganize test directory structure by rule category (created TEST-INDEX.md)
 - [x] 2.2.2 Create test naming convention documentation
 - [x] 2.2.3 Create test template for new checks
 
@@ -85,7 +85,7 @@
 - [x] 4.1.4 Identify rules requiring manual review only
 
 ### 4.2 Check ID Standardization
-- [ ] 4.2.1 Define new ID naming convention
+- [x] 4.2.1 Define new ID naming convention (updated NAMING-CONVENTION.md)
 - [ ] 4.2.2 Create migration script for ID changes
 - [ ] 4.2.3 Update all check registrations
 - [ ] 4.2.4 Update all test file references
@@ -139,6 +139,6 @@
 - [ ] 6.2.3 Verify detection of all known violations
 
 ### 6.3 Documentation Review
-- [ ] 6.3.1 Review all Doxygen documentation for completeness
+- [x] 6.3.1 Review all Doxygen documentation for completeness (fixed 15 headers)
 - [x] 6.3.2 Update README.md with new capabilities
 - [x] 6.3.3 Update CLAUDE.md with new project structure
