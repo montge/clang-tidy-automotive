@@ -42,6 +42,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
 | `automotive-c23-adv-13.4` | 13.4 | Advisory | Assignment used as expression |
+| `automotive-c23-req-13.5` | 13.5 | Required | Side effects in logical operands |
 | `automotive-c23-req-14.3` | 14.3 | Required | Invariant controlling expression |
 | `automotive-c23-req-14.4` | 14.4 | Required | Non-boolean in condition |
 
@@ -196,7 +197,7 @@ These rules cannot be fully verified by static analysis:
 - Rule 10.1-10.8: Essential type model checks
 - Rule 11.2-11.8: Pointer conversion checks
 - ~~Rule 12.2: Shift operator checks~~ (Implemented)
-- Rule 13.1-13.6: Side effect checks
+- Rule 13.1-13.4, 13.6: Side effect checks (13.5 Implemented)
 - Rule 18.1-18.6: Pointer arithmetic checks
 - ~~Rule 20.1-20.2: Preprocessor directive checks~~ (Implemented)
 - Rule 20.3: Include syntax validation

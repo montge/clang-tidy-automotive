@@ -7,7 +7,6 @@
 //===----------------------------------------------------------------------===//
 
 #include "ExpressionComponent.h"
-#include "AvoidSideEffectInLogicalOperandCheck.h"
 #include "AvoidAssignmentInExpressionCheck.h"
 #include "AvoidNonBooleanInConditionCheck.h"
 #include "AvoidSideEffectInLogicalOperandCheck.h"
