@@ -18,9 +18,9 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|-------|-------------|-------|---------|--------|
 | Directives | 18 | 2 | 0 | 3 | 13 |
 | Mandatory | 4 | 2 | 2 | 0 | 0 |
-| Required | 113 | 35 | 15 | 30 | 33 |
-| Advisory | 41 | 16 | 8 | 10 | 7 |
-| **Total** | **176** | **55** | **25** | **43** | **53** |
+| Required | 113 | 37 | 15 | 28 | 33 |
+| Advisory | 41 | 17 | 8 | 9 | 7 |
+| **Total** | **176** | **58** | **25** | **40** | **53** |
 
 ## Implemented Checks
 
@@ -106,10 +106,13 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 ### Preprocessor Checks
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
+| `automotive-avoid-code-before-include` | 20.1 | Advisory | Code before #include |
+| `automotive-avoid-invalid-header-char` | 20.2 | Required | Invalid chars in header names |
 | `automotive-avoid-macro-named-as-ckeyword` | 20.4 | Required | Macro named as C keyword |
 | `automotive-avoid-undef` | 20.5 | Advisory | #undef usage |
 | `automotive-avoid-hash-operator` | 20.10 | Advisory | # operator in macros |
 | `automotive-avoid-multiple-hash-operators` | 20.11 | Required | Multiple # or ## operators |
+| `automotive-avoid-reserved-macro-identifier` | 21.1 | Required | Reserved identifier in #define/#undef |
 | `automotive-unused-macro` | 2.5 | Advisory | Unused macros |
 
 ### Comment Checks
@@ -192,8 +195,10 @@ These rules cannot be fully verified by static analysis:
 - Rule 12.2: Shift operator checks
 - Rule 13.1-13.6: Side effect checks
 - Rule 18.1-18.6: Pointer arithmetic checks
-- Rule 20.1-20.3: Preprocessor directive checks
-- Rule 21.1-21.2: Reserved identifier checks
+- ~~Rule 20.1-20.2: Preprocessor directive checks~~ (Implemented)
+- Rule 20.3: Include syntax validation
+- ~~Rule 21.1: Reserved macro identifiers~~ (Implemented)
+- Rule 21.2: Reserved identifier declarations
 
 ### Medium Priority (Advisory Rules)
 - Dir 4.2: Language subset selection
