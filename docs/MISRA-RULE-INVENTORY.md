@@ -84,6 +84,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
 | `automotive-avoid-partial-array-init` | 9.3 | Required | Partial array initialization |
+| `automotive-c23-adv-18.4` | 18.4 | Advisory | Pointer arithmetic |
 | `automotive-avoid-flexible-array-member` | 18.7 | Required | Flexible array members |
 | `automotive-avoid-variable-length-array` | 18.8 | Required | Variable-length arrays |
 | `automotive-missing-external-array-size` | 8.11 | Advisory | External array without size |
@@ -199,7 +200,7 @@ These rules cannot be fully verified by static analysis:
 - Rule 11.2-11.7: Pointer conversion checks (11.8 Implemented)
 - ~~Rule 12.2: Shift operator checks~~ (Implemented)
 - Rule 13.1-13.4, 13.6: Side effect checks (13.5 Implemented)
-- Rule 18.1-18.6: Pointer arithmetic checks
+- Rule 18.1-18.3, 18.5-18.6: Pointer arithmetic checks (18.4 Implemented)
 - ~~Rule 20.1-20.2: Preprocessor directive checks~~ (Implemented)
 - Rule 20.3: Include syntax validation
 - ~~Rule 21.1: Reserved macro identifiers~~ (Implemented)
