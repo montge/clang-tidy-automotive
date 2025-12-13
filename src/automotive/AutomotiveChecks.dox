@@ -1,0 +1,166 @@
+/// @file AutomotiveChecks.dox
+/// @brief Doxygen group definitions for automotive checks
+///
+/// This file defines the documentation groups for organizing checks
+/// by MISRA C:2025 rule categories.
+
+/// @defgroup automotive Automotive Checks
+/// @brief MISRA C:2025 compliance checks for automotive software
+///
+/// The automotive module provides static analysis checks for MISRA C:2025
+/// compliance in safety-critical automotive software development.
+
+/// @defgroup misra-c25-env Environment (Rules 1-2)
+/// @ingroup automotive
+/// @brief Checks for environment and unused code rules
+/// @details
+/// - Rule 2.4: Unused type declarations
+/// - Rule 2.8: Unused object definitions
+
+/// @defgroup misra-c25-comments Comments (Rules 3)
+/// @ingroup automotive
+/// @brief Checks for comment-related rules
+/// @details
+/// - Rule 3.1: Comment sequences within comments
+/// - Rule 3.2: Line-splicing in // comments
+
+/// @defgroup misra-c25-chars Characters (Rules 4)
+/// @ingroup automotive
+/// @brief Checks for character set and escape sequence rules
+/// @details
+/// - Rule 4.1: Escape sequence validity
+
+/// @defgroup misra-c25-identifiers Identifiers (Rules 5)
+/// @ingroup automotive
+/// @brief Checks for identifier naming rules
+/// @note Currently not implemented
+
+/// @defgroup misra-c25-types Types (Rules 6)
+/// @ingroup automotive
+/// @brief Checks for type-related rules
+/// @details
+/// - Rule 6.1: Bit-field types
+/// - Rule 6.2: Signed single-bit bit-fields
+
+/// @defgroup misra-c25-literals Literals (Rules 7)
+/// @ingroup automotive
+/// @brief Checks for literal constant rules
+/// @details
+/// - Rule 7.1: Octal constants
+/// - Rule 7.3: Lowercase 'l' suffix
+
+/// @defgroup misra-c25-declarations Declarations (Rules 8)
+/// @ingroup automotive
+/// @brief Checks for declaration rules
+/// @details
+/// - Rule 8.1: Explicit types, function prototypes
+/// - Rule 8.2: Prototype form with named parameters
+/// - Rule 8.3: Compatible types in declarations
+/// - Rule 8.7: External linkage
+/// - Rule 8.9: Static inline functions
+/// - Rule 8.14: Restrict qualifier
+
+/// @defgroup misra-c25-init Initialization (Rules 9)
+/// @ingroup automotive
+/// @brief Checks for initialization rules
+/// @details
+/// - Rule 9.5: Unique enum values
+
+/// @defgroup misra-c25-conversions Conversions (Rules 10)
+/// @ingroup automotive
+/// @brief Checks for type conversion rules
+/// @note Currently not implemented
+
+/// @defgroup misra-c25-pointers Pointers (Rules 11)
+/// @ingroup automotive
+/// @brief Checks for pointer conversion rules
+/// @details
+/// - Rule 11.9: NULL vs 0 for null pointers
+
+/// @defgroup misra-c25-expressions Expressions (Rules 12)
+/// @ingroup automotive
+/// @brief Checks for expression rules
+/// @details
+/// - Rule 12.3: Comma operator
+
+/// @defgroup misra-c25-sideeffects Side Effects (Rules 13)
+/// @ingroup automotive
+/// @brief Checks for side effect rules
+/// @details
+/// - Rule 13.4: Assignment operator result
+
+/// @defgroup misra-c25-controlflow Control Flow (Rules 14)
+/// @ingroup automotive
+/// @brief Checks for control flow rules
+/// @details
+/// - Rule 14.1: Float loop counter
+/// - Rule 14.2: Well-formed for loops
+/// - Rule 14.4: Boolean conditions
+
+/// @defgroup misra-c25-statements Statements (Rules 15)
+/// @ingroup automotive
+/// @brief Checks for control statement rules
+/// @details
+/// - Rule 15.1: Goto statement
+/// - Rule 15.5: Single exit point
+/// - Rule 15.6: Compound statements
+
+/// @defgroup misra-c25-switch Switch (Rules 16)
+/// @ingroup automotive
+/// @brief Checks for switch statement rules
+/// @details
+/// - Rule 16.2: Switch structure
+/// - Rule 16.4: Default case
+/// - Rule 16.5: Switch ordering
+
+/// @defgroup misra-c25-functions Functions (Rules 17)
+/// @ingroup automotive
+/// @brief Checks for function rules
+/// @details
+/// - Rule 17.1: stdarg.h usage
+/// - Rule 17.2: Recursion
+/// - Rule 17.7: Return value usage
+/// - Rule 17.8: Parameter modification
+
+/// @defgroup misra-c25-arrays Pointers and Arrays (Rules 18)
+/// @ingroup automotive
+/// @brief Checks for pointer and array rules
+/// @details
+/// - Rule 18.7: Atomic void pointers
+/// - Rule 18.8: Variable-length arrays
+
+/// @defgroup misra-c25-overlap Overlapping Storage (Rules 19)
+/// @ingroup automotive
+/// @brief Checks for union and overlapping storage rules
+/// @details
+/// - Rule 19.2: Unions and bit-fields in unions
+
+/// @defgroup misra-c25-preproc Preprocessor (Rules 20)
+/// @ingroup automotive
+/// @brief Checks for preprocessor rules
+/// @details
+/// - Rule 20.4: Keyword macros
+/// - Rule 20.5: #undef directive
+/// - Rule 20.10: # stringification operator
+/// - Rule 20.11: ## concatenation operator
+
+/// @defgroup misra-c25-stdlib Standard Library (Rules 21)
+/// @ingroup automotive
+/// @brief Checks for standard library usage rules
+/// @details
+/// - Rule 21.3: Dynamic memory allocation
+/// - Rule 21.4: setjmp.h
+/// - Rule 21.5: signal.h
+/// - Rule 21.7: atoi/atof/atol
+/// - Rule 21.8: exit/abort/system
+/// - Rule 21.24: rand/srand
+
+/// @defgroup misra-c25-resources Resources (Rules 22)
+/// @ingroup automotive
+/// @brief Checks for resource management rules
+/// @note Currently not implemented
+
+/// @defgroup misra-c25-atomics Atomics (Rules 23)
+/// @ingroup automotive
+/// @brief Checks for atomic operation rules
+/// @note Currently not implemented
