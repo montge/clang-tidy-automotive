@@ -13,12 +13,26 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects usage of dynamic memory allocation functions from stdlib.h.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/avoid-setjmp.html
+/// Dynamic memory allocation (malloc, calloc, realloc, free) can lead to
+/// memory leaks, fragmentation, and allocation failures that are difficult
+/// to handle. In safety-critical systems, static memory allocation is
+/// preferred for predictable behavior and deterministic execution.
+///
+/// Related MISRA C:2025 Rule: 21.3 - The memory allocation and deallocation
+/// functions of <stdlib.h> shall not be used.
+///
+/// Example:
+/// \code
+///   int *p = malloc(sizeof(int));  // Warning: malloc usage
+///   free(p);                       // Warning: free usage
+/// \endcode
 class AvoidStdlibMemoryCheck : public AvoidApiCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidStdlibMemoryCheck(StringRef Name, ClangTidyContext *Context)
       : AvoidApiCheck(
             Name, Context, "pelle.h",

@@ -13,12 +13,27 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects usage of setjmp/longjmp functions from setjmp.h header.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/avoid-setjmp.html
+/// The setjmp and longjmp functions provide non-local jumps that bypass
+/// normal function call/return mechanisms. This can lead to undefined
+/// behavior, resource leaks, and makes program flow difficult to analyze.
+/// They are particularly problematic in safety-critical code.
+///
+/// Related MISRA C:2025 Rule: 21.4 - The standard header file <setjmp.h>
+/// shall not be used.
+///
+/// Example:
+/// \code
+///   #include <setjmp.h>  // Warning: setjmp.h usage
+///   jmp_buf env;
+///   setjmp(env);         // Warning: setjmp usage
+/// \endcode
 class AvoidSetjmpHeaderCheck : public AvoidApiCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidSetjmpHeaderCheck(StringRef Name, ClangTidyContext *Context);
 };
 

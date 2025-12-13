@@ -13,15 +13,33 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects usage of the comma operator outside of for loop initialization.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/avoid-comma-operator.html
+/// The comma operator evaluates multiple expressions sequentially and returns
+/// the result of the last expression. This can obscure the program's control
+/// flow and make code harder to understand and maintain. Side effects from
+/// earlier expressions in a comma sequence may be overlooked during code review.
+///
+/// Related MISRA C:2025 Rule: 12.3 - The comma operator should not be used.
+///
+/// Example:
+/// \code
+///   int x = (a = 1, b = 2, a + b);  // Warning: comma operator used
+/// \endcode
 class AvoidCommaOperatorCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidCommaOperatorCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for comma operator usage.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched comma operators and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 

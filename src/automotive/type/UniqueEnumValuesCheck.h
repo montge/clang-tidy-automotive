@@ -13,15 +13,37 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects duplicate values in enumeration constants.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/Unique-Enum-Values.html
+/// Each enumerator in an enumeration should have a unique value. Duplicate
+/// values can make the code confusing and error-prone, as multiple enum
+/// constants evaluate to the same value, which defeats the purpose of using
+/// named constants and can lead to logic errors in switch statements.
+///
+/// Related MISRA C:2025 Rule: 9.5 - Each enumerator within an enumeration
+/// shall have a unique value.
+///
+/// Example:
+/// \code
+///   enum Status {
+///     OK = 0,
+///     SUCCESS = 0  // Warning: duplicate value
+///   };
+/// \endcode
 class UniqueEnumValuesCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   UniqueEnumValuesCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for enum declarations.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched enumerations and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 

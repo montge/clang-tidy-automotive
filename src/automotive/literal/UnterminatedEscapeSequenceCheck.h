@@ -15,18 +15,41 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects unterminated or invalid escape sequences in string literals.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/Unterminated-Escape-Sequence.html
+/// Escape sequences in strings and character constants must be well-formed.
+/// Invalid escape sequences have implementation-defined behavior and can lead
+/// to portability issues. Common errors include incomplete octal or hexadecimal
+/// escape sequences that may silently produce unexpected characters.
+///
+/// Related MISRA C:2025 Rule: 4.1 - Escape sequences shall be well-formed.
+///
+/// Example:
+/// \code
+///   char str[] = "\x";    // Warning: incomplete hex escape sequence
+///   char ch = '\77';      // Warning: incomplete octal escape
+/// \endcode
 class UnterminatedEscapeSequenceCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   UnterminatedEscapeSequenceCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for string and character literals.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched literals and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 
 private:
+  /// Checks for invalid escape sequences in a string.
+  /// \param StartLoc The starting location of the string literal.
+  /// \param EndLoc The ending location of the string literal.
+  /// \param Str The string content to check.
   void checkEscapeSequences(SourceLocation StartLoc, SourceLocation EndLoc,
                             StringRef Str);
 };

@@ -13,14 +13,33 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects usage of variable argument facilities from stdarg.h header.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/Avoid-Stdarg-Header.html
+/// Variable argument functions (va_list, va_start, va_arg, va_end) bypass
+/// type safety and make it impossible for the compiler to verify correct
+/// argument types and counts. This can lead to undefined behavior and
+/// security vulnerabilities. Fixed-argument functions are type-safe and
+/// more reliable.
+///
+/// Related MISRA C:2025 Rule: 17.1 - The features of <stdarg.h> shall not
+/// be used.
+///
+/// Example:
+/// \code
+///   #include <stdarg.h>  // Warning: stdarg.h usage
+/// \endcode
 class AvoidStdargHeaderCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidStdargHeaderCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers preprocessor callbacks for stdarg.h inclusion.
+  /// \param SM The source manager.
+  /// \param PP The preprocessor instance.
+  /// \param ModuleExpanderPP The module expander preprocessor.
   void registerPPCallbacks(const SourceManager &SM, Preprocessor *PP,
                            Preprocessor *ModuleExpanderPP) override;
 };

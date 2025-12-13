@@ -13,15 +13,36 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects usage of goto statements in code.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/avoid-goto.html
+/// The goto statement can lead to unstructured control flow, making code
+/// harder to understand, maintain, and verify. This check flags all goto
+/// statement usage to encourage structured programming practices.
+///
+/// Related MISRA C:2025 Rule: 15.1 - The goto statement should not be used.
+///
+/// Example:
+/// \code
+///   void func(void) {
+///     goto label;  // Warning: goto statement detected
+///   label:
+///     return;
+///   }
+/// \endcode
 class AvoidGotoCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidGotoCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for goto statements.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched goto statements and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 

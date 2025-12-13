@@ -1,0 +1,48 @@
+// Test file for: automotive-{CHECK_NAME}
+// Related MISRA C:2025 Rule: {RULE_NUMBER}
+//
+// This file tests the detection of {BRIEF_DESCRIPTION}
+//
+// RUN: %check_clang_tidy %s automotive-{CHECK_NAME} %t
+
+//===----------------------------------------------------------------------===//
+// Violation Cases (should trigger warnings)
+//===----------------------------------------------------------------------===//
+
+void test_basic_violation(void) {
+    // TODO: Add basic violation test
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: {EXPECTED_MESSAGE}
+    // violation_code;
+}
+
+void test_violation_case_2(void) {
+    // TODO: Add another violation case
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: {EXPECTED_MESSAGE}
+    // violation_code;
+}
+
+//===----------------------------------------------------------------------===//
+// Edge Cases
+//===----------------------------------------------------------------------===//
+
+void test_edge_case_boundary(void) {
+    // TODO: Test boundary conditions
+}
+
+void test_edge_case_nested(void) {
+    // TODO: Test nested/complex scenarios
+}
+
+//===----------------------------------------------------------------------===//
+// Compliant Cases (should NOT trigger warnings)
+//===----------------------------------------------------------------------===//
+
+void test_compliant_basic(void) {
+    // This should not trigger any warning
+    // TODO: Add compliant code
+}
+
+void test_compliant_alternative(void) {
+    // Alternative compliant approach
+    // TODO: Add alternative compliant code
+}

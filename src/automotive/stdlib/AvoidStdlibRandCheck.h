@@ -13,15 +13,35 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects usage of rand() and srand() functions from stdlib.h.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/AvoidStdlibSystemCall.html
+/// The rand() function produces pseudo-random numbers with implementation-
+/// defined quality and is not suitable for security-critical applications.
+/// The sequence is deterministic and predictable, making it inappropriate
+/// for cryptographic purposes or safety-critical random number generation.
+///
+/// Related MISRA C:2025 Rule: 21.24 - The random number generator functions
+/// of <stdlib.h> shall not be used.
+///
+/// Example:
+/// \code
+///   int x = rand();  // Warning: rand() usage
+///   srand(time(0));  // Warning: srand() usage
+/// \endcode
 class AvoidStdlibRandCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidStdlibRandCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for rand/srand calls.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched rand/srand calls and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 

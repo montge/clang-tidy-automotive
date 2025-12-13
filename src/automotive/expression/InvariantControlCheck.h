@@ -13,15 +13,34 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects control expressions with invariant values.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/Invariant-Control.html
+/// Loop control expressions and conditional statements should depend on
+/// variable values that can change. An invariant (constant) control expression
+/// results in an infinite loop or dead code, which is usually a programming
+/// error that indicates a logic mistake or incomplete implementation.
+///
+/// Related MISRA C:2025 Rule: 14.2 - A for loop shall be well-formed.
+///
+/// Example:
+/// \code
+///   while (1) { }       // Warning: invariant control expression
+///   for (;;) { }        // Warning: invariant control expression
+/// \endcode
 class InvariantControlCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   InvariantControlCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for loop and conditional statements.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched control expressions and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 
