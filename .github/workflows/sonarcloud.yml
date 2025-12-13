@@ -28,8 +28,8 @@ jobs:
       - name: Setup symlinks
         run: ./setup.sh
 
-      - name: Install sonar-scanner and build-wrapper
-        uses: SonarSource/sonarcloud-github-c-cpp@v3
+      - name: Install Build Wrapper
+        uses: SonarSource/sonarqube-scan-action/install-build-wrapper@v5
 
       - name: Configure build with coverage
         run: |
@@ -67,12 +67,13 @@ jobs:
             -ignore-filename-regex='test/.*' \
             > ../coverage.lcov 2>/dev/null || true
 
-      - name: Run sonar-scanner
+      - name: Run SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          sonar-scanner \
-            -Dsonar.cfamily.compile-commands=build/compile_commands.json \
-            -Dsonar.cfamily.build-wrapper-output=build-wrapper-output \
+        with:
+          args: >
+            -Dsonar.cfamily.compile-commands=build/compile_commands.json
+            -Dsonar.cfamily.build-wrapper-output=build-wrapper-output
             -Dsonar.cfamily.llvm-cov.reportPath=coverage.lcov
