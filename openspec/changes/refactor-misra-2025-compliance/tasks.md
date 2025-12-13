@@ -96,8 +96,8 @@
 - [ ] 4.3.2 Implement missing Rules 5.x-6.x checks
 - [ ] 4.3.3 Implement missing Rules 8.x-9.x checks
 - [x] 4.3.4 Implement missing Rules 10.x-11.x checks (11.8 implemented, tested)
-- [x] 4.3.5 Implement missing Rules 12.x-13.x checks (12.2, 13.5 implemented, tested)
-- [ ] 4.3.6 Implement missing Rules 14.x-17.x checks (17.6 implemented, tested)
+- [x] 4.3.5 Implement missing Rules 12.x-13.x checks (12.2, 13.4, 13.5, 13.6 implemented, tested)
+- [ ] 4.3.6 Implement missing Rules 14.x-17.x checks (14.3, 14.4, 17.6 implemented, tested)
 - [x] 4.3.7 Implement missing Rules 18.x-19.x checks (18.4 implemented, tested)
 - [x] 4.3.8 Implement missing Rules 20.x checks (20.1, 20.2 implemented)
 - [x] 4.3.9 Implement missing Rules 21.x-23.x checks (21.1, 21.2 implemented, tested)
