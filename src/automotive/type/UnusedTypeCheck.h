@@ -13,15 +13,34 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects type declarations that are never used.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/Unused-Type.html
+/// Type definitions that are declared but never used represent dead code
+/// that clutters the codebase and should be removed. Unused types make the
+/// code harder to maintain and understand, and may indicate incomplete
+/// refactoring or obsolete code.
+///
+/// Related MISRA C:2025 Rule: 2.4 - A project should not contain unused
+/// type declarations.
+///
+/// Example:
+/// \code
+///   typedef struct { int x; } UnusedStruct;  // Warning: type never used
+/// \endcode
 class UnusedTypeCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   UnusedTypeCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for type declarations.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched type declarations and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 

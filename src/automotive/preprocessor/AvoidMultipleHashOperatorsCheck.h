@@ -13,15 +13,31 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects usage of the ## token pasting operator in macros.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/Avoid-Preprocessor-Hash-Operator.html
+/// The ## operator in preprocessor macros concatenates tokens, which can
+/// create identifiers in unexpected ways. This makes code harder to search,
+/// understand, and debug. Token pasting can also lead to subtle bugs when
+/// tokens combine in unintended ways.
+///
+/// Related MISRA C:2025 Rule: 20.11 - The ## operator should not be used.
+///
+/// Example:
+/// \code
+///   #define CONCAT(a, b) a##b  // Warning: ## operator used
+/// \endcode
 class AvoidMultipleHashOperatorsCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidMultipleHashOperatorsCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Registers preprocessor callbacks for macro definition handling.
+  /// \param SM The source manager.
+  /// \param PP The preprocessor instance.
+  /// \param ModuleExpanderPP The module expander preprocessor.
   void registerPPCallbacks(const SourceManager &SM, Preprocessor *PP,
                            Preprocessor *ModuleExpanderPP) override;
 };

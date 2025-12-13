@@ -13,15 +13,37 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects bit-field members within union declarations.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/avoid-bitfields-in-unions.html
+/// Bit-fields in unions have implementation-defined behavior and can lead to
+/// portability issues. The storage allocation and padding of bit-fields within
+/// unions varies across different compilers and architectures, making code
+/// non-portable and difficult to reason about.
+///
+/// Related MISRA C:2025 Rule: 19.2 - A union shall not contain bit-field
+/// members.
+///
+/// Example:
+/// \code
+///   union Data {
+///     unsigned int flags : 8;  // Warning: bit-field in union
+///     int value;
+///   };
+/// \endcode
 class AvoidBitfieldInUnionCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidBitfieldInUnionCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for bit-field members in unions.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched bit-field members and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 

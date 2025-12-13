@@ -13,15 +13,36 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects usage of variable length arrays (VLAs).
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/Avoid-Variable-Length-Array.html
+/// Variable length arrays have runtime-determined size, which can lead to
+/// stack overflow if the size is large or unbounded. VLAs also make static
+/// analysis more difficult and are optional in C11. This check flags all
+/// VLA declarations.
+///
+/// Related MISRA C:2025 Rule: 18.8 - Variable-length array types shall not
+/// be used.
+///
+/// Example:
+/// \code
+///   void func(int n) {
+///     int arr[n];  // Warning: variable length array detected
+///   }
+/// \endcode
 class AvoidVariableLengthArrayCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidVariableLengthArrayCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for variable length array declarations.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched VLA declarations and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 

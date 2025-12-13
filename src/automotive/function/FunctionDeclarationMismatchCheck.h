@@ -13,15 +13,35 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects mismatches between function declarations and definitions.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/Function-Declaration-Mismatch.html
+/// Function declarations and their corresponding definitions must match
+/// exactly in terms of return type, parameter types, and qualifiers. Mismatches
+/// can lead to undefined behavior, linking errors, or subtle bugs that are
+/// difficult to diagnose, especially in multi-file projects.
+///
+/// Related MISRA C:2025 Rule: 8.3 - All declarations and definitions of an
+/// object or function shall use compatible types.
+///
+/// Example:
+/// \code
+///   void func(int x);       // Declaration
+///   void func(long x) {}    // Warning: parameter type mismatch
+/// \endcode
 class FunctionDeclarationMismatchCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   FunctionDeclarationMismatchCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for function declarations.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched function declarations and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 

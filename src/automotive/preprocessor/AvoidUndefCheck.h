@@ -13,15 +13,32 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects usage of the #undef preprocessor directive.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/avoid-undef.html
+/// The #undef directive removes macro definitions, which can lead to
+/// configuration-dependent behavior and makes code harder to understand.
+/// Undefining macros, especially those defined in headers, can cause
+/// inconsistent behavior across translation units.
+///
+/// Related MISRA C:2025 Rule: 20.5 - #undef should not be used.
+///
+/// Example:
+/// \code
+///   #define MAX_SIZE 100
+///   #undef MAX_SIZE  // Warning: #undef used
+/// \endcode
 class AvoidUndefCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidUndefCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Registers preprocessor callbacks for #undef directive handling.
+  /// \param SM The source manager.
+  /// \param PP The preprocessor instance.
+  /// \param ModuleExpanderPP The module expander preprocessor.
   void registerPPCallbacks(const SourceManager &SM, Preprocessor *PP,
                            Preprocessor *ModuleExpanderPP) override;
 };

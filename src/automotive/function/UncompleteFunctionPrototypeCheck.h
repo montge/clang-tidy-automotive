@@ -14,15 +14,35 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects function prototypes without complete parameter type information.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/Function-Prototype-With-Named-Parameters.html
+/// Function prototypes should include complete parameter type information.
+/// Old-style K&R function declarations or prototypes with empty parameter
+/// lists provide no type checking for arguments, which can lead to type
+/// mismatches and undefined behavior at call sites.
+///
+/// Related MISRA C:2025 Rule: 8.2 - Function types shall be in prototype form
+/// with named parameters.
+///
+/// Example:
+/// \code
+///   int func();      // Warning: incomplete prototype (no parameter info)
+///   int foo(a, b);   // Warning: K&R style declaration
+/// \endcode
 class UncompleteFunctionPrototypeCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   UncompleteFunctionPrototypeCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for function declarations.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched function declarations and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 

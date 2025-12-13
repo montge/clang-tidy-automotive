@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        clang-version: [17, 18, 19, 20]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Clang ${{ matrix.clang-version }}
+        run: |
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh ${{ matrix.clang-version }}
+          sudo apt-get install -y clang-${{ matrix.clang-version }} clang-tools-${{ matrix.clang-version }}
+
+      - name: Setup environment
+        run: |
+          echo "CC=clang-${{ matrix.clang-version }}" >> $GITHUB_ENV
+          echo "CXX=clang++-${{ matrix.clang-version }}" >> $GITHUB_ENV
+
+      - name: Download LLVM source
+        run: ./download.sh
+
+      - name: Setup symlinks
+        run: ./setup.sh
+
+      - name: Configure
+        run: |
+          mkdir -p build
+          cd build
+          cmake -G Ninja \
+            -DCMAKE_CXX_COMPILER=clang++-${{ matrix.clang-version }} \
+            -DCMAKE_C_COMPILER=clang-${{ matrix.clang-version }} \
+            -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" \
+            -DLLVM_TARGETS_TO_BUILD="X86" \
+            ../llvm-project-llvmorg-20.1.8/llvm
+
+      - name: Build
+        run: |
+          cd build
+          ninja clang-tidy
+
+      - name: Run tests
+        run: |
+          cd build
+          ninja check-clang-tools
+
+  format-check:
+    name: Format Check
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install clang-format
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-format-17
+
+      - name: Check formatting
+        run: |
+          find src -name '*.cpp' -o -name '*.h' | xargs clang-format-17 --dry-run --Werror
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-24.04
+    needs: build
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install clang-tidy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-tidy-17
+
+      - name: Run clang-tidy
+        run: |
+          find src/automotive -name '*.cpp' | head -5 | xargs clang-tidy-17 --checks='-*,readability-*,bugprone-*' -- -std=c++17 -I src || true

@@ -13,15 +13,34 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects usage of the system() function from stdlib.h.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/AvoidStdlibSystemCall.html
+/// The system() function executes external commands, which poses security
+/// risks and makes program behavior dependent on the environment. It can
+/// lead to command injection vulnerabilities and makes the program's behavior
+/// unpredictable and difficult to verify in safety-critical systems.
+///
+/// Related MISRA C:2025 Rule: 21.8 - The library functions system and abort
+/// shall not be used.
+///
+/// Example:
+/// \code
+///   system("ls");  // Warning: system() function call
+/// \endcode
 class AvoidstdlibsystemcallCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidstdlibsystemcallCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for system() calls.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched system() calls and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 

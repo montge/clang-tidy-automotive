@@ -13,15 +13,35 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects assignment operations embedded within larger expressions.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/AvoidAssignmentInExpression.html
+/// Assignment within expressions can be easily confused with equality
+/// comparison (== vs =), leading to subtle bugs. Separating assignment from
+/// other operations makes code more readable and reduces the risk of
+/// accidental assignment in conditional expressions.
+///
+/// Related MISRA C:2025 Rule: 13.4 - The result of an assignment operator
+/// should not be used.
+///
+/// Example:
+/// \code
+///   if (x = getValue()) { }  // Warning: assignment in condition
+///   int y = (z = 10) + 5;    // Warning: assignment in expression
+/// \endcode
 class AvoidAssignmentInExpressionCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidAssignmentInExpressionCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for assignment expressions.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched assignments and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 

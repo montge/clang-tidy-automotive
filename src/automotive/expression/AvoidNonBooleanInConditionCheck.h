@@ -13,15 +13,37 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects non-boolean expressions used in conditional contexts.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/AvoidNonBooleanCondition.html
+/// Conditional expressions in if, while, for, and do-while statements should
+/// have boolean type. Using integer or pointer types in conditions relies on
+/// implicit conversion to boolean, which can obscure intent and make code
+/// less clear. Explicit comparisons improve readability.
+///
+/// Related MISRA C:2025 Rule: 14.4 - The controlling expression of an if
+/// statement and the controlling expression of an iteration-statement shall
+/// have essentially Boolean type.
+///
+/// Example:
+/// \code
+///   int x;
+///   if (x) { }        // Warning: non-boolean in condition
+///   while (ptr) { }   // Warning: non-boolean in condition
+/// \endcode
 class AvoidNonBooleanInConditionCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidNonBooleanInConditionCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for conditional expressions.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched conditions and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 

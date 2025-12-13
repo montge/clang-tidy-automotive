@@ -13,15 +13,35 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects usage of the restrict type qualifier.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/AvoidRestrictType.html
+/// The restrict keyword is a C99 feature that provides optimization hints
+/// to the compiler about pointer aliasing. However, incorrect use of restrict
+/// can lead to undefined behavior if the aliasing guarantees are violated.
+/// Its use should be carefully considered and limited to performance-critical
+/// code where aliasing behavior is well-understood.
+///
+/// Related MISRA C:2025 Rule: 8.14 - The restrict type qualifier shall not
+/// be used.
+///
+/// Example:
+/// \code
+///   void func(int *restrict ptr) { }  // Warning: restrict used
+/// \endcode
 class AvoidRestrictTypeCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidRestrictTypeCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for restrict qualified types.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched restrict qualifiers and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 

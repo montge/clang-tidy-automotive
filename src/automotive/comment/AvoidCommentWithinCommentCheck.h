@@ -15,16 +15,33 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects nested comment sequences within C-style comments.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/comment-within-comment.html
+/// Attempting to nest comments can lead to unintended code being commented out
+/// or activated, as the first occurrence of */ will close the outer comment.
+/// This can cause logic errors and make code difficult to maintain.
+///
+/// Related MISRA C:2025 Rule: 3.1 - The character sequences /* and // shall
+/// not appear within a comment.
+///
+/// Example:
+/// \code
+///   /* This is a comment /* with nested comment */ markers */  // Warning
+/// \endcode
 class AvoidCommentWithinCommentCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
+  /// \param x Unused parameter for compatibility.
   AvoidCommentWithinCommentCheck(StringRef Name, ClangTidyContext *Context,
                                  int x = 0)
       : ClangTidyCheck(Name, Context), Handler(*this) {}
 
+  /// Registers preprocessor callbacks for comment handling.
+  /// \param SM The source manager.
+  /// \param PP The preprocessor instance.
+  /// \param ModuleExpanderPP The module expander preprocessor.
   void registerPPCallbacks(const SourceManager &SM, Preprocessor *PP,
                            Preprocessor *ModuleExpanderPP) override;
 

@@ -1,0 +1,28 @@
+# Pre-commit hooks for clang-tidy-automotive
+# Install: pip install pre-commit && pre-commit install
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v17.0.6
+    hooks:
+      - id: clang-format
+        types_or: [c++, c]
+        args: [--style=file]
+
+  - repo: local
+    hooks:
+      - id: check-headers
+        name: Check header guards
+        entry: bash -c 'for f in "$@"; do grep -q "^#ifndef" "$f" || echo "Missing header guard: $f"; done'
+        language: system
+        files: \.h$
+        pass_filenames: true

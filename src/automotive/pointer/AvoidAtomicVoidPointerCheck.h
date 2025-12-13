@@ -13,15 +13,34 @@
 
 namespace clang::tidy::automotive {
 
-/// FIXME: Write a short description.
+/// Detects atomic operations on void pointers.
 ///
-/// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/misra/AvoidAtomicVoidPointer.html
+/// The C standard specifies that atomic operations on void pointers have
+/// undefined behavior. Using atomic void pointers circumvents type safety
+/// and can lead to subtle concurrency bugs that are difficult to diagnose
+/// and reproduce.
+///
+/// Related MISRA C:2025 Rule: 18.7 - Atomic operations shall not be performed
+/// on void pointers.
+///
+/// Example:
+/// \code
+///   _Atomic(void*) ptr;  // Warning: atomic void pointer
+/// \endcode
 class AvoidAtomicVoidPointerCheck : public ClangTidyCheck {
 public:
+  /// Constructs the check with the given name and context.
+  /// \param Name The name of the check as registered.
+  /// \param Context The clang-tidy context for configuration.
   AvoidAtomicVoidPointerCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Registers AST matchers for atomic void pointer declarations.
+  /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+
+  /// Handles matched atomic void pointers and emits diagnostics.
+  /// \param Result The match result containing the matched AST node.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
 
