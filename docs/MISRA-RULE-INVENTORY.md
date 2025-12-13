@@ -100,6 +100,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 ### Storage Checks
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
+| `automotive-c23-req-21.2` | 21.2 | Required | Reserved identifier declarations |
 | `automotive-avoid-restrict-type` | 8.14 | Required | restrict qualifier usage |
 | `automotive-missing-static-internal-linkage` | 8.8 | Required | Missing static for internal linkage |
 
@@ -136,6 +137,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
 | `automotive-x-adv-2.4` | 2.4 | Advisory | Unused tags |
+| `automotive-c23-adv-2.7` | 2.7 | Advisory | Unused function parameters |
 | `automotive-c23-adv-2.8` | 2.8 | Advisory | Unused object definitions |
 
 ### Reused Clang/LLVM Checks
@@ -198,11 +200,11 @@ These rules cannot be fully verified by static analysis:
 - ~~Rule 20.1-20.2: Preprocessor directive checks~~ (Implemented)
 - Rule 20.3: Include syntax validation
 - ~~Rule 21.1: Reserved macro identifiers~~ (Implemented)
-- Rule 21.2: Reserved identifier declarations
+- ~~Rule 21.2: Reserved identifier declarations~~ (Implemented)
 
 ### Medium Priority (Advisory Rules)
 - Dir 4.2: Language subset selection
-- Rule 2.7: Unused parameters
+- ~~Rule 2.7: Unused parameters~~ (Implemented)
 - Rule 4.2: Trigraph sequences
 - Rule 8.9: Local object scope
 - Rule 12.4: Constant expressions
