@@ -3,8 +3,8 @@
 ### 1.1 Documentation
 - [x] 1.1.1 Create Doxygen configuration file (Doxyfile)
 - [x] 1.1.2 Add Doxygen header comments to all check header files
-- [ ] 1.1.3 Add Doxygen implementation comments to all check source files
-- [ ] 1.1.4 Document component registration patterns
+- [x] 1.1.3 Add Sphinx documentation with sphinx-needs traceability
+- [x] 1.1.4 Create MISRA rule mapping document
 - [ ] 1.1.5 Generate and verify Doxygen output
 
 ### 1.2 Code Formatting
