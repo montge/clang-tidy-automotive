@@ -88,7 +88,7 @@ void func(long x) {}   // Warning: type mismatch
 
 ---
 
-## automotive-static-inline
+## automotive-missing-static-inline
 
 Detects inline functions without static specifier.
 

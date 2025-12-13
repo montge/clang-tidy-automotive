@@ -88,12 +88,12 @@ Types category has 100% coverage.
 
 | Rule | Description | Status | Check ID |
 |:-----|:------------|:-------|:---------|
-| 8.1 | Explicit types | ✅ | `automotive-implict-int` |
+| 8.1 | Explicit types | ✅ | `automotive-implicit-int` |
 | 8.1 | Function prototypes | ✅ | `automotive-implicit-function-decl` |
 | 8.2 | Prototype form | ✅ | `automotive-uncomplete-function-prototype` |
 | 8.3 | Compatible types | ✅ | `automotive-function-declaration-mismatch` |
 | 8.7 | External linkage | ✅ | `automotive-missing-static-internal-linkage` |
-| 8.9 | Static inline | ✅ | `automotive-static-inline` |
+| 8.9 | Static inline | ✅ | `automotive-missing-static-inline` |
 | 8.14 | Restrict qualifier | ✅ | `automotive-avoid-restrict-type` |
 
 ### Statements (Rules 15)
@@ -116,13 +116,13 @@ Types category has 100% coverage.
 
 | Rule | Description | Status | Check ID |
 |:-----|:------------|:-------|:---------|
-| 21.3 | Dynamic memory | ✅ | `automotive-avoid-stdlib-malloc-call` |
+| 21.3 | Dynamic memory | ✅ | `automotive-avoid-stdlib-malloc` |
 | 21.4 | setjmp.h | ✅ | `automotive-avoid-setjmp-header` |
 | 21.5 | signal.h | ✅ | `automotive-avoid-signal-header` |
 | 21.7 | atoi/atof/atol | ✅ | `automotive-avoid-ascii-to-number` |
-| 21.8 | exit/abort | ✅ | `automotive-avoid-stdlib-exit-call` |
-| 21.8 | system() | ✅ | `automotive-avoid-stdlib-system-call` |
-| 21.24 | rand/srand | ✅ | `automotive-avoid-stdlib-rand-call` |
+| 21.8 | exit/abort | ✅ | `automotive-avoid-stdlib-exit` |
+| 21.8 | system() | ✅ | `automotive-avoid-stdlib-system` |
+| 21.24 | rand/srand | ✅ | `automotive-avoid-stdlib-rand` |
 
 ---
 

@@ -86,10 +86,10 @@
 
 ### 4.2 Check ID Standardization
 - [x] 4.2.1 Define new ID naming convention (updated NAMING-CONVENTION.md)
-- [ ] 4.2.2 Create migration script for ID changes
-- [ ] 4.2.3 Update all check registrations
-- [ ] 4.2.4 Update all test file references
-- [ ] 4.2.5 Update documentation
+- [x] 4.2.2 Create migration script for ID changes (scripts/check-id-migration.py)
+- [x] 4.2.3 Update all check registrations (7 IDs standardized)
+- [x] 4.2.4 Update all test file references (5 test files updated)
+- [x] 4.2.5 Update documentation (8 doc files updated)
 
 ### 4.3 New Check Implementation (Priority 1 - Required Rules)
 - [ ] 4.3.1 Implement missing Rules 1.x-2.x checks

@@ -61,7 +61,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
 | `automotive-avoid-union` | 19.2 | Advisory | Union type usage |
-| `automotive-implict-int` | 8.1 | Required | Implicit int type |
+| `automotive-implicit-int` | 8.1 | Required | Implicit int type |
 | `automotive-unique-enum-value` | 8.12 | Required | Duplicate enum values |
 | `automotive-unused-type` | 2.3 | Advisory | Unused type declarations |
 
@@ -90,12 +90,12 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|------------|----------|-------------|
 | `automotive-uncomplete-function-prototype` | 8.2 | Required | Incomplete function prototype |
 | `automotive-function-declaration-mismatch` | 8.3 | Required | Declaration/definition mismatch |
-| `automotive-static-inline` | 8.10 | Required | Static inline functions |
+| `automotive-missing-static-inline` | 8.10 | Required | Static inline functions |
 | `automotive-implicit-function-decl` | 17.3 | Mandatory | Implicit function declaration |
 | `automotive-avoid-function-parameter-modification` | 17.8 | Advisory | Modifying function parameters |
 | `automotive-avoid-multiple-return-stmt` | 15.5 | Advisory | Multiple return statements |
 | `automotive-missing-return-value-handling` | 17.7 | Required | Ignoring return values |
-| `automotive-no-return-void` | 17.4 | Mandatory | Non-void function missing return |
+| `automotive-missing-return-void` | 17.4 | Mandatory | Non-void function missing return |
 
 ### Storage Checks
 | Check ID | MISRA Rule | Category | Description |
@@ -125,9 +125,9 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-avoid-setjmp-header` | 21.4 | Required | <setjmp.h> usage |
 | `automotive-avoid-signal-header` | 21.5 | Required | <signal.h> usage |
 | `automotive-avoid-ascii-to-number` | 21.7 | Required | atoi/atof functions |
-| `automotive-avoid-stdlib-exit-call` | 21.8 | Required | abort/exit functions |
-| `automotive-avoid-stdlib-system-call` | 21.8 | Required | system() function |
-| `automotive-avoid-stdlib-rand-call` | 21.12 | Required | rand() function |
+| `automotive-avoid-stdlib-exit` | 21.8 | Required | abort/exit functions |
+| `automotive-avoid-stdlib-system` | 21.8 | Required | system() function |
+| `automotive-avoid-stdlib-rand` | 21.12 | Required | rand() function |
 
 ### Unused Code Checks
 | Check ID | MISRA Rule | Category | Description |

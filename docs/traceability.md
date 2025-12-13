@@ -30,7 +30,7 @@ flowchart LR
 
     subgraph Checks["Clang-Tidy Checks"]
         C1["automotive-avoid-goto"]
-        C2["automotive-avoid-stdlib-malloc-call"]
+        C2["automotive-avoid-stdlib-malloc"]
         C3["automotive-avoid-signed-single-bitfield"]
     end
 
@@ -58,7 +58,7 @@ flowchart LR
 | 6.2 | `automotive-avoid-signed-single-bitfield` | `bitfield/avoid-signed-single-bitfield.c` | ✅ |
 | 7.1 | `automotive-avoid-octal-number` | `literal/avoid-octal-number.c` | ✅ |
 | 7.3 | `automotive-avoid-lowercase-literal-suffix` | `literal/avoid-lowercase-literal-suffix.c` | ✅ |
-| 8.1 | `automotive-implict-int` | `type/implicit-int.c` | ✅ |
+| 8.1 | `automotive-implicit-int` | `type/implicit-int.c` | ✅ |
 | 8.14 | `automotive-avoid-restrict-type` | `c2023/8.14/avoid-restrict-type.c` | ✅ |
 | 15.1 | `automotive-avoid-goto` | `statement/avoid-goto.c` | ✅ |
 | 15.5 | `automotive-avoid-multiple-return-stmt` | `return/multiple-return-stmt.c` | ✅ |
@@ -66,12 +66,12 @@ flowchart LR
 | 17.7 | `automotive-missing-return-value-handling` | `return/missing-return-value-handling.c` | ✅ |
 | 19.2 | `automotive-avoid-union` | `type/avoid-union.c` | ✅ |
 | 19.2 | `automotive-avoid-bitfield-in-union` | `bitfield/avoid-bitfield-in-union.c` | ✅ |
-| 21.3 | `automotive-avoid-stdlib-malloc-call` | `stdlib/avoid-stdlib-malloc.c` | ✅ |
+| 21.3 | `automotive-avoid-stdlib-malloc` | `stdlib/avoid-stdlib-malloc.c` | ✅ |
 | 21.4 | `automotive-avoid-setjmp-header` | - | ✅ |
 | 21.5 | `automotive-avoid-signal-header` | `c2023/21.5/avoid-signal-header.c` | ✅ |
 | 21.7 | `automotive-avoid-ascii-to-number` | `stdlib/avoid-atox.c` | ✅ |
-| 21.8 | `automotive-avoid-stdlib-exit-call` | `stdlib/avoid-stdlib-exit.c` | ✅ |
-| 21.24 | `automotive-avoid-stdlib-rand-call` | `stdlib/avoid-stdlib-rand.c` | ✅ |
+| 21.8 | `automotive-avoid-stdlib-exit` | `stdlib/avoid-stdlib-exit.c` | ✅ |
+| 21.24 | `automotive-avoid-stdlib-rand` | `stdlib/avoid-stdlib-rand.c` | ✅ |
 
 ---
 

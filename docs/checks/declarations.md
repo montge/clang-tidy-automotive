@@ -19,7 +19,7 @@ Checks for declaration rules (MISRA C:2025 Rules 8.x).
 
 ---
 
-## automotive-implict-int
+## automotive-implicit-int
 
 Detects declarations with implicit int type.
 
