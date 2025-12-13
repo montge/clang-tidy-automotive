@@ -13,7 +13,8 @@
 
 namespace clang::tidy::automotive {
 
-/// Detects objects and functions with internal linkage missing static specifier.
+/// Detects objects and functions with internal linkage missing static
+/// specifier.
 ///
 /// Objects and functions that could have internal linkage (i.e., are only
 /// used within a single translation unit) should be declared static. This

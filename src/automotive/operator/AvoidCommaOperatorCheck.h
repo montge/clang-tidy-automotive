@@ -18,7 +18,8 @@ namespace clang::tidy::automotive {
 /// The comma operator evaluates multiple expressions sequentially and returns
 /// the result of the last expression. This can obscure the program's control
 /// flow and make code harder to understand and maintain. Side effects from
-/// earlier expressions in a comma sequence may be overlooked during code review.
+/// earlier expressions in a comma sequence may be overlooked during code
+/// review.
 ///
 /// Related MISRA C:2025 Rule: 12.3 - The comma operator should not be used.
 ///

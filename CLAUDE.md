@@ -44,6 +44,27 @@ The project symlinks its source code into an LLVM source tree (`llvm-project-llv
 - Components organized by domain: `array/`, `bitfield/`, `comment/`, `expression/`, `function/`, `literal/`, `operator/`, `pointer/`, `preprocessor/`, `return/`, `statement/`, `stdlib/`, `storage/`, `type/`, `unused-code/`
 - Each component has a `*Component.cpp` that registers its checks via `addCheckFactories()`
 
+### Project Structure
+```
+clang-tidy-automotive/
+├── src/automotive/          # Check implementations (55+ checks)
+├── test/checkers/automotive/ # Test files for each check
+├── examples/                # Violation/compliant example pairs
+│   ├── directives/         # Dir 1.x - 5.x examples
+│   └── rules/              # Rule 1.x - 23.x examples
+├── docs/                    # Documentation
+│   ├── MISRA-RULE-INVENTORY.md
+│   ├── sonarqube-integration.md
+│   └── MANUAL-REVIEW-DIRECTIVES.md
+├── scripts/                 # Utility scripts
+│   ├── clang-tidy-to-sarif.py
+│   ├── clang-tidy-to-sonarqube.py
+│   └── misra-compliance-report.py
+├── config/                  # Configuration files
+│   └── misra-rule-mapping.json
+└── .github/workflows/       # CI/CD pipelines
+```
+
 ### Adding a New Check
 1. Create `YourCheck.h` and `YourCheck.cpp` in the appropriate component directory
 2. Register in the component's `*Component.cpp` file
@@ -63,7 +84,7 @@ CheckFactories.registerCheck<AvoidGotoCheck>("automotive-avoid-goto");
 ```
 
 <!-- OPENSPEC:START -->
-## OpenSpec Instructions
+# OpenSpec Instructions
 
 These instructions are for AI assistants working in this project.
 

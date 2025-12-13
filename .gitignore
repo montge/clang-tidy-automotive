@@ -2,3 +2,17 @@ build
 test-build
 openspec
 test/checkers/automotive/automotive
+
+# SonarQube/SonarCloud
+.scannerwork/
+build-wrapper-output/
+sonarqube-issues.json
+
+# Coverage artifacts
+coverage.lcov
+*.profraw
+*.profdata
+
+# Doxygen output
+docs/api/html/
+docs/api/latex/

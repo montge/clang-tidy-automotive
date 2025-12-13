@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SonarQube Quality Profile for MISRA C:2025
+
+  This profile defines external issue rules from clang-tidy-automotive.
+  Import via: Quality Profiles > Restore
+
+  Note: External issues from clang-tidy are imported separately via
+  sonar.externalIssuesReportPaths - this profile helps categorize them.
+-->
+<profile>
+  <name>MISRA C:2025 Automotive</name>
+  <language>c</language>
+  <rules>
+    <!-- Statement Rules -->
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-avoid-goto</key>
+      <priority>MAJOR</priority>
+      <parameters/>
+    </rule>
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-missing-default-in-switch</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-missing-break-in-case</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-missing-compound</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-missing-else</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+
+    <!-- Literal Rules -->
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-avoid-octal-number</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-avoid-lowercase-literal-suffix</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+
+    <!-- Type Rules -->
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-wrong-bitfield-type</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-avoid-union</key>
+      <priority>MAJOR</priority>
+      <parameters/>
+    </rule>
+
+    <!-- Array Rules -->
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-avoid-variable-length-array</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-avoid-flexible-array-member</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+
+    <!-- Function Rules -->
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-no-return-void</key>
+      <priority>BLOCKER</priority>
+      <parameters/>
+    </rule>
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-implicit-function-decl</key>
+      <priority>BLOCKER</priority>
+      <parameters/>
+    </rule>
+
+    <!-- Standard Library Rules -->
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-avoid-setjmp-header</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-avoid-signal-header</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-avoid-stdlib-exit-call</key>
+      <priority>CRITICAL</priority>
+      <parameters/>
+    </rule>
+
+    <!-- Preprocessor Rules -->
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-avoid-undef</key>
+      <priority>MAJOR</priority>
+      <parameters/>
+    </rule>
+
+    <!-- Expression Rules -->
+    <rule>
+      <repositoryKey>external_clang-tidy-automotive</repositoryKey>
+      <key>automotive-avoid-comma-operator</key>
+      <priority>MAJOR</priority>
+      <parameters/>
+    </rule>
+  </rules>
+</profile>

@@ -1,0 +1,47 @@
+# Clang-tidy configuration for self-analysis of the automotive module source code
+# Run with: clang-tidy -p build --config-file=.clang-tidy-self src/automotive/**/*.cpp
+
+Checks: >
+  -*,
+  bugprone-*,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-exception-escape,
+  clang-analyzer-*,
+  cppcoreguidelines-*,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -cppcoreguidelines-pro-type-union-access,
+  llvm-*,
+  -llvm-header-guard,
+  -llvm-include-order,
+  modernize-*,
+  -modernize-use-trailing-return-type,
+  performance-*,
+  readability-*,
+  -readability-magic-numbers,
+  -readability-identifier-length,
+  -readability-function-cognitive-complexity
+
+WarningsAsErrors: ''
+
+HeaderFilterRegex: 'src/automotive/.*'
+
+CheckOptions:
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+  - key: readability-identifier-naming.FunctionCase
+    value: camelBack
+  - key: readability-identifier-naming.VariableCase
+    value: CamelCase
+  - key: readability-identifier-naming.ParameterCase
+    value: CamelCase
+  - key: readability-identifier-naming.MemberCase
+    value: CamelCase
+  - key: readability-identifier-naming.ConstantCase
+    value: CamelCase
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: CamelCase
+  - key: cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor
+    value: true
+  - key: performance-unnecessary-value-param.AllowedTypes
+    value: 'StringRef'
