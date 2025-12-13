@@ -78,6 +78,8 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 ### Pointer Checks
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
+| `automotive-c23-req-11.3` | 11.3 | Required | Incompatible pointer cast |
+| `automotive-c23-adv-11.4` | 11.4 | Advisory | Pointer to/from integer cast |
 | `automotive-c23-req-11.8` | 11.8 | Required | Cast removing const/volatile |
 | `automotive-wrong-null-pointer-value` | 11.9 | Required | Incorrect NULL pointer literal |
 
