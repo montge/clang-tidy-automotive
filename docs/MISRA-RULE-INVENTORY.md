@@ -19,8 +19,8 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | Directives | 18 | 2 | 0 | 3 | 13 |
 | Mandatory | 4 | 2 | 2 | 0 | 0 |
 | Required | 113 | 37 | 15 | 28 | 33 |
-| Advisory | 41 | 17 | 8 | 9 | 7 |
-| **Total** | **176** | **58** | **25** | **40** | **53** |
+| Advisory | 41 | 19 | 8 | 7 | 7 |
+| **Total** | **176** | **60** | **25** | **38** | **53** |
 
 ## Implemented Checks
 
@@ -36,6 +36,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-x-req-16.2` | 16.2 | Required | Unstructured switch statement |
 | `automotive-missing-compound` | 15.6 | Required | Missing braces on control flow |
 | `automotive-missing-else` | 15.7 | Required | Missing else after else-if |
+| `automotive-c23-adv-15.4` | 15.4 | Advisory | Multiple loop terminators |
 | `automotive-unused-label` | 2.6 | Advisory | Unused labels |
 
 ### Expression Checks
@@ -108,6 +109,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 ### Storage Checks
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
+| `automotive-c23-adv-8.9` | 8.9 | Advisory | Object at block scope |
 | `automotive-c23-req-21.2` | 21.2 | Required | Reserved identifier declarations |
 | `automotive-avoid-restrict-type` | 8.14 | Required | restrict qualifier usage |
 | `automotive-missing-static-internal-linkage` | 8.8 | Required | Missing static for internal linkage |
