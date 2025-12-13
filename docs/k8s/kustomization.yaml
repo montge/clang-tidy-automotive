@@ -1,0 +1,29 @@
+# Kustomize configuration for Jekyll Documentation
+#
+# Usage:
+#   kubectl apply -k k8s/
+#   kubectl delete -k k8s/
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: clang-tidy-docs
+
+resources:
+  - deployment.yaml
+  - service.yaml
+
+commonLabels:
+  app.kubernetes.io/name: clang-tidy-docs
+  app.kubernetes.io/component: documentation
+  app.kubernetes.io/part-of: clang-tidy-automotive
+
+# Optional: Add namespace
+# namespace: documentation
+
+# Optional: Add image override
+# images:
+#   - name: clang-tidy-docs
+#     newName: your-registry/clang-tidy-docs
+#     newTag: "1.0.0"
