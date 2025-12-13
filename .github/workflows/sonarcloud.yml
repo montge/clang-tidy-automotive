@@ -2,10 +2,16 @@ name: SonarCloud Analysis
 
 on:
   push:
-    branches: [main, develop]
+    branches:
+      - main
+      - develop
+      - 'feature/**'
+      - 'release/**'
+      - 'hotfix/**'
   pull_request:
     types: [opened, synchronize, reopened]
     branches: [main, develop]
+  workflow_dispatch:
 
 jobs:
   sonarcloud:
@@ -68,6 +74,24 @@ jobs:
             -ignore-filename-regex='test/.*' \
             > ../coverage.lcov 2>/dev/null || true
 
+      - name: Determine reference branch for gitflow
+        id: ref-branch
+        run: |
+          BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+          echo "Current branch: $BRANCH"
+          # For feature branches, use develop as reference
+          # For release/hotfix branches, use main as reference
+          # For develop, use main as reference
+          if [[ "$BRANCH" == feature/* ]]; then
+            echo "reference=develop" >> $GITHUB_OUTPUT
+          elif [[ "$BRANCH" == release/* ]] || [[ "$BRANCH" == hotfix/* ]]; then
+            echo "reference=main" >> $GITHUB_OUTPUT
+          elif [[ "$BRANCH" == "develop" ]]; then
+            echo "reference=main" >> $GITHUB_OUTPUT
+          else
+            echo "reference=main" >> $GITHUB_OUTPUT
+          fi
+
       - name: Run SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v5
         env:
@@ -78,3 +102,4 @@ jobs:
             -Dsonar.cfamily.compile-commands=build/compile_commands.json
             -Dsonar.cfamily.build-wrapper-output=build-wrapper-output
             -Dsonar.cfamily.llvm-cov.reportPath=coverage.lcov
+            -Dsonar.newCode.referenceBranch=${{ steps.ref-branch.outputs.reference }}
