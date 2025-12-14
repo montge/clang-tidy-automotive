@@ -54,3 +54,17 @@ The system SHALL maintain a machine-readable mapping file linking automotive che
 #### Scenario: SonarQube profile generation
 - **WHEN** the mapping file is processed
 - **THEN** it SHALL enable generation of a SonarQube quality profile for MISRA C:2025
+
+## Known Limitations
+
+### SonarCloud Free Tier Branch Restrictions
+- **Current State (2024-2025)**: SonarCloud free tier for open source projects only analyzes the default branch (main/master)
+- **Impact**: Feature branches and gitflow workflows are not supported for analysis
+- **Workaround**: All code must be merged to main for SonarCloud analysis
+- **Future**: SonarCloud plans to introduce branch support for open source projects in 2026
+
+### Recommendation
+Until branch support is available, the project should:
+1. Keep main branch as the primary development target for SonarCloud analysis
+2. Use local clang-tidy runs for branch validation
+3. Re-evaluate SonarCloud branch support when available (~2026)
