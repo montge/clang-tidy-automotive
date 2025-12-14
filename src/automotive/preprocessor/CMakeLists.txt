@@ -4,6 +4,7 @@ add_automotive_component(clangTidyAutomotivePreprocessorComponent
   AvoidHashOperatorCheck.cpp
   AvoidIncludeSyntaxErrorCheck.cpp
   AvoidInvalidHeaderCharCheck.cpp
+  AvoidLanguageExtensionCheck.cpp
   AvoidMacroIdentifierConflictCheck.cpp
   AvoidMacroNamedAsCkeywordCheck.cpp
   AvoidMultipleHashOperatorsCheck.cpp

@@ -1,6 +1,7 @@
 
 add_automotive_component(clangTidyAutomotiveArrayComponent
   ArrayComponent.cpp
+  AvoidDesignatedInitializerBoundsCheck.cpp
   AvoidFlexibleArrayMemberCheck.cpp
   AvoidIncompleteInitializationCheck.cpp
   AvoidPartialArrayInitCheck.cpp

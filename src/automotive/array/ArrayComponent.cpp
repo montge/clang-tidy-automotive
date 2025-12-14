@@ -7,6 +7,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "ArrayComponent.h"
+#include "AvoidDesignatedInitializerBoundsCheck.h"
 #include "AvoidFlexibleArrayMemberCheck.h"
 #include "AvoidIncompleteInitializationCheck.h"
 #include "AvoidPartialArrayInitCheck.h"
@@ -40,6 +41,10 @@ void ArrayComponent::addCheckFactories(
   // Rule 9.4 - Incomplete aggregate initialization (Required)
   CheckFactories.registerCheck<AvoidIncompleteInitializationCheck>(
       "automotive-c23-req-9.4");
+
+  // Rule 9.5 - Designated initializer bounds (Required)
+  CheckFactories.registerCheck<AvoidDesignatedInitializerBoundsCheck>(
+      "automotive-c23-req-9.5");
 }
 
 } // namespace clang::tidy::automotive

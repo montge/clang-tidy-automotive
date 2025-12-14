@@ -11,6 +11,7 @@
 #include "AvoidHashOperatorCheck.h"
 #include "AvoidIncludeSyntaxErrorCheck.h"
 #include "AvoidInvalidHeaderCharCheck.h"
+#include "AvoidLanguageExtensionCheck.h"
 #include "AvoidMacroIdentifierConflictCheck.h"
 #include "AvoidMacroNamedAsCkeywordCheck.h"
 #include "AvoidMultipleHashOperatorsCheck.h"
@@ -59,6 +60,10 @@ void PreprocessorComponent::addCheckFactories(
   // Directive 4.10 - Header guard protection
   CheckFactories.registerCheck<MissingHeaderGuardCheck>(
       "automotive-c23-req-dir-4.10");
+
+  // Rule 1.2 - Language extensions (Advisory)
+  CheckFactories.registerCheck<AvoidLanguageExtensionCheck>(
+      "automotive-c23-adv-1.2");
 }
 
 } // namespace clang::tidy::automotive
