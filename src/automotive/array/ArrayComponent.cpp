@@ -9,6 +9,7 @@
 #include "ArrayComponent.h"
 #include "AvoidFlexibleArrayMemberCheck.h"
 #include "AvoidPartialArrayInitCheck.h"
+#include "AvoidPointerArithmeticBoundsCheck.h"
 #include "AvoidPointerArithmeticCheck.h"
 #include "AvoidVariableLengthArrayCheck.h"
 #include "MissingExternalArraySizeCheck.h"
@@ -26,6 +27,10 @@ void ArrayComponent::addCheckFactories(
       "automotive-avoid-variable-length-array");
   CheckFactories.registerCheck<MissingExternalArraySizeCheck>(
       "automotive-missing-external-array-size");
+
+  // Rules 18.1, 18.2, 18.3, 18.5 - Pointer arithmetic bounds (Required)
+  CheckFactories.registerCheck<AvoidPointerArithmeticBoundsCheck>(
+      "automotive-c23-req-18.1");
 
   // Rule 18.4 - Pointer arithmetic (Advisory)
   CheckFactories.registerCheck<AvoidPointerArithmeticCheck>(
