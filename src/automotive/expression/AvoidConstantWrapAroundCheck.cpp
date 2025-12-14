@@ -178,12 +178,14 @@ void AvoidConstantWrapAroundCheck::check(
 
   // Walk the initializer to find wrap-around operations
   WrapAroundChecker Checker(*Result.Context);
-  // NOSONAR: const_cast required by RecursiveASTVisitor API; visitor is read-only
+  // NOSONAR: const_cast required by RecursiveASTVisitor API; visitor is
+  // read-only
   Checker.TraverseStmt(const_cast<Expr *>(InitExpr));
 
   if (Checker.foundWrapAround()) {
-    diag(Checker.getWrapAroundLoc(),
-         "constant expression evaluation leads to unsigned integer wrap-around");
+    diag(
+        Checker.getWrapAroundLoc(),
+        "constant expression evaluation leads to unsigned integer wrap-around");
   }
 }
 

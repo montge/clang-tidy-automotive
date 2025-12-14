@@ -20,8 +20,8 @@ void AvoidInappropriateEssentialTypeCheck::registerMatchers(
   Finder->addMatcher(
       binaryOperator(anyOf(hasAnyOperatorName("+", "-", "*", "/", "%"),
                            hasAnyOperatorName("&", "|", "^", "<<", ">>"),
-                           hasAnyOperatorName("+=", "-=", "*=", "/=", "%=", "&=",
-                                              "|=", "^=", "<<=", ">>=")))
+                           hasAnyOperatorName("+=", "-=", "*=", "/=", "%=",
+                                              "&=", "|=", "^=", "<<=", ">>=")))
           .bind("binop"),
       this);
 

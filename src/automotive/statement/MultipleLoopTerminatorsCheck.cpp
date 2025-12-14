@@ -127,7 +127,8 @@ void MultipleLoopTerminatorsCheck::check(
 
   // Count terminators in this loop
   LoopTerminatorCounter Counter(Loop);
-  // NOSONAR: const_cast required by RecursiveASTVisitor API; visitor is read-only
+  // NOSONAR: const_cast required by RecursiveASTVisitor API; visitor is
+  // read-only
   Counter.TraverseStmt(const_cast<Stmt *>(Loop));
 
   if (Counter.getTerminatorCount() > 1) {
