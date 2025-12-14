@@ -7,6 +7,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "TypeComponent.h"
+#include "AvoidPointerTypedefCheck.h"
 #include "AvoidUnionCheck.h"
 #include "DuplicateTagNameCheck.h"
 #include "DuplicateTypedefNameCheck.h"
@@ -31,6 +32,10 @@ void TypeComponent::addCheckFactories(ClangTidyCheckFactories &CheckFactories) {
   // Rule 9.2 - Explicit enumerator values (Required)
   CheckFactories.registerCheck<ExplicitEnumeratorValuesCheck>(
       "automotive-c23-req-9.2");
+
+  // Dir 4.8 - Pointer hiding in typedefs (Advisory)
+  CheckFactories.registerCheck<AvoidPointerTypedefCheck>(
+      "automotive-c23-adv-dir-4.8");
 }
 
 } // namespace clang::tidy::automotive
