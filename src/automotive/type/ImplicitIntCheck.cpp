@@ -45,13 +45,17 @@ void ImplicitIntCheck::checkImplicitInt(SourceLocation StartLoc,
                                         SourceLocation EndLoc,
                                         const SourceManager &SM,
                                         const ASTContext &Context) {
+  // Suppress unused parameter warnings for incomplete implementation.
+  (void)StartLoc;
+  (void)EndLoc;
+  (void)SM;
+  (void)Context;
 
+#if 0 //  bool OnlyQualifiers = llvm::all_of(TokenRange(StartLoc, EndLoc, SM,
   auto IsStorageOrQualifier = [](const Token &Tok) {
     return Tok.isOneOf(tok::kw_static, tok::kw_extern, tok::kw_volatile,
                        tok::kw_const);
   };
-
-#if 0 //  bool OnlyQualifiers = llvm::all_of(TokenRange(StartLoc, EndLoc, SM,
   //  getLangOpts()),
   //                                     IsStorageOrQualifier);
 
@@ -72,7 +76,6 @@ void ImplicitIntCheck::checkImplicitInt(SourceLocation StartLoc,
     diag(StartLoc, "implicit int");
   }
 #endif
-  llvm::outs() << "--------------\n";
 }
 
 } // namespace clang::tidy::automotive

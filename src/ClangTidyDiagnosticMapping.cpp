@@ -52,7 +52,6 @@ void DiagnosticMappingReader::readMappingArray(llvm::json::Object *Root) {
 
         /* Check all the required fields. */
         if (OrgDiagName && AltDiagName) {
-          auto Ref = Item->getString("ref");
           auto Message = Item->getString("message");
           auto DiagnosticFlag = Item->getString("flag");
 
@@ -94,8 +93,6 @@ void ClangTidyDiagnosticMapping::readMappingOptions() {
   if (Options.MappingFiles) {
 
     for (const auto &MappingFilename : *Options.MappingFiles) {
-      llvm::outs() << MappingFilename << "\n";
-
       // TODO: This needs to read the relative file path somehow.
       readMappingFile(MappingFilename);
     }
