@@ -32,13 +32,13 @@ jobs:
           python3 scripts/generate-compile-commands.py
 
       - name: Run SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@v5
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.sources=src/automotive
-            -Dsonar.tests=test/checkers/automotive
-            -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.cfamily.compile-commands=compile_commands.json
+            "-Dsonar.sources=src/automotive"
+            "-Dsonar.tests=test/checkers/automotive"
+            "-Dsonar.sourceEncoding=UTF-8"
+            "-Dsonar.cfamily.compile-commands=compile_commands.json"
