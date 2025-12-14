@@ -19,12 +19,12 @@ void ExplicitConstructorCheck::registerMatchers(MatchFinder *Finder) {
     return;
 
   // Match non-explicit constructors
-  Finder->addMatcher(
-      cxxConstructorDecl(unless(isExplicit()), unless(isImplicit()),
-                         unless(isCopyConstructor()),
-                         unless(isMoveConstructor()))
-          .bind("ctor"),
-      this);
+  Finder->addMatcher(cxxConstructorDecl(unless(isExplicit()),
+                                        unless(isImplicit()),
+                                        unless(isCopyConstructor()),
+                                        unless(isMoveConstructor()))
+                         .bind("ctor"),
+                     this);
 }
 
 void ExplicitConstructorCheck::check(const MatchFinder::MatchResult &Result) {

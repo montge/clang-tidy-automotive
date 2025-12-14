@@ -19,17 +19,17 @@ void NoexceptMoveCheck::registerMatchers(MatchFinder *Finder) {
     return;
 
   // Match move constructors
-  Finder->addMatcher(cxxConstructorDecl(isMoveConstructor(), unless(isImplicit()),
+  Finder->addMatcher(cxxConstructorDecl(isMoveConstructor(),
+                                        unless(isImplicit()),
                                         unless(isDeleted()))
                          .bind("move_ctor"),
                      this);
 
   // Match move assignment operators
-  Finder->addMatcher(
-      cxxMethodDecl(isMoveAssignmentOperator(), unless(isImplicit()),
-                    unless(isDeleted()))
-          .bind("move_assign"),
-      this);
+  Finder->addMatcher(cxxMethodDecl(isMoveAssignmentOperator(),
+                                   unless(isImplicit()), unless(isDeleted()))
+                         .bind("move_assign"),
+                     this);
 }
 
 void NoexceptMoveCheck::check(const MatchFinder::MatchResult &Result) {
