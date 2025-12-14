@@ -9,6 +9,7 @@ set(LLVM_LINK_COMPONENTS
 
 add_subdirectory(array)
 add_subdirectory(comment)
+add_subdirectory(cpp23)
 add_subdirectory(expression)
 add_subdirectory(function)
 add_subdirectory(operator)
@@ -34,6 +35,7 @@ add_clang_library(clangTidyAutomotiveModule
   clangTidyAutomotiveArrayComponent
   clangTidyAutomotiveBitfieldComponent
   clangTidyAutomotiveCommentComponent
+  clangTidyAutomotiveCpp23Component
   clangTidyAutomotiveExpressionComponent
   clangTidyAutomotiveFunctionComponent
   clangTidyAutomotiveLiteralComponent
