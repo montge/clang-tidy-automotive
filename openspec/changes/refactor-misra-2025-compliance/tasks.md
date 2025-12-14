@@ -186,9 +186,9 @@ due to resource constraints (full LLVM build required).
 - [x] 6.2.4 Fix cognitive complexity issues (2 major files refactored)
 - [x] 6.2.5 Address unused code warnings (removed 2 unused #include <iostream>)
 - [x] 6.2.6 Fix nested if statements (5 files refactored with early returns)
-- [ ] 6.2.7 Fix remaining naming convention issues
-- [ ] 6.2.8 Fix remaining cognitive complexity in other files
-- [ ] 6.2.9 Remove debug output (ImplicitIntCheck.cpp has llvm::outs())
+- [x] 6.2.7 Fix remaining naming convention issues
+- [x] 6.2.8 Fix remaining cognitive complexity in other files
+- [x] 6.2.9 Remove debug output (ImplicitIntCheck.cpp has llvm::outs())
 - [ ] 6.2.10 Achieve Quality Gate pass status
 
 Note: SonarCloud dashboard: https://sonarcloud.io/dashboard?id=montge_clang-tidy-automotive
@@ -202,6 +202,12 @@ Files fixed in this session:
 - MultipleReturnStmtCheck.cpp
 - ForwardGotoLabelCheck.cpp
 - MultipleLoopTerminatorsCheck.cpp
+
+Additional fixes (current session):
+- ImplicitIntCheck.cpp: Removed debug output (llvm::outs())
+- ClangTidyDiagnosticMapping.cpp: Removed debug output and unused variable
+- AvoidIncompleteInitializationCheck.cpp: Extracted isZeroInitializer() and countExplicitInits() helpers, fixed struct initialization detection
+- DuplicateTagNameCheck.cpp: Extracted getTagKindName() helper, simplified duplicate tracking with llvm::find()
 
 ### 6.3 Integration Testing
 - [x] 6.3.1 Run all checks against examples directory (38/38 violation tests pass)
