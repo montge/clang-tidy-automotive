@@ -71,6 +71,19 @@ private:
 
   /// Get a human-readable name for an essential type
   StringRef getEssentialTypeName(EssentialType ET) const;
+
+  /// Handle binary operator checking
+  void handleBinaryOperator(const BinaryOperator *BinOp,
+                            const SourceManager &SM);
+
+  /// Handle unary operator checking
+  void handleUnaryOperator(const UnaryOperator *UnOp, const SourceManager &SM);
+
+  /// Check and report inappropriate arithmetic operand
+  void checkArithmeticOperand(const Expr *Operand, EssentialType ET);
+
+  /// Check and report inappropriate bitwise operand
+  void checkBitwiseOperand(const Expr *Operand, EssentialType ET);
 };
 
 } // namespace clang::tidy::automotive
