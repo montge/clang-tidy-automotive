@@ -19,6 +19,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 COVERAGE_FILE="${1:-${PROJECT_ROOT}/coverage/coverage.lcov}"
+TOKEN_FILE="${PROJECT_ROOT}/.sonar-token"
 
 # Colors for output
 RED='\033[0;31m'
@@ -31,12 +32,21 @@ echo " SonarCloud Coverage Upload"
 echo "================================"
 echo ""
 
+# Load token from file if not set in environment
+if [ -z "$SONAR_TOKEN" ] && [ -f "$TOKEN_FILE" ]; then
+    SONAR_TOKEN="$(cat "$TOKEN_FILE")"
+    echo -e "${GREEN}Loaded SONAR_TOKEN from .sonar-token${NC}"
+fi
+
 # Check prerequisites
 if [ -z "$SONAR_TOKEN" ]; then
-    echo -e "${RED}Error: SONAR_TOKEN environment variable not set${NC}"
+    echo -e "${RED}Error: SONAR_TOKEN not found${NC}"
+    echo ""
+    echo "Either:"
+    echo "  1. Create .sonar-token file with your token"
+    echo "  2. Set SONAR_TOKEN environment variable"
     echo ""
     echo "Get your token from: https://sonarcloud.io/account/security"
-    echo "Then run: export SONAR_TOKEN=your_token"
     exit 1
 fi
 
