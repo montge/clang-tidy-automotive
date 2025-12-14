@@ -99,7 +99,8 @@ void AvoidSideEffectInLogicalOperandCheck::check(
 
 bool AvoidSideEffectInLogicalOperandCheck::hasSideEffect(const Expr *E) const {
   SideEffectFinder Finder;
-  // NOSONAR: const_cast required by RecursiveASTVisitor API; visitor is read-only
+  // NOSONAR: const_cast required by RecursiveASTVisitor API; visitor is
+  // read-only
   Finder.TraverseStmt(const_cast<Expr *>(E));
   return Finder.hasSideEffect();
 }
