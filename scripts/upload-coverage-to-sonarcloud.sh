@@ -83,6 +83,13 @@ echo ""
 
 cd "$PROJECT_ROOT"
 
+# Generate compile_commands.json if not present
+COMPILE_COMMANDS="${PROJECT_ROOT}/compile_commands.json"
+if [ ! -f "$COMPILE_COMMANDS" ]; then
+    echo -e "${YELLOW}Generating compile_commands.json...${NC}"
+    python3 "${PROJECT_ROOT}/scripts/generate-compile-commands.py"
+fi
+
 # Run sonar-scanner with coverage
 sonar-scanner \
     -Dsonar.projectKey=montge_clang-tidy-automotive \
@@ -90,6 +97,7 @@ sonar-scanner \
     -Dsonar.sources=src/automotive \
     -Dsonar.tests=test/checkers/automotive \
     -Dsonar.sourceEncoding=UTF-8 \
+    -Dsonar.cfamily.compile-commands="$COMPILE_COMMANDS" \
     -Dsonar.cfamily.llvm-cov.reportPath="$COVERAGE_FILE" \
     -Dsonar.host.url=https://sonarcloud.io \
     -Dsonar.token="$SONAR_TOKEN"
