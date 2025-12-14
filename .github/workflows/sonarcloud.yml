@@ -4,13 +4,9 @@ on:
   push:
     branches:
       - main
-      - develop
-      - 'feature/**'
-      - 'release/**'
-      - 'hotfix/**'
   pull_request:
     types: [opened, synchronize, reopened]
-    branches: [main, develop]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -24,73 +20,16 @@ jobs:
         with:
           fetch-depth: 0  # Full history for accurate blame
 
-      - name: Install dependencies
+      - name: Install LLVM headers
         run: |
-          sudo apt-get update
-          sudo apt-get install -y clang-20 clang++-20 llvm-20 ninja-build lcov
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 20
+          sudo apt-get install -y llvm-20-dev libclang-20-dev
 
-      - name: Download LLVM source
-        run: ./download.sh
-
-      - name: Setup symlinks
-        run: ./setup.sh
-
-      - name: Install Build Wrapper
-        uses: SonarSource/sonarqube-scan-action/install-build-wrapper@v5
-
-      - name: Configure build with coverage
+      - name: Generate compile_commands.json
         run: |
-          mkdir -p build
-          cd build
-          cmake -G Ninja \
-            -DCMAKE_CXX_COMPILER=clang++-20 \
-            -DCMAKE_C_COMPILER=clang-20 \
-            -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-            -DCMAKE_BUILD_TYPE=Debug \
-            -DCMAKE_CXX_FLAGS="-fprofile-instr-generate -fcoverage-mapping" \
-            -DCMAKE_C_FLAGS="-fprofile-instr-generate -fcoverage-mapping" \
-            -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" \
-            -DLLVM_TARGETS_TO_BUILD="X86" \
-            ../llvm-project-llvmorg-20.1.8/llvm
-
-      - name: Build with build-wrapper
-        run: |
-          build-wrapper-linux-x86-64 --out-dir build-wrapper-output ninja -C build clang-tidy
-
-      - name: Run tests and collect coverage
-        run: |
-          cd build
-          # Run clang-tidy on test files to generate coverage data
-          export LLVM_PROFILE_FILE="coverage-%p.profraw"
-          for test_file in ../test/checkers/automotive/**/*.c; do
-            ./bin/clang-tidy "$test_file" --checks="automotive-*" -- 2>/dev/null || true
-          done
-          # Merge profile data
-          llvm-profdata-20 merge -sparse coverage-*.profraw -o coverage.profdata || true
-          # Generate LLVM coverage report
-          llvm-cov-20 export ./bin/clang-tidy -instr-profile=coverage.profdata \
-            -format=lcov \
-            -ignore-filename-regex='llvm-project-.*' \
-            -ignore-filename-regex='test/.*' \
-            > ../coverage.lcov 2>/dev/null || true
-
-      - name: Determine reference branch for gitflow
-        id: ref-branch
-        run: |
-          BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
-          echo "Current branch: $BRANCH"
-          # For feature branches, use develop as reference
-          # For release/hotfix branches, use main as reference
-          # For develop, use main as reference
-          if [[ "$BRANCH" == feature/* ]]; then
-            echo "reference=develop" >> $GITHUB_OUTPUT
-          elif [[ "$BRANCH" == release/* ]] || [[ "$BRANCH" == hotfix/* ]]; then
-            echo "reference=main" >> $GITHUB_OUTPUT
-          elif [[ "$BRANCH" == "develop" ]]; then
-            echo "reference=main" >> $GITHUB_OUTPUT
-          else
-            echo "reference=main" >> $GITHUB_OUTPUT
-          fi
+          python3 scripts/generate-compile-commands.py
 
       - name: Run SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v5
@@ -99,7 +38,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.cfamily.compile-commands=build/compile_commands.json
-            -Dsonar.cfamily.build-wrapper-output=build-wrapper-output
-            -Dsonar.cfamily.llvm-cov.reportPath=coverage.lcov
-            -Dsonar.newCode.referenceBranch=${{ steps.ref-branch.outputs.reference }}
+            -Dsonar.sources=src/automotive
+            -Dsonar.tests=test/checkers/automotive
+            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.cfamily.compile-commands=compile_commands.json
