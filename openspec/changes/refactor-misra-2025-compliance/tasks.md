@@ -117,9 +117,12 @@
 - [x] 4.5.7 Implement Rule 9.4: Incomplete aggregate initialization (1 check)
 - [x] 4.5.8 Implement Rule 8.7: Static for internal linkage (1 check)
 - [x] 4.5.9 Implement Rule 18.6: Address of automatic object escaping (1 check)
+- [x] 4.5.10 Implement Rule 9.5: Designated initializer bounds (1 check)
+- [x] 4.5.11 Implement Rule 1.2: Language extensions detection (1 check)
+- [x] 4.5.12 Implement Dir 4.8: Pointer hiding in typedefs (1 check)
 
-Note: 89/176 MISRA C:2025 rules implemented (was 85), 25 covered by Clang built-in, 9 remaining planned, 53 require manual review.
-Total automotive checks: 95 (was 91).
+Note: 93/176 MISRA C:2025 rules implemented (was 89), 25 covered by Clang built-in, 5 remaining planned, 53 require manual review.
+Total automotive checks: 98 (was 95).
 
 ### 4.6 MISRA C++:2023 Implementation
 - [ ] 4.6.1 Create MISRA C++:2023 rule inventory document
