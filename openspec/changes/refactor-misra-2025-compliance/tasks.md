@@ -125,9 +125,9 @@ Note: 93/176 MISRA C:2025 rules implemented (was 89), 25 covered by Clang built-
 Total automotive checks: 98 (was 95).
 
 ### 4.6 MISRA C++:2023 Implementation
-- [ ] 4.6.1 Create MISRA C++:2023 rule inventory document
-- [ ] 4.6.2 Identify rules shared with MISRA C:2025
-- [ ] 4.6.3 Identify rules covered by clang-tidy cppcoreguidelines/modernize checks
+- [x] 4.6.1 Create MISRA C++:2023 rule inventory document (docs/MISRA-CPP-2023-INVENTORY.md)
+- [x] 4.6.2 Identify rules shared with MISRA C:2025 (10 shared checks documented)
+- [x] 4.6.3 Identify rules covered by clang-tidy cppcoreguidelines/modernize checks (~75 checks mapped)
 - [ ] 4.6.4 Implement MISRA C++:2023 specific checks (new cpp23 component)
 - [ ] 4.6.5 Add C++ test files for all implemented checks
 - [ ] 4.6.6 Update documentation for C++ support
