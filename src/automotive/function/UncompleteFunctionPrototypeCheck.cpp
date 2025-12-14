@@ -20,24 +20,20 @@ void UncompleteFunctionPrototypeCheck::registerMatchers(MatchFinder *Finder) {
 void UncompleteFunctionPrototypeCheck::check(
     const MatchFinder::MatchResult &Result) {
   const auto *MatchedFunc = Result.Nodes.getNodeAs<FunctionDecl>("func");
+  if (!MatchedFunc)
+    return;
 
-  if (MatchedFunc) {
-    if (!MatchedFunc->hasPrototype()) {
-      diag(MatchedFunc->getLocation(), "function is not in prototype form");
-    }
+  if (!MatchedFunc->hasPrototype())
+    diag(MatchedFunc->getLocation(), "function is not in prototype form");
 
-    for (const ParmVarDecl *Param : MatchedFunc->parameters()) {
-      if (Param->getName().empty()) {
-        diag(Param->getLocation(), "function parameter is unnamed");
-      }
-    }
-
-    if (MatchedFunc->parameters().empty() &&
-        !MatchedFunc->hasWrittenPrototype()) {
-      diag(MatchedFunc->getLocation(),
-           "function with no parameters must use 'void' in prototype");
-    }
+  for (const ParmVarDecl *Param : MatchedFunc->parameters()) {
+    if (Param->getName().empty())
+      diag(Param->getLocation(), "function parameter is unnamed");
   }
+
+  if (MatchedFunc->parameters().empty() && !MatchedFunc->hasWrittenPrototype())
+    diag(MatchedFunc->getLocation(),
+         "function with no parameters must use 'void' in prototype");
 }
 
 } // namespace clang::tidy::automotive

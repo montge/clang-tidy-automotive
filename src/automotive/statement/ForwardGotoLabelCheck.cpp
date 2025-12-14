@@ -24,29 +24,27 @@ void ForwardGotoLabelCheck::check(const MatchFinder::MatchResult &Result) {
   const auto *MatchedGoto = Result.Nodes.getNodeAs<GotoStmt>("goto");
   const auto *MatchedLabel = getLabelStmt(MatchedGoto);
 
-  if (MatchedGoto && MatchedLabel) {
-    SourceManager &SM = Result.Context->getSourceManager();
-    const auto GotoLoc = MatchedGoto->getBeginLoc();
-    const auto LabelLoc = MatchedLabel->getBeginLoc();
+  if (!MatchedGoto || !MatchedLabel)
+    return;
 
-    if (SM.isBeforeInTranslationUnit(LabelLoc, GotoLoc)) {
-      diag(GotoLoc, "goto statement jumps backward to label '%0'")
-          << MatchedLabel->getName();
-      diag(LabelLoc, "location of label '%0'", DiagnosticIDs::Note)
-          << MatchedLabel->getName();
-    }
+  SourceManager &SM = Result.Context->getSourceManager();
+  const auto GotoLoc = MatchedGoto->getBeginLoc();
+  const auto LabelLoc = MatchedLabel->getBeginLoc();
+
+  if (SM.isBeforeInTranslationUnit(LabelLoc, GotoLoc)) {
+    diag(GotoLoc, "goto statement jumps backward to label '%0'")
+        << MatchedLabel->getName();
+    diag(LabelLoc, "location of label '%0'", DiagnosticIDs::Note)
+        << MatchedLabel->getName();
   }
 }
 
 static const LabelStmt *getLabelStmt(const GotoStmt *Goto) {
-  if (Goto) {
-    const auto *Label = Goto->getLabel();
+  if (!Goto)
+    return nullptr;
 
-    if (Label) {
-      return Label->getStmt();
-    }
-  }
-  return nullptr;
+  const auto *Label = Goto->getLabel();
+  return Label ? Label->getStmt() : nullptr;
 }
 
 } // namespace clang::tidy::automotive

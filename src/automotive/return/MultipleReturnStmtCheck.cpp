@@ -9,7 +9,6 @@
 #include "MultipleReturnStmtCheck.h"
 #include "clang/AST/ASTContext.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
-#include <iostream>
 
 using namespace clang::ast_matchers;
 
@@ -26,21 +25,22 @@ void MultipleReturnStmtCheck::check(const MatchFinder::MatchResult &Result) {
   const auto *MatchedFunc = Result.Nodes.getNodeAs<FunctionDecl>("func");
   const auto *MatchedReturn = Result.Nodes.getNodeAs<ReturnStmt>("returnStmt");
 
-  if (MatchedFunc && MatchedReturn) {
-    if (MatchedFunc != CurrentFunc) {
-      CurrentFunc = MatchedFunc;
-      PreviousReturn = MatchedReturn;
+  if (!MatchedFunc || !MatchedReturn)
+    return;
 
-    } else {
-      if (PreviousReturn) {
-        diag(PreviousReturn->getBeginLoc(), "avoid multiple return statment");
-        diag(MatchedFunc->getBeginLoc(),
-             "multiple return statement within function", DiagnosticIDs::Note);
-        PreviousReturn = nullptr;
-      }
-      diag(MatchedReturn->getBeginLoc(), "avoid multiple return statment");
-    }
+  if (MatchedFunc != CurrentFunc) {
+    CurrentFunc = MatchedFunc;
+    PreviousReturn = MatchedReturn;
+    return;
   }
+
+  if (PreviousReturn) {
+    diag(PreviousReturn->getBeginLoc(), "avoid multiple return statement");
+    diag(MatchedFunc->getBeginLoc(),
+         "multiple return statement within function", DiagnosticIDs::Note);
+    PreviousReturn = nullptr;
+  }
+  diag(MatchedReturn->getBeginLoc(), "avoid multiple return statement");
 }
 
 } // namespace clang::tidy::automotive
