@@ -163,8 +163,8 @@ rules not covered elsewhere.
 ## 6. Final Validation
 
 ### 6.1 Coverage Verification
-- [ ] 6.1.1 Configure CI to generate coverage reports (currently 0% reported)
-- [ ] 6.1.2 Create coverage build workflow for GitHub Actions (manual trigger)
+- [x] 6.1.1 Configure CI to generate coverage reports (currently 0% reported)
+- [x] 6.1.2 Create coverage build workflow for GitHub Actions (manual trigger)
 - [ ] 6.1.3 Generate baseline coverage report with llvm-cov
 - [ ] 6.1.4 Identify untested code paths and add tests
 - [ ] 6.1.5 Verify 90%+ code coverage achieved
