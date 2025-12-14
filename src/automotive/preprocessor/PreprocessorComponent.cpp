@@ -9,6 +9,7 @@
 #include "PreprocessorComponent.h"
 #include "AvoidCodeBeforeIncludeCheck.h"
 #include "AvoidHashOperatorCheck.h"
+#include "AvoidIncludeSyntaxErrorCheck.h"
 #include "AvoidInvalidHeaderCharCheck.h"
 #include "AvoidMacroIdentifierConflictCheck.h"
 #include "AvoidMacroNamedAsCkeywordCheck.h"
@@ -42,6 +43,10 @@ void PreprocessorComponent::addCheckFactories(
   // Rule 20.2 - Invalid characters in header names
   CheckFactories.registerCheck<AvoidInvalidHeaderCharCheck>(
       "automotive-avoid-invalid-header-char");
+
+  // Rule 20.3 - Include syntax validation
+  CheckFactories.registerCheck<AvoidIncludeSyntaxErrorCheck>(
+      "automotive-c23-req-20.3");
 
   // Rule 21.1 - Reserved macro identifiers
   CheckFactories.registerCheck<AvoidReservedMacroIdentifierCheck>(
