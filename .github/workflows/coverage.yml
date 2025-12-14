@@ -1,0 +1,97 @@
+name: Coverage Report
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload_to_sonarcloud:
+        description: 'Upload coverage to SonarCloud'
+        required: false
+        default: 'true'
+        type: boolean
+
+jobs:
+  coverage:
+    name: Generate Coverage Report
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180  # Full LLVM build can take 2+ hours
+
+    steps:
+      - name: Free disk space
+        run: |
+          # Remove unnecessary packages to free disk space for LLVM build
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo docker system prune -af
+          df -h
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for SonarCloud
+
+      - name: Install dependencies
+        run: |
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 20
+          sudo apt-get install -y clang-20 clang++-20 lld-20 llvm-20 ninja-build
+
+      - name: Download LLVM source
+        run: ./download.sh
+
+      - name: Setup symlinks
+        run: ./setup.sh
+
+      - name: Configure with coverage
+        run: |
+          mkdir -p build
+          cd build
+          cmake -G Ninja \
+            -DCMAKE_CXX_COMPILER=clang++-20 \
+            -DCMAKE_C_COMPILER=clang-20 \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS="-fprofile-instr-generate -fcoverage-mapping" \
+            -DCMAKE_C_FLAGS="-fprofile-instr-generate -fcoverage-mapping" \
+            -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" \
+            -DLLVM_TARGETS_TO_BUILD="X86" \
+            -DLLVM_USE_LINKER=lld-20 \
+            -DLLVM_PARALLEL_LINK_JOBS=1 \
+            -DLLVM_INCLUDE_TESTS=OFF \
+            -DLLVM_INCLUDE_EXAMPLES=OFF \
+            -DLLVM_INCLUDE_BENCHMARKS=OFF \
+            -DCLANG_INCLUDE_TESTS=OFF \
+            ../llvm-project-llvmorg-20.1.8/llvm
+
+      - name: Build clang-tidy
+        run: |
+          cd build
+          ninja -j2 clang-tidy
+
+      - name: Collect coverage
+        run: |
+          export LLVM_VERSION=20
+          ./scripts/coverage.sh --report
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: |
+            coverage/coverage.lcov
+            coverage/coverage-summary.txt
+          retention-days: 30
+
+      - name: Upload to SonarCloud
+        if: ${{ inputs.upload_to_sonarcloud == 'true' }}
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            "-Dsonar.sources=src/automotive"
+            "-Dsonar.tests=test/checkers/automotive"
+            "-Dsonar.sourceEncoding=UTF-8"
+            "-Dsonar.cfamily.llvm-cov.reportPath=coverage/coverage.lcov"
