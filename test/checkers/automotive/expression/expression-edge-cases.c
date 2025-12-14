@@ -129,7 +129,7 @@ void test_compliant_expressions(void) {
     if (flag) { }
     if (x == 5) { }
     if (x > 0) { }
-    if (ptr != NULL) { }
+    if (ptr != NULL) { }  // codeql[cpp/redundant-null-check-simple] Intentional test case
 
     // Assignment as separate statement
     int y;

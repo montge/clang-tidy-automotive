@@ -21,7 +21,7 @@ void test_non_boolean_violations(void) {
     }
 
     // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: non-boolean in condition
-    if (ptr) {  // Pointer in condition
+    if (ptr) {  // Pointer in condition  codeql[cpp/redundant-null-check-simple]
         // Do something
     }
 
