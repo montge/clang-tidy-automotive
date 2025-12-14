@@ -12,7 +12,6 @@
 #include "clang/Lex/Lexer.h"
 #include "clang/Lex/Token.h"
 #include "llvm/Support/Regex.h"
-#include <iostream>
 
 using namespace clang::ast_matchers;
 
@@ -24,21 +23,20 @@ void AvoidOctalNumberCheck::registerMatchers(MatchFinder *Finder) {
 
 void AvoidOctalNumberCheck::check(const MatchFinder::MatchResult &Result) {
   const auto *MatchedDecl = Result.Nodes.getNodeAs<IntegerLiteral>("integer");
+  if (!MatchedDecl)
+    return;
 
-  if (MatchedDecl) {
-    const SourceManager &SM = *(Result.SourceManager);
-    const LangOptions &LangOpts = Result.Context->getLangOpts();
-    const llvm::Regex RE("^0[0-9]+[luLU]?$");
+  const SourceManager &SM = *Result.SourceManager;
+  const LangOptions &LangOpts = Result.Context->getLangOpts();
+  const llvm::Regex RE("^0[0-9]+[luLU]?$");
 
-    StringRef Token = Lexer::getSourceText(
-        CharSourceRange::getTokenRange(MatchedDecl->getBeginLoc(),
-                                       MatchedDecl->getEndLoc()),
-        SM, LangOpts);
+  StringRef Token = Lexer::getSourceText(
+      CharSourceRange::getTokenRange(MatchedDecl->getBeginLoc(),
+                                     MatchedDecl->getEndLoc()),
+      SM, LangOpts);
 
-    if (RE.match(Token)) {
-      diag(MatchedDecl->getBeginLoc(), "Avoid octal number");
-    }
-  }
+  if (RE.match(Token))
+    diag(MatchedDecl->getBeginLoc(), "Avoid octal number");
 }
 
 } // namespace clang::tidy::automotive
