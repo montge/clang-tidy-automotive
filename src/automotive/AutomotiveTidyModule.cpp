@@ -15,6 +15,7 @@
 #include "array/ArrayComponent.h"
 #include "bitfield/BitfieldComponent.h"
 #include "comment/CommentComponent.h"
+#include "cpp23/Cpp23Component.h"
 #include "expression/ExpressionComponent.h"
 #include "function/FunctionComponent.h"
 #include "literal/LiteralComponent.h"
@@ -41,6 +42,7 @@ public:
     ArrayComponent::addCheckFactories(CheckFactories);
     BitfieldComponent::addCheckFactories(CheckFactories);
     CommentComponent::addCheckFactories(CheckFactories);
+    Cpp23Component::addCheckFactories(CheckFactories);
     ExpressionComponent::addCheckFactories(CheckFactories);
     FunctionComponent::addCheckFactories(CheckFactories);
     LiteralComponent::addCheckFactories(CheckFactories);
