@@ -16,11 +16,11 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 
 | Category | Total | Implemented | Clang | Planned | Manual |
 |----------|-------|-------------|-------|---------|--------|
-| Directives | 18 | 3 | 0 | 2 | 13 |
+| Directives | 18 | 4 | 0 | 1 | 13 |
 | Mandatory | 4 | 2 | 2 | 0 | 0 |
-| Required | 113 | 61 | 15 | 4 | 33 |
-| Advisory | 41 | 23 | 8 | 3 | 7 |
-| **Total** | **176** | **89** | **25** | **9** | **53** |
+| Required | 113 | 62 | 15 | 3 | 33 |
+| Advisory | 41 | 25 | 8 | 1 | 7 |
+| **Total** | **176** | **93** | **25** | **5** | **53** |
 
 ## Implemented Checks
 
@@ -109,6 +109,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|------------|----------|-------------|
 | `automotive-avoid-partial-array-init` | 9.3 | Required | Partial array initialization |
 | `automotive-c23-req-9.4` | 9.4 | Required | Incomplete aggregate initialization |
+| `automotive-c23-req-9.5` | 9.5 | Required | Designated initializer bounds |
 | `automotive-c23-req-18.1` | 18.1-18.3, 18.5 | Required | Pointer arithmetic bounds |
 | `automotive-c23-adv-18.4` | 18.4 | Advisory | Pointer arithmetic |
 | `automotive-avoid-flexible-array-member` | 18.7 | Required | Flexible array members |
@@ -141,10 +142,12 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | Check ID | MISRA Directive | Category | Description |
 |----------|-----------------|----------|-------------|
 | `automotive-c23-req-dir-4.10` | Dir 4.10 | Required | Missing header guard protection |
+| `automotive-c23-adv-dir-4.8` | Dir 4.8 | Advisory | Pointer hiding in typedefs |
 
 ### Preprocessor Checks
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
+| `automotive-c23-adv-1.2` | 1.2 | Advisory | Language extensions detection |
 | `automotive-avoid-code-before-include` | 20.1 | Advisory | Code before #include |
 | `automotive-avoid-invalid-header-char` | 20.2 | Required | Invalid chars in header names |
 | `automotive-c23-req-20.3` | 20.3 | Required | Include syntax validation |
@@ -244,17 +247,19 @@ These rules cannot be fully verified by static analysis:
 - ~~Rule 18.6: Address of automatic object persisting past scope~~ (Implemented)
 - ~~Rule 9.2: Explicit enumerator values~~ (Implemented)
 - ~~Rule 9.4: Complete aggregate initialization~~ (Implemented)
+- ~~Rule 9.5: Designated initializer bounds~~ (Implemented)
 - Rule 9.1: Uninitialized variable detection (partially covered by clang -Wuninitialized)
-- Rule 9.5: Designated initializer bounds
 
 ### Medium Priority (Advisory Rules)
 - Dir 4.2: Language subset selection
+- ~~Rule 1.2: Language extensions~~ (Implemented)
 - ~~Rule 2.7: Unused parameters~~ (Implemented)
 - ~~Rule 4.2: Trigraph sequences~~ (Implemented)
 - ~~Rule 8.7: Static for internal linkage~~ (Implemented)
 - ~~Rule 8.9: Local object scope~~ (Implemented)
 - ~~Rule 12.4: Constant expressions~~ (Implemented)
 - ~~Rule 15.2: Goto in same block~~ (Implemented)
+- ~~Dir 4.8: Pointer hiding in typedefs~~ (Implemented)
 - ~~Dir 4.10: Header guards~~ (Implemented)
 
 ## Integration with SonarQube
