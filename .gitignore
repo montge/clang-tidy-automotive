@@ -30,3 +30,4 @@ coverage.lcov
 # Doxygen output
 docs/api/html/
 docs/api/latex/
+compile_commands.json
