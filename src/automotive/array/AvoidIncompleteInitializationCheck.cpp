@@ -14,6 +14,36 @@ using namespace clang::ast_matchers;
 
 namespace clang::tidy::automotive {
 
+namespace {
+/// Returns true if the initializer list is a single {0} (zero-initialization).
+/// Uses the syntactic form to check what the user actually wrote.
+bool isZeroInitializer(const InitListExpr *Init, ASTContext &Context) {
+  // Get the syntactic form (what the user wrote)
+  const InitListExpr *SyntacticForm =
+      Init->isSyntacticForm() ? Init : Init->getSyntacticForm();
+  if (!SyntacticForm)
+    SyntacticForm = Init;
+
+  if (SyntacticForm->getNumInits() != 1)
+    return false;
+  const auto *FirstInit = SyntacticForm->getInit(0);
+  if (!FirstInit)
+    return false;
+  auto Value = FirstInit->getIntegerConstantExpr(Context);
+  return Value && *Value == 0;
+}
+
+/// Counts explicit initializers (excludes ImplicitValueInitExpr).
+unsigned countExplicitInits(const InitListExpr *Init) {
+  unsigned Count = 0;
+  for (unsigned I = 0; I < Init->getNumInits(); ++I) {
+    if (!isa<ImplicitValueInitExpr>(Init->getInit(I)))
+      ++Count;
+  }
+  return Count;
+}
+} // namespace
+
 void AvoidIncompleteInitializationCheck::registerMatchers(MatchFinder *Finder) {
   // Match variable declarations with initializer lists
   Finder->addMatcher(
@@ -39,27 +69,21 @@ void AvoidIncompleteInitializationCheck::check(
 
   QualType VarType = VD->getType().getCanonicalType();
 
+  // Count only explicit initializers (semantic form may include implicit ones)
+  unsigned NumExplicitInits = countExplicitInits(SemaInit);
+
   // Check array types
   if (const auto *AT = dyn_cast<ConstantArrayType>(VarType.getTypePtr())) {
     uint64_t ArraySize = AT->getSize().getZExtValue();
-    unsigned NumInits = SemaInit->getNumInits();
 
     // If some but not all elements are initialized, warn
-    if (NumInits > 0 && NumInits < ArraySize) {
-      // Allow {0} as a special case for zero-initialization
-      if (NumInits == 1) {
-        if (const auto *FirstInit = SemaInit->getInit(0)) {
-          if (auto Value = FirstInit->getIntegerConstantExpr(*Result.Context)) {
-            if (*Value == 0) {
-              return; // {0} is acceptable
-            }
-          }
-        }
-      }
+    // Allow {0} as a special case for zero-initialization
+    if (NumExplicitInits > 0 && NumExplicitInits < ArraySize &&
+        !isZeroInitializer(SemaInit, *Result.Context)) {
       diag(Init->getBeginLoc(),
            "array has %0 elements but only %1 initializers provided; all "
            "elements should be explicitly initialized")
-          << static_cast<unsigned>(ArraySize) << NumInits;
+          << static_cast<unsigned>(ArraySize) << NumExplicitInits;
     }
     return;
   }
@@ -71,24 +95,15 @@ void AvoidIncompleteInitializationCheck::check(
       return;
 
     unsigned FieldCount = getRecordFieldCount(RT);
-    unsigned NumInits = SemaInit->getNumInits();
 
     // If some but not all fields are initialized, warn
-    if (NumInits > 0 && NumInits < FieldCount) {
-      // Allow {0} as special case
-      if (NumInits == 1) {
-        if (const auto *FirstInit = SemaInit->getInit(0)) {
-          if (auto Value = FirstInit->getIntegerConstantExpr(*Result.Context)) {
-            if (*Value == 0) {
-              return; // {0} is acceptable
-            }
-          }
-        }
-      }
+    // Allow {0} as special case for zero-initialization
+    if (NumExplicitInits > 0 && NumExplicitInits < FieldCount &&
+        !isZeroInitializer(SemaInit, *Result.Context)) {
       diag(Init->getBeginLoc(),
            "aggregate has %0 members but only %1 initializers provided; all "
            "members should be explicitly initialized")
-          << FieldCount << NumInits;
+          << FieldCount << NumExplicitInits;
     }
   }
 }
