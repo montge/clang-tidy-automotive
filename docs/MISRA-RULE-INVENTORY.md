@@ -18,9 +18,9 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|-------|-------------|-------|---------|--------|
 | Directives | 18 | 3 | 0 | 2 | 13 |
 | Mandatory | 4 | 2 | 2 | 0 | 0 |
-| Required | 113 | 58 | 15 | 7 | 33 |
-| Advisory | 41 | 22 | 8 | 4 | 7 |
-| **Total** | **176** | **85** | **25** | **13** | **53** |
+| Required | 113 | 61 | 15 | 4 | 33 |
+| Advisory | 41 | 23 | 8 | 3 | 7 |
+| **Total** | **176** | **89** | **25** | **9** | **53** |
 
 ## Implemented Checks
 
@@ -85,6 +85,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-implicit-int` | 8.1 | Required | Implicit int type |
 | `automotive-unique-enum-value` | 8.12 | Required | Duplicate enum values |
 | `automotive-unused-type` | 2.3 | Advisory | Unused type declarations |
+| `automotive-c23-req-9.2` | 9.2 | Required | Explicit enumerator values |
 
 ### Bitfield Checks
 | Check ID | MISRA Rule | Category | Description |
@@ -101,11 +102,13 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-c23-adv-11.4` | 11.4 | Advisory | Pointer to/from integer cast |
 | `automotive-c23-req-11.8` | 11.8 | Required | Cast removing const/volatile |
 | `automotive-wrong-null-pointer-value` | 11.9 | Required | Incorrect NULL pointer literal |
+| `automotive-c23-req-18.6` | 18.6 | Required | Address of automatic object escaping |
 
 ### Array Checks
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
 | `automotive-avoid-partial-array-init` | 9.3 | Required | Partial array initialization |
+| `automotive-c23-req-9.4` | 9.4 | Required | Incomplete aggregate initialization |
 | `automotive-c23-req-18.1` | 18.1-18.3, 18.5 | Required | Pointer arithmetic bounds |
 | `automotive-c23-adv-18.4` | 18.4 | Advisory | Pointer arithmetic |
 | `automotive-avoid-flexible-array-member` | 18.7 | Required | Flexible array members |
@@ -128,6 +131,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 ### Storage Checks
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
+| `automotive-c23-adv-8.7` | 8.7 | Advisory | Static for internal linkage |
 | `automotive-c23-adv-8.9` | 8.9 | Advisory | Object at block scope |
 | `automotive-c23-req-21.2` | 21.2 | Required | Reserved identifier declarations |
 | `automotive-avoid-restrict-type` | 8.14 | Required | restrict qualifier usage |
@@ -237,13 +241,17 @@ These rules cannot be fully verified by static analysis:
 - ~~Rule 21.2: Reserved identifier declarations~~ (Implemented)
 
 ### Remaining Required Rules
-- Rule 18.6: Address of automatic object persisting past scope
-- Rule 9.x: Initialization rules requiring data flow analysis
+- ~~Rule 18.6: Address of automatic object persisting past scope~~ (Implemented)
+- ~~Rule 9.2: Explicit enumerator values~~ (Implemented)
+- ~~Rule 9.4: Complete aggregate initialization~~ (Implemented)
+- Rule 9.1: Uninitialized variable detection (partially covered by clang -Wuninitialized)
+- Rule 9.5: Designated initializer bounds
 
 ### Medium Priority (Advisory Rules)
 - Dir 4.2: Language subset selection
 - ~~Rule 2.7: Unused parameters~~ (Implemented)
 - ~~Rule 4.2: Trigraph sequences~~ (Implemented)
+- ~~Rule 8.7: Static for internal linkage~~ (Implemented)
 - ~~Rule 8.9: Local object scope~~ (Implemented)
 - ~~Rule 12.4: Constant expressions~~ (Implemented)
 - ~~Rule 15.2: Goto in same block~~ (Implemented)
