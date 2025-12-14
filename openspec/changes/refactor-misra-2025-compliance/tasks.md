@@ -107,14 +107,15 @@
   - Rule 4.2: AvoidTrigraphCheck (automotive-c23-adv-4.2)
   - Rule 12.4: AvoidConstantWrapAroundCheck (automotive-c23-adv-12.4)
 
-### 4.5 Remaining MISRA C:2025 Required Rules (30 planned)
-- [ ] 4.5.1 Implement Rules 10.2-10.8: Essential type model checks
-- [ ] 4.5.2 Implement Rules 11.2, 11.5-11.7: Pointer conversion checks
-- [ ] 4.5.3 Implement Rules 13.1-13.3: Expression side effect checks
-- [ ] 4.5.4 Implement Rules 18.1-18.3, 18.5-18.6: Pointer arithmetic checks
-- [ ] 4.5.5 Implement Rule 20.3: Include syntax validation
+### 4.5 Remaining MISRA C:2025 Required Rules
+- [x] 4.5.1 Implement Rules 10.2-10.8: Essential type model checks (6 checks)
+- [x] 4.5.2 Implement Rules 11.2, 11.5-11.7: Pointer conversion checks (1 combined check)
+- [x] 4.5.3 Implement Rules 13.1-13.3: Expression side effect checks (1 combined check)
+- [x] 4.5.4 Implement Rules 18.1-18.3, 18.5: Pointer arithmetic checks (1 combined check)
+- [x] 4.5.5 Implement Rule 20.3: Include syntax validation (1 check)
 
-Note: 68/176 MISRA C:2025 rules implemented, 25 covered by Clang built-in, 30 planned, 53 require manual review.
+Note: 85/176 MISRA C:2025 rules implemented (was 68), 25 covered by Clang built-in, 13 remaining planned, 53 require manual review.
+Total automotive checks: 91 (was 82).
 
 ### 4.6 MISRA C++:2023 Implementation
 - [ ] 4.6.1 Create MISRA C++:2023 rule inventory document
