@@ -8,6 +8,7 @@
 
 #include "PointerComponent.h"
 #include "AvoidAtomicVoidPointerCheck.h"
+#include "AvoidAutoAddressEscapeCheck.h"
 #include "AvoidCastRemovingQualifierCheck.h"
 #include "AvoidIncompatiblePointerCastCheck.h"
 #include "AvoidIncompatiblePointerConversionCheck.h"
@@ -37,6 +38,10 @@ void PointerComponent::addCheckFactories(
 
   CheckFactories.registerCheck<WrongNullPointerValueCheck>(
       "automotive-wrong-null-pointer-value");
+
+  // Rule 18.6 - Address of automatic object escaping (Required)
+  CheckFactories.registerCheck<AvoidAutoAddressEscapeCheck>(
+      "automotive-c23-req-18.6");
 }
 
 } // namespace clang::tidy::automotive

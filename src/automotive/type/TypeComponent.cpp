@@ -10,6 +10,7 @@
 #include "AvoidUnionCheck.h"
 #include "DuplicateTagNameCheck.h"
 #include "DuplicateTypedefNameCheck.h"
+#include "ExplicitEnumeratorValuesCheck.h"
 #include "ImplicitIntCheck.h"
 #include "UniqueEnumValuesCheck.h"
 #include "UnusedTypeCheck.h"
@@ -26,6 +27,10 @@ void TypeComponent::addCheckFactories(ClangTidyCheckFactories &CheckFactories) {
   CheckFactories.registerCheck<UniqueEnumValuesCheck>(
       "automotive-unique-enum-value");
   CheckFactories.registerCheck<UnusedTypeCheck>("automotive-unused-type");
+
+  // Rule 9.2 - Explicit enumerator values (Required)
+  CheckFactories.registerCheck<ExplicitEnumeratorValuesCheck>(
+      "automotive-c23-req-9.2");
 }
 
 } // namespace clang::tidy::automotive
