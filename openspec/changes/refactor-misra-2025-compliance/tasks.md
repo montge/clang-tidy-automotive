@@ -113,9 +113,13 @@
 - [x] 4.5.3 Implement Rules 13.1-13.3: Expression side effect checks (1 combined check)
 - [x] 4.5.4 Implement Rules 18.1-18.3, 18.5: Pointer arithmetic checks (1 combined check)
 - [x] 4.5.5 Implement Rule 20.3: Include syntax validation (1 check)
+- [x] 4.5.6 Implement Rule 9.2: Explicit enumerator values (1 check)
+- [x] 4.5.7 Implement Rule 9.4: Incomplete aggregate initialization (1 check)
+- [x] 4.5.8 Implement Rule 8.7: Static for internal linkage (1 check)
+- [x] 4.5.9 Implement Rule 18.6: Address of automatic object escaping (1 check)
 
-Note: 85/176 MISRA C:2025 rules implemented (was 68), 25 covered by Clang built-in, 13 remaining planned, 53 require manual review.
-Total automotive checks: 91 (was 82).
+Note: 89/176 MISRA C:2025 rules implemented (was 85), 25 covered by Clang built-in, 9 remaining planned, 53 require manual review.
+Total automotive checks: 95 (was 91).
 
 ### 4.6 MISRA C++:2023 Implementation
 - [ ] 4.6.1 Create MISRA C++:2023 rule inventory document
