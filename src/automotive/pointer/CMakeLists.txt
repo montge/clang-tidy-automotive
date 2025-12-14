@@ -1,6 +1,7 @@
 
 add_clang_library(clangTidyAutomotivePointerComponent STATIC
   AvoidAtomicVoidPointerCheck.cpp
+  AvoidAutoAddressEscapeCheck.cpp
   AvoidCastRemovingQualifierCheck.cpp
   AvoidIncompatiblePointerCastCheck.cpp
   AvoidIncompatiblePointerConversionCheck.cpp

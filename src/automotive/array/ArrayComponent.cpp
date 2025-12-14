@@ -8,6 +8,7 @@
 
 #include "ArrayComponent.h"
 #include "AvoidFlexibleArrayMemberCheck.h"
+#include "AvoidIncompleteInitializationCheck.h"
 #include "AvoidPartialArrayInitCheck.h"
 #include "AvoidPointerArithmeticBoundsCheck.h"
 #include "AvoidPointerArithmeticCheck.h"
@@ -35,6 +36,10 @@ void ArrayComponent::addCheckFactories(
   // Rule 18.4 - Pointer arithmetic (Advisory)
   CheckFactories.registerCheck<AvoidPointerArithmeticCheck>(
       "automotive-c23-adv-18.4");
+
+  // Rule 9.4 - Incomplete aggregate initialization (Required)
+  CheckFactories.registerCheck<AvoidIncompleteInitializationCheck>(
+      "automotive-c23-req-9.4");
 }
 
 } // namespace clang::tidy::automotive
