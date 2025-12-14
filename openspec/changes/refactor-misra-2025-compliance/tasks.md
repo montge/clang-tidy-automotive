@@ -107,11 +107,32 @@
   - Rule 4.2: AvoidTrigraphCheck (automotive-c23-adv-4.2)
   - Rule 12.4: AvoidConstantWrapAroundCheck (automotive-c23-adv-12.4)
 
-### 4.5 Directive Implementation
-- [x] 4.5.1 Implement feasible directive checks
+### 4.5 Remaining MISRA C:2025 Required Rules (30 planned)
+- [ ] 4.5.1 Implement Rules 10.2-10.8: Essential type model checks
+- [ ] 4.5.2 Implement Rules 11.2, 11.5-11.7: Pointer conversion checks
+- [ ] 4.5.3 Implement Rules 13.1-13.3: Expression side effect checks
+- [ ] 4.5.4 Implement Rules 18.1-18.3, 18.5-18.6: Pointer arithmetic checks
+- [ ] 4.5.5 Implement Rule 20.3: Include syntax validation
+
+Note: 68/176 MISRA C:2025 rules implemented, 25 covered by Clang built-in, 30 planned, 53 require manual review.
+
+### 4.6 MISRA C++:2023 Implementation
+- [ ] 4.6.1 Create MISRA C++:2023 rule inventory document
+- [ ] 4.6.2 Identify rules shared with MISRA C:2025
+- [ ] 4.6.3 Identify rules covered by clang-tidy cppcoreguidelines/modernize checks
+- [ ] 4.6.4 Implement MISRA C++:2023 specific checks (new cpp23 component)
+- [ ] 4.6.5 Add C++ test files for all implemented checks
+- [ ] 4.6.6 Update documentation for C++ support
+
+Note: MISRA C++:2023 is a separate standard with ~300+ rules. Many overlap with
+existing cppcoreguidelines and modernize checks. Priority should be automotive-specific
+rules not covered elsewhere.
+
+### 4.7 Directive Implementation
+- [x] 4.7.1 Implement feasible directive checks
   - Rule 15.2: GotoLabelSameBlockCheck (automotive-c23-req-15.2)
   - Dir 4.10: MissingHeaderGuardCheck (automotive-c23-req-dir-4.10)
-- [x] 4.5.2 Document manual-review-only directives
+- [x] 4.7.2 Document manual-review-only directives
 
 ## 5. SonarQube Integration
 
