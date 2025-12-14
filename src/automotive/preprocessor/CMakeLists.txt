@@ -4,6 +4,7 @@ add_clang_library(clangTidyAutomotivePreprocessorComponent STATIC
   AvoidHashOperatorCheck.cpp
   AvoidIncludeSyntaxErrorCheck.cpp
   AvoidInvalidHeaderCharCheck.cpp
+  AvoidLanguageExtensionCheck.cpp
   AvoidMacroIdentifierConflictCheck.cpp
   AvoidMacroNamedAsCkeywordCheck.cpp
   AvoidMultipleHashOperatorsCheck.cpp
