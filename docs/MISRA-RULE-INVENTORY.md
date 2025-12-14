@@ -18,9 +18,9 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|-------|-------------|-------|---------|--------|
 | Directives | 18 | 3 | 0 | 2 | 13 |
 | Mandatory | 4 | 2 | 2 | 0 | 0 |
-| Required | 113 | 42 | 15 | 23 | 33 |
-| Advisory | 41 | 21 | 8 | 5 | 7 |
-| **Total** | **176** | **68** | **25** | **30** | **53** |
+| Required | 113 | 58 | 15 | 7 | 33 |
+| Advisory | 41 | 22 | 8 | 4 | 7 |
+| **Total** | **176** | **85** | **25** | **13** | **53** |
 
 ## Implemented Checks
 
@@ -44,7 +44,13 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
 | `automotive-c23-req-10.1` | 10.1 | Required | Inappropriate essential type |
+| `automotive-c23-req-10.2` | 10.2 | Required | Character arithmetic restrictions |
+| `automotive-c23-req-10.3` | 10.3 | Required | Narrowing compound assignment |
+| `automotive-c23-req-10.4` | 10.4 | Required | Essential type mismatch in operations |
+| `automotive-c23-adv-10.5` | 10.5 | Advisory | Inappropriate cast between essential types |
+| `automotive-c23-req-10.6` | 10.6-10.8 | Required | Composite expression type mismatch |
 | `automotive-c23-adv-12.4` | 12.4 | Advisory | Constant expression wrap-around |
+| `automotive-c23-req-13.1` | 13.1-13.3 | Required | Side effects in initializers |
 | `automotive-c23-adv-13.4` | 13.4 | Advisory | Assignment used as expression |
 | `automotive-c23-req-13.5` | 13.5 | Required | Side effects in logical operands |
 | `automotive-c23-mand-13.6` | 13.6 | Mandatory | Side effects in sizeof operand |
@@ -90,6 +96,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 ### Pointer Checks
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
+| `automotive-c23-req-11.2` | 11.2, 11.5-11.7 | Required | Incompatible pointer conversions |
 | `automotive-c23-req-11.3` | 11.3 | Required | Incompatible pointer cast |
 | `automotive-c23-adv-11.4` | 11.4 | Advisory | Pointer to/from integer cast |
 | `automotive-c23-req-11.8` | 11.8 | Required | Cast removing const/volatile |
@@ -99,6 +106,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
 | `automotive-avoid-partial-array-init` | 9.3 | Required | Partial array initialization |
+| `automotive-c23-req-18.1` | 18.1-18.3, 18.5 | Required | Pointer arithmetic bounds |
 | `automotive-c23-adv-18.4` | 18.4 | Advisory | Pointer arithmetic |
 | `automotive-avoid-flexible-array-member` | 18.7 | Required | Flexible array members |
 | `automotive-avoid-variable-length-array` | 18.8 | Required | Variable-length arrays |
@@ -135,6 +143,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|------------|----------|-------------|
 | `automotive-avoid-code-before-include` | 20.1 | Advisory | Code before #include |
 | `automotive-avoid-invalid-header-char` | 20.2 | Required | Invalid chars in header names |
+| `automotive-c23-req-20.3` | 20.3 | Required | Include syntax validation |
 | `automotive-avoid-macro-named-as-ckeyword` | 20.4 | Required | Macro named as C keyword |
 | `automotive-avoid-undef` | 20.5 | Advisory | #undef usage |
 | `automotive-avoid-hash-operator` | 20.10 | Advisory | # operator in macros |
@@ -218,15 +227,18 @@ These rules cannot be fully verified by static analysis:
 ## Planned Implementations
 
 ### High Priority (Required Rules)
-- Rule 10.2-10.8: Essential type model checks (10.1 Implemented)
-- Rule 11.2-11.7: Pointer conversion checks (11.8 Implemented)
+- ~~Rule 10.2-10.8: Essential type model checks~~ (Implemented)
+- ~~Rule 11.2-11.7: Pointer conversion checks~~ (Implemented)
 - ~~Rule 12.2: Shift operator checks~~ (Implemented)
-- Rule 13.1-13.4, 13.6: Side effect checks (13.5 Implemented)
-- Rule 18.1-18.3, 18.5-18.6: Pointer arithmetic checks (18.4 Implemented)
-- ~~Rule 20.1-20.2: Preprocessor directive checks~~ (Implemented)
-- Rule 20.3: Include syntax validation
+- ~~Rule 13.1-13.4, 13.6: Side effect checks~~ (Implemented)
+- ~~Rule 18.1-18.3, 18.5-18.6: Pointer arithmetic checks~~ (Implemented)
+- ~~Rule 20.1-20.3: Preprocessor directive checks~~ (Implemented)
 - ~~Rule 21.1: Reserved macro identifiers~~ (Implemented)
 - ~~Rule 21.2: Reserved identifier declarations~~ (Implemented)
+
+### Remaining Required Rules
+- Rule 18.6: Address of automatic object persisting past scope
+- Rule 9.x: Initialization rules requiring data flow analysis
 
 ### Medium Priority (Advisory Rules)
 - Dir 4.2: Language subset selection
