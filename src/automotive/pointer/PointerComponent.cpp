@@ -10,6 +10,7 @@
 #include "AvoidAtomicVoidPointerCheck.h"
 #include "AvoidCastRemovingQualifierCheck.h"
 #include "AvoidIncompatiblePointerCastCheck.h"
+#include "AvoidIncompatiblePointerConversionCheck.h"
 #include "AvoidPointerIntegerCastCheck.h"
 #include "WrongNullPointerValueCheck.h"
 
@@ -17,6 +18,10 @@ namespace clang::tidy::automotive {
 
 void PointerComponent::addCheckFactories(
     ClangTidyCheckFactories &CheckFactories) {
+
+  // Rules 11.2, 11.5, 11.6, 11.7 - Pointer conversions (Required)
+  CheckFactories.registerCheck<AvoidIncompatiblePointerConversionCheck>(
+      "automotive-c23-req-11.2");
 
   // Rule 11.3 - Incompatible pointer cast (Required)
   CheckFactories.registerCheck<AvoidIncompatiblePointerCastCheck>(
