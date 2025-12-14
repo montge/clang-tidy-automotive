@@ -47,9 +47,9 @@ MISRA C++:2023 rules are organized into these categories:
 | Templates | 15 | 0 | 5 | 5 | 5 |
 | Preprocessing | 10 | 6 | 2 | 1 | 1 |
 | Standard Library | 20 | 3 | 10 | 5 | 2 |
-| **Total** | **~200** | **~59** | **~75** | **~29** | **~37** |
+| **Total** | **~200** | **~61** | **~75** | **~27** | **~37** |
 
-*Note: Statistics are estimates based on MISRA C++:2023 public summaries. 3 new automotive-cpp23 checks added.*
+*Note: Statistics are estimates based on MISRA C++:2023 public summaries. 5 automotive-cpp23 checks implemented.*
 
 ## Rules Shared with MISRA C:2025
 
@@ -174,8 +174,10 @@ The following MISRA C++:2023 rules have been implemented in clang-tidy-automotiv
 | Check ID | MISRA Rule | Description | Source File |
 |----------|------------|-------------|-------------|
 | `automotive-cpp23-req-8.2.1` | 8.2.1 | C-style casts shall not be used | `cpp23/AvoidCStyleCastCheck.cpp` |
+| `automotive-cpp23-req-15.1.3` | 15.1.3 | Single-argument constructors shall be explicit | `cpp23/ExplicitConstructorCheck.cpp` |
 | `automotive-cpp23-req-15.3` | 15.3 | Object slicing shall be avoided | `cpp23/AvoidSlicingCheck.cpp` |
 | `automotive-cpp23-req-15.7` | 15.7 | Classes with virtual functions require virtual destructors | `cpp23/VirtualDestructorCheck.cpp` |
+| `automotive-cpp23-req-18.4.2` | 18.4.2 | Move operations shall be noexcept | `cpp23/NoexceptMoveCheck.cpp` |
 
 ## Planned Automotive C++ Checks
 
@@ -192,12 +194,12 @@ The following MISRA C++:2023 rules are planned for custom implementation:
 | Planned Check | MISRA Rule | Priority | Description |
 |---------------|------------|----------|-------------|
 | `automotive-cpp23-rule-of-five` | 15.0.1 | High | Special member functions |
-| `automotive-cpp23-explicit-ctor` | 15.1.1 | Medium | Explicit constructors |
+| ~~`automotive-cpp23-explicit-ctor`~~ | ~~15.1.3~~ | ~~Medium~~ | ~~Explicit constructors~~ (Implemented as automotive-cpp23-req-15.1.3) |
 
 ### Exception Checks (C++)
 | Planned Check | MISRA Rule | Priority | Description |
 |---------------|------------|----------|-------------|
-| `automotive-cpp23-noexcept-move` | 18.4.2 | High | noexcept on move |
+| ~~`automotive-cpp23-noexcept-move`~~ | ~~18.4.2~~ | ~~High~~ | ~~noexcept on move~~ (Implemented as automotive-cpp23-req-18.4.2) |
 | `automotive-cpp23-exception-spec` | 18.4.1 | Medium | Exception specifications |
 
 ### Template Checks (C++)
