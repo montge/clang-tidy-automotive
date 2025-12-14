@@ -39,17 +39,17 @@ MISRA C++:2023 rules are organized into these categories:
 | Standard Conventions | 5 | 0 | 0 | 0 | 5 |
 | Lexical Conventions | 20 | 5 | 8 | 2 | 5 |
 | Basic Concepts | 15 | 2 | 5 | 3 | 5 |
-| Expressions | 35 | 15 | 10 | 5 | 5 |
+| Expressions | 35 | 16 | 10 | 4 | 5 |
 | Statements | 15 | 10 | 3 | 1 | 1 |
 | Declarations | 25 | 8 | 12 | 3 | 2 |
-| Classes | 30 | 5 | 15 | 5 | 5 |
+| Classes | 30 | 7 | 15 | 3 | 5 |
 | Exception Handling | 10 | 2 | 5 | 2 | 1 |
 | Templates | 15 | 0 | 5 | 5 | 5 |
 | Preprocessing | 10 | 6 | 2 | 1 | 1 |
 | Standard Library | 20 | 3 | 10 | 5 | 2 |
-| **Total** | **~200** | **~56** | **~75** | **~32** | **~37** |
+| **Total** | **~200** | **~59** | **~75** | **~29** | **~37** |
 
-*Note: Statistics are estimates based on MISRA C++:2023 public summaries*
+*Note: Statistics are estimates based on MISRA C++:2023 public summaries. 3 new automotive-cpp23 checks added.*
 
 ## Rules Shared with MISRA C:2025
 
@@ -167,6 +167,16 @@ Many rules are common between MISRA C:2025 and MISRA C++:2023. The following aut
 | `cert-msc50-cpp` | 26.5.1 | Random generation |
 | `cert-oop57-cpp` | 12.0.1 | Trivial types |
 
+## Implemented Automotive C++ Checks
+
+The following MISRA C++:2023 rules have been implemented in clang-tidy-automotive:
+
+| Check ID | MISRA Rule | Description | Source File |
+|----------|------------|-------------|-------------|
+| `automotive-cpp23-req-8.2.1` | 8.2.1 | C-style casts shall not be used | `cpp23/AvoidCStyleCastCheck.cpp` |
+| `automotive-cpp23-req-15.3` | 15.3 | Object slicing shall be avoided | `cpp23/AvoidSlicingCheck.cpp` |
+| `automotive-cpp23-req-15.7` | 15.7 | Classes with virtual functions require virtual destructors | `cpp23/VirtualDestructorCheck.cpp` |
+
 ## Planned Automotive C++ Checks
 
 The following MISRA C++:2023 rules are planned for custom implementation:
@@ -175,7 +185,6 @@ The following MISRA C++:2023 rules are planned for custom implementation:
 | Planned Check | MISRA Rule | Priority | Description |
 |---------------|------------|----------|-------------|
 | `automotive-cpp23-avoid-narrowing` | 8.4.1 | High | Narrowing conversions |
-| `automotive-cpp23-avoid-c-cast` | 8.2.1 | High | C-style casts |
 | `automotive-cpp23-avoid-dynamic-cast` | 8.2.5 | Medium | dynamic_cast limitations |
 | `automotive-cpp23-explicit-conversion` | 8.3.1 | Medium | Explicit conversions |
 
@@ -183,8 +192,6 @@ The following MISRA C++:2023 rules are planned for custom implementation:
 | Planned Check | MISRA Rule | Priority | Description |
 |---------------|------------|----------|-------------|
 | `automotive-cpp23-rule-of-five` | 15.0.1 | High | Special member functions |
-| `automotive-cpp23-virtual-destructor` | 15.7.1 | High | Virtual destructors |
-| `automotive-cpp23-avoid-slicing` | 15.3.1 | High | Object slicing |
 | `automotive-cpp23-explicit-ctor` | 15.1.1 | Medium | Explicit constructors |
 
 ### Exception Checks (C++)

@@ -130,7 +130,7 @@ Total automotive checks: 101 (was 98). Added 3 MISRA C++:2023 checks.
 - [x] 4.6.3 Identify rules covered by clang-tidy cppcoreguidelines/modernize checks (~75 checks mapped)
 - [x] 4.6.4 Implement MISRA C++:2023 specific checks (cpp23 component: AvoidCStyleCastCheck, AvoidSlicingCheck, VirtualDestructorCheck)
 - [x] 4.6.5 Add C++ test files for all implemented checks (3 test files)
-- [ ] 4.6.6 Update documentation for C++ support
+- [x] 4.6.6 Update documentation for C++ support (README.md, MISRA-CPP-2023-INVENTORY.md)
 
 Note: MISRA C++:2023 is a separate standard with ~300+ rules. Many overlap with
 existing cppcoreguidelines and modernize checks. Priority should be automotive-specific
