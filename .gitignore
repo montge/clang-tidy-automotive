@@ -31,3 +31,6 @@ coverage.lcov
 docs/api/html/
 docs/api/latex/
 compile_commands.json
+
+# SonarCloud token (local only)
+.sonar-token
