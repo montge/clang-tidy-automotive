@@ -134,23 +134,40 @@
 ## 6. Final Validation
 
 ### 6.1 Coverage Verification
-- [ ] 6.1.1 Verify 90%+ code coverage achieved (requires coverage build with configure-coverage.sh)
-- [ ] 6.1.2 Document any uncovered code paths with justification
+- [ ] 6.1.1 Configure CI to generate coverage reports (currently 0% reported)
+- [ ] 6.1.2 Create coverage build workflow for GitHub Actions (manual trigger)
+- [ ] 6.1.3 Generate baseline coverage report with llvm-cov
+- [ ] 6.1.4 Identify untested code paths and add tests
+- [ ] 6.1.5 Verify 90%+ code coverage achieved
+- [ ] 6.1.6 Document any uncovered code paths with justification
+- [ ] 6.1.7 Upload coverage report to SonarCloud
 
 Note: Coverage testing requires rebuilding with coverage instrumentation using
 ./scripts/configure-coverage.sh followed by full rebuild. Coverage collection
-is automated via ./scripts/coverage.sh
+is automated via ./scripts/coverage.sh. GitHub Actions requires manual trigger
+due to resource constraints (full LLVM build required).
 
-### 6.2 Integration Testing
-- [x] 6.2.1 Run all checks against examples directory (38/38 violation tests pass)
-- [x] 6.2.2 Fix false positives (Rule 9.1 ParmVarDecl fix applied)
-- [x] 6.2.3 Verify detection of all known violations (38/38 tests pass)
+### 6.2 SonarCloud Code Quality
+- [ ] 6.2.1 Review 102 maintainability issues reported by SonarCloud
+- [ ] 6.2.2 Fix high-priority code smells (complexity, duplication)
+- [ ] 6.2.3 Address naming convention issues
+- [ ] 6.2.4 Fix cognitive complexity issues
+- [ ] 6.2.5 Address unused code warnings
+- [ ] 6.2.6 Fix any security hotspots
+- [ ] 6.2.7 Achieve Quality Gate pass status
+
+Note: SonarCloud dashboard: https://sonarcloud.io/dashboard?id=montge_clang-tidy-automotive
+
+### 6.3 Integration Testing
+- [x] 6.3.1 Run all checks against examples directory (38/38 violation tests pass)
+- [x] 6.3.2 Fix false positives (Rule 9.1 ParmVarDecl fix applied)
+- [x] 6.3.3 Verify detection of all known violations (38/38 tests pass)
 
 Note: Compliant examples may trigger unrelated checks since they are designed to
 demonstrate compliance with a specific rule, not all rules. This is by design.
 True false positive verification requires rule-specific test filtering.
 
-### 6.3 Documentation Review
-- [x] 6.3.1 Review all Doxygen documentation for completeness (fixed 15 headers)
-- [x] 6.3.2 Update README.md with new capabilities
-- [x] 6.3.3 Update CLAUDE.md with new project structure
+### 6.4 Documentation Review
+- [x] 6.4.1 Review all Doxygen documentation for completeness (fixed 15 headers)
+- [x] 6.4.2 Update README.md with new capabilities
+- [x] 6.4.3 Update CLAUDE.md with new project structure
