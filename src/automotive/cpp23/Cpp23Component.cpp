@@ -9,6 +9,8 @@
 #include "Cpp23Component.h"
 #include "AvoidCStyleCastCheck.h"
 #include "AvoidSlicingCheck.h"
+#include "ExplicitConstructorCheck.h"
+#include "NoexceptMoveCheck.h"
 #include "VirtualDestructorCheck.h"
 
 namespace clang::tidy::automotive {
@@ -27,6 +29,14 @@ void Cpp23Component::addCheckFactories(
   // virtual destructors
   CheckFactories.registerCheck<VirtualDestructorCheck>(
       "automotive-cpp23-req-15.7");
+
+  // MISRA C++:2023 Rule 15.1.3 - Single-argument constructors shall be explicit
+  CheckFactories.registerCheck<ExplicitConstructorCheck>(
+      "automotive-cpp23-req-15.1.3");
+
+  // MISRA C++:2023 Rule 18.4.2 - Move operations shall be noexcept
+  CheckFactories.registerCheck<NoexceptMoveCheck>(
+      "automotive-cpp23-req-18.4.2");
 }
 
 } // namespace clang::tidy::automotive

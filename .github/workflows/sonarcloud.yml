@@ -31,6 +31,17 @@ jobs:
         run: |
           python3 scripts/generate-compile-commands.py
 
+      - name: Check for coverage file
+        id: coverage
+        run: |
+          if [ -f "coverage/coverage.lcov" ]; then
+            echo "has_coverage=true" >> $GITHUB_OUTPUT
+            echo "Coverage file found - will include in analysis"
+          else
+            echo "has_coverage=false" >> $GITHUB_OUTPUT
+            echo "No coverage file found - analysis without coverage"
+          fi
+
       - name: Run SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
@@ -42,3 +53,4 @@ jobs:
             "-Dsonar.tests=test/checkers/automotive"
             "-Dsonar.sourceEncoding=UTF-8"
             "-Dsonar.cfamily.compile-commands=compile_commands.json"
+            ${{ steps.coverage.outputs.has_coverage == 'true' && '"-Dsonar.cfamily.llvm-cov.reportPath=coverage/coverage.lcov"' || '' }}

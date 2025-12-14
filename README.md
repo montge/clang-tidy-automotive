@@ -7,9 +7,9 @@ A collection of clang-tidy checks for automotive safety-critical code, supportin
 
 ## Features
 
-- **101 custom checks** covering statements, expressions, types, functions, and more
+- **103 custom checks** covering statements, expressions, types, functions, and more
 - **MISRA C:2025 alignment** with documented rule mappings (93/176 rules)
-- **MISRA C++:2023 support** with dedicated C++ checks (3 checks, ~75 via clang-tidy aliases)
+- **MISRA C++:2023 support** with dedicated C++ checks (5 checks, ~75 via clang-tidy aliases)
 - **SonarQube/SonarCloud integration** for enterprise quality gates
 - **Comprehensive examples** with violation/compliant pairs
 - **Doxygen documentation** for all check implementations
@@ -36,7 +36,7 @@ A collection of clang-tidy checks for automotive safety-critical code, supportin
 
 | Category | Checks | Coverage |
 |----------|--------|----------|
-| cpp23 | 3 | C-style casts, object slicing, virtual destructors |
+| cpp23 | 5 | C-style casts, object slicing, virtual destructors, explicit constructors, noexcept move |
 
 See [MISRA Rule Inventory](docs/MISRA-RULE-INVENTORY.md) for C rules and [MISRA C++:2023 Inventory](docs/MISRA-CPP-2023-INVENTORY.md) for C++ rules.
 
@@ -97,8 +97,10 @@ when using clang-tidy.
 | Check ID | MISRA Rule | Description |
 |----------|------------|-------------|
 | `automotive-cpp23-req-8.2.1` | 8.2.1 | Avoid C-style casts |
+| `automotive-cpp23-req-15.1.3` | 15.1.3 | Explicit single-argument constructors |
 | `automotive-cpp23-req-15.3` | 15.3 | Avoid object slicing |
 | `automotive-cpp23-req-15.7` | 15.7 | Virtual destructor requirement |
+| `automotive-cpp23-req-18.4.2` | 18.4.2 | Noexcept move operations |
 
 See [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) for more information.
 
