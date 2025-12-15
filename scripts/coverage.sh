@@ -155,12 +155,16 @@ generate_reports() {
     # SonarCloud's cfamily plugin expects 'llvm-cov show' output (annotated sources)
     # Filter to only automotive source files in the LLVM tree
     AUTOMOTIVE_DIR="${PROJECT_ROOT}/llvm-project-llvmorg-20.1.8/clang-tools-extra/clang-tidy/automotive"
+    COVERAGE_RAW="${COVERAGE_DIR}/coverage-show-raw.txt"
     "$COV" show "$CLANG_TIDY" \
         -instr-profile="${COVERAGE_DIR}/coverage.profdata" \
         -show-branches=count \
-        -path-equivalence="${AUTOMOTIVE_DIR}",src/automotive \
         "$AUTOMOTIVE_DIR" \
-        > "${COVERAGE_DIR}/coverage-show.txt" 2>/dev/null || true
+        > "$COVERAGE_RAW" 2>/dev/null || true
+
+    # Rewrite paths from LLVM tree to src/automotive/ to match sonar.sources
+    sed "s|${AUTOMOTIVE_DIR}|src/automotive|g" "$COVERAGE_RAW" > "${COVERAGE_DIR}/coverage-show.txt"
+    rm -f "$COVERAGE_RAW"
 
     echo -e "${GREEN}Generated: ${COVERAGE_DIR}/coverage-show.txt${NC}"
 
