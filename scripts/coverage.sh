@@ -162,8 +162,9 @@ generate_reports() {
         "$AUTOMOTIVE_DIR" \
         > "$COVERAGE_RAW" 2>/dev/null || true
 
-    # Rewrite paths from LLVM tree to src/automotive/ to match sonar.sources
-    sed "s|${AUTOMOTIVE_DIR}|src/automotive|g" "$COVERAGE_RAW" > "${COVERAGE_DIR}/coverage-show.txt"
+    # Rewrite paths from LLVM tree to absolute src/automotive/ paths
+    # SonarCloud needs absolute paths matching compile_commands.json
+    sed "s|${AUTOMOTIVE_DIR}|${PROJECT_ROOT}/src/automotive|g" "$COVERAGE_RAW" > "${COVERAGE_DIR}/coverage-show.txt"
     rm -f "$COVERAGE_RAW"
 
     echo -e "${GREEN}Generated: ${COVERAGE_DIR}/coverage-show.txt${NC}"
