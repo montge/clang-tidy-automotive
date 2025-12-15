@@ -38,6 +38,9 @@ public:
       : ClangTidyCheck(Name, Context),
         Handler(*this, Options.get("FixitEnabled", false)) {}
 
+  /// Destructor.
+  ~AvoidLinesplicingWithinCommentCheck() override = default;
+
   /// Registers preprocessor callbacks for comment handling.
   /// \param SM The source manager.
   /// \param PP The preprocessor instance.
@@ -50,7 +53,8 @@ private:
   public:
     InternalCommentHandler(ClangTidyCheck &Check, bool FixitEnabled)
         : Check(Check), FixitEnabled(FixitEnabled) {}
-    virtual bool HandleComment(Preprocessor &PP, SourceRange Comment) override;
+    ~InternalCommentHandler() override = default;
+    bool HandleComment(Preprocessor &PP, SourceRange Comment) override;
 
   private:
     ClangTidyCheck &Check;

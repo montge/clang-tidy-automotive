@@ -32,7 +32,7 @@ void UncompleteFunctionPrototypeCheck::check(
     diag(MatchedFunc->getLocation(), "function is not in prototype form");
 
   for (const ParmVarDecl *Param : MatchedFunc->parameters()) {
-    if (Param->getName().empty())
+    if (Param->getName().empty() && Param->getLocation().isValid())
       diag(Param->getLocation(), "function parameter is unnamed");
   }
 

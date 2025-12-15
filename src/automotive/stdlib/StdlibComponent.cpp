@@ -23,8 +23,6 @@ void StdlibComponent::addCheckFactories(
 
   CheckFactories.registerCheck<AvoidStdargHeaderCheck>(
       "automotive-avoid-stdarg-header");
-  // CheckFactories.registerCheck<AvoidStdlibMemoryCheck>(
-  //     "automotive-avoid-stdlib-malloc");
   CheckFactories.registerCheck<AvoidSetjmpHeaderCheck>(
       "automotive-avoid-setjmp-header");
   CheckFactories.registerCheck<AvoidSignalHeaderCheck>(

@@ -19,7 +19,7 @@ namespace clang::tidy::automotive {
 namespace {
 
 // Standard library reserved names that should not be declared
-static const llvm::StringSet<> ReservedNames = {
+const llvm::StringSet<> ReservedNames = {
     "errno",        "math_errhandling",
     "setjmp",       "va_arg",
     "va_copy",      "va_end",

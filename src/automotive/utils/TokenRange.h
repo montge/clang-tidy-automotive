@@ -59,7 +59,7 @@ public:
       advance();
     }
 
-    TokenIterator(SourceLocation EndLoc) : CurrentLoc(EndLoc) {}
+    explicit TokenIterator(SourceLocation EndLoc) : CurrentLoc(EndLoc) {}
 
     std::optional<Token> operator*() const { return Tok; }
 

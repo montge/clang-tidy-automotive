@@ -7,7 +7,6 @@
 //===----------------------------------------------------------------------===//
 
 #include "AvoidSignalHeaderCheck.h"
-// #include "AvoidApiPPCallbacks.h"
 #include "clang/AST/ASTContext.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
 
@@ -25,9 +24,7 @@ static const StringRef ForbiddenFunctionNames[] = {
 
 void AvoidSignalHeaderCheck::registerPPCallbacks(
     const SourceManager &SM, Preprocessor *PP, Preprocessor *ModuleExpanderPP) {
-  // Registrera vår PPCallbacks-klass med den förbjudna headern och namnen
-  //  PP->addPPCallbacks(std::make_unique<AvoidApiPPCallbacks>(
-  //      *this, *PP, "signal.h", ForbiddenFunctionNames));
+  // Header inclusion detection not yet implemented
 }
 
 void AvoidSignalHeaderCheck::registerMatchers(MatchFinder *Finder) {

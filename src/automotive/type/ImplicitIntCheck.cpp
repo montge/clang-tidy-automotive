@@ -24,9 +24,6 @@ namespace clang::tidy::automotive {
 
 void ImplicitIntCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(varDecl().bind("var"), this);
-  //  Finder->addMatcher(functionDecl().bind("func"), new ImplicitIntChecker());
-  //  Finder->addMatcher(typedefDecl().bind("typedef"), new
-  //  ImplicitIntChecker());
   IdentTable = std::make_unique<IdentifierTable>(getLangOpts());
 }
 
@@ -50,32 +47,7 @@ void ImplicitIntCheck::checkImplicitInt(SourceLocation StartLoc,
   (void)EndLoc;
   (void)SM;
   (void)Context;
-
-#if 0 //  bool OnlyQualifiers = llvm::all_of(TokenRange(StartLoc, EndLoc, SM,
-  auto IsStorageOrQualifier = [](const Token &Tok) {
-    return Tok.isOneOf(tok::kw_static, tok::kw_extern, tok::kw_volatile,
-                       tok::kw_const);
-  };
-  //  getLangOpts()),
-  //                                     IsStorageOrQualifier);
-
-  bool OnlyQualifiers = true;
-
-  for (auto Tok : TokenRange(StartLoc, EndLoc, SM, getLangOpts())) {
-
-    if (Tok.is(tok::raw_identifier)) {
-      IdentifierInfo &Info = IdentTable->get(Tok.getRawIdentifier());
-      Tok.setIdentifierInfo(&Info);
-      Tok.setKind(Info.getTokenID());
-    }
-    llvm::outs() << Tok.getName() << "\n";
-    OnlyQualifiers &= IsStorageOrQualifier(Tok);
-  }
-
-  if (OnlyQualifiers) {
-    diag(StartLoc, "implicit int");
-  }
-#endif
+  // TODO: Implement implicit int detection
 }
 
 } // namespace clang::tidy::automotive
