@@ -18,7 +18,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-COVERAGE_FILE="${1:-${PROJECT_ROOT}/coverage/coverage.lcov}"
+COVERAGE_FILE="${1:-${PROJECT_ROOT}/coverage/coverage.json}"
 TOKEN_FILE="${PROJECT_ROOT}/.sonar-token"
 
 # Colors for output
@@ -91,6 +91,7 @@ if [ ! -f "$COMPILE_COMMANDS" ]; then
 fi
 
 # Run sonar-scanner with coverage
+# Use llvm-cov JSON format for SonarCloud cfamily plugin
 sonar-scanner \
     -Dsonar.projectKey=montge_clang-tidy-automotive \
     -Dsonar.organization=montge \
