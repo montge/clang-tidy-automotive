@@ -23,6 +23,11 @@ void UncompleteFunctionPrototypeCheck::check(
   if (!MatchedFunc)
     return;
 
+  // Skip system headers and invalid locations
+  if (!MatchedFunc->getLocation().isValid() ||
+      Result.SourceManager->isInSystemHeader(MatchedFunc->getLocation()))
+    return;
+
   if (!MatchedFunc->hasPrototype())
     diag(MatchedFunc->getLocation(), "function is not in prototype form");
 
