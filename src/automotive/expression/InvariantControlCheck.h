@@ -35,6 +35,9 @@ public:
   InvariantControlCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~InvariantControlCheck() override = default;
+
   /// Registers AST matchers for loop and conditional statements.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

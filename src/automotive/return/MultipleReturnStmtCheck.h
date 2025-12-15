@@ -38,6 +38,9 @@ public:
   MultipleReturnStmtCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~MultipleReturnStmtCheck() override = default;
+
   /// Registers AST matchers for return statements.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

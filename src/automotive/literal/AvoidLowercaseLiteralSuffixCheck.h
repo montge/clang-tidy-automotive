@@ -35,6 +35,9 @@ public:
   AvoidLowercaseLiteralSuffixCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidLowercaseLiteralSuffixCheck() override = default;
+
   /// Registers AST matchers for numeric literals.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

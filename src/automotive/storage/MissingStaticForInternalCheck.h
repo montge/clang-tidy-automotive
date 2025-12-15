@@ -42,6 +42,9 @@ public:
   MissingStaticForInternalCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~MissingStaticForInternalCheck() override = default;
+
   /// Registers AST matchers for function and variable declarations.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
 

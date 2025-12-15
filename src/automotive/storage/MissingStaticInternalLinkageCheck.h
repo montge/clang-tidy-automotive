@@ -37,6 +37,9 @@ public:
   MissingStaticInternalLinkageCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~MissingStaticInternalLinkageCheck() override = default;
+
   /// Registers AST matchers for function and object declarations.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

@@ -35,6 +35,9 @@ public:
   AvoidAtomicVoidPointerCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidAtomicVoidPointerCheck() override = default;
+
   /// Registers AST matchers for atomic void pointer declarations.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

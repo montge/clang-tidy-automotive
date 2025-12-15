@@ -35,6 +35,9 @@ public:
   AvoidMacroNamedAsCkeywordCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidMacroNamedAsCkeywordCheck() override = default;
+
   /// Registers preprocessor callbacks for macro definition handling.
   /// \param SM The source manager.
   /// \param PP The preprocessor instance.

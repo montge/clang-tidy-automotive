@@ -36,6 +36,9 @@ public:
   MissingReturnValueHandlingCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~MissingReturnValueHandlingCheck() override = default;
+
   /// Registers AST matchers for function calls.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

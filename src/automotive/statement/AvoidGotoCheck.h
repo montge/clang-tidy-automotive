@@ -40,6 +40,9 @@ public:
   AvoidGotoCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidGotoCheck() override = default;
+
   /// Registers AST matchers for goto statements.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

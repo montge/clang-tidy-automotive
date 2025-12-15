@@ -36,6 +36,9 @@ public:
   AvoidAssignmentInExpressionCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidAssignmentInExpressionCheck() override = default;
+
   /// Registers AST matchers for assignment expressions.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

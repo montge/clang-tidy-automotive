@@ -37,6 +37,9 @@ public:
   WrongNullPointerValueCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~WrongNullPointerValueCheck() override = default;
+
   /// Registers AST matchers for null pointer value usage.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

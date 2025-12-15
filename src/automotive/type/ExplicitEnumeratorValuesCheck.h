@@ -43,6 +43,9 @@ public:
   ExplicitEnumeratorValuesCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~ExplicitEnumeratorValuesCheck() override = default;
+
   /// Registers AST matchers for enum declarations.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
 

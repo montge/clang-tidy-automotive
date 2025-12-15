@@ -42,6 +42,9 @@ public:
   AvoidAutoAddressEscapeCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidAutoAddressEscapeCheck() override = default;
+
   /// Registers AST matchers for address-of expressions.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
 

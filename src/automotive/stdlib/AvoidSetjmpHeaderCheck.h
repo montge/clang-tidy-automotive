@@ -35,6 +35,9 @@ public:
   /// \param Name The name of the check as registered.
   /// \param Context The clang-tidy context for configuration.
   AvoidSetjmpHeaderCheck(StringRef Name, ClangTidyContext *Context);
+
+  /// Destructor.
+  ~AvoidSetjmpHeaderCheck() override = default;
 };
 
 } // namespace clang::tidy::automotive

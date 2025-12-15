@@ -34,6 +34,9 @@ public:
   AvoidMultipleHashOperatorsCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidMultipleHashOperatorsCheck() override = default;
+
   /// Registers preprocessor callbacks for macro definition handling.
   /// \param SM The source manager.
   /// \param PP The preprocessor instance.

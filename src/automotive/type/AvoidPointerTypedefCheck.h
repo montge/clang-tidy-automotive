@@ -40,6 +40,9 @@ public:
   AvoidPointerTypedefCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidPointerTypedefCheck() override = default;
+
   /// Registers AST matchers for typedef declarations.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
 

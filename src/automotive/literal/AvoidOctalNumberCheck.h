@@ -36,6 +36,9 @@ public:
   AvoidOctalNumberCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidOctalNumberCheck() override = default;
+
   /// Registers AST matchers for integer literals.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

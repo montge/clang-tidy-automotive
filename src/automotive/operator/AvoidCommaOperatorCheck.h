@@ -35,6 +35,9 @@ public:
   AvoidCommaOperatorCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidCommaOperatorCheck() override = default;
+
   /// Registers AST matchers for comma operator usage.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

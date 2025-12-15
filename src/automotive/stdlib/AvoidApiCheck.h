@@ -56,6 +56,9 @@ protected:
                 const std::initializer_list<llvm::StringRef> &FunctionNames)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidApiCheck() override = default;
+
   /// Constructs the check with function names only.
   /// \param Name The name of the check as registered.
   /// \param Context The clang-tidy context for configuration.

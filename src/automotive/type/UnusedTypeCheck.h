@@ -35,6 +35,9 @@ public:
   UnusedTypeCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~UnusedTypeCheck() override = default;
+
   /// Registers AST matchers for type declarations.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
