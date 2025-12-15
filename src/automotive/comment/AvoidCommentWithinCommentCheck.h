@@ -38,6 +38,9 @@ public:
                                  int x = 0)
       : ClangTidyCheck(Name, Context), Handler(*this) {}
 
+  /// Destructor.
+  ~AvoidCommentWithinCommentCheck() override = default;
+
   /// Registers preprocessor callbacks for comment handling.
   /// \param SM The source manager.
   /// \param PP The preprocessor instance.
@@ -48,8 +51,9 @@ public:
 private:
   class InternalCommentHandler : public CommentHandler {
   public:
-    InternalCommentHandler(AvoidCommentWithinCommentCheck &Check);
-    virtual bool HandleComment(Preprocessor &PP, SourceRange Comment) override;
+    explicit InternalCommentHandler(AvoidCommentWithinCommentCheck &Check);
+    ~InternalCommentHandler() override = default;
+    bool HandleComment(Preprocessor &PP, SourceRange Comment) override;
 
   private:
     void CheckComment(SourceLocation CommentLoc, StringRef CommentText);

@@ -53,7 +53,6 @@ void MissingCompoundStmtCheck::check(const MatchFinder::MatchResult &Result) {
   if (MatchedParent && MatchedBody) {
     diag(MatchedBody->getBeginLoc(), "missing compound statement",
          DiagnosticIDs::Warning);
-    // diag(MatchedParent->getEndLoc(), "parent node", DiagnosticIDs::Note);
   }
 }
 

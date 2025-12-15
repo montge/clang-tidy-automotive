@@ -18,14 +18,14 @@ namespace clang::tidy::automotive {
 namespace {
 
 /// Canonicalize a path by removing ./ and ../ components.
-static std::string cleanPath(StringRef Path) {
+std::string cleanPath(StringRef Path) {
   SmallString<256> Result = Path;
   llvm::sys::path::remove_dots(Result, true);
   return std::string(Result);
 }
 
 /// Generate a standard header guard macro name from a file path.
-static std::string generateHeaderGuardName(StringRef FileName) {
+std::string generateHeaderGuardName(StringRef FileName) {
   SmallString<256> Guard;
 
   // Get just the filename without directory

@@ -54,13 +54,7 @@ void AvoidApiCheck::registerMatchers(MatchFinder *Finder) {
 }
 
 void AvoidApiCheck::check(const MatchFinder::MatchResult &Result) {
-  // Hantera matchningar från AST-matchern
-  /*  if (const auto *Call = Result.Nodes.getNodeAs<CallExpr>("functionCall")) {
-      const FunctionDecl *Func = Call->getDirectCallee();
-      if (Func) {
-        diag(Call->getBeginLoc(), "Avoid function '%0'") << Func->getName();
-      }
-    }*/
+  // Implementation deferred - matches handled via PP callbacks
 }
 
 void AvoidApiPPCallbacks::InclusionDirective(
@@ -69,22 +63,14 @@ void AvoidApiPPCallbacks::InclusionDirective(
     OptionalFileEntryRef IncludedFile, StringRef SearchPath,
     StringRef RelativePath, const Module *SuggestedModule, bool ModuleImported,
     SrcMgr::CharacteristicKind FileType) {
-
-  /*  if (!HeaderFile.empty() && FileName.equals(HeaderFile)) {
-      //    Handler.handleInclusionDirective(HashLoc, FileName, IsAngled);
-    }*/
+  // Header inclusion checking not yet implemented
 }
 
 void AvoidApiPPCallbacks::MacroExpands(const Token &MacroNameTok,
                                        const MacroDefinition &MD,
                                        SourceRange Range,
                                        const MacroArgs *Args) {
-  // Kolla om det expanderade makrot finns i listan   ver f  rbjudna makron
-  //  StringRef MacroName = MacroNameTok.getIdentifierInfo()->getName();
-  //  if (llvm::is_contained(ForbiddenMacros, MacroName)) {
-  //    Handler.handleMacroExpansion(MacroNameTok.getLocation(), MacroName,
-  //    HeaderFile);
-  //  }
+  // Macro expansion checking not yet implemented
 }
 
 } // namespace clang::tidy::automotive

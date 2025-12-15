@@ -107,7 +107,7 @@ private:
 
 class IgnoreLineSpliceRef {
 public:
-  IgnoreLineSpliceRef(llvm::StringRef Text) : Text(Text) {}
+  explicit IgnoreLineSpliceRef(llvm::StringRef Text) : Text(Text) {}
 
   IgnoreLineSpliceRefIterator begin() {
     return IgnoreLineSpliceRefIterator(Text, 0);

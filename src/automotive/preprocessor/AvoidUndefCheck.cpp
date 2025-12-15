@@ -18,11 +18,10 @@ namespace {
 
 class AvoidUndefPPCallbacks : public PPCallbacks {
 public:
-  AvoidUndefPPCallbacks(ClangTidyCheck &Check) : Check(Check) {}
+  explicit AvoidUndefPPCallbacks(ClangTidyCheck &Check) : Check(Check) {}
 
-  virtual void MacroUndefined(const Token &MacroNameTok,
-                              const MacroDefinition &MD,
-                              const MacroDirective *Undef) override;
+  void MacroUndefined(const Token &MacroNameTok, const MacroDefinition &MD,
+                      const MacroDirective *Undef) override;
 
 private:
   ClangTidyCheck &Check;
