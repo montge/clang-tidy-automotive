@@ -44,7 +44,7 @@ See [MISRA Rule Inventory](docs/MISRA-RULE-INVENTORY.md) for C rules and [MISRA 
 
 To build clang-tidy Automotive, follow these steps:
 
-### Prerequisites 
+### Prerequisites
 
 Clang 20 (or compatible version)
 
@@ -137,7 +137,7 @@ changes to the LLVM project if and when that happens. :)
 
 A significant part of this project right now is the diagnostic mapping layer.
 
-The purpose of the mapping layer is to strictly separate rule content from 
+The purpose of the mapping layer is to strictly separate rule content from
 the clang-tidy checks themselves. This separation is essential in order to:
 
 - avoid embedding copyrighted MISRA rule text in the codebase
@@ -164,5 +164,5 @@ Feel free to open issues or pull requests if you'd like to contribute to
 this project. Contributions are always welcome!
 
 **Note:** This project is not officially associated with MISRA or LLVM.
-Any contributions or code changes are not officially endorsed by MISRA or 
+Any contributions or code changes are not officially endorsed by MISRA or
 LLVM.
