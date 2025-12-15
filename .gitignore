@@ -34,3 +34,7 @@ compile_commands.json
 
 # SonarCloud token (local only)
 .sonar-token
+
+# Coverage artifacts (too large for git)
+coverage/
+sonar-cfamily-reproducer.tar.xz
