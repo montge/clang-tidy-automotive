@@ -34,6 +34,10 @@ void StdlibComponent::addCheckFactories(
       "automotive-avoid-stdlib-system");
   CheckFactories.registerCheck<AvoidStdlibRandCheck>(
       "automotive-avoid-stdlib-rand");
+
+  // Rule 21.3 / Dir 4.12 - Dynamic memory allocation (Required)
+  CheckFactories.registerCheck<AvoidStdlibMemoryCheck>(
+      "automotive-c23-req-21.3");
 }
 
 } // namespace clang::tidy::automotive
