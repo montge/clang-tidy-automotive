@@ -19,7 +19,7 @@ namespace {
 class IncludeOrderPPCallbacks : public PPCallbacks {
 public:
   IncludeOrderPPCallbacks(ClangTidyCheck &Check, const SourceManager &SM)
-      : Check(Check), SM(SM), SeenCode(false) {}
+      : Check(Check), SM(SM) {}
 
   void InclusionDirective(SourceLocation HashLoc, const Token &IncludeTok,
                           StringRef FileName, bool IsAngled,
@@ -58,7 +58,7 @@ public:
 private:
   ClangTidyCheck &Check;
   const SourceManager &SM;
-  bool SeenCode;
+  bool SeenCode = false;
 };
 
 } // anonymous namespace
