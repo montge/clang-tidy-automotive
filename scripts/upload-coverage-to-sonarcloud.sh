@@ -18,7 +18,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-COVERAGE_FILE="${1:-${PROJECT_ROOT}/coverage/coverage.json}"
+COVERAGE_FILE="${1:-${PROJECT_ROOT}/coverage/coverage-show.txt}"
 TOKEN_FILE="${PROJECT_ROOT}/.sonar-token"
 
 # Colors for output
