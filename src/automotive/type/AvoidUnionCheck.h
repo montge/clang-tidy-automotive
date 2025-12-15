@@ -38,6 +38,9 @@ public:
   AvoidUnionCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidUnionCheck() override = default;
+
   /// Registers AST matchers for union declarations.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

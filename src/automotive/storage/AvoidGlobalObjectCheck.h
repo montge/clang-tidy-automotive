@@ -45,6 +45,9 @@ class AvoidGlobalObjectCheck : public ClangTidyCheck {
 public:
   AvoidGlobalObjectCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Destructor.
+  ~AvoidGlobalObjectCheck() override = default;
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
   void onEndOfTranslationUnit() override;

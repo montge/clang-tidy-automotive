@@ -37,6 +37,9 @@ class AvoidConstantWrapAroundCheck : public ClangTidyCheck {
 public:
   AvoidConstantWrapAroundCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Destructor.
+  ~AvoidConstantWrapAroundCheck() override = default;
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };

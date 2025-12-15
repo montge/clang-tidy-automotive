@@ -36,6 +36,9 @@ public:
   AtoXCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AtoXCheck() override = default;
+
   /// Registers AST matchers for atoi/atof/atol calls.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

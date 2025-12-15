@@ -29,6 +29,9 @@ public:
   PreprocessorFlowCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~PreprocessorFlowCheck() override = default;
+
   void registerPPCallbacks(const SourceManager &SM, Preprocessor *PP,
                            Preprocessor *ModuleExpanderPP) override;
 };

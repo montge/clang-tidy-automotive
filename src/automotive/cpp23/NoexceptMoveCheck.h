@@ -42,6 +42,9 @@ public:
   NoexceptMoveCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~NoexceptMoveCheck() override = default;
+
   /// Determines if this check is language-version sensitive.
   /// \param LangOpts Language options to check.
   /// \return true if the check is applicable to C++11 and later.

@@ -37,6 +37,9 @@ class WrongOrderInSwitchStmtCheck : public ClangTidyCheck {
 public:
   WrongOrderInSwitchStmtCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Destructor.
+  ~WrongOrderInSwitchStmtCheck() override = default;
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 

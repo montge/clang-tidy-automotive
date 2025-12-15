@@ -34,6 +34,9 @@ public:
   AvoidInappropriateCastCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidInappropriateCastCheck() override = default;
+
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 

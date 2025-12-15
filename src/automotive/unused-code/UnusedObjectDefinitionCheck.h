@@ -34,6 +34,9 @@ class UnusedObjectDefinitionCheck : public ClangTidyCheck {
 public:
   UnusedObjectDefinitionCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Destructor.
+  ~UnusedObjectDefinitionCheck() override = default;
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };

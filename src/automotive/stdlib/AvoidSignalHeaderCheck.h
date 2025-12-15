@@ -36,6 +36,9 @@ public:
   AvoidSignalHeaderCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidSignalHeaderCheck() override = default;
+
   /// Registers preprocessor callbacks for signal.h inclusion.
   /// \param SM The source manager.
   /// \param PP The preprocessor instance.

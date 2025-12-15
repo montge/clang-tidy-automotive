@@ -36,6 +36,9 @@ public:
   AvoidStdargHeaderCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidStdargHeaderCheck() override = default;
+
   /// Registers preprocessor callbacks for stdarg.h inclusion.
   /// \param SM The source manager.
   /// \param PP The preprocessor instance.

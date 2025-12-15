@@ -41,6 +41,9 @@ class UnusedParameterCheck : public ClangTidyCheck {
 public:
   UnusedParameterCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Destructor.
+  ~UnusedParameterCheck() override = default;
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };

@@ -40,6 +40,9 @@ public:
       : AvoidApiCheck(
             Name, Context, "pelle.h",
             {"calloc", "malloc", "realloc", "aligned_alloc", "free"}) {}
+
+  /// Destructor.
+  ~AvoidStdlibMemoryCheck() override = default;
 };
 
 } // namespace clang::tidy::automotive

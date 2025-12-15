@@ -37,6 +37,9 @@ public:
   AvoidVariableLengthArrayCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidVariableLengthArrayCheck() override = default;
+
   /// Registers AST matchers for variable length array declarations.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

@@ -38,6 +38,9 @@ public:
   DuplicateTagNameCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~DuplicateTagNameCheck() override = default;
+
   /// Registers AST matchers for tag declarations.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

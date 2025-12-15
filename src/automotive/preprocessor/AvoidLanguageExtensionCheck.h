@@ -37,6 +37,9 @@ public:
   AvoidLanguageExtensionCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidLanguageExtensionCheck() override = default;
+
   /// Registers AST matchers for extension constructs.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
 
