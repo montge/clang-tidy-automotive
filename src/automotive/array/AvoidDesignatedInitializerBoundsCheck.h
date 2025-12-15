@@ -35,6 +35,9 @@ public:
                                         ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidDesignatedInitializerBoundsCheck() override = default;
+
   /// Registers AST matchers for designated initializers.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
 

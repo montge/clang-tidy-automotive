@@ -38,6 +38,9 @@ public:
   AvoidNonBooleanInConditionCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidNonBooleanInConditionCheck() override = default;
+
   /// Registers AST matchers for conditional expressions.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

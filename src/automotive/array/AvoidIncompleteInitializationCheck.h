@@ -38,6 +38,9 @@ public:
   AvoidIncompleteInitializationCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidIncompleteInitializationCheck() override = default;
+
   /// Registers AST matchers for aggregate initializations.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
 

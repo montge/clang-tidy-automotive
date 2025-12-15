@@ -36,6 +36,9 @@ class AvoidFlexibleArrayMemberCheck : public ClangTidyCheck {
 public:
   AvoidFlexibleArrayMemberCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Destructor.
+  ~AvoidFlexibleArrayMemberCheck() override = default;
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };

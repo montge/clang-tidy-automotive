@@ -39,6 +39,9 @@ class MultipleLoopTerminatorsCheck : public ClangTidyCheck {
 public:
   MultipleLoopTerminatorsCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Destructor.
+  ~MultipleLoopTerminatorsCheck() override = default;
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };

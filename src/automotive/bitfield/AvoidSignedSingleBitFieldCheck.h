@@ -39,6 +39,9 @@ public:
   AvoidSignedSingleBitFieldCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidSignedSingleBitFieldCheck() override = default;
+
   /// Registers AST matchers for signed single-bit fields.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

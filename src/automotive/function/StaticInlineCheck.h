@@ -36,6 +36,9 @@ public:
   StaticInlineCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~StaticInlineCheck() override = default;
+
   /// Registers AST matchers for inline function declarations.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

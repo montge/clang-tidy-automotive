@@ -39,6 +39,9 @@ public:
   MissingDefaultInSwitchStmtCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~MissingDefaultInSwitchStmtCheck() override = default;
+
   /// Registers AST matchers for switch statements.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

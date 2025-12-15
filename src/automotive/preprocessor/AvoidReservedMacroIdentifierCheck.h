@@ -38,6 +38,9 @@ public:
   AvoidReservedMacroIdentifierCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidReservedMacroIdentifierCheck() override = default;
+
   void registerPPCallbacks(const SourceManager &SM, Preprocessor *PP,
                            Preprocessor *ModuleExpanderPP) override;
 };

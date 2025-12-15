@@ -35,6 +35,9 @@ public:
   AvoidstdlibsystemcallCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidstdlibsystemcallCheck() override = default;
+
   /// Registers AST matchers for system() calls.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

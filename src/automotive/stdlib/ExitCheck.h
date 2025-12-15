@@ -36,6 +36,9 @@ public:
   ExitCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~ExitCheck() override = default;
+
   /// Registers AST matchers for exit/abort calls.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

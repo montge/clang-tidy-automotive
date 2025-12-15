@@ -35,6 +35,9 @@ public:
   ImplicitIntCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~ImplicitIntCheck() override = default;
+
   /// Registers AST matchers for variable and function declarations.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

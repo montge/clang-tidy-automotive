@@ -37,6 +37,9 @@ public:
   NoReturnVoidCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~NoReturnVoidCheck() override = default;
+
   /// Registers AST matchers for return statements in void functions.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

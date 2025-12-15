@@ -37,6 +37,9 @@ public:
   UncompleteFunctionPrototypeCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~UncompleteFunctionPrototypeCheck() override = default;
+
   /// Registers AST matchers for function declarations.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

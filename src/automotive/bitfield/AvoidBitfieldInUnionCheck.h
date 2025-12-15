@@ -38,6 +38,9 @@ public:
   AvoidBitfieldInUnionCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidBitfieldInUnionCheck() override = default;
+
   /// Registers AST matchers for bit-field members in unions.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

@@ -35,6 +35,9 @@ public:
   AvoidUndefCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidUndefCheck() override = default;
+
   /// Registers preprocessor callbacks for #undef directive handling.
   /// \param SM The source manager.
   /// \param PP The preprocessor instance.

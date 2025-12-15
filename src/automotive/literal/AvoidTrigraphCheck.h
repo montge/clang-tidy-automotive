@@ -46,6 +46,9 @@ public:
   AvoidTrigraphCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~AvoidTrigraphCheck() override = default;
+
   /// Registers preprocessor callbacks for trigraph detection.
   /// \param SM The source manager.
   /// \param PP The preprocessor instance.

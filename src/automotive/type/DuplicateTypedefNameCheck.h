@@ -38,6 +38,9 @@ public:
   DuplicateTypedefNameCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
 
+  /// Destructor.
+  ~DuplicateTypedefNameCheck() override = default;
+
   /// Registers AST matchers for typedef declarations.
   /// \param Finder The match finder to register matchers with.
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

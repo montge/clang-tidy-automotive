@@ -36,6 +36,9 @@ class AvoidBooleanInSwitchCheck : public ClangTidyCheck {
 public:
   AvoidBooleanInSwitchCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
+
+  /// Destructor.
+  ~AvoidBooleanInSwitchCheck() override = default;
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };
