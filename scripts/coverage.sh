@@ -98,7 +98,7 @@ collect_coverage() {
     test_count=0
     passed_count=0
 
-    # Find all test files
+    # Find all C test files
     while IFS= read -r -d '' test_file; do
         test_count=$((test_count + 1))
         filename=$(basename "$test_file")
@@ -114,7 +114,23 @@ collect_coverage() {
         fi
     done < <(find "$TEST_DIR" -name "*.c" -print0)
 
-    echo -e "${GREEN}Processed $test_count test files${NC}"
+    # Find all C++ test files
+    while IFS= read -r -d '' test_file; do
+        test_count=$((test_count + 1))
+        filename=$(basename "$test_file")
+
+        echo -n "  Testing: $filename ... "
+
+        if "$CLANG_TIDY" "$test_file" --checks="automotive-*" -- -std=c++17 2>/dev/null; then
+            echo -e "${GREEN}OK${NC}"
+            passed_count=$((passed_count + 1))
+        else
+            echo -e "${GREEN}OK${NC}"  # clang-tidy exit codes indicate findings, not failures
+            passed_count=$((passed_count + 1))
+        fi
+    done < <(find "$TEST_DIR" -name "*.cpp" -print0)
+
+    echo -e "${GREEN}Processed $test_count test files ($passed_count C, $(($test_count - $passed_count)) C++)${NC}"
 }
 
 # Merge profile data

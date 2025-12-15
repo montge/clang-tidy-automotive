@@ -121,8 +121,8 @@
 - [x] 4.5.11 Implement Rule 1.2: Language extensions detection (1 check)
 - [x] 4.5.12 Implement Dir 4.8: Pointer hiding in typedefs (1 check)
 
-Note: 93/176 MISRA C:2025 rules implemented (was 89), 25 covered by Clang built-in, 5 remaining planned, 53 require manual review.
-Total automotive checks: 103 (was 101). Added 5 MISRA C++:2023 checks.
+Note: 94/176 MISRA C:2025 rules implemented (was 93), 25 covered by Clang built-in, 4 remaining planned, 53 require manual review.
+Total automotive checks: 103. Added Rule 9.1 (AvoidUninitializedReadCheck) documentation and tests.
 
 ### 4.6 MISRA C++:2023 Implementation
 - [x] 4.6.1 Create MISRA C++:2023 rule inventory document (docs/MISRA-CPP-2023-INVENTORY.md)
