@@ -25,7 +25,9 @@ void AvoidPointerTypedefCheck::registerMatchers(MatchFinder *Finder) {
 void AvoidPointerTypedefCheck::check(const MatchFinder::MatchResult &Result) {
   // Check typedef declarations
   if (const auto *TD = Result.Nodes.getNodeAs<TypedefDecl>("typedef")) {
-    if (Result.SourceManager->isInSystemHeader(TD->getLocation()))
+    // Skip built-in types and system headers
+    if (!TD->getLocation().isValid() ||
+        Result.SourceManager->isInSystemHeader(TD->getLocation()))
       return;
 
     QualType UnderlyingType = TD->getUnderlyingType();
@@ -46,7 +48,9 @@ void AvoidPointerTypedefCheck::check(const MatchFinder::MatchResult &Result) {
 
   // Check type alias declarations
   if (const auto *TAD = Result.Nodes.getNodeAs<TypeAliasDecl>("alias")) {
-    if (Result.SourceManager->isInSystemHeader(TAD->getLocation()))
+    // Skip built-in types and system headers
+    if (!TAD->getLocation().isValid() ||
+        Result.SourceManager->isInSystemHeader(TAD->getLocation()))
       return;
 
     QualType UnderlyingType = TAD->getUnderlyingType();

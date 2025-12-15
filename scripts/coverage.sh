@@ -138,21 +138,24 @@ generate_reports() {
     echo -e "${YELLOW}Generating coverage reports...${NC}"
 
     # Generate LCOV format for CI integration
+    # Our code is at: llvm-project-.../clang-tools-extra/clang-tidy/automotive/
+    # We generate full coverage then filter to just automotive files
+    FULL_LCOV="${COVERAGE_DIR}/coverage-full.lcov"
     "$COV" export "$CLANG_TIDY" \
         -instr-profile="${COVERAGE_DIR}/coverage.profdata" \
         -format=lcov \
-        -ignore-filename-regex='llvm-project-.*' \
-        -ignore-filename-regex='test/.*' \
-        > "${COVERAGE_DIR}/coverage.lcov" 2>/dev/null || true
+        > "$FULL_LCOV" 2>/dev/null || true
+
+    # Filter to only include automotive source files
+    python3 "${SCRIPT_DIR}/filter-lcov.py" "$FULL_LCOV" "${COVERAGE_DIR}/coverage.lcov" "clang-tidy/automotive"
 
     echo -e "${GREEN}Generated: ${COVERAGE_DIR}/coverage.lcov${NC}"
 
     if $GENERATE_REPORT; then
-        # Generate text summary
+        # Generate text summary - only automotive files
         "$COV" report "$CLANG_TIDY" \
             -instr-profile="${COVERAGE_DIR}/coverage.profdata" \
-            -ignore-filename-regex='llvm-project-.*' \
-            -ignore-filename-regex='test/.*' \
+            2>/dev/null | grep -E "automotive|^Filename|^----|TOTAL" \
             > "${COVERAGE_DIR}/coverage-summary.txt" 2>/dev/null || true
 
         echo -e "${GREEN}Generated: ${COVERAGE_DIR}/coverage-summary.txt${NC}"
