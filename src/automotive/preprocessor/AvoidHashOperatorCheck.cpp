@@ -19,7 +19,7 @@ namespace {
 
 class AvoidHashOperatorPPCallbacks : public PPCallbacks {
 public:
-  AvoidHashOperatorPPCallbacks(ClangTidyCheck &Check) : Check(Check) {}
+  explicit AvoidHashOperatorPPCallbacks(ClangTidyCheck &Check) : Check(Check) {}
 
   void MacroDefined(const Token &MacroNameTok,
                     const MacroDirective *MD) override;

@@ -18,7 +18,7 @@ namespace {
 
 class InvalidHeaderCharPPCallbacks : public PPCallbacks {
 public:
-  InvalidHeaderCharPPCallbacks(ClangTidyCheck &Check) : Check(Check) {}
+  explicit InvalidHeaderCharPPCallbacks(ClangTidyCheck &Check) : Check(Check) {}
 
   void InclusionDirective(SourceLocation HashLoc, const Token &IncludeTok,
                           StringRef FileName, bool IsAngled,
