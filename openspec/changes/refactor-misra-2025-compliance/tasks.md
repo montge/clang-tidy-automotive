@@ -170,11 +170,14 @@ rules not covered elsewhere.
 ### 6.1 Coverage Verification
 - [x] 6.1.1 Configure CI to generate coverage reports (currently 0% reported)
 - [x] 6.1.2 Create coverage build workflow for GitHub Actions (manual trigger)
-- [ ] 6.1.3 Generate baseline coverage report with llvm-cov
+- [x] 6.1.3 Generate baseline coverage report with llvm-cov
+  - Baseline: 230 files, 4084 lines, 3225 covered (79.0% line coverage)
 - [ ] 6.1.4 Identify untested code paths and add tests
 - [ ] 6.1.5 Verify 90%+ code coverage achieved
 - [ ] 6.1.6 Document any uncovered code paths with justification
-- [ ] 6.1.7 Upload coverage report to SonarCloud
+- [x] 6.1.7 Upload coverage report to SonarCloud
+  - Using llvm-cov show format (not JSON export)
+  - Path rewriting: LLVM tree paths → src/automotive/
 
 Note: Coverage testing requires rebuilding with coverage instrumentation using
 ./scripts/configure-coverage.sh followed by full rebuild. Coverage collection
