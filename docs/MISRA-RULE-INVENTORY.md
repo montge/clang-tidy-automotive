@@ -18,9 +18,9 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|-------|-------------|-------|---------|--------|
 | Directives | 18 | 4 | 0 | 1 | 13 |
 | Mandatory | 4 | 2 | 2 | 0 | 0 |
-| Required | 113 | 63 | 15 | 2 | 33 |
+| Required | 113 | 64 | 15 | 1 | 33 |
 | Advisory | 41 | 25 | 8 | 1 | 7 |
-| **Total** | **176** | **94** | **25** | **4** | **53** |
+| **Total** | **176** | **95** | **25** | **3** | **53** |
 
 ## Implemented Checks
 
@@ -169,6 +169,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
 | `automotive-avoid-stdarg-header` | 17.1 | Required | <stdarg.h> usage |
+| `automotive-c23-req-21.3` | 21.3 | Required | Dynamic memory allocation |
 | `automotive-avoid-setjmp-header` | 21.4 | Required | <setjmp.h> usage |
 | `automotive-avoid-signal-header` | 21.5 | Required | <signal.h> usage |
 | `automotive-avoid-ascii-to-number` | 21.7 | Required | atoi/atof functions |
