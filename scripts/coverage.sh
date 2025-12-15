@@ -151,14 +151,18 @@ generate_reports() {
 
     echo -e "${GREEN}Generated: ${COVERAGE_DIR}/coverage.lcov${NC}"
 
-    # Generate llvm-cov JSON format for SonarCloud
-    # SonarCloud's cfamily plugin requires this format, not LCOV
-    # Default llvm-cov export format (without -format flag) is JSON
-    "$COV" export "$CLANG_TIDY" \
+    # Generate llvm-cov show format for SonarCloud
+    # SonarCloud's cfamily plugin expects 'llvm-cov show' output (annotated sources)
+    # Filter to only automotive source files in the LLVM tree
+    AUTOMOTIVE_DIR="${PROJECT_ROOT}/llvm-project-llvmorg-20.1.8/clang-tools-extra/clang-tidy/automotive"
+    "$COV" show "$CLANG_TIDY" \
         -instr-profile="${COVERAGE_DIR}/coverage.profdata" \
-        > "${COVERAGE_DIR}/coverage.json" 2>/dev/null || true
+        -show-branches=count \
+        -path-equivalence="${AUTOMOTIVE_DIR}",src/automotive \
+        "$AUTOMOTIVE_DIR" \
+        > "${COVERAGE_DIR}/coverage-show.txt" 2>/dev/null || true
 
-    echo -e "${GREEN}Generated: ${COVERAGE_DIR}/coverage.json${NC}"
+    echo -e "${GREEN}Generated: ${COVERAGE_DIR}/coverage-show.txt${NC}"
 
     if $GENERATE_REPORT; then
         # Generate text summary - only automotive files
