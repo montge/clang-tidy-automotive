@@ -137,7 +137,7 @@ merge_profiles() {
 generate_reports() {
     echo -e "${YELLOW}Generating coverage reports...${NC}"
 
-    # Generate LCOV format for CI integration
+    # Generate LCOV format (for local viewing/other tools)
     # Our code is at: llvm-project-.../clang-tools-extra/clang-tidy/automotive/
     # We generate full coverage then filter to just automotive files
     FULL_LCOV="${COVERAGE_DIR}/coverage-full.lcov"
@@ -146,10 +146,19 @@ generate_reports() {
         -format=lcov \
         > "$FULL_LCOV" 2>/dev/null || true
 
-    # Filter to only include automotive source files
+    # Filter to only include automotive source files (with path rewriting)
     python3 "${SCRIPT_DIR}/filter-lcov.py" "$FULL_LCOV" "${COVERAGE_DIR}/coverage.lcov" "clang-tidy/automotive"
 
     echo -e "${GREEN}Generated: ${COVERAGE_DIR}/coverage.lcov${NC}"
+
+    # Generate llvm-cov JSON format for SonarCloud
+    # SonarCloud's cfamily plugin requires this format, not LCOV
+    # Default llvm-cov export format (without -format flag) is JSON
+    "$COV" export "$CLANG_TIDY" \
+        -instr-profile="${COVERAGE_DIR}/coverage.profdata" \
+        > "${COVERAGE_DIR}/coverage.json" 2>/dev/null || true
+
+    echo -e "${GREEN}Generated: ${COVERAGE_DIR}/coverage.json${NC}"
 
     if $GENERATE_REPORT; then
         # Generate text summary - only automotive files
