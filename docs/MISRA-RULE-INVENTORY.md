@@ -18,9 +18,9 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|-------|-------------|-------|---------|--------|
 | Directives | 18 | 4 | 0 | 1 | 13 |
 | Mandatory | 4 | 2 | 2 | 0 | 0 |
-| Required | 113 | 62 | 15 | 3 | 33 |
+| Required | 113 | 63 | 15 | 2 | 33 |
 | Advisory | 41 | 25 | 8 | 1 | 7 |
-| **Total** | **176** | **93** | **25** | **5** | **53** |
+| **Total** | **176** | **94** | **25** | **4** | **53** |
 
 ## Implemented Checks
 
@@ -134,6 +134,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|------------|----------|-------------|
 | `automotive-c23-adv-8.7` | 8.7 | Advisory | Static for internal linkage |
 | `automotive-c23-adv-8.9` | 8.9 | Advisory | Object at block scope |
+| `automotive-c23-req-9.1` | 9.1 | Required | Uninitialized variable detection |
 | `automotive-c23-req-21.2` | 21.2 | Required | Reserved identifier declarations |
 | `automotive-avoid-restrict-type` | 8.14 | Required | restrict qualifier usage |
 | `automotive-missing-static-internal-linkage` | 8.8 | Required | Missing static for internal linkage |
@@ -248,7 +249,7 @@ These rules cannot be fully verified by static analysis:
 - ~~Rule 9.2: Explicit enumerator values~~ (Implemented)
 - ~~Rule 9.4: Complete aggregate initialization~~ (Implemented)
 - ~~Rule 9.5: Designated initializer bounds~~ (Implemented)
-- Rule 9.1: Uninitialized variable detection (partially covered by clang -Wuninitialized)
+- ~~Rule 9.1: Uninitialized variable detection~~ (Implemented as automotive-c23-req-9.1)
 
 ### Medium Priority (Advisory Rules)
 - Dir 4.2: Language subset selection
