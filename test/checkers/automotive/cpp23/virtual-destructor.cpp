@@ -1,53 +1,104 @@
 // RUN: %check_clang_tidy -std=c++17 %s automotive-cpp23-req-15.7 %t
 
-// Test virtual destructor requirement
+// Test virtual destructor requirement (MISRA C++:2023 Rule 15.7)
 
-class BadBase1 {
-  // CHECK-MESSAGES: :[[@LINE-1]]:7: warning: class 'BadBase1' has virtual functions but no explicit virtual destructor [automotive-cpp23-req-15.7]
+// ============= Violations: Non-virtual destructor with virtual methods =============
+
+class NonVirtualDestructor {
 public:
   virtual void foo();
-  ~BadBase1() {}
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: class 'BadBase1' has virtual functions but destructor is not virtual [automotive-cpp23-req-15.7]
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: class 'NonVirtualDestructor' has virtual functions but destructor is not virtual
+  ~NonVirtualDestructor() {}
 };
 
-class BadBase2 {
-  // CHECK-MESSAGES: :[[@LINE-1]]:7: warning: class 'BadBase2' has virtual functions but no explicit virtual destructor [automotive-cpp23-req-15.7]
+class AbstractWithNonVirtual {
 public:
   virtual void bar() = 0;
-  // No destructor declared - should warn
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: class 'AbstractWithNonVirtual' has virtual functions but destructor is not virtual
+  ~AbstractWithNonVirtual() {}
 };
 
-class GoodBase1 {
+class MultipleVirtuals {
+public:
+  virtual void method1();
+  virtual void method2();
+  virtual void method3();
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: class 'MultipleVirtuals' has virtual functions but destructor is not virtual
+  ~MultipleVirtuals() {}
+};
+
+// ============= Violations: No explicit destructor with virtual methods =============
+
+class NoExplicitDestructor {
+// CHECK-MESSAGES: :[[@LINE-1]]:7: warning: class 'NoExplicitDestructor' has virtual functions but no explicit virtual destructor
 public:
   virtual void foo();
-  virtual ~GoodBase1() {}
+  // Implicit destructor - no virtual destructor
 };
 
-class GoodBase2 {
+class AbstractNoDestructor {
+// CHECK-MESSAGES: :[[@LINE-1]]:7: warning: class 'AbstractNoDestructor' has virtual functions but no explicit virtual destructor
 public:
   virtual void bar() = 0;
-  virtual ~GoodBase2() = default;
 };
 
-class GoodDerived : public GoodBase1 {
+// ============= Compliant: Virtual destructor =============
+
+class VirtualDestructor {
 public:
-  // Destructor is virtual because base has virtual destructor
-  ~GoodDerived() {}
+  virtual void foo();
+  virtual ~VirtualDestructor() {}  // Compliant
 };
+
+class VirtualDestructorDefault {
+public:
+  virtual void bar() = 0;
+  virtual ~VirtualDestructorDefault() = default;  // Compliant
+};
+
+class VirtualDestructorPure {
+public:
+  virtual void baz();
+  virtual ~VirtualDestructorPure() = 0;  // Compliant (pure virtual destructor)
+};
+
+// ============= Compliant: Inherits virtual destructor =============
+
+class GoodBase {
+public:
+  virtual void foo();
+  virtual ~GoodBase() {}
+};
+
+class InheritsVirtualDestructor : public GoodBase {
+public:
+  void foo() override;
+  ~InheritsVirtualDestructor() {}  // Compliant - base has virtual destructor
+};
+
+class DeepInheritance : public InheritsVirtualDestructor {
+public:
+  void foo() override;
+  // Implicit destructor is OK - inherited from GoodBase
+};
+
+// ============= Compliant: No virtual methods =============
 
 class NoVirtualMethods {
 public:
   void foo();
-  ~NoVirtualMethods() {}
+  ~NoVirtualMethods() {}  // Compliant - no virtual methods
 };
 
 struct PlainStruct {
   int x;
+  int y;
   // No virtual methods - should not warn
 };
 
-class VirtualInherited : public GoodBase1 {
-  // Inherits virtual destructor - should not warn
+class OnlyNonVirtual {
 public:
-  void foo() override;
+  void method1();
+  void method2();
+  ~OnlyNonVirtual() {}  // Compliant - no virtual methods
 };
