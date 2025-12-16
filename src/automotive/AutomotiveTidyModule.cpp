@@ -80,6 +80,7 @@ static ClangTidyModuleRegistry::Add<automotive::AutomotiveModule>
 // This anchor is used to force the linker to link in the generated object file
 // and thus register the AutomotiveModule. The volatile keyword prevents
 // compiler optimization that would remove this symbol.
-volatile int AutomotiveModuleAnchorSource = 0;  // NOSONAR: volatile required to prevent optimization
+volatile int AutomotiveModuleAnchorSource =
+    0; // NOSONAR: volatile required to prevent optimization
 
 } // namespace clang::tidy

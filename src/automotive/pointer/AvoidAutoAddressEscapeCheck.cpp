@@ -103,14 +103,4 @@ void AvoidAutoAddressEscapeCheck::check(
   }
 }
 
-bool AvoidAutoAddressEscapeCheck::hasAutomaticStorage(const VarDecl *VD) const {
-  return VD && VD->hasLocalStorage() && !VD->isStaticLocal();
-}
-
-bool AvoidAutoAddressEscapeCheck::isGlobalOrStatic(const VarDecl *VD) const {
-  if (!VD)
-    return false;
-  return VD->hasGlobalStorage() || VD->isStaticLocal();
-}
-
 } // namespace clang::tidy::automotive

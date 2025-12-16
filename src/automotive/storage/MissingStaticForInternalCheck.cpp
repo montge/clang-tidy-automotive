@@ -27,11 +27,10 @@ void MissingStaticForInternalCheck::registerMatchers(MatchFinder *Finder) {
 
   // Match file-scope variable definitions without static at file scope
   // Note: isExternC() matches all C declarations (C linkage), so don't use it
-  Finder->addMatcher(
-      varDecl(hasGlobalStorage(), unless(isStaticStorageClass()),
-              hasParent(translationUnitDecl()))
-          .bind("var"),
-      this);
+  Finder->addMatcher(varDecl(hasGlobalStorage(), unless(isStaticStorageClass()),
+                             hasParent(translationUnitDecl()))
+                         .bind("var"),
+                     this);
 }
 
 void MissingStaticForInternalCheck::check(
