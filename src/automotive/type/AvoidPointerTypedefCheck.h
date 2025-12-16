@@ -48,6 +48,13 @@ public:
 
   /// Handles matched typedefs and emits diagnostics.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
+
+private:
+  /// Check a typedef declaration for hidden pointer.
+  void checkTypedefDecl(const TypedefDecl *TD, const SourceManager &SM);
+
+  /// Check a type alias declaration for hidden pointer.
+  void checkTypeAliasDecl(const TypeAliasDecl *TAD, const SourceManager &SM);
 };
 
 } // namespace clang::tidy::automotive
