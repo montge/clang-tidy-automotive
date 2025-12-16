@@ -34,6 +34,17 @@ namespace clang::tidy::automotive {
 /// @endcode
 class AvoidNarrowingCompoundAssignmentCheck : public ClangTidyCheck {
 public:
+  /// Essential type categories for MISRA type analysis.
+  enum class EssentialType {
+    Boolean,
+    Character,
+    SignedInt,
+    UnsignedInt,
+    FloatingPoint,
+    Enum,
+    Other
+  };
+
   AvoidNarrowingCompoundAssignmentCheck(StringRef Name,
                                         ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
@@ -45,16 +56,6 @@ public:
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 
 private:
-  enum class EssentialType {
-    Boolean,
-    Character,
-    SignedInt,
-    UnsignedInt,
-    FloatingPoint,
-    Enum,
-    Other
-  };
-
   EssentialType getEssentialType(QualType Type) const;
   unsigned getTypeWidth(QualType Type, const ASTContext &Ctx) const;
   bool isNarrowing(QualType From, QualType To, const ASTContext &Ctx) const;

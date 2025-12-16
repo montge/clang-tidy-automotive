@@ -224,6 +224,10 @@ Latest fixes:
 - AvoidIncompatiblePointerConversionCheck.cpp: Used early return at end to reduce nesting
 - GotoLabelSameBlockCheck.cpp: Simplified getLabelStmt() with early return
 - AvoidPointerTypedefCheck.cpp: Extracted checkTypedefDecl() and checkTypeAliasDecl() helpers
+- AvoidTrigraphCheck.cpp: Extracted getTrigraphReplacement() helper, used early returns
+- VirtualDestructorCheck.cpp: Extracted hasVirtualDestructorInBase() helper
+- AvoidSlicingCheck.cpp: Extracted isSlicing() helper function
+- AvoidNarrowingCompoundAssignmentCheck.cpp: Extracted essentialTypeToString() helper, replaced nested ternaries
 
 ### 6.3 Integration Testing
 - [x] 6.3.1 Run all checks against examples directory (38/38 violation tests pass)
