@@ -29,14 +29,14 @@ public:
 
 // ============= Violations: No explicit destructor with virtual methods =============
 
-// CHECK-MESSAGES: :[[@LINE+1]]:7: warning: class 'NoExplicitDestructor' has virtual functions but destructor is not virtual
+// CHECK-MESSAGES: :[[@LINE+1]]:7: warning: class 'NoExplicitDestructor' has virtual functions but no explicit virtual destructor
 class NoExplicitDestructor {
 public:
   virtual void foo();
   // Implicit destructor - no virtual destructor
 };
 
-// CHECK-MESSAGES: :[[@LINE+1]]:7: warning: class 'AbstractNoDestructor' has virtual functions but destructor is not virtual
+// CHECK-MESSAGES: :[[@LINE+1]]:7: warning: class 'AbstractNoDestructor' has virtual functions but no explicit virtual destructor
 class AbstractNoDestructor {
 public:
   virtual void bar() = 0;

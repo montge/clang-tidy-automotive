@@ -53,8 +53,9 @@ void VirtualDestructorCheck::check(const MatchFinder::MatchResult &Result) {
   // Get the destructor
   const CXXDestructorDecl *Destructor = ClassDecl->getDestructor();
 
-  // If there's no explicit destructor, check if any base has virtual destructor
-  if (!Destructor) {
+  // If there's no destructor or it's implicit, check if any base has virtual
+  // destructor
+  if (!Destructor || Destructor->isImplicit()) {
     if (!hasVirtualDestructorInBase(ClassDecl))
       diag(ClassDecl->getLocation(),
            "class '%0' has virtual functions but no explicit virtual "
@@ -63,7 +64,7 @@ void VirtualDestructorCheck::check(const MatchFinder::MatchResult &Result) {
     return;
   }
 
-  // Check if the destructor is virtual
+  // Check if the explicit destructor is virtual
   if (!Destructor->isVirtual())
     diag(Destructor->getLocation(),
          "class '%0' has virtual functions but destructor is not virtual")
