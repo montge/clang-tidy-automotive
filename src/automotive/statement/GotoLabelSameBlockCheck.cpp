@@ -17,13 +17,11 @@ namespace clang::tidy::automotive {
 
 /// Helper function to get the LabelStmt from a GotoStmt
 static const LabelStmt *getLabelStmt(const GotoStmt *Goto) {
-  if (Goto) {
-    const auto *Label = Goto->getLabel();
-    if (Label) {
-      return Label->getStmt();
-    }
-  }
-  return nullptr;
+  if (!Goto)
+    return nullptr;
+
+  const auto *Label = Goto->getLabel();
+  return Label ? Label->getStmt() : nullptr;
 }
 
 /// Helper function to find the immediate parent CompoundStmt for a given Stmt

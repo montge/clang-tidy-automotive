@@ -14,6 +14,27 @@ using namespace clang::ast_matchers;
 
 namespace clang::tidy::automotive {
 
+const char *
+AvoidInappropriateCastCheck::essentialTypeToString(EssentialType ET) {
+  switch (ET) {
+  case EssentialType::SignedInt:
+    return "signed";
+  case EssentialType::UnsignedInt:
+    return "unsigned";
+  case EssentialType::Boolean:
+    return "boolean";
+  case EssentialType::Character:
+    return "character";
+  case EssentialType::FloatingPoint:
+    return "floating";
+  case EssentialType::Enum:
+    return "enum";
+  case EssentialType::Other:
+    return "other";
+  }
+  return "other";
+}
+
 void AvoidInappropriateCastCheck::registerMatchers(MatchFinder *Finder) {
   // Match C-style casts
   Finder->addMatcher(cStyleCastExpr().bind("cast"), this);
@@ -37,20 +58,7 @@ void AvoidInappropriateCastCheck::check(
   if (isInappropriateCast(FromET, ToET)) {
     diag(Cast->getBeginLoc(), "cast from essentially '%0' type to essentially "
                               "'%1' type may indicate design issues")
-        << (FromET == EssentialType::SignedInt       ? "signed"
-            : FromET == EssentialType::UnsignedInt   ? "unsigned"
-            : FromET == EssentialType::Boolean       ? "boolean"
-            : FromET == EssentialType::Character     ? "character"
-            : FromET == EssentialType::FloatingPoint ? "floating"
-            : FromET == EssentialType::Enum          ? "enum"
-                                                     : "other")
-        << (ToET == EssentialType::SignedInt       ? "signed"
-            : ToET == EssentialType::UnsignedInt   ? "unsigned"
-            : ToET == EssentialType::Boolean       ? "boolean"
-            : ToET == EssentialType::Character     ? "character"
-            : ToET == EssentialType::FloatingPoint ? "floating"
-            : ToET == EssentialType::Enum          ? "enum"
-                                                   : "other");
+        << essentialTypeToString(FromET) << essentialTypeToString(ToET);
   }
 }
 

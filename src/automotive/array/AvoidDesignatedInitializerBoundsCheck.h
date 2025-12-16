@@ -43,6 +43,18 @@ public:
 
   /// Handles matched initializers and emits diagnostics.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
+
+private:
+  /// Check a single array designator for bounds issues.
+  void
+  checkArrayDesignator(const DesignatedInitExpr::Designator &D,
+                       const DesignatedInitExpr *DIE,
+                       const ast_matchers::MatchFinder::MatchResult &Result);
+
+  /// Check a GNU array range designator for bounds issues.
+  void checkArrayRangeDesignator(
+      const DesignatedInitExpr::Designator &D, const DesignatedInitExpr *DIE,
+      const ast_matchers::MatchFinder::MatchResult &Result);
 };
 
 } // namespace clang::tidy::automotive
