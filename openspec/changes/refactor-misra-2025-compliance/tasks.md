@@ -217,6 +217,14 @@ Additional fixes (current session):
 - AvoidIncompleteInitializationCheck.cpp: Extracted isZeroInitializer() and countExplicitInits() helpers, fixed struct initialization detection
 - DuplicateTagNameCheck.cpp: Extracted getTagKindName() helper, simplified duplicate tracking with llvm::find()
 
+Latest fixes:
+- AvoidInappropriateCastCheck.cpp: Extracted essentialTypeToString() helper method
+- AvoidDesignatedInitializerBoundsCheck.cpp: Extracted checkArrayDesignator() and checkArrayRangeDesignator() helpers
+- MissingHeaderGuardCheck.cpp: Refactored FileChanged() and EndOfMainFile() with early returns
+- AvoidIncompatiblePointerConversionCheck.cpp: Used early return at end to reduce nesting
+- GotoLabelSameBlockCheck.cpp: Simplified getLabelStmt() with early return
+- AvoidPointerTypedefCheck.cpp: Extracted checkTypedefDecl() and checkTypeAliasDecl() helpers
+
 ### 6.3 Integration Testing
 - [x] 6.3.1 Run all checks against examples directory (38/38 violation tests pass)
 - [x] 6.3.2 Fix false positives (Rule 9.1 ParmVarDecl fix applied)
