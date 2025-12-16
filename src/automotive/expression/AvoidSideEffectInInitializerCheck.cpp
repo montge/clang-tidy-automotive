@@ -93,16 +93,16 @@ void AvoidSideEffectInInitializerCheck::check(
 
 bool AvoidSideEffectInInitializerCheck::hasSideEffect(const Expr *E) const {
   SideEffectCounter Counter;
-  Counter.TraverseStmt(const_cast<Expr *>(
-      E)); // NOSONAR(S859): const_cast required by RecursiveASTVisitor API
+  // NOSONAR(S859): const_cast required by RecursiveASTVisitor API
+  Counter.TraverseStmt(const_cast<Expr *>(E));
   return Counter.hasSideEffect();
 }
 
 unsigned
 AvoidSideEffectInInitializerCheck::countSideEffects(const Expr *E) const {
   SideEffectCounter Counter;
-  Counter.TraverseStmt(const_cast<Expr *>(
-      E)); // NOSONAR(S859): const_cast required by RecursiveASTVisitor API
+  // NOSONAR(S859): const_cast required by RecursiveASTVisitor API
+  Counter.TraverseStmt(const_cast<Expr *>(E));
   return Counter.getCount();
 }
 
