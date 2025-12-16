@@ -23,13 +23,15 @@ public:
                    SrcMgr::CharacteristicKind FileType,
                    FileID PrevFID) override {
     // Only scan the main file and included files
-    if (Reason == EnterFile) {
-      FileID FID = SM.getFileID(Loc);
-      if (FID.isValid() && !ScannedFiles.count(FID)) {
-        ScannedFiles.insert(FID);
-        scanFileForTrigraphs(FID);
-      }
-    }
+    if (Reason != EnterFile)
+      return;
+
+    FileID FID = SM.getFileID(Loc);
+    if (!FID.isValid() || ScannedFiles.count(FID))
+      return;
+
+    ScannedFiles.insert(FID);
+    scanFileForTrigraphs(FID);
   }
 
   void EndOfMainFile() override {
@@ -45,48 +47,55 @@ private:
   const SourceManager &SM;
   llvm::DenseSet<FileID> ScannedFiles;
 
+  /// Get trigraph replacement character, or '\0' if not a valid trigraph.
+  static char getTrigraphReplacement(char ThirdChar) {
+    switch (ThirdChar) {
+    case '=':
+      return '#';
+    case '(':
+      return '[';
+    case ')':
+      return ']';
+    case '<':
+      return '{';
+    case '>':
+      return '}';
+    case '/':
+      return '\\';
+    case '\'':
+      return '^';
+    case '!':
+      return '|';
+    case '-':
+      return '~';
+    default:
+      return '\0';
+    }
+  }
+
   void scanFileForTrigraphs(FileID FID) {
     bool Invalid = false;
     StringRef Buffer = SM.getBufferData(FID, &Invalid);
     if (Invalid)
       return;
 
-    // Trigraph mapping table
-    // Note: Using string literals to avoid trigraph warnings in this file
-    static const struct {
-      const char *Sequence;
-      char Replacement;
-    } Trigraphs[] = {{"\?\?=", '#'}, {"\?\?(", '['}, {"\?\?)", ']'},
-                     {"\?\?<", '{'}, {"\?\?>", '}'}, {"\?\?/", '\\'},
-                     {"\?\?'", '^'}, {"\?\?!", '|'}, {"\?\?-", '~'}};
-
     SourceLocation FileStart = SM.getLocForStartOfFile(FID);
 
     for (size_t Pos = 0; Pos < Buffer.size() - 2; ++Pos) {
-      if (Buffer[Pos] == '?' && Buffer[Pos + 1] == '?') {
-        char ThirdChar = Buffer[Pos + 2];
+      if (Buffer[Pos] != '?' || Buffer[Pos + 1] != '?')
+        continue;
 
-        // Check if this forms a valid trigraph
-        char Replacement = '\0';
-        for (const auto &TG : Trigraphs) {
-          if (TG.Sequence[2] == ThirdChar) {
-            Replacement = TG.Replacement;
-            break;
-          }
-        }
+      char ThirdChar = Buffer[Pos + 2];
+      char Replacement = getTrigraphReplacement(ThirdChar);
+      if (Replacement == '\0')
+        continue;
 
-        if (Replacement != '\0') {
-          SourceLocation TrigraphLoc = FileStart.getLocWithOffset(Pos);
-
-          // Format the warning message with the trigraph and its replacement
-          SmallString<64> Message;
-          llvm::raw_svector_ostream OS(Message);
-          OS << "avoid trigraph sequence '??" << ThirdChar << "' (expands to '"
-             << Replacement << "')";
-
-          Check.diag(TrigraphLoc, Message);
-        }
-      }
+      SourceLocation TrigraphLoc = FileStart.getLocWithOffset(Pos);
+      SmallString<64> Message;
+      llvm::raw_svector_ostream OS(Message);
+      OS << "avoid trigraph sequence '??" << ThirdChar << "' (expands to '"
+         << Replacement << "')";
+      Check.diag(TrigraphLoc, Message);
     }
   }
 };

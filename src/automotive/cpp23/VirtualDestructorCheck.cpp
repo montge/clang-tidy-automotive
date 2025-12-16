@@ -27,6 +27,20 @@ void VirtualDestructorCheck::registerMatchers(MatchFinder *Finder) {
                      this);
 }
 
+/// Check if any base class has a virtual destructor.
+static bool hasVirtualDestructorInBase(const CXXRecordDecl *ClassDecl) {
+  for (const auto &Base : ClassDecl->bases()) {
+    const auto *BaseClass = Base.getType()->getAsCXXRecordDecl();
+    if (!BaseClass || !BaseClass->hasDefinition())
+      continue;
+
+    const CXXDestructorDecl *BaseDtor = BaseClass->getDestructor();
+    if (BaseDtor && BaseDtor->isVirtual())
+      return true;
+  }
+  return false;
+}
+
 void VirtualDestructorCheck::check(const MatchFinder::MatchResult &Result) {
   const auto *ClassDecl = Result.Nodes.getNodeAs<CXXRecordDecl>("class");
   if (!ClassDecl || !ClassDecl->hasDefinition())
@@ -39,38 +53,21 @@ void VirtualDestructorCheck::check(const MatchFinder::MatchResult &Result) {
   // Get the destructor
   const CXXDestructorDecl *Destructor = ClassDecl->getDestructor();
 
-  // If there's no explicit destructor, check if it's implicitly declared
+  // If there's no explicit destructor, check if any base has virtual destructor
   if (!Destructor) {
-    // No destructor means it's using the default, which is not virtual
-    // unless a base class has a virtual destructor
-    bool HasVirtualDtorInBase = false;
-    for (const auto &Base : ClassDecl->bases()) {
-      if (const auto *BaseClass = Base.getType()->getAsCXXRecordDecl()) {
-        if (BaseClass->hasDefinition()) {
-          const CXXDestructorDecl *BaseDtor = BaseClass->getDestructor();
-          if (BaseDtor && BaseDtor->isVirtual()) {
-            HasVirtualDtorInBase = true;
-            break;
-          }
-        }
-      }
-    }
-
-    if (!HasVirtualDtorInBase) {
+    if (!hasVirtualDestructorInBase(ClassDecl))
       diag(ClassDecl->getLocation(),
            "class '%0' has virtual functions but no explicit virtual "
            "destructor")
           << ClassDecl->getQualifiedNameAsString();
-    }
     return;
   }
 
   // Check if the destructor is virtual
-  if (!Destructor->isVirtual()) {
+  if (!Destructor->isVirtual())
     diag(Destructor->getLocation(),
          "class '%0' has virtual functions but destructor is not virtual")
         << ClassDecl->getQualifiedNameAsString();
-  }
 }
 
 } // namespace clang::tidy::automotive
