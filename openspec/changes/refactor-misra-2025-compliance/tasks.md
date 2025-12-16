@@ -231,6 +231,7 @@ Latest fixes:
 - UniqueEnumValuesCheck.cpp: Early return, simplified ternary
 - DuplicateTypedefNameCheck.cpp: Combined early return checks
 - AvoidInvalidHeaderCharCheck.cpp: Extracted buildInvalidCharsList() helper
+- UnstructuredSwitchStmtCheck.cpp: Removed unnecessary empty else block
 
 ### 6.3 Integration Testing
 - [x] 6.3.1 Run all checks against examples directory (38/38 violation tests pass)
