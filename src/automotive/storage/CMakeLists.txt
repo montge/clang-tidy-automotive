@@ -5,6 +5,5 @@ add_clang_library(clangTidyAutomotiveStorageComponent STATIC
   AvoidRestrictTypeCheck.cpp
   AvoidUninitializedReadCheck.cpp
   MissingStaticForInternalCheck.cpp
-  MissingStaticInternalLinkageCheck.cpp
   StorageComponent.cpp
 )
