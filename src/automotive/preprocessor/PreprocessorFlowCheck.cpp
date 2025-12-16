@@ -16,6 +16,9 @@ namespace clang::tidy::automotive {
 
 void PreprocessorFlowCheck::registerPPCallbacks(
     const SourceManager &SM, Preprocessor *PP, Preprocessor *ModuleExpanderPP) {
+  // Intentionally empty: placeholder for future preprocessor flow analysis.
+  // This check infrastructure monitors preprocessor directives for MISRA
+  // compliance but has no active checks implemented yet.
 }
 
 } // namespace clang::tidy::automotive
