@@ -36,6 +36,14 @@ void AvoidSlicingCheck::registerMatchers(MatchFinder *Finder) {
                      this);
 }
 
+/// Check if slicing occurs between derived and base classes.
+static bool isSlicing(const CXXRecordDecl *DerivedDecl,
+                      const CXXRecordDecl *BaseDecl) {
+  if (!DerivedDecl || !BaseDecl)
+    return false;
+  return DerivedDecl != BaseDecl && DerivedDecl->isDerivedFrom(BaseDecl);
+}
+
 void AvoidSlicingCheck::check(const MatchFinder::MatchResult &Result) {
   // Check constructor-based slicing
   if (const auto *Construct =
@@ -44,46 +52,35 @@ void AvoidSlicingCheck::check(const MatchFinder::MatchResult &Result) {
       return;
 
     const auto *DerivedDecl = Result.Nodes.getNodeAs<CXXRecordDecl>("derived");
-    if (!DerivedDecl)
-      return;
+    const auto *BaseDecl = Construct->getType()->getAsCXXRecordDecl();
 
-    // Get the type being constructed
-    QualType ConstructedType = Construct->getType();
-    const auto *BaseDecl = ConstructedType->getAsCXXRecordDecl();
-    if (!BaseDecl || !DerivedDecl)
-      return;
-
-    // Check if derived is actually derived from base
-    if (DerivedDecl != BaseDecl && DerivedDecl->isDerivedFrom(BaseDecl)) {
+    if (isSlicing(DerivedDecl, BaseDecl))
       diag(Construct->getBeginLoc(),
            "object slicing occurs when copying derived class '%0' to base "
            "class '%1'")
           << DerivedDecl->getQualifiedNameAsString()
           << BaseDecl->getQualifiedNameAsString();
-    }
+    return;
   }
 
   // Check variable declaration slicing
-  if (const auto *VarD = Result.Nodes.getNodeAs<VarDecl>("var-decl")) {
-    if (Result.SourceManager->isInSystemHeader(VarD->getBeginLoc()))
-      return;
+  const auto *VarD = Result.Nodes.getNodeAs<VarDecl>("var-decl");
+  if (!VarD)
+    return;
 
-    const auto *BaseDecl = Result.Nodes.getNodeAs<CXXRecordDecl>("base-var");
-    const auto *DerivedDecl =
-        Result.Nodes.getNodeAs<CXXRecordDecl>("derived-var");
+  if (Result.SourceManager->isInSystemHeader(VarD->getBeginLoc()))
+    return;
 
-    if (!BaseDecl || !DerivedDecl)
-      return;
+  const auto *BaseDecl = Result.Nodes.getNodeAs<CXXRecordDecl>("base-var");
+  const auto *DerivedDecl =
+      Result.Nodes.getNodeAs<CXXRecordDecl>("derived-var");
 
-    // Check if derived is actually derived from base
-    if (DerivedDecl != BaseDecl && DerivedDecl->isDerivedFrom(BaseDecl)) {
-      diag(VarD->getBeginLoc(),
-           "object slicing occurs when assigning derived class '%0' to base "
-           "class '%1' variable")
-          << DerivedDecl->getQualifiedNameAsString()
-          << BaseDecl->getQualifiedNameAsString();
-    }
-  }
+  if (isSlicing(DerivedDecl, BaseDecl))
+    diag(VarD->getBeginLoc(),
+         "object slicing occurs when assigning derived class '%0' to base "
+         "class '%1' variable")
+        << DerivedDecl->getQualifiedNameAsString()
+        << BaseDecl->getQualifiedNameAsString();
 }
 
 } // namespace clang::tidy::automotive
