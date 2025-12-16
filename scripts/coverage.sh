@@ -14,6 +14,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+source "${PROJECT_ROOT}/version.env"
 BUILD_DIR="${PROJECT_ROOT}/build"
 TEST_DIR="${PROJECT_ROOT}/test/checkers/automotive"
 COVERAGE_DIR="${PROJECT_ROOT}/coverage"
@@ -105,7 +106,15 @@ collect_coverage() {
 
         echo -n "  Testing: $filename ... "
 
-        if "$CLANG_TIDY" "$test_file" --checks="automotive-*" -- -std=c11 2>/dev/null; then
+        # Check if test file specifies a standard (e.g., -std=c89)
+        std_flag="-std=c11"
+        if grep -q '\-std=c89' "$test_file" 2>/dev/null; then
+            std_flag="-std=c89"
+        elif grep -q '\-std=c99' "$test_file" 2>/dev/null; then
+            std_flag="-std=c99"
+        fi
+
+        if "$CLANG_TIDY" "$test_file" --checks="automotive-*" -- $std_flag 2>/dev/null; then
             echo -e "${GREEN}OK${NC}"
             passed_count=$((passed_count + 1))
         else
@@ -170,7 +179,7 @@ generate_reports() {
     # Generate llvm-cov show format for SonarCloud
     # SonarCloud's cfamily plugin expects 'llvm-cov show' output (annotated sources)
     # Filter to only automotive source files in the LLVM tree
-    AUTOMOTIVE_DIR="${PROJECT_ROOT}/llvm-project-llvmorg-20.1.8/clang-tools-extra/clang-tidy/automotive"
+    AUTOMOTIVE_DIR="${PROJECT_ROOT}/${LLVM_DIR}/clang-tools-extra/clang-tidy/automotive"
     COVERAGE_RAW="${COVERAGE_DIR}/coverage-show-raw.txt"
     "$COV" show "$CLANG_TIDY" \
         -instr-profile="${COVERAGE_DIR}/coverage.profdata" \

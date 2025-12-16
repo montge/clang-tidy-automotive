@@ -1,4 +1,6 @@
-These are prepatch files from the LLVM release 20.1.7. They are prepatched with the MISRA support
-https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-20.1.7.tar.gz
+These are prepatch files from the LLVM release. They are prepatched with the Automotive module support.
+The LLVM version is defined in version.env at the project root.
+
+The base URL pattern is: https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-{VERSION}.tar.gz
 
 TODO: Fix the prepatch to a more patch like functionality.

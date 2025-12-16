@@ -1,5 +1,6 @@
-llvm-project-llvmorg-20.1.8
-llvmorg-20.1.8.tar.gz
+# LLVM source (any version)
+llvm-project-llvmorg-*
+llvmorg-*.tar.gz
 src/cert
 src/misc
 src/ClangTidy.h

@@ -12,15 +12,16 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+source "${PROJECT_ROOT}/version.env"
 BUILD_DIR="${PROJECT_ROOT}/build"
 
-# Default compiler version
-LLVM_VERSION="${LLVM_VERSION:-20}"
-CC="${CC:-clang-${LLVM_VERSION}}"
-CXX="${CXX:-clang++-${LLVM_VERSION}}"
+# Default compiler version (tool version, not source version)
+LLVM_TOOL_VERSION="${LLVM_TOOL_VERSION:-20}"
+CC="${CC:-clang-${LLVM_TOOL_VERSION}}"
+CXX="${CXX:-clang++-${LLVM_TOOL_VERSION}}"
 
-# LLVM source directory
-LLVM_SOURCE="${PROJECT_ROOT}/llvm-project-llvmorg-20.1.8"
+# LLVM source directory (from version.env)
+LLVM_SOURCE="${PROJECT_ROOT}/${LLVM_DIR}"
 
 echo "================================"
 echo " Configure Coverage Build"

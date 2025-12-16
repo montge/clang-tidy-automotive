@@ -6,14 +6,15 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+source "${PROJECT_ROOT}/version.env"
 
 cd "$PROJECT_ROOT"
 
 # Include paths
 INCLUDES=(
   "-I/usr/lib/llvm-20/include"
-  "-I./llvm-project-llvmorg-20.1.8/clang/include"
-  "-I./llvm-project-llvmorg-20.1.8/clang-tools-extra/clang-tidy"
+  "-I./${LLVM_DIR}/clang/include"
+  "-I./${LLVM_DIR}/clang-tools-extra/clang-tidy"
   "-I./build/tools/clang/include"
   "-I./src"
 )

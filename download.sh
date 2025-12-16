@@ -1,5 +1,10 @@
 #!/usr/bin/bash
 
 # Download and extract LLVM
-wget https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-20.1.8.tar.gz
-tar xzvf llvmorg-20.1.8.tar.gz
+# Version is centralized in version.env
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/version.env"
+
+wget "${LLVM_URL}"
+tar xzvf "${LLVM_TARBALL}"

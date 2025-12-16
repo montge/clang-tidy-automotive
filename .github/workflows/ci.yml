@@ -82,6 +82,7 @@ jobs:
 
       - name: Configure (optimized for CI)
         run: |
+          source version.env
           mkdir -p build
           cd build
           cmake -G Ninja \
@@ -99,7 +100,7 @@ jobs:
             -DLLVM_INCLUDE_TESTS=OFF \
             -DLLVM_INCLUDE_BENCHMARKS=OFF \
             -DCLANG_INCLUDE_TESTS=OFF \
-            ../llvm-project-llvmorg-20.1.8/llvm
+            "../${LLVM_DIR}/llvm"
 
       - name: Build clang-tidy
         run: |

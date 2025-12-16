@@ -1,5 +1,12 @@
 #!/usr/bin/bash
-mkdir build
+
+# Configure the build
+# Version is centralized in version.env
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/version.env"
+
+mkdir -p build
 cd build
 cmake -G Ninja \
       -DCMAKE_CXX_COMPILER=/usr/bin/clang++-20 \
@@ -11,5 +18,5 @@ cmake -G Ninja \
       -DLLVM_USE_LINKER=lld-20 \
       -DLLVM_PARALLEL_LINK_JOBS=2 \
       -DLLVM_USE_SPLIT_DWARF=ON \
-      ../llvm-project-llvmorg-20.1.8/llvm
+      "../${LLVM_DIR}/llvm"
 cd ..
