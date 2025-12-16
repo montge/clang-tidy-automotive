@@ -171,11 +171,19 @@ rules not covered elsewhere.
 - [x] 6.1.1 Configure CI to generate coverage reports (currently 0% reported)
 - [x] 6.1.2 Create coverage build workflow for GitHub Actions (manual trigger)
 - [x] 6.1.3 Generate baseline coverage report with llvm-cov
-  - Current: 230 files, 2558 lines, 2146 covered (83.89% line coverage)
-  - Previous baseline: 79.0% line coverage
-- [ ] 6.1.4 Identify untested code paths and add tests
+  - Current: 230 files, 2558 lines, 2162 covered (84.52% line coverage)
+  - Previous: 83.89% → 84.52% (+0.63%)
+- [x] 6.1.4 Identify untested code paths and add tests
+  - Improved tests for: ImplicitFunctionDeclCheck, WrongNullPointerValueCheck,
+    VirtualDestructorCheck, AvoidAutoAddressEscapeCheck, AvoidPointerTypedefCheck
+  - Added C++ type alias test file for AvoidPointerTypedefCheck
+  - AvoidPointerTypedefCheck: 51.61% → 96.77%
+  - ImplicitIntCheck: 0% → 83.33%
 - [ ] 6.1.5 Verify 90%+ code coverage achieved
 - [ ] 6.1.6 Document any uncovered code paths with justification
+  - MissingStaticForInternalCheck has matcher design issue (excludes external linkage)
+  - PreprocessorFlowCheck is an empty stub (not implemented)
+  - Some checks have edge cases in system headers that can't be tested
 - [x] 6.1.7 Upload coverage report to SonarCloud
   - Using llvm-cov show format (not JSON export)
   - Path rewriting: LLVM tree paths → src/automotive/
