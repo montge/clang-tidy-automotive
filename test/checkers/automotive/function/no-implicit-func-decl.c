@@ -8,20 +8,23 @@ int g(int x);
 void test_implicit_function_call(void) {
   int result = g(10);  // Compliant - g is declared
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: function 'undeclared_func' is called without a prior declaration
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: function 'undeclared_func' is called without a prior declaration [automotive-implicit-function-decl]
   undeclared_func();   // Non-compliant - implicit declaration
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: function 'another_undeclared' is called without a prior declaration
+  // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: function 'another_undeclared' is called without a prior declaration [automotive-implicit-function-decl]
   int x = another_undeclared(5);  // Non-compliant
+  (void)x;
+  (void)result;
 }
 
 // More test cases for implicit function declarations
 void test_more_cases(void) {
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: function 'implicit_void' is called without a prior declaration
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: function 'implicit_void' is called without a prior declaration [automotive-implicit-function-decl]
   implicit_void();
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: function 'implicit_in_expr' is called without a prior declaration
+  // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: function 'implicit_in_expr' is called without a prior declaration [automotive-implicit-function-decl]
   int value = implicit_in_expr() + 1;
+  (void)value;
 }
 
 // Compliant cases - functions are declared
