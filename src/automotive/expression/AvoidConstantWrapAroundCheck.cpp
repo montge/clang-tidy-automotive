@@ -178,7 +178,9 @@ void AvoidConstantWrapAroundCheck::check(
 
   // Walk the initializer to find wrap-around operations
   WrapAroundChecker Checker(*Result.Context);
-  Checker.TraverseStmt(const_cast<Expr *>(InitExpr));  // NOSONAR(S859): const_cast required by RecursiveASTVisitor API
+  Checker.TraverseStmt(
+      const_cast<Expr *>(InitExpr)); // NOSONAR(S859): const_cast required by
+                                     // RecursiveASTVisitor API
 
   if (Checker.foundWrapAround()) {
     diag(

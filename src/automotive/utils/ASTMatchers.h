@@ -15,7 +15,8 @@ namespace clang::tidy::automotive {
 
 namespace ast_matchers {
 
-// NOSONAR: using-directive required to make base AST matchers available for custom matcher definitions
+// NOSONAR: using-directive required to make base AST matchers available for
+// custom matcher definitions
 using namespace clang::ast_matchers;
 
 static bool isEssentiallyBooleanHelper(const Expr &Node);
