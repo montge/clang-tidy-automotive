@@ -27,33 +27,35 @@ public:
                           StringRef RelativePath, const Module *SuggestedModule,
                           bool ModuleImported,
                           SrcMgr::CharacteristicKind FileType) override {
-    // Check for invalid characters in the filename
-    bool HasSingleQuote = FileName.contains('\'');
-    bool HasDoubleQuote = FileName.contains('"');
-    bool HasBackslash = FileName.contains('\\');
+    std::string InvalidChars = buildInvalidCharsList(FileName);
+    if (InvalidChars.empty())
+      return;
 
-    if (HasSingleQuote || HasDoubleQuote || HasBackslash) {
-      std::string InvalidChars;
-      if (HasSingleQuote)
-        InvalidChars += "'";
-      if (HasDoubleQuote) {
-        if (!InvalidChars.empty())
-          InvalidChars += ", ";
-        InvalidChars += "\"";
-      }
-      if (HasBackslash) {
-        if (!InvalidChars.empty())
-          InvalidChars += ", ";
-        InvalidChars += "\\";
-      }
-
-      Check.diag(FilenameRange.getBegin(),
-                 "header file name contains invalid character(s): %0")
-          << InvalidChars;
-    }
+    Check.diag(FilenameRange.getBegin(),
+               "header file name contains invalid character(s): %0")
+        << InvalidChars;
   }
 
 private:
+  /// Build a comma-separated list of invalid characters found in the filename.
+  static std::string buildInvalidCharsList(StringRef FileName) {
+    llvm::SmallVector<const char *, 3> Found;
+    if (FileName.contains('\''))
+      Found.push_back("'");
+    if (FileName.contains('"'))
+      Found.push_back("\"");
+    if (FileName.contains('\\'))
+      Found.push_back("\\");
+
+    std::string Result;
+    for (size_t I = 0; I < Found.size(); ++I) {
+      if (I > 0)
+        Result += ", ";
+      Result += Found[I];
+    }
+    return Result;
+  }
+
   ClangTidyCheck &Check;
 };
 
