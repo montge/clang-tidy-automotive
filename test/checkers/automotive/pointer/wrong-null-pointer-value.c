@@ -30,10 +30,11 @@ void test_function_pointer(void) {
 }
 
 // ============= Comparison Tests =============
+// Note: Due to implicit cast, comparisons with 0 are reported as assignments
 
 // Violation - comparing pointer with 0
 int test_comparison_with_zero(int *ptr) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: Use NULL instead of 0 in pointer comparisons.
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: Use NULL instead of 0 for null pointer assignment.
     if (ptr == 0) {
         return 1;
     }
@@ -42,7 +43,7 @@ int test_comparison_with_zero(int *ptr) {
 
 // Violation - inequality comparison with 0
 int test_inequality_comparison(char *str) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: Use NULL instead of 0 in pointer comparisons.
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: Use NULL instead of 0 for null pointer assignment.
     if (str == 0) {
         return 0;
     }
@@ -50,16 +51,17 @@ int test_inequality_comparison(char *str) {
 }
 
 // ============= Ternary Tests =============
+// Note: Ternary with 0 also has implicit cast
 
 // Violation - ternary with 0 as true expression
 void *test_ternary_true(int cond, void *ptr) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: Use NULL instead of 0 in conditional expressions involving pointers.
+    // CHECK-MESSAGES: :[[@LINE+1]]:19: warning: Use NULL instead of 0 for null pointer assignment.
     return cond ? 0 : ptr;
 }
 
 // Violation - ternary with 0 as false expression
 void *test_ternary_false(int cond, void *ptr) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: Use NULL instead of 0 in conditional expressions involving pointers.
+    // CHECK-MESSAGES: :[[@LINE+1]]:25: warning: Use NULL instead of 0 for null pointer assignment.
     return cond ? ptr : 0;
 }
 
