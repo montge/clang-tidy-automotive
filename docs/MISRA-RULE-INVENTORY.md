@@ -18,9 +18,9 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|-------|-------------|-------|---------|--------|
 | Directives | 18 | 5 | 0 | 0 | 13 |
 | Mandatory | 4 | 2 | 2 | 0 | 0 |
-| Required | 113 | 65 | 15 | 0 | 33 |
+| Required | 113 | 64 | 15 | 1 | 33 |
 | Advisory | 41 | 26 | 8 | 0 | 7 |
-| **Total** | **176** | **98** | **25** | **0** | **53** |
+| **Total** | **176** | **97** | **25** | **1** | **53** |
 
 ## Implemented Checks
 
@@ -137,7 +137,6 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-c23-req-9.1` | 9.1 | Required | Uninitialized variable detection |
 | `automotive-c23-req-21.2` | 21.2 | Required | Reserved identifier declarations |
 | `automotive-avoid-restrict-type` | 8.14 | Required | restrict qualifier usage |
-| `automotive-missing-static-internal-linkage` | 8.8 | Required | Missing static for internal linkage |
 
 ### Directive Checks
 | Check ID | MISRA Directive | Category | Description |
