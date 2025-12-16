@@ -7,7 +7,6 @@
 //===----------------------------------------------------------------------===//
 
 #include "ImplicitIntCheck.h"
-#include "../utils/TokenRange.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
 #include "clang/Basic/AttrKinds.h"
 #include "clang/Basic/CharInfo.h"
