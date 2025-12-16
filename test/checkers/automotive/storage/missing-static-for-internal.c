@@ -1,3 +1,4 @@
+// RUN: %check_clang_tidy %s automotive-c23-adv-8.7 %t
 // Test: Functions and objects with internal linkage should use static (MISRA Rule 8.7)
 // Check ID: automotive-c23-adv-8.7
 
@@ -87,10 +88,13 @@ static char static_buffer[100];
 // Compliant - extern variable (has external linkage)
 extern int external_var;
 
-// Compliant - const variable
+// In C, const variables still have external linkage (unlike C++)
+// So this should be flagged
+// CHECK-MESSAGES: :[[@LINE+1]]:11: warning: file-scope object 'const_var' has no external declaration
 const int const_var = 42;
 
-// Helper to use variables
+// Helper to use variables - should also be static since no external declaration
+// CHECK-MESSAGES: :[[@LINE+1]]:6: warning: function 'use_variables' has no external declaration
 void use_variables(void) {
     (void)internal_var;
     (void)another_var;
