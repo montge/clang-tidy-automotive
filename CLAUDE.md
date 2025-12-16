@@ -10,7 +10,7 @@ Clang-Tidy Automotive is a collection of clang-tidy checks inspired by automotiv
 
 ```bash
 # Initial setup (run once)
-./download.sh      # Downloads LLVM 20.1.8 source
+./download.sh      # Downloads LLVM source (version defined in version.env)
 ./setup.sh         # Creates symlinks into LLVM tree and copies prepatched files
 ./configure.sh     # Runs CMake with Ninja generator
 
@@ -34,7 +34,7 @@ Clang-Tidy Automotive is a collection of clang-tidy checks inspired by automotiv
 ## Architecture
 
 ### Integration with LLVM
-The project symlinks its source code into an LLVM source tree (`llvm-project-llvmorg-20.1.8/`). Key integration points:
+The project symlinks its source code into an LLVM source tree (directory name defined in `version.env`). Key integration points:
 - `src/automotive/` → symlinked into `clang-tools-extra/clang-tidy/automotive/`
 - `test/checkers/automotive/` → symlinked into `clang-tools-extra/test/clang-tidy/checkers/automotive/`
 - `prepatch/` contains modified LLVM files that enable the automotive module

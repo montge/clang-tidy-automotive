@@ -35,19 +35,15 @@ public:
   virtual ~AvoidApiHandler() = default;
 
   /// Override to check header inclusions. Default: no-op.
-  virtual void checkHeader(const MatchHeaderInfo &Result) {
-    // Default implementation: subclasses override to handle header checks
-  }
+  // LCOV_EXCL_START - default no-op implementations, subclasses override
+  virtual void checkHeader(const MatchHeaderInfo &Result) {}
 
   /// Override to check macro usage. Default: no-op.
-  virtual void checkMacro(const MatchMacroInfo &Result) {
-    // Default implementation: subclasses override to handle macro checks
-  }
+  virtual void checkMacro(const MatchMacroInfo &Result) {}
 
   /// Override to check function calls. Default: no-op.
-  virtual void checkFunction(const MatchMacroInfo &Result) {
-    // Default implementation: subclasses override to handle function checks
-  }
+  virtual void checkFunction(const MatchMacroInfo &Result) {}
+  // LCOV_EXCL_STOP
 };
 
 } // namespace clang::tidy::automotive
