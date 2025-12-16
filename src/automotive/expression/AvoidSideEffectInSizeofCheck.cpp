@@ -112,9 +112,7 @@ void AvoidSideEffectInSizeofCheck::check(
 
   // Visit the argument expression to find side effects
   SideEffectFinder Finder;
-  // NOSONAR: const_cast required by RecursiveASTVisitor API; visitor is
-  // read-only
-  Finder.TraverseStmt(const_cast<Expr *>(ArgExpr));
+  Finder.TraverseStmt(const_cast<Expr *>(ArgExpr));  // NOSONAR(S859): const_cast required by RecursiveASTVisitor API
 
   if (Finder.hasSideEffect()) {
     diag(SizeofExpr->getBeginLoc(),

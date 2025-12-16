@@ -72,13 +72,12 @@ public:
       return Context->isBeforeInTranslationUnit(CurrentLoc, Other.CurrentLoc);
     }
 
-  protected:
+  private:
     SourceLocation CurrentLoc;
     TokenContext *Context = nullptr;
     std::optional<Token> Tok;
 
-  private:
-    void advance(void) {
+    void advance() {
       Tok = Context->findNextToken(CurrentLoc);
       if (Tok) {
         CurrentLoc = Tok->getEndLoc();
