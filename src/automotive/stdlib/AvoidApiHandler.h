@@ -34,11 +34,20 @@ class AvoidApiHandler {
 public:
   virtual ~AvoidApiHandler() = default;
 
-  virtual void checkHeader(const MatchHeaderInfo &Result) {}
+  /// Override to check header inclusions. Default: no-op.
+  virtual void checkHeader(const MatchHeaderInfo &Result) {
+    // Default implementation: subclasses override to handle header checks
+  }
 
-  virtual void checkMacro(const MatchMacroInfo &Result) {}
+  /// Override to check macro usage. Default: no-op.
+  virtual void checkMacro(const MatchMacroInfo &Result) {
+    // Default implementation: subclasses override to handle macro checks
+  }
 
-  virtual void checkFunction(const MatchMacroInfo &Result) {}
+  /// Override to check function calls. Default: no-op.
+  virtual void checkFunction(const MatchMacroInfo &Result) {
+    // Default implementation: subclasses override to handle function checks
+  }
 };
 
 } // namespace clang::tidy::automotive
