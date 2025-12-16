@@ -9,6 +9,7 @@
 #include "VirtualDestructorCheck.h"
 #include "clang/AST/ASTContext.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
+#include <algorithm>
 
 using namespace clang::ast_matchers;
 
@@ -29,16 +30,16 @@ void VirtualDestructorCheck::registerMatchers(MatchFinder *Finder) {
 
 /// Check if any base class has a virtual destructor.
 static bool hasVirtualDestructorInBase(const CXXRecordDecl *ClassDecl) {
-  for (const auto &Base : ClassDecl->bases()) {
-    const auto *BaseClass = Base.getType()->getAsCXXRecordDecl();
-    if (!BaseClass || !BaseClass->hasDefinition())
-      continue;
-
-    const CXXDestructorDecl *BaseDtor = BaseClass->getDestructor();
-    if (BaseDtor && BaseDtor->isVirtual())
-      return true;
-  }
-  return false;
+  return std::any_of(ClassDecl->bases().begin(), ClassDecl->bases().end(),
+                     [](const CXXBaseSpecifier &Base) {
+                       const auto *BaseClass =
+                           Base.getType()->getAsCXXRecordDecl();
+                       if (!BaseClass || !BaseClass->hasDefinition())
+                         return false;
+                       const CXXDestructorDecl *BaseDtor =
+                           BaseClass->getDestructor();
+                       return BaseDtor && BaseDtor->isVirtual();
+                     });
 }
 
 void VirtualDestructorCheck::check(const MatchFinder::MatchResult &Result) {
