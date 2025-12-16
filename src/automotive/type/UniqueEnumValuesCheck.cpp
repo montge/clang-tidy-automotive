@@ -19,35 +19,30 @@ void UniqueEnumValuesCheck::registerMatchers(MatchFinder *Finder) {
 
 void UniqueEnumValuesCheck::check(const MatchFinder::MatchResult &Result) {
   const auto *MatchedEnum = Result.Nodes.getNodeAs<EnumDecl>("enum");
+  if (!MatchedEnum)
+    return;
 
-  if (MatchedEnum) {
-    llvm::DenseMap<int64_t, const EnumConstantDecl *> usedValues;
-    int64_t lastValue = -1;
+  llvm::DenseMap<int64_t, const EnumConstantDecl *> UsedValues;
+  int64_t LastValue = -1;
 
-    for (const auto *EnumConst : MatchedEnum->enumerators()) {
-      int64_t currentValue;
+  for (const auto *EnumConst : MatchedEnum->enumerators()) {
+    int64_t CurrentValue = EnumConst->getInitExpr()
+                               ? EnumConst->getInitVal().getSExtValue()
+                               : LastValue + 1;
 
-      if (EnumConst->getInitExpr()) {
-        currentValue = EnumConst->getInitVal().getSExtValue();
-      } else {
-        currentValue = lastValue + 1;
-      }
-
-      auto it = usedValues.find(currentValue);
-      if (it != usedValues.end()) {
-        const EnumConstantDecl *previousEnum = it->second;
-
-        diag(EnumConst->getLocation(), "duplicate enum value '%0' from '%1'")
-            << currentValue << previousEnum->getName();
-        diag(previousEnum->getLocation(), "declaration of '%0'",
-             DiagnosticIDs::Note)
-            << previousEnum->getName();
-      } else {
-        usedValues[currentValue] = EnumConst;
-      }
-
-      lastValue = currentValue;
+    auto It = UsedValues.find(CurrentValue);
+    if (It != UsedValues.end()) {
+      const EnumConstantDecl *PreviousEnum = It->second;
+      diag(EnumConst->getLocation(), "duplicate enum value '%0' from '%1'")
+          << CurrentValue << PreviousEnum->getName();
+      diag(PreviousEnum->getLocation(), "declaration of '%0'",
+           DiagnosticIDs::Note)
+          << PreviousEnum->getName();
+    } else {
+      UsedValues[CurrentValue] = EnumConst;
     }
+
+    LastValue = CurrentValue;
   }
 }
 
