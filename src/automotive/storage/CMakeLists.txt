@@ -5,6 +5,5 @@ add_automotive_component(clangTidyAutomotiveStorageComponent
   AvoidRestrictTypeCheck.cpp
   AvoidUninitializedReadCheck.cpp
   MissingStaticForInternalCheck.cpp
-  MissingStaticInternalLinkageCheck.cpp
   StorageComponent.cpp
 )

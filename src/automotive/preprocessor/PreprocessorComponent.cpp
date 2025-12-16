@@ -18,7 +18,6 @@
 #include "AvoidReservedMacroIdentifierCheck.h"
 #include "AvoidUndefCheck.h"
 #include "MissingHeaderGuardCheck.h"
-#include "PreprocessorFlowCheck.h"
 #include "UnusedMacroCheck.h"
 
 namespace clang::tidy::automotive {
@@ -28,7 +27,6 @@ void PreprocessorComponent::addCheckFactories(
 
   CheckFactories.registerCheck<AvoidMacroNamedAsCkeywordCheck>(
       "automotive-avoid-macro-named-as-ckeyword");
-  CheckFactories.registerCheck<PreprocessorFlowCheck>("preprocessor-flow");
 
   CheckFactories.registerCheck<UnusedMacroCheck>("automotive-unused-macro");
   CheckFactories.registerCheck<AvoidUndefCheck>("automotive-avoid-undef");
