@@ -34,14 +34,11 @@ void UnstructuredSwitchStmtCheck::check(
       Result.Nodes.getNodeAs<Stmt>("expectedCompound");
   const auto *ExpectedSwitch = Result.Nodes.getNodeAs<Stmt>("expectedSwitch");
 
-  if (MatchedCase) {
+  if (MatchedCase)
     diag(MatchedCase->getCaseLoc(), "case statement at the wrong place");
-  } else if (MatchedDefault) {
+  else if (MatchedDefault)
     diag(MatchedDefault->getDefaultLoc(),
          "default statement at the wrong place");
-  } else {
-    /* Intentionally empty. */
-  }
 
   if (ExpectedSwitch) {
     diag(ExpectedSwitch->getBeginLoc(), "expected switch statement",
