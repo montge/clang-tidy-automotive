@@ -171,18 +171,20 @@ rules not covered elsewhere.
 - [x] 6.1.1 Configure CI to generate coverage reports (currently 0% reported)
 - [x] 6.1.2 Create coverage build workflow for GitHub Actions (manual trigger)
 - [x] 6.1.3 Generate baseline coverage report with llvm-cov
-  - Baseline: 230 files, 4084 lines, 3225 covered (79.0% line coverage)
+  - Current: 230 files, 2558 lines, 2146 covered (83.89% line coverage)
+  - Previous baseline: 79.0% line coverage
 - [ ] 6.1.4 Identify untested code paths and add tests
 - [ ] 6.1.5 Verify 90%+ code coverage achieved
 - [ ] 6.1.6 Document any uncovered code paths with justification
 - [x] 6.1.7 Upload coverage report to SonarCloud
   - Using llvm-cov show format (not JSON export)
   - Path rewriting: LLVM tree paths → src/automotive/
+- [x] 6.1.8 Document local-only coverage process (docs/CODE-COVERAGE.md)
 
-Note: Coverage testing requires rebuilding with coverage instrumentation using
-./scripts/configure-coverage.sh followed by full rebuild. Coverage collection
-is automated via ./scripts/coverage.sh. GitHub Actions requires manual trigger
-due to resource constraints (full LLVM build required).
+Note: Coverage testing can ONLY be done locally due to resource constraints.
+Requires rebuilding with coverage instrumentation using ./scripts/configure-coverage.sh
+followed by full rebuild (~15GB, ~2 hours). Coverage collection is automated via
+./scripts/coverage.sh. See docs/CODE-COVERAGE.md for complete instructions.
 
 ### 6.2 SonarCloud Code Quality
 - [x] 6.2.1 Review 102 maintainability issues reported by SonarCloud
