@@ -16,11 +16,11 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 
 | Category | Total | Implemented | Clang | Planned | Manual |
 |----------|-------|-------------|-------|---------|--------|
-| Directives | 18 | 4 | 0 | 1 | 13 |
+| Directives | 18 | 5 | 0 | 0 | 13 |
 | Mandatory | 4 | 2 | 2 | 0 | 0 |
-| Required | 113 | 64 | 15 | 1 | 33 |
-| Advisory | 41 | 25 | 8 | 1 | 7 |
-| **Total** | **176** | **95** | **25** | **3** | **53** |
+| Required | 113 | 65 | 15 | 0 | 33 |
+| Advisory | 41 | 26 | 8 | 0 | 7 |
+| **Total** | **176** | **98** | **25** | **0** | **53** |
 
 ## Implemented Checks
 
