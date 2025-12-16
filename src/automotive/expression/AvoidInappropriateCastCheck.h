@@ -53,6 +53,7 @@ private:
 
   EssentialType getEssentialType(QualType Type) const;
   bool isInappropriateCast(EssentialType From, EssentialType To) const;
+  static const char *essentialTypeToString(EssentialType ET);
 };
 
 } // namespace clang::tidy::automotive

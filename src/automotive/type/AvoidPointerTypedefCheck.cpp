@@ -25,48 +25,53 @@ void AvoidPointerTypedefCheck::registerMatchers(MatchFinder *Finder) {
 void AvoidPointerTypedefCheck::check(const MatchFinder::MatchResult &Result) {
   // Check typedef declarations
   if (const auto *TD = Result.Nodes.getNodeAs<TypedefDecl>("typedef")) {
-    // Skip built-in types and system headers
-    if (!TD->getLocation().isValid() ||
-        Result.SourceManager->isInSystemHeader(TD->getLocation()))
-      return;
-
-    QualType UnderlyingType = TD->getUnderlyingType();
-
-    // Check if the underlying type is a pointer type
-    if (UnderlyingType->isPointerType()) {
-      // Skip function pointers - these are commonly typedef'd and acceptable
-      if (UnderlyingType->getPointeeType()->isFunctionType())
-        return;
-
-      diag(TD->getLocation(),
-           "typedef %0 hides pointer type; consider making the pointer "
-           "explicit at point of use")
-          << TD;
-    }
+    checkTypedefDecl(TD, *Result.SourceManager);
     return;
   }
 
   // Check type alias declarations
-  if (const auto *TAD = Result.Nodes.getNodeAs<TypeAliasDecl>("alias")) {
-    // Skip built-in types and system headers
-    if (!TAD->getLocation().isValid() ||
-        Result.SourceManager->isInSystemHeader(TAD->getLocation()))
-      return;
+  if (const auto *TAD = Result.Nodes.getNodeAs<TypeAliasDecl>("alias"))
+    checkTypeAliasDecl(TAD, *Result.SourceManager);
+}
 
-    QualType UnderlyingType = TAD->getUnderlyingType();
+void AvoidPointerTypedefCheck::checkTypedefDecl(const TypedefDecl *TD,
+                                                const SourceManager &SM) {
+  // Skip built-in types and system headers
+  if (!TD->getLocation().isValid() || SM.isInSystemHeader(TD->getLocation()))
+    return;
 
-    // Check if the underlying type is a pointer type
-    if (UnderlyingType->isPointerType()) {
-      // Skip function pointers
-      if (UnderlyingType->getPointeeType()->isFunctionType())
-        return;
+  QualType UnderlyingType = TD->getUnderlyingType();
+  if (!UnderlyingType->isPointerType())
+    return;
 
-      diag(TAD->getLocation(),
-           "type alias %0 hides pointer type; consider making the pointer "
-           "explicit at point of use")
-          << TAD;
-    }
-  }
+  // Skip function pointers - these are commonly typedef'd and acceptable
+  if (UnderlyingType->getPointeeType()->isFunctionType())
+    return;
+
+  diag(TD->getLocation(),
+       "typedef %0 hides pointer type; consider making the pointer "
+       "explicit at point of use")
+      << TD;
+}
+
+void AvoidPointerTypedefCheck::checkTypeAliasDecl(const TypeAliasDecl *TAD,
+                                                  const SourceManager &SM) {
+  // Skip built-in types and system headers
+  if (!TAD->getLocation().isValid() || SM.isInSystemHeader(TAD->getLocation()))
+    return;
+
+  QualType UnderlyingType = TAD->getUnderlyingType();
+  if (!UnderlyingType->isPointerType())
+    return;
+
+  // Skip function pointers
+  if (UnderlyingType->getPointeeType()->isFunctionType())
+    return;
+
+  diag(TAD->getLocation(),
+       "type alias %0 hides pointer type; consider making the pointer "
+       "explicit at point of use")
+      << TAD;
 }
 
 } // namespace clang::tidy::automotive

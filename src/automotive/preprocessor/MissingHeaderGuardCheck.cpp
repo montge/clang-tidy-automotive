@@ -52,20 +52,21 @@ public:
   void FileChanged(SourceLocation Loc, FileChangeReason Reason,
                    SrcMgr::CharacteristicKind FileType,
                    FileID PrevFID) override {
-    // Track header files that we enter
-    SourceManager &SM = PP->getSourceManager();
-    if (Reason == EnterFile && FileType == SrcMgr::C_User) {
-      if (OptionalFileEntryRef FE =
-              SM.getFileEntryRefForID(SM.getFileID(Loc))) {
-        std::string FileName = cleanPath(FE->getName());
+    // Only track files we enter that are user files
+    if (Reason != EnterFile || FileType != SrcMgr::C_User)
+      return;
 
-        // Only track .h and .hpp files (header files)
-        StringRef Extension = llvm::sys::path::extension(FileName);
-        if (Extension == ".h" || Extension == ".hpp") {
-          Files[FileName] = *FE;
-        }
-      }
-    }
+    SourceManager &SM = PP->getSourceManager();
+    OptionalFileEntryRef FE = SM.getFileEntryRefForID(SM.getFileID(Loc));
+    if (!FE)
+      return;
+
+    std::string FileName = cleanPath(FE->getName());
+
+    // Only track .h and .hpp files (header files)
+    StringRef Extension = llvm::sys::path::extension(FileName);
+    if (Extension == ".h" || Extension == ".hpp")
+      Files[FileName] = *FE;
   }
 
   void PragmaDirective(SourceLocation Loc,
@@ -91,17 +92,17 @@ public:
     // Clang's preprocessor marks macros that are used as header guards
     for (const auto &MacroEntry : Macros) {
       const MacroInfo *MI = MacroEntry.second;
-
       if (!MI->isUsedForHeaderGuard())
         continue;
 
       // This file has a proper header guard, remove it from tracking
       OptionalFileEntryRef FE =
           SM.getFileEntryRefForID(SM.getFileID(MI->getDefinitionLoc()));
-      if (FE) {
-        std::string FileName = cleanPath(FE->getName());
-        Files.erase(FileName);
-      }
+      if (!FE)
+        continue;
+
+      std::string FileName = cleanPath(FE->getName());
+      Files.erase(FileName);
     }
 
     // Check for files with #pragma once

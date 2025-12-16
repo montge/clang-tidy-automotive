@@ -66,13 +66,13 @@ void AvoidIncompatiblePointerConversionCheck::check(
   }
 
   // Rule 11.2: conversion involving incomplete type pointer
-  if (FromType->isPointerType()) {
-    QualType PointeeType = FromType->getPointeeType();
-    if (PointeeType->isIncompleteType() && !PointeeType->isVoidType()) {
-      diag(Cast->getBeginLoc(),
-           "conversion from pointer to incomplete type is not allowed");
-    }
-  }
+  if (!FromType->isPointerType())
+    return;
+
+  QualType PointeeType = FromType->getPointeeType();
+  if (PointeeType->isIncompleteType() && !PointeeType->isVoidType())
+    diag(Cast->getBeginLoc(),
+         "conversion from pointer to incomplete type is not allowed");
 }
 
 } // namespace clang::tidy::automotive
