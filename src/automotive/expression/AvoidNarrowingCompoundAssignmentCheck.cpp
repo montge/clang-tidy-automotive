@@ -14,6 +14,29 @@ using namespace clang::ast_matchers;
 
 namespace clang::tidy::automotive {
 
+/// Convert EssentialType enum to human-readable string for diagnostics.
+static const char *essentialTypeToString(
+    AvoidNarrowingCompoundAssignmentCheck::EssentialType Type) {
+  using EType = AvoidNarrowingCompoundAssignmentCheck::EssentialType;
+  switch (Type) {
+  case EType::SignedInt:
+    return "signed";
+  case EType::UnsignedInt:
+    return "unsigned";
+  case EType::FloatingPoint:
+    return "floating";
+  case EType::Boolean:
+    return "boolean";
+  case EType::Character:
+    return "character";
+  case EType::Enum:
+    return "enum";
+  case EType::Other:
+    return "other";
+  }
+  return "unknown";
+}
+
 void AvoidNarrowingCompoundAssignmentCheck::registerMatchers(
     MatchFinder *Finder) {
   // Match all assignment expressions
@@ -41,14 +64,7 @@ void AvoidNarrowingCompoundAssignmentCheck::check(
     diag(Assign->getOperatorLoc(),
          "expression of essentially '%0' type assigned to object of "
          "essentially '%1' type")
-        << (RHSET == EssentialType::SignedInt       ? "signed"
-            : RHSET == EssentialType::UnsignedInt   ? "unsigned"
-            : RHSET == EssentialType::FloatingPoint ? "floating"
-                                                    : "different category")
-        << (LHSET == EssentialType::SignedInt       ? "signed"
-            : LHSET == EssentialType::UnsignedInt   ? "unsigned"
-            : LHSET == EssentialType::FloatingPoint ? "floating"
-                                                    : "different category");
+        << essentialTypeToString(RHSET) << essentialTypeToString(LHSET);
     return;
   }
 
