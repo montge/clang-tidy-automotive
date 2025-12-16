@@ -1,3 +1,4 @@
+// RUN: %check_clang_tidy -std=c89 %s automotive-implicit-function-decl %t
 // Test for automotive-implicit-function-decl check
 // MISRA C:2025 Rule 8.1 - Types shall be explicitly specified
 

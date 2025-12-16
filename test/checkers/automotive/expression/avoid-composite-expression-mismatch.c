@@ -13,12 +13,12 @@ void test_assignment_widening(void) {
     int64_t result64;
 
     // Violation: int16_t + int16_t is int (32-bit), assigned to int64_t
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: composite expression with narrower type assigned to object with wider type
     result64 = a + b;
-    // CHECK-MESSAGES: :[[@LINE-1]]:16: warning: composite expression with narrower type assigned to object with wider type
 
     // Violation: int16_t * int16_t is int, assigned to int64_t
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: composite expression with narrower type assigned to object with wider type
     result64 = a * b;
-    // CHECK-MESSAGES: :[[@LINE-1]]:16: warning: composite expression with narrower type assigned to object with wider type
 
     // Compliant: int32_t arithmetic assigned to int32_t
     int32_t x = 100;
@@ -37,16 +37,16 @@ void test_bitwise_widening(void) {
     uint64_t result64;
 
     // Violation: uint8_t & uint8_t promoted to int, assigned to uint64_t
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: composite expression with narrower type assigned to object with wider type
     result64 = a & b;
-    // CHECK-MESSAGES: :[[@LINE-1]]:16: warning: composite expression with narrower type assigned to object with wider type
 
     // Violation: uint8_t | uint8_t promoted to int, assigned to uint64_t
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: composite expression with narrower type assigned to object with wider type
     result64 = a | b;
-    // CHECK-MESSAGES: :[[@LINE-1]]:16: warning: composite expression with narrower type assigned to object with wider type
 
     // Violation: uint8_t ^ uint8_t promoted to int, assigned to uint64_t
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: composite expression with narrower type assigned to object with wider type
     result64 = a ^ b;
-    // CHECK-MESSAGES: :[[@LINE-1]]:16: warning: composite expression with narrower type assigned to object with wider type
 
     // Compliant: same-width operations
     uint32_t x = 0xFFFF;
@@ -64,12 +64,12 @@ void test_shift_widening(void) {
     uint64_t result64;
 
     // Violation: uint8_t << int is int, assigned to uint64_t
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: composite expression with narrower type assigned to object with wider type
     result64 = a << shift;
-    // CHECK-MESSAGES: :[[@LINE-1]]:16: warning: composite expression with narrower type assigned to object with wider type
 
     // Violation: uint8_t >> int is int, assigned to uint64_t
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: composite expression with narrower type assigned to object with wider type
     result64 = a >> shift;
-    // CHECK-MESSAGES: :[[@LINE-1]]:16: warning: composite expression with narrower type assigned to object with wider type
 
     // Compliant: same-width operations
     uint32_t x = 1;
@@ -87,14 +87,14 @@ void test_cast_widening(void) {
     int64_t result;
 
     // Violation: casting narrow composite to wider type
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: cast of composite expression to wider type
     result = (int64_t)(a + b);
-    // CHECK-MESSAGES: :[[@LINE-1]]:14: warning: cast of composite expression to wider type
 
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: cast of composite expression to wider type
     result = (int64_t)(a * b);
-    // CHECK-MESSAGES: :[[@LINE-1]]:14: warning: cast of composite expression to wider type
 
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: cast of composite expression to wider type
     result = (int64_t)(a - b);
-    // CHECK-MESSAGES: :[[@LINE-1]]:14: warning: cast of composite expression to wider type
 
     // Compliant: casting to same width
     int32_t result32 = (int32_t)(a + b);

@@ -16,21 +16,22 @@ namespace clang::tidy::automotive {
 
 void MissingStaticForInternalCheck::registerMatchers(MatchFinder *Finder) {
   // Match function definitions without static that are not main
+  // In C, functions without static have external linkage by default, but if
+  // they have no prior declaration in a header, they should be static.
   Finder->addMatcher(functionDecl(isDefinition(), unless(isMain()),
                                   unless(isStaticStorageClass()),
                                   unless(isInline()),
-                                  unless(hasExternalFormalLinkage()),
                                   hasParent(translationUnitDecl()))
                          .bind("func"),
                      this);
 
-  // Match file-scope variable definitions without static
-  Finder->addMatcher(varDecl(hasGlobalStorage(), unless(isStaticStorageClass()),
-                             unless(isExternC()),
-                             unless(hasExternalFormalLinkage()),
-                             hasParent(translationUnitDecl()))
-                         .bind("var"),
-                     this);
+  // Match file-scope variable definitions without static at file scope
+  // Note: isExternC() matches all C declarations (C linkage), so don't use it
+  Finder->addMatcher(
+      varDecl(hasGlobalStorage(), unless(isStaticStorageClass()),
+              hasParent(translationUnitDecl()))
+          .bind("var"),
+      this);
 }
 
 void MissingStaticForInternalCheck::check(
@@ -40,15 +41,11 @@ void MissingStaticForInternalCheck::check(
     if (Result.SourceManager->isInSystemHeader(FD->getLocation()))
       return;
 
-    // Skip functions with external linkage
-    if (FD->getFormalLinkage() == Linkage::External)
-      return;
-
-    // Skip functions that have a prior declaration (might be in header)
+    // Skip functions that have a prior declaration (likely in header)
     if (FD->getPreviousDecl())
       return;
 
-    // Skip inline functions (they may need external linkage)
+    // Skip inline functions (they may need external linkage for ODR)
     if (FD->isInlined())
       return;
 
@@ -68,16 +65,10 @@ void MissingStaticForInternalCheck::check(
     if (VD->hasExternalStorage())
       return;
 
-    // Skip variables with external linkage
-    if (VD->getFormalLinkage() == Linkage::External)
-      return;
-
     // Skip variables that have a prior declaration
     if (VD->getPreviousDecl())
       return;
 
-    // Skip const variables (they have internal linkage by default in C++)
-    // but not in C, so we still flag them
     diag(VD->getLocation(),
          "file-scope object %0 has no external declaration; consider "
          "declaring it static for internal linkage")

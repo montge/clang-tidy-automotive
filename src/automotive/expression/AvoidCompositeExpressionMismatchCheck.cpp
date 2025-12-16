@@ -17,24 +17,27 @@ namespace clang::tidy::automotive {
 void AvoidCompositeExpressionMismatchCheck::registerMatchers(
     MatchFinder *Finder) {
   // Match assignments where RHS is an arithmetic expression
+  // Use ignoringParenImpCasts to skip the implicit cast that wraps the result
   Finder->addMatcher(
       binaryOperator(
           isAssignmentOperator(),
-          hasRHS(binaryOperator(
-                     anyOf(hasAnyOperatorName("+", "-", "*", "/", "%"),
-                           hasAnyOperatorName("&", "|", "^", "<<", ">>")))
-                     .bind("composite")))
+          hasRHS(ignoringParenImpCasts(
+              binaryOperator(
+                  anyOf(hasAnyOperatorName("+", "-", "*", "/", "%"),
+                        hasAnyOperatorName("&", "|", "^", "<<", ">>")))
+                  .bind("composite"))))
           .bind("assign"),
       this);
 
   // Match casts of composite expressions
+  // Use ignoringParenImpCasts for the cast source expression too
   Finder->addMatcher(
       cStyleCastExpr(
-          hasSourceExpression(
+          hasSourceExpression(ignoringParenImpCasts(
               binaryOperator(
                   anyOf(hasAnyOperatorName("+", "-", "*", "/", "%"),
                         hasAnyOperatorName("&", "|", "^", "<<", ">>")))
-                  .bind("castcomposite")))
+                  .bind("castcomposite"))))
           .bind("cast"),
       this);
 }
