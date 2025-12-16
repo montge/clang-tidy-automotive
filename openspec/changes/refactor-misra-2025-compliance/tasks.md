@@ -180,9 +180,11 @@ rules not covered elsewhere.
   - AvoidPointerTypedefCheck: 51.61% → 96.77%
   - ImplicitIntCheck: 0% → 83.33%
 - [ ] 6.1.5 Verify 90%+ code coverage achieved
-- [ ] 6.1.6 Document any uncovered code paths with justification
-  - MissingStaticForInternalCheck has matcher design issue (excludes external linkage)
-  - PreprocessorFlowCheck is an empty stub (not implemented)
+- [x] 6.1.6 Document any uncovered code paths with justification
+  - MissingStaticForInternalCheck: Fixed by removing isExternC() filter (now 92.50% coverage)
+  - AvoidCompositeExpressionMismatchCheck: Fixed by adding ignoringParenImpCasts (now 85.29% coverage)
+  - PreprocessorFlowCheck: Empty stub (not implemented) - documented as intentional
+  - TokenRange.h: Dead code - not used by any check
   - Some checks have edge cases in system headers that can't be tested
 - [x] 6.1.7 Upload coverage report to SonarCloud
   - Using llvm-cov show format (not JSON export)
@@ -235,13 +237,22 @@ Latest fixes:
 - GotoLabelSameBlockCheck.cpp: Simplified getLabelStmt() with early return
 - AvoidPointerTypedefCheck.cpp: Extracted checkTypedefDecl() and checkTypeAliasDecl() helpers
 - AvoidTrigraphCheck.cpp: Extracted getTrigraphReplacement() helper, used early returns
-- VirtualDestructorCheck.cpp: Extracted hasVirtualDestructorInBase() helper
+- VirtualDestructorCheck.cpp: Fixed implicit destructor detection with isImplicit() check
 - AvoidSlicingCheck.cpp: Extracted isSlicing() helper function
 - AvoidNarrowingCompoundAssignmentCheck.cpp: Extracted essentialTypeToString() helper, replaced nested ternaries
 - UniqueEnumValuesCheck.cpp: Early return, simplified ternary
 - DuplicateTypedefNameCheck.cpp: Combined early return checks
 - AvoidInvalidHeaderCharCheck.cpp: Extracted buildInvalidCharsList() helper
 - UnstructuredSwitchStmtCheck.cpp: Removed unnecessary empty else block
+
+Current session fixes:
+- MissingStaticForInternalCheck.cpp: Removed isExternC() filter and hasExternalFormalLinkage() filter
+- AvoidCompositeExpressionMismatchCheck.cpp: Added ignoringParenImpCasts() to matchers
+- AvoidCommentWithinCommentCheck.cpp: Extracted checkURLProtocol() helper to reduce nesting
+- const_cast NOSONAR comments moved to same line in 6 files
+- Added comments to empty methods in PreprocessorFlowCheck and AvoidApiHandler
+- Fixed protected members in TokenRange.h (changed to private)
+- Removed unused TokenRange.h include from ImplicitIntCheck.cpp
 
 ### 6.3 Integration Testing
 - [x] 6.3.1 Run all checks against examples directory (38/38 violation tests pass)
