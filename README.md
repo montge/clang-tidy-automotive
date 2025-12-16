@@ -109,6 +109,7 @@ See [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) for more information.
 - [MISRA C:2025 Rule Inventory](docs/MISRA-RULE-INVENTORY.md) - Complete C rule mapping
 - [MISRA C++:2023 Rule Inventory](docs/MISRA-CPP-2023-INVENTORY.md) - Complete C++ rule mapping
 - [SonarQube Integration](docs/sonarqube-integration.md) - CI/CD setup guide
+- [Code Coverage](docs/CODE-COVERAGE.md) - Local coverage testing guide
 - [Manual Review Directives](docs/MANUAL-REVIEW-DIRECTIVES.md) - Guidelines for manual review
 - [Naming Convention](NAMING-CONVENTION.md) - Check class naming standards
 - [API Documentation](docs/api/html/index.html) - Doxygen-generated docs
