@@ -34,7 +34,8 @@ public:
                     SourceRange Range, const MacroArgs *Args) override;
 
 private:
-  [[maybe_unused]] AvoidApiCheck &Check;  // Will be used when callbacks are implemented
+  [[maybe_unused]] AvoidApiCheck
+      &Check; // Will be used when callbacks are implemented
   ArrayRef<StringRef> MacroNames;
   StringRef HeaderName;
 };

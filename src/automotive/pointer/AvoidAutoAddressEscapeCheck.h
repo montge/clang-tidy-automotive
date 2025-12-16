@@ -50,13 +50,6 @@ public:
 
   /// Handles matched expressions and emits diagnostics.
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
-
-private:
-  /// Checks if a VarDecl has automatic storage duration.
-  bool hasAutomaticStorage(const VarDecl *VD) const;
-
-  /// Checks if a VarDecl is a global or static variable.
-  bool isGlobalOrStatic(const VarDecl *VD) const;
 };
 
 } // namespace clang::tidy::automotive

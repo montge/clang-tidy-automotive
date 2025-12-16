@@ -74,8 +74,8 @@ void AvoidCommentWithinCommentCheck::InternalCommentHandler::checkURLProtocol(
 
   StringRef Protocol = CommentText.substr(Start, Index - Start);
   if (!Protocols.contains(Protocol)) {
-    Check.diag(CommentLoc.getLocWithOffset(Index),
-               "unknown protocol '%0'", DiagnosticIDs::Note)
+    Check.diag(CommentLoc.getLocWithOffset(Index), "unknown protocol '%0'",
+               DiagnosticIDs::Note)
         << Protocol;
   }
 }
