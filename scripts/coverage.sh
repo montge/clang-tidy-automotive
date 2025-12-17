@@ -19,12 +19,9 @@ BUILD_DIR="${PROJECT_ROOT}/build"
 TEST_DIR="${PROJECT_ROOT}/test/checkers/automotive"
 COVERAGE_DIR="${PROJECT_ROOT}/coverage"
 
-# Default LLVM version (can be overridden)
-LLVM_VERSION="${LLVM_VERSION:-20}"
-
-# Tool paths
-PROFDATA="llvm-profdata-${LLVM_VERSION}"
-COV="llvm-cov-${LLVM_VERSION}"
+# Tool paths (use LLVM_TOOL_VERSION from version.env)
+PROFDATA="llvm-profdata-${LLVM_TOOL_VERSION}"
+COV="llvm-cov-${LLVM_TOOL_VERSION}"
 CLANG_TIDY="${BUILD_DIR}/bin/clang-tidy"
 
 # Colors for output
