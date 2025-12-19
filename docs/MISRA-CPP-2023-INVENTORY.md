@@ -39,17 +39,17 @@ MISRA C++:2023 rules are organized into these categories:
 | Standard Conventions | 5 | 0 | 0 | 0 | 5 |
 | Lexical Conventions | 20 | 5 | 8 | 2 | 5 |
 | Basic Concepts | 15 | 2 | 5 | 3 | 5 |
-| Expressions | 35 | 16 | 10 | 4 | 5 |
+| Expressions | 35 | 18 | 10 | 2 | 5 |
 | Statements | 15 | 10 | 3 | 1 | 1 |
 | Declarations | 25 | 8 | 12 | 3 | 2 |
-| Classes | 30 | 7 | 15 | 3 | 5 |
-| Exception Handling | 10 | 2 | 5 | 2 | 1 |
+| Classes | 30 | 8 | 15 | 2 | 5 |
+| Exception Handling | 10 | 4 | 5 | 0 | 1 |
 | Templates | 15 | 0 | 5 | 5 | 5 |
 | Preprocessing | 10 | 6 | 2 | 1 | 1 |
 | Standard Library | 20 | 3 | 10 | 5 | 2 |
-| **Total** | **~200** | **~61** | **~75** | **~27** | **~37** |
+| **Total** | **~200** | **~64** | **~75** | **~24** | **~37** |
 
-*Note: Statistics are estimates based on MISRA C++:2023 public summaries. 5 automotive-cpp23 checks implemented.*
+*Note: Statistics are estimates based on MISRA C++:2023 public summaries. 9 automotive-cpp23 checks implemented.*
 
 ## Rules Shared with MISRA C:2025
 
@@ -174,9 +174,13 @@ The following MISRA C++:2023 rules have been implemented in clang-tidy-automotiv
 | Check ID | MISRA Rule | Description | Source File |
 |----------|------------|-------------|-------------|
 | `automotive-cpp23-req-8.2.1` | 8.2.1 | C-style casts shall not be used | `cpp23/AvoidCStyleCastCheck.cpp` |
+| `automotive-cpp23-adv-8.2.5` | 8.2.5 | dynamic_cast should not be used | `cpp23/AvoidDynamicCastCheck.cpp` |
+| `automotive-cpp23-req-8.4.1` | 8.4.1 | Narrowing conversions shall not be used | `cpp23/AvoidNarrowingConversionCheck.cpp` |
+| `automotive-cpp23-req-15.0.1` | 15.0.1 | Rule of Five for special member functions | `cpp23/RuleOfFiveCheck.cpp` |
 | `automotive-cpp23-req-15.1.3` | 15.1.3 | Single-argument constructors shall be explicit | `cpp23/ExplicitConstructorCheck.cpp` |
 | `automotive-cpp23-req-15.3` | 15.3 | Object slicing shall be avoided | `cpp23/AvoidSlicingCheck.cpp` |
 | `automotive-cpp23-req-15.7` | 15.7 | Classes with virtual functions require virtual destructors | `cpp23/VirtualDestructorCheck.cpp` |
+| `automotive-cpp23-req-18.4.1` | 18.4.1 | Destructors shall not throw exceptions | `cpp23/AvoidThrowingDestructorCheck.cpp` |
 | `automotive-cpp23-req-18.4.2` | 18.4.2 | Move operations shall be noexcept | `cpp23/NoexceptMoveCheck.cpp` |
 
 ## Planned Automotive C++ Checks
@@ -186,21 +190,21 @@ The following MISRA C++:2023 rules are planned for custom implementation:
 ### Expression Checks (C++)
 | Planned Check | MISRA Rule | Priority | Description |
 |---------------|------------|----------|-------------|
-| `automotive-cpp23-avoid-narrowing` | 8.4.1 | High | Narrowing conversions |
-| `automotive-cpp23-avoid-dynamic-cast` | 8.2.5 | Medium | dynamic_cast limitations |
+| ~~`automotive-cpp23-avoid-narrowing`~~ | ~~8.4.1~~ | ~~High~~ | ~~Narrowing conversions~~ (Implemented as automotive-cpp23-req-8.4.1) |
+| ~~`automotive-cpp23-avoid-dynamic-cast`~~ | ~~8.2.5~~ | ~~Medium~~ | ~~dynamic_cast limitations~~ (Implemented as automotive-cpp23-adv-8.2.5) |
 | `automotive-cpp23-explicit-conversion` | 8.3.1 | Medium | Explicit conversions |
 
 ### Class Checks (C++)
 | Planned Check | MISRA Rule | Priority | Description |
 |---------------|------------|----------|-------------|
-| `automotive-cpp23-rule-of-five` | 15.0.1 | High | Special member functions |
+| ~~`automotive-cpp23-rule-of-five`~~ | ~~15.0.1~~ | ~~High~~ | ~~Special member functions~~ (Implemented as automotive-cpp23-req-15.0.1) |
 | ~~`automotive-cpp23-explicit-ctor`~~ | ~~15.1.3~~ | ~~Medium~~ | ~~Explicit constructors~~ (Implemented as automotive-cpp23-req-15.1.3) |
 
 ### Exception Checks (C++)
 | Planned Check | MISRA Rule | Priority | Description |
 |---------------|------------|----------|-------------|
 | ~~`automotive-cpp23-noexcept-move`~~ | ~~18.4.2~~ | ~~High~~ | ~~noexcept on move~~ (Implemented as automotive-cpp23-req-18.4.2) |
-| `automotive-cpp23-exception-spec` | 18.4.1 | Medium | Exception specifications |
+| ~~`automotive-cpp23-exception-spec`~~ | ~~18.4.1~~ | ~~Medium~~ | ~~Exception specifications~~ (Implemented as automotive-cpp23-req-18.4.1) |
 
 ### Template Checks (C++)
 | Planned Check | MISRA Rule | Priority | Description |
