@@ -18,9 +18,9 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|-------|-------------|-------|---------|--------|
 | Directives | 18 | 5 | 0 | 0 | 13 |
 | Mandatory | 4 | 2 | 2 | 0 | 0 |
-| Required | 113 | 64 | 15 | 1 | 33 |
+| Required | 113 | 65 | 15 | 0 | 33 |
 | Advisory | 41 | 26 | 8 | 0 | 7 |
-| **Total** | **176** | **97** | **25** | **1** | **53** |
+| **Total** | **176** | **98** | **25** | **0** | **53** |
 
 ## Implemented Checks
 
