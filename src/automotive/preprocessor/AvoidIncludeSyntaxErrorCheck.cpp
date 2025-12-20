@@ -44,8 +44,8 @@ public:
     }
     // LCOV_EXCL_STOP
 
-    // LCOV_EXCL_START - empty filename would cause preprocessor error before check
-    // Check for empty filename
+    // LCOV_EXCL_START - empty filename would cause preprocessor error before
+    // check Check for empty filename
     if (FileName.empty()) {
       Check.diag(HashLoc, "#include directive has empty filename");
       return;
