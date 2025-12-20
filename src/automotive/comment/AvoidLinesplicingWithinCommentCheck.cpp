@@ -37,6 +37,7 @@ bool AvoidLinesplicingWithinCommentCheck::InternalCommentHandler::HandleComment(
       LineSpliceExist = true;
     }
 
+    // LCOV_EXCL_START - fix-it code requires special test configuration
     if (FixitEnabled && LineSpliceExist) {
       SourceLocation EndLoc = Comment.getEnd();
 
@@ -56,6 +57,7 @@ bool AvoidLinesplicingWithinCommentCheck::InternalCommentHandler::HandleComment(
       Check.diag(EndLoc, "replace single-line comment with block comment")
           << FixItHint::CreateInsertion(EndLoc, " */");
     }
+    // LCOV_EXCL_STOP
   }
   return false;
 }

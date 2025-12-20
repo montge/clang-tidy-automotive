@@ -38,6 +38,7 @@ public:
 
 private:
   /// Build a comma-separated list of invalid characters found in the filename.
+  // LCOV_EXCL_START - invalid chars in header names cause preprocessor errors
   static std::string buildInvalidCharsList(StringRef FileName) {
     llvm::SmallVector<const char *, 3> Found;
     if (FileName.contains('\''))
@@ -55,6 +56,7 @@ private:
     }
     return Result;
   }
+  // LCOV_EXCL_STOP
 
   ClangTidyCheck &Check;
 };

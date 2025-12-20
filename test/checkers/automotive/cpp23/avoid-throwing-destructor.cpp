@@ -11,6 +11,22 @@ public:
   }
 };
 
+class AnotherBadDestructor {
+public:
+  ~AnotherBadDestructor() {
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: throw expression in destructor
+    throw 42;
+  }
+};
+
+// Destructor with explicit noexcept(false) - should warn
+class ExplicitThrowingDestructor {
+public:
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: destructor {{.*}} has exception specification that may throw
+  ~ExplicitThrowingDestructor() noexcept(false) {
+  }
+};
+
 class GoodDestructor {
 public:
   ~GoodDestructor() noexcept {
@@ -24,4 +40,16 @@ public:
   ~ImplicitNoexcept() {
     // No throw - compliant
   }
+};
+
+// Defaulted destructor - should not warn
+class DefaultedDestructor {
+public:
+  ~DefaultedDestructor() = default;
+};
+
+// Deleted destructor - should not warn
+class DeletedDestructor {
+public:
+  ~DeletedDestructor() = delete;
 };
