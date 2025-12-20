@@ -49,7 +49,7 @@ MISRA C++:2023 rules are organized into these categories:
 | Standard Library | 20 | 3 | 10 | 5 | 2 |
 | **Total** | **~200** | **~64** | **~75** | **~24** | **~37** |
 
-*Note: Statistics are estimates based on MISRA C++:2023 public summaries. 9 automotive-cpp23 checks implemented.*
+*Note: Statistics are estimates based on MISRA C++:2023 public summaries. 13 automotive-cpp23 checks implemented.*
 
 ## Rules Shared with MISRA C:2025
 
@@ -174,14 +174,18 @@ The following MISRA C++:2023 rules have been implemented in clang-tidy-automotiv
 | Check ID | MISRA Rule | Description | Source File |
 |----------|------------|-------------|-------------|
 | `automotive-cpp23-req-8.2.1` | 8.2.1 | C-style casts shall not be used | `cpp23/AvoidCStyleCastCheck.cpp` |
+| `automotive-cpp23-req-8.2.3` | 8.2.3 | const_cast shall not be used | `cpp23/AvoidConstCastCheck.cpp` |
+| `automotive-cpp23-req-8.2.4` | 8.2.4 | reinterpret_cast shall not be used | `cpp23/AvoidReinterpretCastCheck.cpp` |
 | `automotive-cpp23-adv-8.2.5` | 8.2.5 | dynamic_cast should not be used | `cpp23/AvoidDynamicCastCheck.cpp` |
 | `automotive-cpp23-req-8.4.1` | 8.4.1 | Narrowing conversions shall not be used | `cpp23/AvoidNarrowingConversionCheck.cpp` |
 | `automotive-cpp23-req-15.0.1` | 15.0.1 | Rule of Five for special member functions | `cpp23/RuleOfFiveCheck.cpp` |
+| `automotive-cpp23-req-15.1.2` | 15.1.2 | Conversion operators shall be explicit | `cpp23/AvoidImplicitConversionOperatorCheck.cpp` |
 | `automotive-cpp23-req-15.1.3` | 15.1.3 | Single-argument constructors shall be explicit | `cpp23/ExplicitConstructorCheck.cpp` |
 | `automotive-cpp23-req-15.3` | 15.3 | Object slicing shall be avoided | `cpp23/AvoidSlicingCheck.cpp` |
 | `automotive-cpp23-req-15.7` | 15.7 | Classes with virtual functions require virtual destructors | `cpp23/VirtualDestructorCheck.cpp` |
 | `automotive-cpp23-req-18.4.1` | 18.4.1 | Destructors shall not throw exceptions | `cpp23/AvoidThrowingDestructorCheck.cpp` |
 | `automotive-cpp23-req-18.4.2` | 18.4.2 | Move operations shall be noexcept | `cpp23/NoexceptMoveCheck.cpp` |
+| `automotive-cpp23-req-18.4.3` | 18.4.3 | Throw in noexcept functions shall be avoided | `cpp23/AvoidThrowInNoexceptCheck.cpp` |
 
 ## Planned Automotive C++ Checks
 

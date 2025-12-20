@@ -8,9 +8,13 @@
 
 #include "Cpp23Component.h"
 #include "AvoidCStyleCastCheck.h"
+#include "AvoidConstCastCheck.h"
 #include "AvoidDynamicCastCheck.h"
+#include "AvoidImplicitConversionOperatorCheck.h"
 #include "AvoidNarrowingConversionCheck.h"
+#include "AvoidReinterpretCastCheck.h"
 #include "AvoidSlicingCheck.h"
+#include "AvoidThrowInNoexceptCheck.h"
 #include "AvoidThrowingDestructorCheck.h"
 #include "ExplicitConstructorCheck.h"
 #include "NoexceptMoveCheck.h"
@@ -56,6 +60,23 @@ void Cpp23Component::addCheckFactories(
   // MISRA C++:2023 Rule 18.4.1 - Destructors shall not throw exceptions
   CheckFactories.registerCheck<AvoidThrowingDestructorCheck>(
       "automotive-cpp23-req-18.4.1");
+
+  // MISRA C++:2023 Rule 8.2.3 - const_cast shall not be used
+  CheckFactories.registerCheck<AvoidConstCastCheck>(
+      "automotive-cpp23-req-8.2.3");
+
+  // MISRA C++:2023 Rule 8.2.4 - reinterpret_cast shall not be used
+  CheckFactories.registerCheck<AvoidReinterpretCastCheck>(
+      "automotive-cpp23-req-8.2.4");
+
+  // MISRA C++:2023 Rule 15.1.2 - Conversion operators shall be explicit
+  CheckFactories.registerCheck<AvoidImplicitConversionOperatorCheck>(
+      "automotive-cpp23-req-15.1.2");
+
+  // MISRA C++:2023 Rule 18.4.3 - Throw in noexcept function calls
+  // std::terminate
+  CheckFactories.registerCheck<AvoidThrowInNoexceptCheck>(
+      "automotive-cpp23-req-18.4.3");
 }
 
 } // namespace clang::tidy::automotive
