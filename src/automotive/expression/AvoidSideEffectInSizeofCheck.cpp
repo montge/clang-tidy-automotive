@@ -21,7 +21,9 @@ namespace {
 class SideEffectFinder : public RecursiveASTVisitor<SideEffectFinder> {
 public:
   bool hasSideEffect() const { return FoundSideEffect; }
-  SourceLocation getSideEffectLoc() const { return SideEffectLoc; } // LCOV_EXCL_LINE - unused getter
+  SourceLocation getSideEffectLoc() const {
+    return SideEffectLoc;
+  } // LCOV_EXCL_LINE - unused getter
   StringRef getSideEffectKind() const { return SideEffectKind; }
 
   bool VisitUnaryOperator(UnaryOperator *UO) {
