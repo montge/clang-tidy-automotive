@@ -24,6 +24,11 @@ void FunctionDeclarationMismatchCheck::check(
   if (!FuncDecl || !FuncDecl->getPreviousDecl())
     return;
 
+  // Skip C++ special member functions (constructors, destructors, operators)
+  // which don't have simple identifier names
+  if (!FuncDecl->getDeclName().isIdentifier())
+    return;
+
   const auto *PrevDecl = FuncDecl->getPreviousDecl();
 
   if (FuncDecl->getType().getCanonicalType().getUnqualifiedType() !=

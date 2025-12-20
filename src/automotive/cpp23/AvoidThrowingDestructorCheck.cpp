@@ -63,8 +63,10 @@ void AvoidThrowingDestructorCheck::check(
     // In C++11 and later, user-declared destructors should be noexcept
     // unless they explicitly specify otherwise
     const auto *ExceptionSpec = Dtor->getType()->getAs<FunctionProtoType>();
+    // LCOV_EXCL_START - defensive check, destructor always has prototype
     if (!ExceptionSpec)
       return;
+    // LCOV_EXCL_STOP
 
     // If the destructor has an explicit non-noexcept specification, warn
     if (ExceptionSpec->hasExceptionSpec() &&

@@ -121,13 +121,21 @@ collect_coverage() {
     done < <(find "$TEST_DIR" -name "*.c" -print0)
 
     # Find all C++ test files
+    cpp_count=0
     while IFS= read -r -d '' test_file; do
         test_count=$((test_count + 1))
+        cpp_count=$((cpp_count + 1))
         filename=$(basename "$test_file")
 
         echo -n "  Testing: $filename ... "
 
-        if "$CLANG_TIDY" "$test_file" --checks="automotive-*" -- -std=c++17 2>/dev/null; then
+        # Check if test file requires C++20 (for concepts, etc.)
+        std_flag="-std=c++17"
+        if grep -q 'c++20' "$test_file" 2>/dev/null || grep -q 'concept ' "$test_file" 2>/dev/null; then
+            std_flag="-std=c++20"
+        fi
+
+        if "$CLANG_TIDY" "$test_file" --checks="automotive-*" -- $std_flag 2>/dev/null; then
             echo -e "${GREEN}OK${NC}"
             passed_count=$((passed_count + 1))
         else
@@ -136,7 +144,8 @@ collect_coverage() {
         fi
     done < <(find "$TEST_DIR" -name "*.cpp" -print0)
 
-    echo -e "${GREEN}Processed $test_count test files ($passed_count C, $(($test_count - $passed_count)) C++)${NC}"
+    c_count=$((test_count - cpp_count))
+    echo -e "${GREEN}Processed $test_count test files ($c_count C, $cpp_count C++)${NC}"
 }
 
 # Merge profile data
@@ -169,7 +178,8 @@ generate_reports() {
         > "$FULL_LCOV" 2>/dev/null || true
 
     # Filter to only include automotive source files (with path rewriting)
-    python3 "${SCRIPT_DIR}/filter-lcov.py" "$FULL_LCOV" "${COVERAGE_DIR}/coverage.lcov" "clang-tidy/automotive"
+    # Pass PROJECT_ROOT for LCOV_EXCL marker detection
+    PROJECT_ROOT="$PROJECT_ROOT" python3 "${SCRIPT_DIR}/filter-lcov.py" "$FULL_LCOV" "${COVERAGE_DIR}/coverage.lcov" "clang-tidy/automotive"
 
     echo -e "${GREEN}Generated: ${COVERAGE_DIR}/coverage.lcov${NC}"
 

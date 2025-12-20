@@ -44,6 +44,10 @@ void InvariantControlCheck::check(const MatchFinder::MatchResult &Result) {
   if (!ControlExpr)
     return;
 
+  // Don't evaluate value-dependent expressions (e.g., in templates)
+  if (ControlExpr->isValueDependent())
+    return;
+
   if (ControlExpr->EvaluateAsInt(EvalResult, *Result.Context)) {
     if (EvalResult.Val.getInt().getBoolValue()) {
       diag(ControlExpr->getBeginLoc(),

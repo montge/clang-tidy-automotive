@@ -25,6 +25,10 @@ void UnterminatedEscapeSequenceCheck::check(
   const auto *MatchString =
       Result.Nodes.getNodeAs<StringLiteral>("stringLiteral");
   if (MatchString) {
+    // Only check narrow character strings (char width 1)
+    // Wide strings (wchar_t, char16_t, char32_t) are not supported
+    if (MatchString->getCharByteWidth() != 1)
+      return;
     checkEscapeSequences(MatchString->getEndLoc(), MatchString->getBeginLoc(),
                          MatchString->getString());
     return;

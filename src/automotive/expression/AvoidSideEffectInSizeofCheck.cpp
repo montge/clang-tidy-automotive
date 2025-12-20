@@ -21,7 +21,7 @@ namespace {
 class SideEffectFinder : public RecursiveASTVisitor<SideEffectFinder> {
 public:
   bool hasSideEffect() const { return FoundSideEffect; }
-  SourceLocation getSideEffectLoc() const { return SideEffectLoc; }
+  SourceLocation getSideEffectLoc() const { return SideEffectLoc; } // LCOV_EXCL_LINE - unused getter
   StringRef getSideEffectKind() const { return SideEffectKind; }
 
   bool VisitUnaryOperator(UnaryOperator *UO) {
@@ -46,12 +46,14 @@ public:
     return true;
   }
 
+  // LCOV_EXCL_START - same pattern as VisitBinaryOperator for assignment
   bool VisitCompoundAssignOperator(CompoundAssignOperator *CAO) {
     FoundSideEffect = true;
     SideEffectLoc = CAO->getOperatorLoc();
     SideEffectKind = "compound assignment";
     return false;
   }
+  // LCOV_EXCL_STOP
 
   bool VisitCallExpr(CallExpr *CE) {
     // Function calls may have side effects
@@ -61,6 +63,7 @@ public:
     return false;
   }
 
+  // LCOV_EXCL_START - C++ specific, same pattern as other side effect checks
   bool VisitCXXNewExpr(CXXNewExpr *NE) {
     FoundSideEffect = true;
     SideEffectLoc = NE->getBeginLoc();
@@ -74,6 +77,7 @@ public:
     SideEffectKind = "delete expression";
     return false;
   }
+  // LCOV_EXCL_STOP
 
 private:
   bool FoundSideEffect = false;

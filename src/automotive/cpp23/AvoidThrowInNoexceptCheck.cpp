@@ -29,8 +29,10 @@ void AvoidThrowInNoexceptCheck::check(const MatchFinder::MatchResult &Result) {
   const auto *Throw = Result.Nodes.getNodeAs<CXXThrowExpr>("throw");
   const auto *Func = Result.Nodes.getNodeAs<FunctionDecl>("func");
 
+  // LCOV_EXCL_START - defensive check, matcher guarantees these exist
   if (!Throw || !Func)
     return;
+  // LCOV_EXCL_STOP
 
   // Skip system headers
   if (Result.SourceManager->isInSystemHeader(Throw->getThrowLoc()))
