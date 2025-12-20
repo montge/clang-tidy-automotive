@@ -49,7 +49,7 @@ MISRA C++:2023 rules are organized into these categories:
 | Standard Library | 20 | 3 | 10 | 5 | 2 |
 | **Total** | **~200** | **~64** | **~75** | **~24** | **~37** |
 
-*Note: Statistics are estimates based on MISRA C++:2023 public summaries. 13 automotive-cpp23 checks implemented.*
+*Note: Statistics are estimates based on MISRA C++:2023 public summaries. 16 automotive-cpp23 checks implemented.*
 
 ## Rules Shared with MISRA C:2025
 
@@ -177,6 +177,7 @@ The following MISRA C++:2023 rules have been implemented in clang-tidy-automotiv
 | `automotive-cpp23-req-8.2.3` | 8.2.3 | const_cast shall not be used | `cpp23/AvoidConstCastCheck.cpp` |
 | `automotive-cpp23-req-8.2.4` | 8.2.4 | reinterpret_cast shall not be used | `cpp23/AvoidReinterpretCastCheck.cpp` |
 | `automotive-cpp23-adv-8.2.5` | 8.2.5 | dynamic_cast should not be used | `cpp23/AvoidDynamicCastCheck.cpp` |
+| `automotive-cpp23-req-8.3.1` | 8.3.1 | Implicit conversions shall be explicit | `cpp23/AvoidImplicitConversionCheck.cpp` |
 | `automotive-cpp23-req-8.4.1` | 8.4.1 | Narrowing conversions shall not be used | `cpp23/AvoidNarrowingConversionCheck.cpp` |
 | `automotive-cpp23-req-15.0.1` | 15.0.1 | Rule of Five for special member functions | `cpp23/RuleOfFiveCheck.cpp` |
 | `automotive-cpp23-req-15.1.2` | 15.1.2 | Conversion operators shall be explicit | `cpp23/AvoidImplicitConversionOperatorCheck.cpp` |
@@ -186,6 +187,8 @@ The following MISRA C++:2023 rules have been implemented in clang-tidy-automotiv
 | `automotive-cpp23-req-18.4.1` | 18.4.1 | Destructors shall not throw exceptions | `cpp23/AvoidThrowingDestructorCheck.cpp` |
 | `automotive-cpp23-req-18.4.2` | 18.4.2 | Move operations shall be noexcept | `cpp23/NoexceptMoveCheck.cpp` |
 | `automotive-cpp23-req-18.4.3` | 18.4.3 | Throw in noexcept functions shall be avoided | `cpp23/AvoidThrowInNoexceptCheck.cpp` |
+| `automotive-cpp23-adv-17.0.1` | 17.0.1 | Template parameters shall be constrained | `cpp23/UnconstrainedTemplateCheck.cpp` |
+| `automotive-cpp23-adv-17.1.1` | 17.1.1 | Concepts shall be properly defined | `cpp23/ProperConceptDefinitionCheck.cpp` |
 
 ## Planned Automotive C++ Checks
 
@@ -196,7 +199,7 @@ The following MISRA C++:2023 rules are planned for custom implementation:
 |---------------|------------|----------|-------------|
 | ~~`automotive-cpp23-avoid-narrowing`~~ | ~~8.4.1~~ | ~~High~~ | ~~Narrowing conversions~~ (Implemented as automotive-cpp23-req-8.4.1) |
 | ~~`automotive-cpp23-avoid-dynamic-cast`~~ | ~~8.2.5~~ | ~~Medium~~ | ~~dynamic_cast limitations~~ (Implemented as automotive-cpp23-adv-8.2.5) |
-| `automotive-cpp23-explicit-conversion` | 8.3.1 | Medium | Explicit conversions |
+| ~~`automotive-cpp23-explicit-conversion`~~ | ~~8.3.1~~ | ~~Medium~~ | ~~Explicit conversions~~ (Implemented as automotive-cpp23-req-8.3.1) |
 
 ### Class Checks (C++)
 | Planned Check | MISRA Rule | Priority | Description |
@@ -213,8 +216,8 @@ The following MISRA C++:2023 rules are planned for custom implementation:
 ### Template Checks (C++)
 | Planned Check | MISRA Rule | Priority | Description |
 |---------------|------------|----------|-------------|
-| `automotive-cpp23-template-instantiation` | 17.0.1 | Medium | Template usage |
-| `automotive-cpp23-concept-constraints` | 17.1.1 | Low | Concepts (C++20) |
+| ~~`automotive-cpp23-template-instantiation`~~ | ~~17.0.1~~ | ~~Medium~~ | ~~Template usage~~ (Implemented as automotive-cpp23-adv-17.0.1) |
+| ~~`automotive-cpp23-concept-constraints`~~ | ~~17.1.1~~ | ~~Low~~ | ~~Concepts (C++20)~~ (Implemented as automotive-cpp23-adv-17.1.1) |
 
 ## Manual Review Rules
 

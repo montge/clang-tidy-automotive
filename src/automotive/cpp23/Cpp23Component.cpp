@@ -10,6 +10,7 @@
 #include "AvoidCStyleCastCheck.h"
 #include "AvoidConstCastCheck.h"
 #include "AvoidDynamicCastCheck.h"
+#include "AvoidImplicitConversionCheck.h"
 #include "AvoidImplicitConversionOperatorCheck.h"
 #include "AvoidNarrowingConversionCheck.h"
 #include "AvoidReinterpretCastCheck.h"
@@ -18,7 +19,9 @@
 #include "AvoidThrowingDestructorCheck.h"
 #include "ExplicitConstructorCheck.h"
 #include "NoexceptMoveCheck.h"
+#include "ProperConceptDefinitionCheck.h"
 #include "RuleOfFiveCheck.h"
+#include "UnconstrainedTemplateCheck.h"
 #include "VirtualDestructorCheck.h"
 
 namespace clang::tidy::automotive {
@@ -77,6 +80,18 @@ void Cpp23Component::addCheckFactories(
   // std::terminate
   CheckFactories.registerCheck<AvoidThrowInNoexceptCheck>(
       "automotive-cpp23-req-18.4.3");
+
+  // MISRA C++:2023 Rule 8.3.1 - Implicit conversions shall be explicit
+  CheckFactories.registerCheck<AvoidImplicitConversionCheck>(
+      "automotive-cpp23-req-8.3.1");
+
+  // MISRA C++:2023 Rule 17.0.1 - Template parameters shall be constrained
+  CheckFactories.registerCheck<UnconstrainedTemplateCheck>(
+      "automotive-cpp23-adv-17.0.1");
+
+  // MISRA C++:2023 Rule 17.1.1 - Concepts shall be properly defined
+  CheckFactories.registerCheck<ProperConceptDefinitionCheck>(
+      "automotive-cpp23-adv-17.1.1");
 }
 
 } // namespace clang::tidy::automotive
