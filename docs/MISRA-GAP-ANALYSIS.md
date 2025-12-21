@@ -2,14 +2,18 @@
 
 This document provides a comprehensive gap analysis between the MISRA requirements and the clang-tidy-automotive implementation.
 
-**Generated:** 2025-12-20
+**Generated:** 2025-12-21
 
 ## Executive Summary
 
 | Standard | Total Rules/Dirs | Implemented | Clang Built-in | Manual Review | Missing |
 |----------|------------------|-------------|----------------|---------------|---------|
-| MISRA C:2025 | 197 | 104 | 10 | 17 dirs + 14 rules | 61 rules, 2 dirs |
-| MISRA C++:2023 | 67 | 10 | 0 | TBD | 57 rules, 2 dirs |
+| MISRA C:2025 | 197 | 113 | 10 | 17 dirs + 14 rules | 52 rules, 2 dirs |
+| MISRA C++:2023 | 67 | 22 | 0 | TBD | 45 rules, 2 dirs |
+
+**Recent Additions (Phase 1 Quick Wins - December 2025):**
+- MISRA C:2025: 9 new checks (7.2, 7.4, 11.10, 11.11, 16.6, 17.10, 17.13, 20.14, 21.9)
+- MISRA C++:2023: 6 new checks (9.3, 9.4, 12.3, 18.1, 21.6, 21.10)
 
 ---
 
@@ -31,27 +35,20 @@ These MUST be implemented for compliance:
 | **21.22** | All operand arguments to type-generic macros in <tgmath.h> shall have an appropriate essential type | Decidable | Type checking |
 | **22.20** | Thread-specific storage pointers shall be created before being accessed | Undecidable | Thread lifecycle analysis |
 
-### Missing Required Rules (47 rules) - HIGH PRIORITY
+### Missing Required Rules (38 rules) - HIGH PRIORITY
 
 | Rule | Title | Decidability | Complexity |
 |------|-------|--------------|------------|
 | **1.5** | Obsolescent language features shall not be used | Undecidable | Medium |
 | **2.2** | A project shall not contain dead code | Undecidable | High |
 | **6.3** | A bit-field shall not be declared as a member of a union | Decidable | Low |
-| **7.2** | A 'u' or 'U' suffix shall be applied to all unsigned integer constants | Decidable | Low |
-| **7.4** | A string literal shall not be assigned to an object unless pointer to const char | Decidable | Low |
 | **7.6** | Small integer variants of minimum-width integer constant macros shall not be used | Decidable | Low |
 | **8.6** | An identifier with external linkage shall have exactly one external definition | Decidable | Medium |
 | **8.18** | There shall be no tentative definitions in a header file | Decidable | Low |
 | **9.6** | An initializer using chained designators shall not contain initializers without designators | Decidable | Low |
-| **11.10** | The _Atomic qualifier shall not be applied to the incomplete type void | Decidable | Low |
-| **11.11** | Pointers shall not be implicitly compared to NULL | Decidable | Low |
 | **12.6** | Structure and union members of atomic objects shall not be directly accessed | Decidable | Low |
 | **14.2** | A for loop shall be well-formed | Undecidable | Medium |
 | **16.1** | All switch statements shall be well-formed | Decidable | Medium |
-| **16.6** | Every switch statement shall have at least two switch-clauses | Decidable | Low |
-| **17.10** | A function declared with _Noreturn shall have void return type | Decidable | Low |
-| **17.13** | A function type shall not be type qualified | Decidable | Low |
 | **18.9** | An object with temporary lifetime shall not undergo array-to-pointer conversion | Decidable | Medium |
 | **19.3** | A union member shall not be read unless it has been previously set | Undecidable | High |
 | **20.6** | Tokens that look like a preprocessing directive shall not occur within a macro argument | Decidable | Low |
@@ -59,9 +56,7 @@ These MUST be implemented for compliance:
 | **20.8** | The controlling expression of #if/#elif shall evaluate to 0 or 1 | Decidable | Low |
 | **20.9** | All identifiers in #if/#elif shall be #define'd before evaluation | Decidable | Low |
 | **20.13** | A line whose first token is # shall be a valid preprocessing directive | Decidable | Low |
-| **20.14** | All #else, #elif, #endif shall reside in same file as #if/#ifdef/#ifndef | Decidable | Low |
 | **20.15** | #define and #undef shall not be used on a reserved identifier or macro name | Decidable | Low |
-| **21.9** | The Standard Library functions bsearch and qsort shall not be used | Decidable | Low |
 | **21.14** | memcmp shall not be used to compare null terminated strings | Undecidable | Medium |
 | **21.23** | All operand arguments to multi-argument type-generic macros shall have same standard type | Decidable | Medium |
 | **21.24** | The random number generator functions of <stdlib.h> shall not be used | Decidable | Low |
@@ -110,7 +105,7 @@ These MUST be implemented for compliance:
 |------|-------|--------------|
 | **25.5** | The pointers returned by localeconv, getenv, setlocale, strerror must only be used as pointer to const-qualified type | Decidable |
 
-### Missing Required Rules (40 rules) - HIGH PRIORITY
+### Missing Required Rules (34 rules) - HIGH PRIORITY
 
 | Rule | Title | Decidability |
 |------|-------|--------------|
@@ -127,8 +122,6 @@ These MUST be implemented for compliance:
 | **7.11** | A literal value shall not be assigned to a null pointer constant | Decidable |
 | **8.7** | Pointer arithmetic shall not be applied to a pointer to object of non-array type | Undecidable |
 | **9.2** | Initialization of an auto variable shall happen at its declaration | Decidable |
-| **9.3** | The statement forming the body of a switch, while, do...while, for or range-based for statement shall be a compound statement | Decidable |
-| **9.4** | A switch statement shall have at least two non-empty switch clauses | Decidable |
 | **9.5** | A switch label shall only be used in the outermost compound statement of a switch body | Decidable |
 | **9.6** | All paths that can return values shall return a value | Decidable |
 | **10.1** | The value of an expression shall not be assigned to an object of a different essential type | Decidable |
@@ -136,19 +129,15 @@ These MUST be implemented for compliance:
 | **10.4** | The value of a composite expression shall not be assigned to a narrower essential type | Decidable |
 | **11.6** | A pointer to member shall not be converted to a pointer to another member type | Decidable |
 | **12.2** | Subtraction between two pointers shall only be performed when they are pointing to elements of the same array | Undecidable |
-| **12.3** | A union shall not be used | Decidable |
 | **13.1** | An object shall not be copied or moved to an overlapping object | Undecidable |
 | **13.3** | A parameter passed by value shall not be modified | Decidable |
 | **16.5** | A class should only define an overloaded operator && or operator || if it does not rely on short-circuit evaluation | Decidable |
 | **17.8** | Virtual functions shall not be called during construction or destruction | Undecidable |
-| **18.1** | Exception-handling shall not be used | Decidable |
 | **18.3** | A move or copy constructor shall not leave the original object in an invalid state | Undecidable |
 | **19.1** | An object shall not undergo type-punning | Decidable |
 | **19.2** | A reference or pointer to a derived class shall not be implicitly cast to a reference or pointer to a base class | Decidable |
 | **19.3** | The <cstdlib> function realloc shall not be used | Decidable |
 | **21.2** | A pointer to a file shall have a valid value when used | Undecidable |
-| **21.6** | Dynamic memory shall not be used | Decidable |
-| **21.10** | Standard library header <ctime> shall not be used | Decidable |
 | **22.3** | A pointer object shall have a value that points to an object | Undecidable |
 | **22.4** | A pointer object shall have a value that is within the bounds of an array object | Undecidable |
 | **28.3** | A function with side effects shall not be called from a context where those side effects would be discarded | Undecidable |
@@ -195,29 +184,29 @@ These MUST be implemented for compliance:
 ### Phase 1: Quick Wins (Decidable, Low Complexity)
 Focus on rules that are decidable and can be implemented with simple AST matching:
 
-**MISRA C:2025:**
-1. Rule 6.3 - Bit-field in union (already have union check infrastructure)
-2. Rule 7.2 - Unsigned literal suffix
-3. Rule 7.4 - String literal const assignment
-4. Rule 11.10 - Atomic void restriction
-5. Rule 11.11 - Implicit NULL comparison
-6. Rule 16.6 - Switch minimum clauses
-7. Rule 17.10 - Noreturn void return type
-8. Rule 17.13 - Function type qualification
-9. Rule 20.8 - #if expression value
-10. Rule 20.9 - #if undefined identifiers
-11. Rule 20.13 - Valid preprocessing directive
-12. Rule 20.14 - Preprocessor directive file scope
-13. Rule 21.9 - bsearch/qsort prohibition
-14. Rule 21.24 - Random number function prohibition
+**MISRA C:2025 (9 implemented, 5 remaining):**
+1. ~~Rule 7.2 - Unsigned literal suffix~~ ✓ IMPLEMENTED
+2. ~~Rule 7.4 - String literal const assignment~~ ✓ IMPLEMENTED
+3. ~~Rule 11.10 - Atomic void restriction~~ ✓ IMPLEMENTED
+4. ~~Rule 11.11 - Implicit NULL comparison~~ ✓ IMPLEMENTED
+5. ~~Rule 16.6 - Switch minimum clauses~~ ✓ IMPLEMENTED
+6. ~~Rule 17.10 - Noreturn void return type~~ ✓ IMPLEMENTED
+7. ~~Rule 17.13 - Function type qualification~~ ✓ IMPLEMENTED
+8. ~~Rule 20.14 - Preprocessor directive file scope~~ ✓ IMPLEMENTED
+9. ~~Rule 21.9 - bsearch/qsort prohibition~~ ✓ IMPLEMENTED
+10. Rule 6.3 - Bit-field in union (covered by `automotive-avoid-bitfield-in-union`)
+11. Rule 20.8 - #if expression value (Deferred - complex)
+12. Rule 20.9 - #if undefined identifiers (Deferred - complex)
+13. Rule 20.13 - Valid preprocessing directive (Deferred - Clang handles)
+14. Rule 21.24 - Random number function prohibition (Pending)
 
-**MISRA C++:2023:**
-1. Rule 9.3 - Compound statement body (like C 15.6)
-2. Rule 9.4 - Switch minimum clauses (like C 16.6)
-3. Rule 12.3 - Union prohibition (like C 19.2)
-4. Rule 21.10 - <ctime> prohibition
-5. Rule 18.1 - Exception prohibition
-6. Rule 21.6 - Dynamic memory prohibition
+**MISRA C++:2023 (6 implemented - COMPLETE):**
+1. ~~Rule 9.3 - Compound statement body~~ ✓ IMPLEMENTED
+2. ~~Rule 9.4 - Switch minimum clauses~~ ✓ IMPLEMENTED
+3. ~~Rule 12.3 - Union prohibition~~ ✓ IMPLEMENTED
+4. ~~Rule 18.1 - Exception prohibition~~ ✓ IMPLEMENTED
+5. ~~Rule 21.6 - Dynamic memory prohibition~~ ✓ IMPLEMENTED
+6. ~~Rule 21.10 - <ctime> prohibition~~ ✓ IMPLEMENTED
 
 ### Phase 2: Medium Complexity
 Rules requiring more sophisticated analysis:
@@ -250,21 +239,21 @@ Rules requiring dataflow, aliasing, or thread analysis:
 | 4.x Chars | 2 | 2 | 0 |
 | 5.x Identifiers | 9 | 3 | 6* |
 | 6.x Types | 3 | 2 | 6.3 |
-| 7.x Literals | 6 | 2 | 4 |
+| 7.x Literals | 6 | 4 | 7.5, 7.6 |
 | 8.x Declarations | 15 | 8 | 7 |
 | 9.x Initialization | 7 | 5 | 9.6, 9.7 |
 | 10.x Essential types | 7 | 6 | 0** |
-| 11.x Pointers | 10 | 7 | 3 |
+| 11.x Pointers | 10 | 9 | 1 |
 | 12.x Expressions | 4 | 3 | 12.5, 12.6 |
 | 13.x Side effects | 4 | 4 | 0 |
 | 14.x Control flow | 4 | 3 | 14.2 |
 | 15.x Control statements | 7 | 7 | 0 |
-| 16.x Switch | 7 | 5 | 16.1, 16.6 |
-| 17.x Functions | 11 | 6 | 5 |
+| 16.x Switch | 7 | 6 | 16.1 |
+| 17.x Functions | 11 | 8 | 3 |
 | 18.x Pointers/arrays | 8 | 6 | 18.9, 18.10 |
 | 19.x Overlapping storage | 3 | 1 | 19.1, 19.3 |
-| 20.x Preprocessing | 14 | 7 | 7 |
-| 21.x Standard library | 16 | 10 | 6 |
+| 20.x Preprocessing | 14 | 8 | 6 |
+| 21.x Standard library | 16 | 11 | 5 |
 | 22.x Resources | 19 | 1 | 18*** |
 | 23.x Generics | 7 | 0 | 7 |
 
@@ -282,18 +271,18 @@ Rules requiring dataflow, aliasing, or thread analysis:
 | 6.x | 8 | 0 | 8 |
 | 7.x | 2 | 0 | 2 |
 | 8.x | 8 | 5 | 3 |
-| 9.x | 5 | 0 | 5 |
+| 9.x | 5 | 2 | 3 |
 | 10.x | 4 | 0 | 4 |
 | 11.x | 2 | 0 | 2 |
-| 12.x | 2 | 0 | 2 |
+| 12.x | 2 | 1 | 1 |
 | 13.x | 2 | 0 | 2 |
 | 14.x | 1 | 0 | 1 |
 | 15.x | 2 | 2 | 0 |
 | 16.x | 2 | 0 | 2 |
 | 17.x | 1 | 0 | 1 |
-| 18.x | 4 | 3 | 1 |
+| 18.x | 4 | 4 | 0 |
 | 19.x | 4 | 0 | 4 |
-| 21.x | 3 | 0 | 3 |
+| 21.x | 3 | 2 | 1 |
 | 22.x | 2 | 0 | 2 |
 | 25.x | 1 | 0 | 1 |
 | 26.x | 1 | 0 | 1 |
