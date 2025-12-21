@@ -12,6 +12,7 @@ add_clang_library(clangTidyAutomotiveExpressionComponent STATIC
   AvoidSideEffectInInitializerCheck.cpp
   AvoidSideEffectInLogicalOperandCheck.cpp
   AvoidSideEffectInSizeofCheck.cpp
+  AvoidSizeofArrayParameterCheck.cpp
   ExpressionComponent.cpp
   InvariantControlCheck.cpp
 )

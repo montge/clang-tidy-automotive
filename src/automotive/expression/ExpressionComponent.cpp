@@ -19,6 +19,7 @@
 #include "AvoidSideEffectInInitializerCheck.h"
 #include "AvoidSideEffectInLogicalOperandCheck.h"
 #include "AvoidSideEffectInSizeofCheck.h"
+#include "AvoidSizeofArrayParameterCheck.h"
 #include "InvariantControlCheck.h"
 
 namespace clang::tidy::automotive {
@@ -69,6 +70,10 @@ void ExpressionComponent::addCheckFactories(
   // Rule 13.6 - Side effects in sizeof operand (Mandatory)
   CheckFactories.registerCheck<AvoidSideEffectInSizeofCheck>(
       "automotive-c23-mand-13.6");
+
+  // Rule 12.5 - sizeof on array parameter (Required)
+  CheckFactories.registerCheck<AvoidSizeofArrayParameterCheck>(
+      "automotive-c23-req-12.5");
 
   // Rule 14.3 - Invariant controlling expression (Required)
   CheckFactories.registerCheck<InvariantControlCheck>(
