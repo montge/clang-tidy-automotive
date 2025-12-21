@@ -23,8 +23,8 @@ bool containsUnconditionalTerminator(const Stmt *S) {
     return false;
 
   // Direct terminators
-  if (isa<BreakStmt>(S) || isa<ReturnStmt>(S) ||
-      isa<GotoStmt>(S) || isa<ContinueStmt>(S))
+  if (isa<BreakStmt>(S) || isa<ReturnStmt>(S) || isa<GotoStmt>(S) ||
+      isa<ContinueStmt>(S))
     return true;
 
   // For compound statements, check the last statement

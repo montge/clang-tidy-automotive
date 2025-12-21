@@ -2,6 +2,7 @@
 add_automotive_component(clangTidyAutomotiveStdlibComponent
   AtoXCheck.cpp
   AvoidApiCheck.cpp
+  AvoidBsearchQsortCheck.cpp
   AvoidCtypeHeaderCheck.cpp
   AvoidSetjmpHeaderCheck.cpp
   AvoidSignalHeaderCheck.cpp

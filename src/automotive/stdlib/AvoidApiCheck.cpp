@@ -62,7 +62,8 @@ void AvoidApiCheck::check(const MatchFinder::MatchResult &Result) {
   if (!FD)
     return;
 
-  diag(Call->getBeginLoc(), "use of '%0' is not allowed in safety-critical code")
+  diag(Call->getBeginLoc(),
+       "use of '%0' is not allowed in safety-critical code")
       << FD->getName();
 }
 
@@ -74,7 +75,8 @@ void AvoidApiPPCallbacks::InclusionDirective(
     SrcMgr::CharacteristicKind FileType) {
   // Check if the included header matches the prohibited header
   if (!HeaderName.empty() && IncludedFilename == HeaderName) {
-    Check.diag(DirectiveLoc, "inclusion of <%0> is not allowed in safety-critical code")
+    Check.diag(DirectiveLoc,
+               "inclusion of <%0> is not allowed in safety-critical code")
         << HeaderName;
   }
 }

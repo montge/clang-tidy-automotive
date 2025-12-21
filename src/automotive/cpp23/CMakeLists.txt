@@ -2,14 +2,20 @@
 add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidConstCastCheck.cpp
   AvoidCStyleCastCheck.cpp
+  AvoidCtimeCppCheck.cpp
   AvoidDynamicCastCheck.cpp
+  AvoidDynamicMemoryCppCheck.cpp
+  AvoidExceptionCheck.cpp
   AvoidImplicitConversionCheck.cpp
   AvoidImplicitConversionOperatorCheck.cpp
   AvoidNarrowingConversionCheck.cpp
+  AvoidNonCompoundBodyCheck.cpp
   AvoidReinterpretCastCheck.cpp
+  AvoidSingleClauseSwitchCppCheck.cpp
   AvoidSlicingCheck.cpp
   AvoidThrowInNoexceptCheck.cpp
   AvoidThrowingDestructorCheck.cpp
+  AvoidUnionCppCheck.cpp
   Cpp23Component.cpp
   ExplicitConstructorCheck.cpp
   NoexceptMoveCheck.cpp

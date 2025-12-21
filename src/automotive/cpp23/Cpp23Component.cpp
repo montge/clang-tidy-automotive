@@ -9,14 +9,20 @@
 #include "Cpp23Component.h"
 #include "AvoidCStyleCastCheck.h"
 #include "AvoidConstCastCheck.h"
+#include "AvoidCtimeCppCheck.h"
 #include "AvoidDynamicCastCheck.h"
+#include "AvoidDynamicMemoryCppCheck.h"
+#include "AvoidExceptionCheck.h"
 #include "AvoidImplicitConversionCheck.h"
 #include "AvoidImplicitConversionOperatorCheck.h"
 #include "AvoidNarrowingConversionCheck.h"
+#include "AvoidNonCompoundBodyCheck.h"
 #include "AvoidReinterpretCastCheck.h"
+#include "AvoidSingleClauseSwitchCppCheck.h"
 #include "AvoidSlicingCheck.h"
 #include "AvoidThrowInNoexceptCheck.h"
 #include "AvoidThrowingDestructorCheck.h"
+#include "AvoidUnionCppCheck.h"
 #include "ExplicitConstructorCheck.h"
 #include "NoexceptMoveCheck.h"
 #include "ProperConceptDefinitionCheck.h"
@@ -92,6 +98,29 @@ void Cpp23Component::addCheckFactories(
   // MISRA C++:2023 Rule 17.1.1 - Concepts shall be properly defined
   CheckFactories.registerCheck<ProperConceptDefinitionCheck>(
       "automotive-cpp23-adv-17.1.1");
+
+  // MISRA C++:2023 Rule 9.3 - Compound statement body
+  CheckFactories.registerCheck<AvoidNonCompoundBodyCheck>(
+      "automotive-cpp23-req-9.3");
+
+  // MISRA C++:2023 Rule 9.4 - Switch minimum clauses
+  CheckFactories.registerCheck<AvoidSingleClauseSwitchCppCheck>(
+      "automotive-cpp23-req-9.4");
+
+  // MISRA C++:2023 Rule 12.3 - Union prohibition
+  CheckFactories.registerCheck<AvoidUnionCppCheck>("automotive-cpp23-req-12.3");
+
+  // MISRA C++:2023 Rule 18.1 - Exception prohibition
+  CheckFactories.registerCheck<AvoidExceptionCheck>(
+      "automotive-cpp23-req-18.1");
+
+  // MISRA C++:2023 Rule 21.6 - Dynamic memory prohibition
+  CheckFactories.registerCheck<AvoidDynamicMemoryCppCheck>(
+      "automotive-cpp23-req-21.6");
+
+  // MISRA C++:2023 Rule 21.10 - ctime prohibition
+  CheckFactories.registerCheck<AvoidCtimeCppCheck>(
+      "automotive-cpp23-req-21.10");
 }
 
 } // namespace clang::tidy::automotive

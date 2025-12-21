@@ -1,5 +1,6 @@
 
 add_automotive_component(clangTidyAutomotiveTypeComponent
+  AvoidAtomicVoidCheck.cpp
   AvoidPointerTypedefCheck.cpp
   AvoidUnionCheck.cpp
   DuplicateTagNameCheck.cpp

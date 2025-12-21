@@ -2,6 +2,7 @@
 add_automotive_component(clangTidyAutomotiveStatementComponent
   AvoidBooleanInSwitchCheck.cpp
   AvoidGotoCheck.cpp
+  AvoidSingleClauseSwitchCheck.cpp
   ForwardGotoLabelCheck.cpp
   GotoLabelSameBlockCheck.cpp
   MissingBreakInCaseStmtCheck.cpp

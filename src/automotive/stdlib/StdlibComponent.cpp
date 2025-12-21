@@ -8,6 +8,7 @@
 
 #include "StdlibComponent.h"
 #include "AtoXCheck.h"
+#include "AvoidBsearchQsortCheck.h"
 #include "AvoidCtypeHeaderCheck.h"
 #include "AvoidSetjmpHeaderCheck.h"
 #include "AvoidSignalHeaderCheck.h"
@@ -15,10 +16,10 @@
 #include "AvoidStdioHeaderCheck.h"
 #include "AvoidStdlibMemoryCheck.h"
 #include "AvoidStdlibRandCheck.h"
-#include "AvoidstdlibsystemcallCheck.h"
 #include "AvoidTgmathHeaderCheck.h"
 #include "AvoidTimeHeaderCheck.h"
 #include "AvoidWcharHeaderCheck.h"
+#include "AvoidstdlibsystemcallCheck.h"
 #include "ExitCheck.h"
 
 namespace clang::tidy::automotive {
@@ -63,6 +64,10 @@ void StdlibComponent::addCheckFactories(
   // Rule 21.13 - ctype.h functions (Mandatory)
   CheckFactories.registerCheck<AvoidCtypeHeaderCheck>(
       "automotive-c23-mand-21.13");
+
+  // Rule 21.9 - bsearch/qsort prohibition (Required)
+  CheckFactories.registerCheck<AvoidBsearchQsortCheck>(
+      "automotive-c23-req-21.9");
 }
 
 } // namespace clang::tidy::automotive
