@@ -12,6 +12,7 @@ add_automotive_component(clangTidyAutomotiveExpressionComponent
   AvoidSideEffectInInitializerCheck.cpp
   AvoidSideEffectInLogicalOperandCheck.cpp
   AvoidSideEffectInSizeofCheck.cpp
+  AvoidSizeofArrayParameterCheck.cpp
   ExpressionComponent.cpp
   InvariantControlCheck.cpp
 )
