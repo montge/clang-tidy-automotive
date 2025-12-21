@@ -8,6 +8,7 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidExceptionCheck.cpp
   AvoidFloatingPointEqualityCheck.cpp
   AvoidImplicitConversionCheck.cpp
+  AvoidImplicitLambdaCaptureCheck.cpp
   AvoidImplicitConversionOperatorCheck.cpp
   AvoidNarrowingConversionCheck.cpp
   AvoidNonCompoundBodyCheck.cpp
