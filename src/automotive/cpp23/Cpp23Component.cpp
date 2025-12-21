@@ -16,6 +16,7 @@
 #include "AvoidFloatingPointEqualityCheck.h"
 #include "AvoidImplicitConversionCheck.h"
 #include "AvoidImplicitConversionOperatorCheck.h"
+#include "AvoidImplicitLambdaCaptureCheck.h"
 #include "AvoidNarrowingConversionCheck.h"
 #include "AvoidNonCompoundBodyCheck.h"
 #include "AvoidReinterpretCastCheck.h"
@@ -126,6 +127,15 @@ void Cpp23Component::addCheckFactories(
   // MISRA C++:2023 Rule 6.7 - Floating-point equality comparison
   CheckFactories.registerCheck<AvoidFloatingPointEqualityCheck>(
       "automotive-cpp23-req-6.7");
+
+  // MISRA C++:2023 Rule 0.1 - Implicit lambda capture
+  CheckFactories.registerCheck<AvoidImplicitLambdaCaptureCheck>(
+      "automotive-cpp23-req-0.1");
+
+  // MISRA C++:2023 Rule 11.3 - C-style cast prohibition
+  // (Alias for existing check, same functionality as Rule 8.2.1)
+  CheckFactories.registerCheck<AvoidCStyleCastCheck>(
+      "automotive-cpp23-adv-11.3");
 }
 
 } // namespace clang::tidy::automotive
