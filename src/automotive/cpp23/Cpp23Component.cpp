@@ -18,6 +18,7 @@
 #include "AvoidImplicitConversionOperatorCheck.h"
 #include "AvoidImplicitLambdaCaptureCheck.h"
 #include "AvoidNarrowingConversionCheck.h"
+#include "AvoidNestedSwitchLabelCheck.h"
 #include "AvoidNonCompoundBodyCheck.h"
 #include "AvoidReinterpretCastCheck.h"
 #include "AvoidSingleClauseSwitchCppCheck.h"
@@ -136,6 +137,10 @@ void Cpp23Component::addCheckFactories(
   // (Alias for existing check, same functionality as Rule 8.2.1)
   CheckFactories.registerCheck<AvoidCStyleCastCheck>(
       "automotive-cpp23-adv-11.3");
+
+  // MISRA C++:2023 Rule 9.5 - Switch label in outermost compound statement
+  CheckFactories.registerCheck<AvoidNestedSwitchLabelCheck>(
+      "automotive-cpp23-req-9.5");
 }
 
 } // namespace clang::tidy::automotive
