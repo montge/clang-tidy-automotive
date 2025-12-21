@@ -42,3 +42,5 @@ compile_commands.json
 coverage/*
 !coverage/coverage.lcov
 sonar-cfamily-reproducer.tar.xz
+coverage/
+coverage/coverage-full.lcov

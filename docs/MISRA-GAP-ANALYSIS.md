@@ -8,18 +8,18 @@ This document provides a comprehensive gap analysis between the MISRA requiremen
 
 | Standard | Total Rules/Dirs | Implemented | Clang Built-in | Manual Review | Missing |
 |----------|------------------|-------------|----------------|---------------|---------|
-| MISRA C:2025 | 197 | 116 | 10 | 17 dirs + 14 rules | 49 rules, 2 dirs |
-| MISRA C++:2023 | 67 | 22 | 0 | TBD | 45 rules, 2 dirs |
+| MISRA C:2025 | 197 | 118 | 10 | 17 dirs + 14 rules | 47 rules, 2 dirs |
+| MISRA C++:2023 | 67 | 28 | 0 | TBD | 39 rules, 2 dirs |
 
-**Recent Additions (Phase 1 Quick Wins - December 2025):**
-- MISRA C:2025: 12 new checks (7.2, 7.4, 7.6, 8.18, 11.10, 11.11, 16.6, 17.10, 17.13, 20.14, 21.9, 21.24)
-- MISRA C++:2023: 6 new checks (9.3, 9.4, 12.3, 18.1, 21.6, 21.10)
+**Recent Additions (Phase 2 - December 2025):**
+- MISRA C:2025: 14 new checks (7.2, 7.4, 7.6, 8.18, 11.10, 11.11, 12.5, 16.6, 17.10, 17.13, 20.14, 20.15, 21.9, 21.24)
+- MISRA C++:2023: 12 new checks (0.1, 6.7, 9.3, 9.4, 9.5, 11.3, 12.3, 13.3, 18.1, 21.6, 21.10)
 
 ---
 
 ## MISRA C:2025 Gap Analysis
 
-### Missing Mandatory Rules (9 rules) - HIGHEST PRIORITY
+### Missing Mandatory Rules (8 rules) - HIGHEST PRIORITY
 
 These MUST be implemented for compliance:
 
@@ -27,7 +27,6 @@ These MUST be implemented for compliance:
 |------|-------|--------------|-------|
 | **7.5** | The argument of an integer constant macro shall have an appropriate form | Decidable | Macro argument validation |
 | **9.7** | Atomic objects shall be appropriately initialized before being accessed | Undecidable | Requires dataflow analysis |
-| **12.5** | The sizeof operator shall not have an operand which is a function parameter declared as 'array of type' | Decidable | Array-to-pointer decay in sizeof |
 | **17.9** | A function declared with a _Noreturn function specifier shall not return to its caller | Undecidable | Control flow analysis |
 | **18.10** | Pointers to variably-modified array types shall not be used | Decidable | VLA pointer restrictions |
 | **19.1** | An object shall not be assigned or copied to an overlapping object | Undecidable | Aliasing analysis |
