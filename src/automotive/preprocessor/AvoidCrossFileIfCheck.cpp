@@ -106,8 +106,7 @@ private:
 } // anonymous namespace
 
 void AvoidCrossFileIfCheck::registerPPCallbacks(
-    const SourceManager &SM, Preprocessor *PP,
-    Preprocessor *ModuleExpanderPP) {
+    const SourceManager &SM, Preprocessor *PP, Preprocessor *ModuleExpanderPP) {
   PP->addPPCallbacks(
       ::std::make_unique<AvoidCrossFileIfPPCallbacks>(*this, SM));
 }
