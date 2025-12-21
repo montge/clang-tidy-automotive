@@ -6,6 +6,7 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidDynamicCastCheck.cpp
   AvoidDynamicMemoryCppCheck.cpp
   AvoidExceptionCheck.cpp
+  AvoidFloatingPointEqualityCheck.cpp
   AvoidImplicitConversionCheck.cpp
   AvoidImplicitConversionOperatorCheck.cpp
   AvoidNarrowingConversionCheck.cpp

@@ -52,6 +52,10 @@ void PreprocessorComponent::addCheckFactories(
   CheckFactories.registerCheck<AvoidReservedMacroIdentifierCheck>(
       "automotive-avoid-reserved-macro-identifier");
 
+  // Rule 20.15 - #define/#undef reserved identifiers (Required)
+  CheckFactories.registerCheck<AvoidReservedMacroIdentifierCheck>(
+      "automotive-c23-req-20.15");
+
   // Rule 5.4 - Macro identifier conflicts
   CheckFactories.registerCheck<AvoidMacroIdentifierConflictCheck>(
       "automotive-c23-req-5.4");

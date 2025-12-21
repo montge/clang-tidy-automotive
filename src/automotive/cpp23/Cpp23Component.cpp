@@ -13,6 +13,7 @@
 #include "AvoidDynamicCastCheck.h"
 #include "AvoidDynamicMemoryCppCheck.h"
 #include "AvoidExceptionCheck.h"
+#include "AvoidFloatingPointEqualityCheck.h"
 #include "AvoidImplicitConversionCheck.h"
 #include "AvoidImplicitConversionOperatorCheck.h"
 #include "AvoidNarrowingConversionCheck.h"
@@ -121,6 +122,10 @@ void Cpp23Component::addCheckFactories(
   // MISRA C++:2023 Rule 21.10 - ctime prohibition
   CheckFactories.registerCheck<AvoidCtimeCppCheck>(
       "automotive-cpp23-req-21.10");
+
+  // MISRA C++:2023 Rule 6.7 - Floating-point equality comparison
+  CheckFactories.registerCheck<AvoidFloatingPointEqualityCheck>(
+      "automotive-cpp23-req-6.7");
 }
 
 } // namespace clang::tidy::automotive
