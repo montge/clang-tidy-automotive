@@ -49,8 +49,7 @@ private:
 } // anonymous namespace
 
 void AvoidSmallIntConstMacroCheck::registerPPCallbacks(
-    const SourceManager &SM, Preprocessor *PP,
-    Preprocessor *ModuleExpanderPP) {
+    const SourceManager &SM, Preprocessor *PP, Preprocessor *ModuleExpanderPP) {
   PP->addPPCallbacks(
       std::make_unique<SmallIntConstMacroPPCallbacks>(*this, SM));
 }
