@@ -18,11 +18,11 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|-------|-------------|-------|---------|--------|
 | Directives | 18 | 5 | 0 | 0 | 13 |
 | Mandatory | 4 | 5 | 0 | 0 | 0 |
-| Required | 113 | 80 | 15 | 0 | 18 |
+| Required | 113 | 83 | 15 | 0 | 15 |
 | Advisory | 41 | 27 | 8 | 0 | 6 |
-| **Total** | **176** | **113** | **25** | **0** | **38** |
+| **Total** | **176** | **116** | **25** | **0** | **35** |
 
-*Note: 113 MISRA C:2025 checks + 22 MISRA C++:2023 checks = 135 total automotive checks*
+*Note: 116 MISRA C:2025 checks + 22 MISRA C++:2023 checks = 138 total automotive checks*
 
 ## Implemented Checks
 
@@ -74,6 +74,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-c23-req-7.2` | 7.2 | Required | Unsigned literal without suffix |
 | `automotive-avoid-lowercase-literal-suffix` | 7.3 | Required | Lowercase 'l' suffix |
 | `automotive-c23-req-7.4` | 7.4 | Required | String literal to non-const pointer |
+| `automotive-c23-req-7.6` | 7.6 | Required | Small integer constant macros |
 | `automotive-unterminated-escape-sequence` | 4.1 | Required | Incomplete escape sequences |
 
 ### Identifier Checks
@@ -143,6 +144,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|------------|----------|-------------|
 | `automotive-c23-adv-8.7` | 8.7 | Advisory | Static for internal linkage |
 | `automotive-c23-adv-8.9` | 8.9 | Advisory | Object at block scope |
+| `automotive-c23-req-8.18` | 8.18 | Required | Tentative definitions in header |
 | `automotive-c23-req-9.1` | 9.1 | Required | Uninitialized variable detection |
 | `automotive-c23-req-21.2` | 21.2 | Required | Reserved identifier declarations |
 | `automotive-avoid-restrict-type` | 8.14 | Required | restrict qualifier usage |
@@ -190,6 +192,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-c23-req-21.11` | 21.11 | Required | <tgmath.h> type-generic math |
 | `automotive-avoid-stdlib-rand` | 21.12 | Required | rand() function |
 | `automotive-c23-mand-21.13` | 21.13 | Mandatory | <ctype.h> character functions |
+| `automotive-c23-req-21.24` | 21.24 | Required | Random number functions (rand/srand) |
 | `automotive-c23-req-21.21` | 21.21 | Required | <wchar.h> wide character functions |
 
 ### Unused Code Checks
@@ -266,7 +269,7 @@ See `docs/MISRA-GAP-ANALYSIS.md` for detailed analysis.
 
 **Missing Mandatory (9 rules):** 7.5, 9.7, 12.5, 17.9, 18.10, 19.1, 21.18, 21.22, 22.20
 
-**Missing Required (38 rules):** 1.5, 2.2, 6.3, 7.6, 8.6, 8.18, 9.6, 12.6, 14.2, 16.1, 18.9, 19.3, 20.6, 20.7, 20.8, 20.9, 20.13, 20.15, 21.14, 21.23, 21.24, 21.25, 21.26, 22.11, 22.13, 22.15, 22.16, 22.17, 22.18, 22.19, 23.4, 23.6, 23.8
+**Missing Required (35 rules):** 1.5, 2.2, 6.3, 8.6, 9.6, 12.6, 14.2, 16.1, 18.9, 19.3, 20.6, 20.7, 20.8, 20.9, 20.13, 20.15, 21.14, 21.23, 21.25, 21.26, 22.11, 22.13, 22.15, 22.16, 22.17, 22.18, 22.19, 23.4, 23.6, 23.8
 
 **Missing Advisory (10 rules):** 8.13, 8.16, 8.17, 8.19, 17.11, 17.12, 23.1, 23.3, 23.5, 23.7
 
@@ -330,6 +333,8 @@ See `docs/MISRA-GAP-ANALYSIS.md` for detailed analysis.
 **Phase 1 Quick Wins (December 2025):**
 - ~~Rule 7.2: Unsigned literal suffix~~ (Implemented)
 - ~~Rule 7.4: String literal const assignment~~ (Implemented)
+- ~~Rule 7.6: Small integer constant macros~~ (Implemented)
+- ~~Rule 8.18: Tentative definitions in header~~ (Implemented)
 - ~~Rule 11.10: Atomic void restriction~~ (Implemented)
 - ~~Rule 11.11: Implicit NULL comparison~~ (Implemented)
 - ~~Rule 16.6: Switch minimum clauses~~ (Implemented)
@@ -337,6 +342,7 @@ See `docs/MISRA-GAP-ANALYSIS.md` for detailed analysis.
 - ~~Rule 17.13: Function type qualification~~ (Implemented)
 - ~~Rule 20.14: Preprocessor directive file scope~~ (Implemented)
 - ~~Rule 21.9: bsearch/qsort prohibition~~ (Implemented)
+- ~~Rule 21.24: Random number functions~~ (Implemented)
 - ~~C++ Rule 9.3: Compound statement body~~ (Implemented)
 - ~~C++ Rule 9.4: Switch minimum clauses~~ (Implemented)
 - ~~C++ Rule 12.3: Union prohibition~~ (Implemented)
