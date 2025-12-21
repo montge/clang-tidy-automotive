@@ -1,6 +1,7 @@
 
 add_clang_library(clangTidyAutomotivePreprocessorComponent STATIC
   AvoidCodeBeforeIncludeCheck.cpp
+  AvoidCrossFileIfCheck.cpp
   AvoidHashOperatorCheck.cpp
   AvoidIncludeSyntaxErrorCheck.cpp
   AvoidInvalidHeaderCharCheck.cpp
