@@ -1,9 +1,9 @@
-// Test file for: automotive-missing-default-in-switch-stmt
+// Test file for: automotive-missing-default-in-switch
 // Related MISRA C:2025 Rule: 16.4
 //
 // This file tests the detection of switch statements without default case
 
-// RUN: %check_clang_tidy %s automotive-missing-default-in-switch-stmt %t
+// RUN: %check_clang_tidy %s automotive-missing-default-in-switch %t
 
 //===----------------------------------------------------------------------===//
 // Violation Cases (should trigger warnings)
@@ -13,7 +13,7 @@ void test_missing_default_violations(void) {
     int x = 5;
 
     // Switch without default case
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch-stmt]
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch]
     switch (x) {
     case 1:
         break;
@@ -22,7 +22,7 @@ void test_missing_default_violations(void) {
     }
 
     // Switch with multiple cases but no default
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch-stmt]
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch]
     switch (x) {
     case 0:
         break;
@@ -35,12 +35,12 @@ void test_missing_default_violations(void) {
     }
 
     // Empty switch statement (no cases at all)
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch-stmt]
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch]
     switch (x) {
     }
 
     // Switch with only one case, no default
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch-stmt]
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch]
     switch (x) {
     case 0:
         break;
@@ -57,7 +57,7 @@ void test_enum_switch_violations(void) {
     enum Color color = RED;
 
     // Enum switch without default (even if all values covered)
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch-stmt]
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch]
     switch (color) {
     case RED:
         break;
@@ -68,8 +68,8 @@ void test_enum_switch_violations(void) {
     }
 
     // Enum switch with partial coverage, no default
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch-stmt]
-    switch (color) {
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch]
+    switch (color) { // NOLINT(clang-diagnostic-switch)
     case RED:
         break;
     case GREEN:
@@ -81,7 +81,7 @@ void test_char_switch_violations(void) {
     char c = 'A';
 
     // Character switch without default
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch-stmt]
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch]
     switch (c) {
     case 'A':
         break;
@@ -99,7 +99,7 @@ void test_nested_switch_violations(void) {
     // Outer switch has default, inner switch doesn't
     switch (x) {
     case 1:
-        // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: missing default statement in switch statement [automotive-missing-default-in-switch-stmt]
+        // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: missing default statement in switch statement [automotive-missing-default-in-switch]
         switch (y) {
         case 1:
             break;
@@ -112,7 +112,7 @@ void test_nested_switch_violations(void) {
     }
 
     // Outer switch doesn't have default, inner switch has default
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch-stmt]
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch]
     switch (x) {
     case 1:
         switch (y) {
@@ -127,10 +127,10 @@ void test_nested_switch_violations(void) {
     }
 
     // Both switches missing default
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch-stmt]
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: missing default statement in switch statement [automotive-missing-default-in-switch]
     switch (x) {
     case 1:
-        // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: missing default statement in switch statement [automotive-missing-default-in-switch-stmt]
+        // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: missing default statement in switch statement [automotive-missing-default-in-switch]
         switch (y) {
         case 1:
             break;

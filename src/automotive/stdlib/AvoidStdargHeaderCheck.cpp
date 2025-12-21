@@ -10,9 +10,11 @@
 
 namespace clang::tidy::automotive {
 
-void AvoidStdargHeaderCheck::registerPPCallbacks(
-    const SourceManager &SM, Preprocessor *PP, Preprocessor *ModuleExpanderPP) {
-  // Header inclusion detection not yet implemented
-}
+static const StringRef AvoidFunctions[] = {"va_start", "va_arg", "va_end",
+                                           "va_copy"};
+
+AvoidStdargHeaderCheck::AvoidStdargHeaderCheck(StringRef Name,
+                                               ClangTidyContext *Context)
+    : AvoidApiCheck(Name, Context, "stdarg.h", AvoidFunctions) {}
 
 } // namespace clang::tidy::automotive

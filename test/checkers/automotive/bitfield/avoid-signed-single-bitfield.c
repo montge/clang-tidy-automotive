@@ -10,18 +10,18 @@
 //===----------------------------------------------------------------------===//
 
 struct BadStruct1 {
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: signed single-bit bit-field
+    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid signed type for bitfields of single bit
     int flag : 1;
 };
 
 struct BadStruct2 {
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: signed single-bit bit-field
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: avoid signed type for bitfields of single bit
     signed int a : 1;
     unsigned int b : 1;  // OK - unsigned
 };
 
 struct BadStruct3 {
-    // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: signed single-bit bit-field
+    // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: avoid signed type for bitfields of single bit
     char bit : 1;  // char may be signed by default
 };
 

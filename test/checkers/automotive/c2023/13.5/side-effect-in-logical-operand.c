@@ -64,7 +64,8 @@ void test_nested(int a, int b, int c) {
 
   // Non-compliant: nested side effect
   if (a && (b || (x = foo())))
-  // CHECK-MESSAGES: :[[@LINE-1]]:18: warning: right operand of '||' operator contains side effects that may not be evaluated due to short-circuit evaluation [automotive-c23-req-13.5]
+  // CHECK-MESSAGES: :[[@LINE-1]]:12: warning: right operand of '&&' operator contains side effects that may not be evaluated due to short-circuit evaluation [automotive-c23-req-13.5]
+  // CHECK-MESSAGES: :[[@LINE-2]]:18: warning: right operand of '||' operator contains side effects that may not be evaluated due to short-circuit evaluation [automotive-c23-req-13.5]
     (void)x;
 }
 

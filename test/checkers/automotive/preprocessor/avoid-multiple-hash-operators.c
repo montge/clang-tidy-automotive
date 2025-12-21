@@ -3,16 +3,16 @@
 // Test: Multiple # or ## operators in macro definition (MISRA Rule 20.11)
 
 // Violation - multiple ## operators
+// CHECK-MESSAGES: :[[@LINE+1]]:33: warning: avoid '##' operator after '##' operator [automotive-avoid-multiple-hash-operators]
 #define CONCAT3(a, b, c) a ## b ## c
-// CHECK-MESSAGES: :[[@LINE-1]]:9: warning: macro 'CONCAT3' uses multiple '##' operators
 
 // Violation - multiple # operators
+// CHECK-MESSAGES: :[[@LINE+1]]:29: warning: avoid '#' operator after '#' operator [automotive-avoid-multiple-hash-operators]
 #define STRINGIFY2(a, b) #a #b
-// CHECK-MESSAGES: :[[@LINE-1]]:9: warning: macro 'STRINGIFY2' uses multiple '#' operators
 
 // Violation - mix of # and ##
+// CHECK-MESSAGES: :[[@LINE+1]]:24: warning: avoid '##' operator after '#' operator [automotive-avoid-multiple-hash-operators]
 #define MIXED(a, b) #a ## b
-// CHECK-MESSAGES: :[[@LINE-1]]:9: warning: macro 'MIXED' uses both '#' and '##' operators
 
 // Compliant - single ## operator
 #define CONCAT2(a, b) a ## b

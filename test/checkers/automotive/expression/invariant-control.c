@@ -4,7 +4,7 @@
 
 // Violation - constant controlling expression
 void test_constant_if(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: controlling expression is invariant
+    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid controlling expression to always be evaluated to 'true' [automotive-c23-req-14.3]
     if (1) {
         // always executed
     }
@@ -13,7 +13,7 @@ void test_constant_if(void) {
 // Violation - while(true) without break
 void test_constant_while(void) {
     int count = 0;
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: controlling expression is invariant
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: avoid controlling expression to always be evaluated to 'true' [automotive-c23-req-14.3]
     while (1) {
         count++;
         if (count > 10) break;

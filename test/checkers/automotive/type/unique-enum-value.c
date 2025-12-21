@@ -11,18 +11,21 @@
 
 enum BadEnum1 {
     VALUE_A = 0,
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: duplicate enum value
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: duplicate enum value '0' from 'VALUE_A'
     VALUE_B = 0,  // Duplicate value
+    // CHECK-MESSAGES: :[[@LINE-3]]:5: note: declaration of 'VALUE_A'
     VALUE_C = 1
 };
 
 enum BadEnum2 {
     FIRST = 1,
     SECOND = 2,
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: duplicate enum value
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: duplicate enum value '2' from 'SECOND'
     THIRD = 2,    // Duplicate of SECOND
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: duplicate enum value
+    // CHECK-MESSAGES: :[[@LINE-3]]:5: note: declaration of 'SECOND'
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: duplicate enum value '1' from 'FIRST'
     FOURTH = 1    // Duplicate of FIRST
+    // CHECK-MESSAGES: :[[@LINE-7]]:5: note: declaration of 'FIRST'
 };
 
 // Implicit duplicates
@@ -30,8 +33,9 @@ enum BadEnum3 {
     A = 5,
     B,        // B = 6
     C,        // C = 7
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: duplicate enum value
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: duplicate enum value '6' from 'B'
     D = 6     // Duplicate of B
+    // CHECK-MESSAGES: :[[@LINE-4]]:5: note: declaration of 'B'
 };
 
 //===----------------------------------------------------------------------===//

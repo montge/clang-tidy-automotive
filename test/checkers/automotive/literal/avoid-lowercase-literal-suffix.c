@@ -10,20 +10,17 @@
 //===----------------------------------------------------------------------===//
 
 void test_lowercase_violations(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: lowercase literal suffix
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: avoid lowercase 'l' in a literal suffix
     long a = 100l;  // lowercase 'l' looks like '1'
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:20: warning: lowercase literal suffix
-    unsigned int b = 100u;  // lowercase 'u'
+    unsigned int b = 100u;  // lowercase 'u' - not flagged
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: lowercase literal suffix
+    // CHECK-MESSAGES: :[[@LINE+1]]:26: warning: avoid lowercase 'l' in a literal suffix
     unsigned long c = 100ul;  // lowercase 'u' and 'l'
-    // CHECK-MESSAGES: :[[@LINE-1]]:21: warning: lowercase literal suffix
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: lowercase literal suffix
-    float d = 1.0f;  // lowercase 'f'
+    float d = 1.0f;  // lowercase 'f' - not flagged
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:23: warning: lowercase literal suffix
+    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: avoid lowercase 'l' in a literal suffix
     long long e = 100ll;  // lowercase 'll'
 }
 

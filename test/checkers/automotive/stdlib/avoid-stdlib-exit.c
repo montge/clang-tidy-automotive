@@ -12,22 +12,22 @@
 //===----------------------------------------------------------------------===//
 
 void test_exit_violations(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: use of exit
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: Avoid termination function 'exit' [automotive-avoid-stdlib-exit]
     exit(0);
 }
 
 void test_exit_failure(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: use of exit
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: Avoid termination function 'exit' [automotive-avoid-stdlib-exit]
     exit(EXIT_FAILURE);
 }
 
 void test_abort(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: use of abort
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: Avoid termination function 'abort' [automotive-avoid-stdlib-exit]
     abort();
 }
 
 void test_quick_exit(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: use of _Exit
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: Avoid termination function '_Exit' [automotive-avoid-stdlib-exit]
     _Exit(1);
 }
 

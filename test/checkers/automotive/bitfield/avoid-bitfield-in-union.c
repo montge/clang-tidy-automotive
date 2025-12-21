@@ -10,26 +10,25 @@
 //===----------------------------------------------------------------------===//
 
 // Basic violation: bit-field in union
+// CHECK-MESSAGES: :[[@LINE+1]]:7: warning: avoid bitfield in union
 union BadUnion1 {
-    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: bit-field in union
     unsigned int flags : 8;
     int value;
 };
 
 // Multiple bit-fields in union
+// CHECK-MESSAGES: :[[@LINE+1]]:7: warning: avoid bitfield in union
 union BadUnion2 {
-    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: bit-field in union
     unsigned int a : 4;
-    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: bit-field in union
     unsigned int b : 4;
 };
 
 // Nested structure with bit-field (union contains struct, not direct bit-field)
+// CHECK-MESSAGES: :[[@LINE+1]]:7: warning: avoid bitfield in union
 union BadUnion3 {
     struct {
         unsigned int bits : 16;  // This is in struct, not directly in union
     } s;
-    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: bit-field in union
     int data : 8;  // Direct bit-field in union
 };
 

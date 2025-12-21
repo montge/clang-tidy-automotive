@@ -1,4 +1,4 @@
-// RUN: %check_clang_tidy %s automotive-c23-req-21.8 %t
+// RUN: %check_clang_tidy %s automotive-avoid-stdlib-system %t
 
 // Test: system() and related functions shall not be used (MISRA Rule 21.8)
 
@@ -6,7 +6,7 @@
 
 // Violation - using system()
 void test_system(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: use of system
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: Avoid 'system' call from stdlib [automotive-avoid-stdlib-system]
     system("ls");
 }
 

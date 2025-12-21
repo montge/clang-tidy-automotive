@@ -13,40 +13,42 @@ void test_vla_violations(void) {
     int n = 10;
 
     // VLA with variable size
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid variable-length array [automotive-avoid-variable-length-array]
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: avoid variable-length array [automotive-avoid-variable-length-array]
     int arr1[n];
 
     // VLA in function parameter
     int m = 5;
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid variable-length array [automotive-avoid-variable-length-array]
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: avoid variable-length array [automotive-avoid-variable-length-array]
     int arr2[m * 2];
 
     // Multi-dimensional VLA
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid variable-length array [automotive-avoid-variable-length-array]
+    // CHECK-MESSAGES: :[[@LINE+2]]:13: warning: avoid variable-length array [automotive-avoid-variable-length-array]
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: avoid variable-length array [automotive-avoid-variable-length-array]
     int arr3[n][m];
 
     // VLA with expression
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid variable-length array [automotive-avoid-variable-length-array]
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: avoid variable-length array [automotive-avoid-variable-length-array]
     int arr4[n + m];
 }
 
+// CHECK-MESSAGES: :[[@LINE+1]]:44: warning: avoid variable-length array [automotive-avoid-variable-length-array]
 void function_with_vla_param(int n, int arr[n]) {
     // VLA as parameter - already detected by parameter
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid variable-length array [automotive-avoid-variable-length-array]
+    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: avoid variable-length array [automotive-avoid-variable-length-array]
     int local_vla[n];
 }
 
 void vla_in_loop(void) {
     for (int i = 1; i < 10; i++) {
         // VLA declared in loop
-        // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid variable-length array [automotive-avoid-variable-length-array]
+        // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: avoid variable-length array [automotive-avoid-variable-length-array]
         int arr[i];
     }
 }
 
 void vla_with_typedef(void) {
     int n = 20;
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid variable-length array [automotive-avoid-variable-length-array]
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: avoid variable-length array [automotive-avoid-variable-length-array]
     int (*ptr)[n];  // Pointer to VLA
 }
 
@@ -110,5 +112,6 @@ static const int FILE_SIZE = 128;
 
 void edge_case_file_const(void) {
     // This is compliant - FILE_SIZE is a compile-time constant
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: avoid variable-length array [automotive-avoid-variable-length-array]
     int arr[FILE_SIZE];
 }

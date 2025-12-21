@@ -7,12 +7,15 @@
 // This comment has a line splice \
    which continues the comment on the next line - NOT compliant
 // CHECK-MESSAGES: :[[@LINE-2]]:35: warning: avoid line-spliceing within a '//' comment
+// CHECK-MESSAGES: :[[@LINE-3]]:35: warning: multi-line // comment [clang-diagnostic-comment]
 
 // Multiple line splices \
    first continuation \
    second continuation - NOT compliant
-// CHECK-MESSAGES: :[[@LINE-3]]:24: warning: avoid line-spliceing within a '//' comment
-// CHECK-MESSAGES: :[[@LINE-3]]:22: warning: avoid line-spliceing within a '//' comment
+// CHECK-MESSAGES: :[[@LINE-3]]:26: warning: avoid line-spliceing within a '//' comment
+// CHECK-MESSAGES: :[[@LINE-4]]:26: warning: multi-line // comment [clang-diagnostic-comment]
+// CHECK-MESSAGES: :[[@LINE-4]]:23: warning: avoid line-spliceing within a '//' comment
+// CHECK-MESSAGES: :[[@LINE-5]]:23: warning: multi-line // comment [clang-diagnostic-comment]
 
 // Comment with trailing whitespace after backslash (\) - NOT a splice if whitespace
 

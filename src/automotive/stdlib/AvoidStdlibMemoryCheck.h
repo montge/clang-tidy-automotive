@@ -1,4 +1,4 @@
-//===--- AvoidStdlibMemoryCheck.h - clang-tidy ------------------*- C++ -*-===//
+//===--- AvoidStdlibMemoryCheck.h - clang-tidy -----------------*- C++ -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -13,33 +13,29 @@
 
 namespace clang::tidy::automotive {
 
-/// @ingroup misra-c25-stdlib
-/// @brief Detects usage of dynamic memory allocation functions from stdlib.h.
+/// Detects usage of dynamic memory allocation functions.
 ///
-/// Dynamic memory allocation (malloc, calloc, realloc, free) can lead to
-/// memory leaks, fragmentation, and allocation failures that are difficult
-/// to handle. In safety-critical systems, static memory allocation is
-/// preferred for predictable behavior and deterministic execution.
+/// Dynamic memory allocation functions (malloc, calloc, realloc, free,
+/// aligned_alloc) can lead to memory leaks, fragmentation, and timing
+/// unpredictability. They are prohibited in safety-critical code.
 ///
-/// @par MISRA C:2025 Rule 21.3
-/// The memory allocation and deallocation functions of <stdlib.h> shall not
-/// be used.
-/// @par Category: Required
+/// Related MISRA C:2025 Rule: 21.3 - The memory allocation and deallocation
+/// functions of <stdlib.h> shall not be used.
+///
+/// Related MISRA C:2025 Directive: 4.12 - Dynamic memory allocation shall
+/// not be used.
 ///
 /// Example:
 /// \code
-///   int *p = malloc(sizeof(int));  // Warning: malloc usage
-///   free(p);                       // Warning: free usage
+///   void *p = malloc(100);  // Warning: use of malloc
+///   free(p);                // Warning: use of free
 /// \endcode
 class AvoidStdlibMemoryCheck : public AvoidApiCheck {
 public:
   /// Constructs the check with the given name and context.
   /// \param Name The name of the check as registered.
   /// \param Context The clang-tidy context for configuration.
-  AvoidStdlibMemoryCheck(StringRef Name, ClangTidyContext *Context)
-      : AvoidApiCheck(
-            Name, Context, "pelle.h",
-            {"calloc", "malloc", "realloc", "aligned_alloc", "free"}) {}
+  AvoidStdlibMemoryCheck(StringRef Name, ClangTidyContext *Context);
 
   /// Destructor.
   ~AvoidStdlibMemoryCheck() override = default;

@@ -1,6 +1,6 @@
-// RUN: %check_clang_tidy %s misra-c2023-req-15.6 %t -- -- -std=c90
-// RUN: %check_clang_tidy %s misra-c2023-req-15.6 %t -- -- -std=c99
-// RUN: %check_clang_tidy %s misra-c2023-req-15.6 %t -- -- -std=c11
+// RUN: %check_clang_tidy %s automotive-missing-compound %t -- -- -std=c99
+// RUN: %check_clang_tidy %s automotive-missing-compound %t -- -- -std=c99
+// RUN: %check_clang_tidy %s automotive-missing-compound %t -- -- -std=c11
 
 int f1(int x) {
   if (x == 2)
@@ -10,7 +10,7 @@ int f1(int x) {
 
   if (x == 3)
     x = x + 3;       /* Not compliant */
-  // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: missing compound statement [misra-c2023-req-15.6]
+  // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: missing compound statement [automotive-missing-compound]
   return x;
 }
 
@@ -27,10 +27,10 @@ int f3(int x)
 {
   if (x < 10)
     x = x + 3;       /* Not compliant */
-  // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: missing compound statement [misra-c2023-req-15.6]
+  // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: missing compound statement [automotive-missing-compound]
   else
     x = x + 4;       /* Not compliant */
-  // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: missing compound statement [misra-c2023-req-15.6]
+  // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: missing compound statement [automotive-missing-compound]
 
   if (x < 20)
   {
@@ -38,7 +38,7 @@ int f3(int x)
   }
   else
     x = x + 6;       /* Not compliant */
-  // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: missing compound statement [misra-c2023-req-15.6]
+  // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: missing compound statement [automotive-missing-compound]
 
   return x;
 }
@@ -51,7 +51,7 @@ int f4(int x)
   }
   else if (x < 40)   /* Compliant */
     x = x + 6;       /* Not compliant */
-  // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: missing compound statement [misra-c2023-req-15.6]
+  // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: missing compound statement [automotive-missing-compound]
 
 
   if (x < 30)
@@ -72,7 +72,7 @@ int f4(int x)
     x = x + 6;       /* Compliant */
   } else
     x = x + 7;       /* Not compliant */
-  // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: missing compound statement [misra-c2023-req-15.6]
+  // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: missing compound statement [automotive-missing-compound]
 
   return x;
 }
@@ -80,7 +80,7 @@ int f4(int x)
 int f5(int x)
 {
   if (x < 10) if (x < 20) { /* Not compliant */
-  // CHECK-MESSAGES: :[[@LINE-1]]:15: warning: missing compound statement [misra-c2023-req-15.6]
+  // CHECK-MESSAGES: :[[@LINE-1]]:15: warning: missing compound statement [automotive-missing-compound]
     x = x + 10;
   }
   return x;

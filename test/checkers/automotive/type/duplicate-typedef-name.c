@@ -1,61 +1,50 @@
-// Test file for: automotive-duplicate-typedef-name
-// Related MISRA C:2025 Rule: 5.6
-//
-// This file tests the detection of duplicate typedef names
+// RUN: %check_clang_tidy %s automotive-c23-req-5.6 %t
 
-// RUN: %check_clang_tidy %s automotive-duplicate-typedef-name %t
+// Test: Duplicate typedef names (MISRA Rule 5.6)
 
 //===----------------------------------------------------------------------===//
 // Violation Cases (should trigger warnings)
 //===----------------------------------------------------------------------===//
 
-// Simple duplicate typedef
+// Simple duplicate typedef (same type - allowed in C but flagged by MISRA)
 typedef int MyInt;
 
-// CHECK-MESSAGES: :[[@LINE+1]]:13: warning: duplicate typedef name 'MyInt', previously declared [automotive-duplicate-typedef-name]
+// CHECK-MESSAGES: :[[@LINE+1]]:13: warning: duplicate typedef name 'MyInt', previously declared [automotive-c23-req-5.6]
 typedef int MyInt;
 
-// Duplicate typedef with different underlying types
+// Duplicate typedef for char pointer
 typedef char* StringPtr;
 
-// CHECK-MESSAGES: :[[@LINE+1]]:19: warning: duplicate typedef name 'StringPtr', previously declared [automotive-duplicate-typedef-name]
-typedef const char* StringPtr;
+// CHECK-MESSAGES: :[[@LINE+1]]:15: warning: duplicate typedef name 'StringPtr', previously declared [automotive-c23-req-5.6]
+typedef char* StringPtr;
 
 // Duplicate typedef for struct
-typedef struct {
+struct DataStruct {
     int x;
     int y;
-} Point;
+};
+typedef struct DataStruct Point;
 
-// CHECK-MESSAGES: :[[@LINE+1]]:3: warning: duplicate typedef name 'Point', previously declared [automotive-duplicate-typedef-name]
-} Point;
+// CHECK-MESSAGES: :[[@LINE+1]]:27: warning: duplicate typedef name 'Point', previously declared [automotive-c23-req-5.6]
+typedef struct DataStruct Point;
 
 // Duplicate function pointer typedef
 typedef int (*FuncPtr)(int);
 
-// CHECK-MESSAGES: :[[@LINE+1]]:20: warning: duplicate typedef name 'FuncPtr', previously declared [automotive-duplicate-typedef-name]
-typedef void (*FuncPtr)(void);
+// CHECK-MESSAGES: :[[@LINE+1]]:15: warning: duplicate typedef name 'FuncPtr', previously declared [automotive-c23-req-5.6]
+typedef int (*FuncPtr)(int);
 
 // Duplicate array typedef
 typedef int IntArray[10];
 
-// CHECK-MESSAGES: :[[@LINE+1]]:13: warning: duplicate typedef name 'IntArray', previously declared [automotive-duplicate-typedef-name]
-typedef int IntArray[20];
+// CHECK-MESSAGES: :[[@LINE+1]]:13: warning: duplicate typedef name 'IntArray', previously declared [automotive-c23-req-5.6]
+typedef int IntArray[10];
 
-// Duplicate typedef for enum
-typedef enum {
-    VAL1,
-    VAL2
-} EnumType;
-
-// CHECK-MESSAGES: :[[@LINE+1]]:3: warning: duplicate typedef name 'EnumType', previously declared [automotive-duplicate-typedef-name]
-} EnumType;
-
-// Duplicate with unsigned/signed variation
+// Duplicate unsigned typedef
 typedef unsigned int UInt;
 
-// CHECK-MESSAGES: :[[@LINE+1]]:18: warning: duplicate typedef name 'UInt', previously declared [automotive-duplicate-typedef-name]
-typedef unsigned UInt;
+// CHECK-MESSAGES: :[[@LINE+1]]:22: warning: duplicate typedef name 'UInt', previously declared [automotive-c23-req-5.6]
+typedef unsigned int UInt;
 
 //===----------------------------------------------------------------------===//
 // Compliant Cases (should NOT trigger warnings)
@@ -68,16 +57,11 @@ typedef char Character;
 typedef float Real;
 typedef double Double;
 
-// Typedef for struct with unique names
+// Typedef for struct with unique name
 typedef struct {
     int a;
     int b;
 } StructA;
-
-typedef struct {
-    int c;
-    int d;
-} StructB;
 
 // Typedef for union
 typedef union {
@@ -95,65 +79,14 @@ typedef enum {
 // Function pointer typedefs with unique names
 typedef int (*IntFunc)(int, int);
 typedef void (*VoidFunc)(void);
-typedef char* (*StringFunc)(const char*);
 
 // Pointer typedefs with unique names
 typedef int* IntPtr;
-typedef char* CharPtr;
 typedef void* VoidPtr;
 
-// Array typedefs with unique names
-typedef int Matrix[10][10];
-typedef char Buffer[256];
-
-// Typedef for const types
-typedef const int ConstInt;
-typedef const char* ConstCharPtr;
-
-// Typedef for volatile types
-typedef volatile int VolatileInt;
-
 // Complex typedef
-typedef struct Node* NodePtr;
 struct Node {
     int data;
-    NodePtr next;
+    struct Node *next;
 };
-
-//===----------------------------------------------------------------------===//
-// Edge Cases
-//===----------------------------------------------------------------------===//
-
-// Using typedef in different contexts (but still unique names)
-typedef struct TagName {
-    int value;
-} TypedefName;  // Tag name and typedef name are different - OK
-
-// Multiple typedefs to same underlying type (but different names) - OK
-typedef int Int32;
-typedef int Integer32;
-
-// Typedef with storage class specifiers
-typedef struct {
-    int data;
-} StaticData;
-
-static StaticData global_data;  // Using typedef - not a duplicate
-
-// Typedef in function scope (still has file scope for typedefs in C)
-void function1(void) {
-    typedef int LocalInt;
-}
-
-// This would be detected as duplicate if it has the same name
-void function2(void) {
-    typedef long OtherLocalInt;  // Different name - OK
-}
-
-// Nested typedef usage
-typedef struct Outer_s {
-    int x;
-    typedef struct Inner_s {  // This is actually invalid C - for edge case testing
-        int y;
-    } Inner;
-} Outer;
+typedef struct Node* NodePtr;

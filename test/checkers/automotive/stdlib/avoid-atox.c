@@ -14,16 +14,16 @@
 void test_atoi_violations(void) {
     const char *str = "123";
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: use of atoi
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: Avoid function 'atoi' that has undefined behavior [automotive-avoid-ascii-to-number]
     int i = atoi(str);
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: use of atol
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: Avoid function 'atol' that has undefined behavior [automotive-avoid-ascii-to-number]
     long l = atol(str);
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:20: warning: use of atof
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: Avoid function 'atof' that has undefined behavior [automotive-avoid-ascii-to-number]
     double d = atof("3.14");
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: use of atoll
+    // CHECK-MESSAGES: :[[@LINE+1]]:20: warning: Avoid function 'atoll' that has undefined behavior [automotive-avoid-ascii-to-number]
     long long ll = atoll(str);
 
     (void)i; (void)l; (void)d; (void)ll;

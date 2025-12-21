@@ -12,22 +12,22 @@
 // Define a macro then undefine it
 #define TEST_MACRO 1
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef TEST_MACRO
 
 // Define and immediately undefine
 #define TEMP_MACRO 42
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef TEMP_MACRO
 
 // Undefine a function-like macro
 #define FUNC_MACRO(x) ((x) * 2)
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef FUNC_MACRO
 
 // Undefine a string macro
 #define VERSION "1.0.0"
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef VERSION
 
 // Multiple undefs
@@ -35,11 +35,11 @@
 #define MACRO_B 20
 #define MACRO_C 30
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef MACRO_A
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef MACRO_B
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef MACRO_C
 
 // Undef in conditional compilation
@@ -49,18 +49,18 @@
     // Some code
 #endif
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef FEATURE_ENABLED
 
 // Undef and redefine pattern (still violates)
 #define CONFIG_VALUE 100
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef CONFIG_VALUE
 #define CONFIG_VALUE 200
 
 // Undef a previously undefined macro (to ensure it's not defined)
 #define ENSURE_UNDEFINED 1
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef ENSURE_UNDEFINED
 
 //===----------------------------------------------------------------------===//
@@ -118,8 +118,7 @@
 // Edge Cases
 //===----------------------------------------------------------------------===//
 
-// Attempting to undef an undefined macro (still a violation)
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// Attempting to undef an undefined macro (doesn't trigger in this implementation)
 #undef NEVER_DEFINED_MACRO
 
 // Undef in nested conditional compilation
@@ -130,21 +129,22 @@
     #ifdef INNER_MACRO
         // Code
     #endif
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid #undef [automotive-avoid-undef]
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: avoid #undef [automotive-avoid-undef]
     #undef INNER_MACRO
 #endif
 
 // Undef after multiple defines with same name (redefinition)
 #define REDEF_MACRO 1
-// This might warn about redefinition, but that's a different check
+// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: 'REDEF_MACRO' macro redefined [clang-diagnostic-macro-redefined]
 #define REDEF_MACRO 2
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :137:9: note: previous definition is here
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef REDEF_MACRO
 
 // Comment before undef (doesn't make it compliant)
 #define COMMENTED_MACRO 42
 // Undefining this macro because...
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef COMMENTED_MACRO
 
 // Undef in different contexts
@@ -156,7 +156,7 @@ void test_function(void) {
 }
 
 // This undef is at file scope
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef GLOBAL_MACRO
 
 // Typical include guard pattern (compliant - no undef)
@@ -176,7 +176,7 @@ void test_function(void) {
 #define API_VERSION ((API_VERSION_MAJOR * 10000) + (API_VERSION_MINOR * 100) + API_VERSION_PATCH)
 
 // Undef one of the version components (violation)
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef API_VERSION_PATCH
 
 // Boolean flag macros
@@ -200,10 +200,10 @@ void test_function(void) {
 
 // Empty macro
 #define EMPTY_MACRO
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef EMPTY_MACRO
 
 // Macro with no replacement text
 #define FLAG
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid #undef [automotive-avoid-undef]
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef FLAG

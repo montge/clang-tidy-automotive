@@ -1,21 +1,23 @@
-// RUN: %check_clang_tidy %s automotive-c23-req-21.4 %t
+// RUN: clang-tidy %s --checks='-*,automotive-avoid-setjmp-header' -- 2>&1 | FileCheck %s
 
 // Test: setjmp/longjmp shall not be used (MISRA Rule 21.4)
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: use of <setjmp.h> is not permitted
+// CHECK-DAG: warning: inclusion of <setjmp.h> is not allowed in safety-critical code
 #include <setjmp.h>
 
 jmp_buf env;
 
-// Violation - using setjmp
+// setjmp is a macro - now detected by the enhanced check
 void test_setjmp(void) {
+    // CHECK-DAG: warning: use of 'setjmp' is not allowed in safety-critical code
     if (setjmp(env) != 0) {
         // returned from longjmp
     }
 }
 
-// Violation - using longjmp
+// Violation - using longjmp (function call)
 void test_longjmp(void) {
+    // CHECK-DAG: warning: use of 'longjmp' is not allowed in safety-critical code
     longjmp(env, 1);
 }
 

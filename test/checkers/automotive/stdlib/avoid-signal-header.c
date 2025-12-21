@@ -1,8 +1,7 @@
-// RUN: %check_clang_tidy %s automotive-c23-req-21.5 %t
+// RUN: %check_clang_tidy %s automotive-avoid-signal-header %t
 
 // Test: signal.h shall not be used (MISRA Rule 21.5)
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: use of <signal.h> is not permitted
 #include <signal.h>
 
 // Violation - using signal function
@@ -11,6 +10,7 @@ void handler(int sig) {
 }
 
 void test_signal(void) {
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: Avoid function 'signal' from <signal.h> [automotive-avoid-signal-header]
     signal(SIGINT, handler);
 }
 

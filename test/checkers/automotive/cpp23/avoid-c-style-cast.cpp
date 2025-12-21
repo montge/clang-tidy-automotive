@@ -13,7 +13,8 @@ void test_c_style_casts() {
   int i2 = (int)d;
   // CHECK-MESSAGES: :[[@LINE-1]]:12: warning: C-style casts shall not be used
 
-  void* ptr = (void*)i;
+  long long_val = 42;
+  void* ptr = (void*)long_val;
   // CHECK-MESSAGES: :[[@LINE-1]]:15: warning: C-style casts shall not be used
 
   // C++ casts - should not warn

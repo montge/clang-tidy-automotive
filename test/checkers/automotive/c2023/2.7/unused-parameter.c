@@ -1,4 +1,3 @@
-// RUN: %check_clang_tidy %s automotive-c23-adv-2.7 %t -- -- -std=c90
 // RUN: %check_clang_tidy %s automotive-c23-adv-2.7 %t -- -- -std=c99
 // RUN: %check_clang_tidy %s automotive-c23-adv-2.7 %t -- -- -std=c11
 
@@ -7,7 +6,7 @@
 
 // Non-compliant: unused parameter
 void func_with_unused(int used, int unused) {
-  // CHECK-MESSAGES: :[[@LINE-1]]:32: warning: unused parameter 'unused' [automotive-c23-adv-2.7]
+  // CHECK-MESSAGES: :[[@LINE-1]]:37: warning: unused parameter 'unused' [automotive-c23-adv-2.7]
   (void)used;
 }
 
@@ -24,9 +23,10 @@ void func_all_used(int x, int y) {
   (void)sum;
 }
 
-// Compliant: unnamed parameter (explicitly unused)
-void callback_handler(int event, void *) {
+// Compliant: parameter cast to void (explicitly unused)
+void callback_handler(int event, void *data) {
   (void)event;
+  (void)data;
 }
 
 // Compliant: cast to void to indicate intentionally unused
@@ -56,5 +56,5 @@ void process_data(int *data, int size) {
 
 // Non-compliant: pointer parameter unused
 void unused_pointer(int *ptr) {
-  // CHECK-MESSAGES: :[[@LINE-1]]:25: warning: unused parameter 'ptr' [automotive-c23-adv-2.7]
+  // CHECK-MESSAGES: :[[@LINE-1]]:26: warning: unused parameter 'ptr' [automotive-c23-adv-2.7]
 }

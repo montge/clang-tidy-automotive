@@ -1,9 +1,9 @@
-// Test file for: automotive-avoid-side-effect-in-sizeof
+// Test file for: automotive-c23-mand-13.6
 // Related MISRA C:2025 Rule: 13.6
 //
 // This file tests the detection of side effects in sizeof operands
 
-// RUN: %check_clang_tidy %s automotive-avoid-side-effect-in-sizeof %t
+// RUN: %check_clang_tidy %s automotive-c23-mand-13.6 %t
 
 #include <stddef.h>
 
@@ -11,33 +11,37 @@
 // Violation Cases (should trigger warnings)
 //===----------------------------------------------------------------------===//
 
+// Suppress clang diagnostics about unevaluated expressions
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunevaluated-expression"
+
 void test_increment_decrement_violations(void) {
     int x = 10;
     int arr[20];
 
     // Increment in sizeof - side effect will not be executed
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains increment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains increment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s1 = sizeof(x++);
 
     // Decrement in sizeof
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains decrement which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains decrement which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s2 = sizeof(x--);
 
     // Pre-increment in sizeof
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains increment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains increment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s3 = sizeof(++x);
 
     // Pre-decrement in sizeof
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains decrement which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains decrement which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s4 = sizeof(--x);
 
     // Increment in array expression
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains increment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains increment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s5 = sizeof(arr[x++]);
 
     // Decrement in pointer dereference
     int *ptr = arr;
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains increment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains increment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s6 = sizeof(*ptr++);
 }
 
@@ -46,37 +50,37 @@ void test_assignment_violations(void) {
     int y = 20;
 
     // Simple assignment in sizeof
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains assignment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains assignment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s1 = sizeof(x = 42);
 
     // Assignment from another variable
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains assignment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains assignment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s2 = sizeof(x = y);
 
     // Compound assignment
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains compound assignment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains assignment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s3 = sizeof(x += 10);
 
     // Compound assignment with subtraction
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains compound assignment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains assignment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s4 = sizeof(x -= 5);
 
     // Compound assignment with multiplication
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains compound assignment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains assignment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s5 = sizeof(x *= 2);
 
     // Compound assignment with division
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains compound assignment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains assignment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s6 = sizeof(x /= 2);
 
-    // Bitwise compound assignments
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains compound assignment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // Bitwise assignments
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains assignment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s7 = sizeof(x &= 0xFF);
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains compound assignment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains assignment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s8 = sizeof(x |= 0x01);
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains compound assignment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains assignment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s9 = sizeof(x ^= 0x55);
 }
 
@@ -86,11 +90,11 @@ void test_function_call_violations(void) {
     int x = 10;
 
     // Function call in sizeof - may have side effects
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains function call which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains function call which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s1 = sizeof(external_function(x));
 
     // Multiple function calls
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains function call which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains function call which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s2 = sizeof(external_function(external_function(x)));
 }
 
@@ -100,17 +104,19 @@ void test_complex_violations(void) {
     int arr[10];
 
     // Multiple side effects in expression
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains increment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains increment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s1 = sizeof(arr[x++] + y++);
 
     // Side effect in nested expression
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains assignment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains assignment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s2 = sizeof((x = 5) + y);
 
     // Side effect in conditional expression
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: sizeof operand contains increment which has potential side effects; these side effects will not be evaluated [automotive-avoid-side-effect-in-sizeof]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: sizeof operand contains increment which has potential side effects; these side effects will not be evaluated [automotive-c23-mand-13.6]
     size_t s3 = sizeof(x > 0 ? x++ : x);
 }
+
+#pragma clang diagnostic pop
 
 //===----------------------------------------------------------------------===//
 // Compliant Cases (should NOT trigger warnings)

@@ -16,18 +16,19 @@ int checkError(void);
 //===----------------------------------------------------------------------===//
 
 void test_violations(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: return value ignored
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: returned value from function is not used
     getStatus();  // Return value discarded
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: return value ignored
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: returned value from function is not used
     processData(42);  // Return value discarded
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: return value ignored
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: returned value from function is not used
     allocateMemory(100);  // Return value discarded
 
     int x = 5;
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: return value ignored
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: returned value from function is not used
     checkError();  // Return value discarded
+    (void)x;
 }
 
 //===----------------------------------------------------------------------===//

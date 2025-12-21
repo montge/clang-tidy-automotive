@@ -35,7 +35,7 @@ void test_explicit_conversions() {
 
 double return_implicit() {
   int x = 42;
-  // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: implicit conversion from 'int' to 'double'; consider using an explicit cast
+  // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: implicit conversion from 'int' to 'double'; consider using an explicit cast [automotive-cpp23-req-8.3.1]
   return x;
 }
 

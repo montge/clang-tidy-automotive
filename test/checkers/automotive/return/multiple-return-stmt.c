@@ -11,26 +11,32 @@
 
 int bad_function1(int x) {
     if (x < 0) {
-        // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: multiple return statements
+        // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid multiple return statement
         return -1;
     }
+    // CHECK-MESSAGES: :[[@LINE+2]]:5: warning: avoid multiple return statement
+    // CHECK-MESSAGES: :[[@LINE-6]]:1: note: multiple return statement within function
     return x;
 }
 
 int bad_function2(int x) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: multiple return statements
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: avoid multiple return statement
     if (x == 0) return 0;
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: multiple return statements
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: avoid multiple return statement
     if (x == 1) return 1;
+    // CHECK-MESSAGES: :[[@LINE+2]]:5: warning: avoid multiple return statement
+    // CHECK-MESSAGES: :[[@LINE-6]]:1: note: multiple return statement within function
     return x * 2;
 }
 
 int early_return(int *ptr) {
     if (ptr == 0) {
-        // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: multiple return statements
+        // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid multiple return statement
         return -1;  // Early return for error
     }
     // Process...
+    // CHECK-MESSAGES: :[[@LINE+2]]:5: warning: avoid multiple return statement
+    // CHECK-MESSAGES: :[[@LINE-7]]:1: note: multiple return statement within function
     return *ptr;
 }
 

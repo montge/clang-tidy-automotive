@@ -13,6 +13,7 @@ class Derived : public Base {
 public:
   int y;
   Derived() : y(0) {}
+  // CHECK-MESSAGES: :[[@LINE+1]]:35: warning: object slicing occurs when copying derived class 'Derived' to base class 'Base'
   Derived(const Derived& other) : Base(other), y(other.y) {}
 };
 
@@ -29,7 +30,7 @@ void test_slicing() {
 
   // Object slicing - should warn
   Base b1 = d;
-  // CHECK-MESSAGES: :[[@LINE-1]]:13: warning: object slicing occurs when assigning derived class 'Derived' to base class 'Base' variable [automotive-cpp23-req-15.3]
+  // CHECK-MESSAGES: :[[@LINE-1]]:13: warning: object slicing occurs when copying derived class 'Derived' to base class 'Base'
 
   // Passing by value causes slicing - should warn
   func_by_value(d);

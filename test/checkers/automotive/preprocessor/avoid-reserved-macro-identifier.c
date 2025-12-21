@@ -1,32 +1,35 @@
 // RUN: %check_clang_tidy %s automotive-avoid-reserved-macro-identifier %t
 
-// Test: Reserved identifiers starting with underscore + uppercase
-#define _Reserved 1
-// CHECK-MESSAGES: :[[@LINE-1]]:9: warning: #define of reserved identifier '_Reserved'
+// System header may define reserved identifiers
+// CHECK-MESSAGES: warning: #define of reserved identifier '__GCC_HAVE_DWARF2_CFI_ASM' [automotive-avoid-reserved-macro-identifier]
 
+// Test: Reserved identifiers starting with underscore + uppercase
+// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: #define of reserved identifier '_Reserved' [automotive-avoid-reserved-macro-identifier]
+#define _Reserved 1
+
+// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: #define of reserved identifier '_ANOTHER_RESERVED' [automotive-avoid-reserved-macro-identifier]
 #define _ANOTHER_RESERVED 2
-// CHECK-MESSAGES: :[[@LINE-1]]:9: warning: #define of reserved identifier '_ANOTHER_RESERVED'
 
 // Test: Reserved identifiers starting with double underscore
+// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: #define of reserved identifier '__internal' [automotive-avoid-reserved-macro-identifier]
 #define __internal 3
-// CHECK-MESSAGES: :[[@LINE-1]]:9: warning: #define of reserved identifier '__internal'
 
+// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: #define of reserved identifier '__DOUBLE_UNDERSCORE' [automotive-avoid-reserved-macro-identifier]
 #define __DOUBLE_UNDERSCORE 4
-// CHECK-MESSAGES: :[[@LINE-1]]:9: warning: #define of reserved identifier '__DOUBLE_UNDERSCORE'
 
 // Test: Standard library reserved names
+// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: #define of reserved identifier 'NULL' [automotive-avoid-reserved-macro-identifier]
 #define NULL 0
-// CHECK-MESSAGES: :[[@LINE-1]]:9: warning: #define of reserved identifier 'NULL'
 
+// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: #define of reserved identifier 'errno' [automotive-avoid-reserved-macro-identifier]
 #define errno 0
-// CHECK-MESSAGES: :[[@LINE-1]]:9: warning: #define of reserved identifier 'errno'
 
+// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: #define of reserved identifier 'EOF' [automotive-avoid-reserved-macro-identifier]
 #define EOF (-1)
-// CHECK-MESSAGES: :[[@LINE-1]]:9: warning: #define of reserved identifier 'EOF'
 
 // Test: #undef of reserved identifiers
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: #undef of reserved identifier 'NULL' [automotive-avoid-reserved-macro-identifier]
 #undef NULL
-// CHECK-MESSAGES: :[[@LINE-1]]:8: warning: #undef of reserved identifier 'NULL'
 
 // Compliant: Normal macro names
 #define MY_MACRO 100

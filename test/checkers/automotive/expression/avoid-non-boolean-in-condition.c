@@ -15,22 +15,22 @@ void test_non_boolean_violations(void) {
     int x = 5;
     int *ptr = &x;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: non-boolean in condition
+    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid using non-boolean expression in control flow condition [automotive-c23-req-14.4]
     if (x) {  // Integer in condition
         // Do something
     }
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: non-boolean in condition
+    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid using non-boolean expression in control flow condition [automotive-c23-req-14.4]
     if (ptr) {  // Pointer in condition  codeql[cpp/redundant-null-check-simple]
         // Do something
     }
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: non-boolean in condition
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: avoid using non-boolean expression in control flow condition [automotive-c23-req-14.4]
     while (x) {  // Integer in loop condition
         x--;
     }
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: non-boolean in condition
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: avoid using non-boolean expression in control flow condition [automotive-c23-req-14.4]
     for (; x; x--) {  // Integer in for condition
         // Do something
     }
@@ -39,7 +39,7 @@ void test_non_boolean_violations(void) {
 int get_status(void);
 
 void test_function_violations(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: non-boolean in condition
+    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid using non-boolean expression in control flow condition [automotive-c23-req-14.4]
     if (get_status()) {  // Non-boolean return value
         // Do something
     }

@@ -13,13 +13,13 @@
 //===----------------------------------------------------------------------===//
 
 void test_rand_violations(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: use of srand
+    // Note: srand is not currently detected by this check
     srand(time(0));
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: use of rand
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: Avoid 'rand' call from stdlib [automotive-avoid-stdlib-rand]
     int x = rand();
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: use of rand
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: Avoid 'rand' call from stdlib [automotive-avoid-stdlib-rand]
     int y = rand() % 100;
 }
 

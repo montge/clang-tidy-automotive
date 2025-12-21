@@ -17,10 +17,12 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | Category | Total | Implemented | Clang | Planned | Manual |
 |----------|-------|-------------|-------|---------|--------|
 | Directives | 18 | 5 | 0 | 0 | 13 |
-| Mandatory | 4 | 2 | 2 | 0 | 0 |
-| Required | 113 | 65 | 15 | 0 | 33 |
-| Advisory | 41 | 26 | 8 | 0 | 7 |
-| **Total** | **176** | **98** | **25** | **0** | **53** |
+| Mandatory | 4 | 5 | 0 | 0 | 0 |
+| Required | 113 | 71 | 15 | 0 | 27 |
+| Advisory | 41 | 27 | 8 | 0 | 6 |
+| **Total** | **176** | **104** | **25** | **0** | **47** |
+
+*Note: 104 MISRA C:2025 checks + 16 MISRA C++:2023 checks = 120 total automotive checks*
 
 ## Implemented Checks
 
@@ -171,10 +173,15 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-c23-req-21.3` | 21.3 | Required | Dynamic memory allocation |
 | `automotive-avoid-setjmp-header` | 21.4 | Required | <setjmp.h> usage |
 | `automotive-avoid-signal-header` | 21.5 | Required | <signal.h> usage |
+| `automotive-c23-req-21.6` | 21.6 | Required | <stdio.h> input/output functions |
 | `automotive-avoid-ascii-to-number` | 21.7 | Required | atoi/atof functions |
 | `automotive-avoid-stdlib-exit` | 21.8 | Required | abort/exit functions |
 | `automotive-avoid-stdlib-system` | 21.8 | Required | system() function |
+| `automotive-c23-req-21.10` | 21.10 | Required | <time.h> time functions |
+| `automotive-c23-req-21.11` | 21.11 | Required | <tgmath.h> type-generic math |
 | `automotive-avoid-stdlib-rand` | 21.12 | Required | rand() function |
+| `automotive-c23-mand-21.13` | 21.13 | Mandatory | <ctype.h> character functions |
+| `automotive-c23-req-21.21` | 21.21 | Required | <wchar.h> wide character functions |
 
 ### Unused Code Checks
 | Check ID | MISRA Rule | Category | Description |
