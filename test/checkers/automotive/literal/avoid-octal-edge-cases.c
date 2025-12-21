@@ -10,10 +10,10 @@
 //===----------------------------------------------------------------------===//
 
 void test_octal_in_array(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: octal constant
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: Avoid octal number
     int arr[0100];  // Array size as octal (64 decimal)
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: octal constant
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: Avoid octal number
     int x = arr[010];  // Array index as octal
 }
 
@@ -22,13 +22,13 @@ void test_octal_in_array(void) {
 //===----------------------------------------------------------------------===//
 
 void test_octal_in_expressions(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: octal constant
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: Avoid octal number
     int a = 0777 | 0x0F;  // Octal in bitwise OR
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: octal constant
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: Avoid octal number
     int b = 0644 + 100;   // Octal in addition
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: octal constant
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: Avoid octal number
     int c = (0123) * 2;   // Octal in parentheses
 }
 
@@ -62,10 +62,10 @@ void test_escape_sequences(void) {
 
 void test_single_digit(void) {
     // Single digit starting with 0 are technically octal
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: octal constant
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: Avoid octal number
     int a = 01;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: octal constant
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: Avoid octal number
     int b = 07;
 
     // 0 alone is NOT octal - it's zero
@@ -77,10 +77,10 @@ void test_single_digit(void) {
 //===----------------------------------------------------------------------===//
 
 void test_boundary_values(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: octal constant
+    // CHECK-MESSAGES: :[[@LINE+1]]:25: warning: Avoid octal number
     unsigned long max = 037777777777;  // Max 32-bit octal
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: octal constant
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: Avoid octal number
     int min = 00;  // This is still octal notation for zero
 }
 

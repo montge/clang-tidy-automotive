@@ -11,53 +11,53 @@
 
 void test_assignment_violations(int param) {
     // Direct assignment to parameter
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
     param = 10;
 }
 
 void test_compound_assignment(int value) {
     // Compound assignment operators
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'value' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'value' with assignment operator [automotive-avoid-function-parameter-modification]
     value += 5;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'value' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'value' with assignment operator [automotive-avoid-function-parameter-modification]
     value -= 3;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'value' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'value' with assignment operator [automotive-avoid-function-parameter-modification]
     value *= 2;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'value' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'value' with assignment operator [automotive-avoid-function-parameter-modification]
     value /= 4;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'value' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'value' with assignment operator [automotive-avoid-function-parameter-modification]
     value %= 7;
 }
 
 void test_bitwise_assignment(unsigned int bits) {
     // Bitwise compound assignments
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'bits' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: avoid modifying function parameter 'bits' with assignment operator [automotive-avoid-function-parameter-modification]
     bits &= 0xFF;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'bits' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: avoid modifying function parameter 'bits' with assignment operator [automotive-avoid-function-parameter-modification]
     bits |= 0x01;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'bits' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: avoid modifying function parameter 'bits' with assignment operator [automotive-avoid-function-parameter-modification]
     bits ^= 0x0F;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'bits' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: avoid modifying function parameter 'bits' with assignment operator [automotive-avoid-function-parameter-modification]
     bits <<= 2;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'bits' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: avoid modifying function parameter 'bits' with assignment operator [automotive-avoid-function-parameter-modification]
     bits >>= 1;
 }
 
 void test_increment_decrement(int counter) {
     // Post-increment
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'counter' with increment/decrement operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: avoid modifying function parameter 'counter' with increment/decrement operator [automotive-avoid-function-parameter-modification]
     counter++;
 
     // Post-decrement
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'counter' with increment/decrement operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: avoid modifying function parameter 'counter' with increment/decrement operator [automotive-avoid-function-parameter-modification]
     counter--;
 
     // Pre-increment
@@ -71,28 +71,28 @@ void test_increment_decrement(int counter) {
 
 void test_pointer_parameter(int *ptr) {
     // Modifying the pointer itself (not what it points to)
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'ptr' with increment/decrement operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid modifying function parameter 'ptr' with increment/decrement operator [automotive-avoid-function-parameter-modification]
     ptr++;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'ptr' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid modifying function parameter 'ptr' with assignment operator [automotive-avoid-function-parameter-modification]
     ptr = ptr + 1;
 }
 
 void test_multiple_parameters(int a, int b, int c) {
     // Modifying multiple parameters
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'a' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: avoid modifying function parameter 'a' with assignment operator [automotive-avoid-function-parameter-modification]
     a = 10;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'b' with increment/decrement operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:6: warning: avoid modifying function parameter 'b' with increment/decrement operator [automotive-avoid-function-parameter-modification]
     b++;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'c' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: avoid modifying function parameter 'c' with assignment operator [automotive-avoid-function-parameter-modification]
     c += 5;
 }
 
 void test_in_loop(int index) {
     // Parameter modified in loop
-    // CHECK-MESSAGES: :[[@LINE+1]]:28: warning: avoid modifying function parameter 'index' with increment/decrement operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:29: warning: avoid modifying function parameter 'index' with increment/decrement operator [automotive-avoid-function-parameter-modification]
     for (; index < 10; index++) {
         // Loop body
     }
@@ -100,20 +100,20 @@ void test_in_loop(int index) {
 
 void test_in_conditional(int flag) {
     if (flag > 0) {
-        // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid modifying function parameter 'flag' with assignment operator [automotive-avoid-function-parameter-modification]
+        // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: avoid modifying function parameter 'flag' with assignment operator [automotive-avoid-function-parameter-modification]
         flag = 0;
     }
 }
 
 void test_float_param(float value) {
     // Floating point parameter
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'value' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'value' with assignment operator [automotive-avoid-function-parameter-modification]
     value = 3.14f;
 }
 
 void test_char_param(char ch) {
     // Character parameter
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'ch' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid modifying function parameter 'ch' with assignment operator [automotive-avoid-function-parameter-modification]
     ch = 'X';
 }
 
@@ -156,7 +156,8 @@ void test_compliant_array_param(int arr[]) {
     arr[0]++;
 }
 
-void test_compliant_struct_param(struct Point {int x; int y;} *p) {
+struct Point {int x; int y;};
+void test_compliant_struct_param(struct Point *p) {
     // Modifying struct members through pointer - OK
     p->x = 10;
     p->y = 20;
@@ -201,16 +202,16 @@ void test_compliant_pass_to_function(int param) {
 
 void test_parenthesized_param(int param) {
     // Parameter in parentheses
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
     (param) = 10;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'param' with increment/decrement operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: avoid modifying function parameter 'param' with increment/decrement operator [automotive-avoid-function-parameter-modification]
     (param)++;
 }
 
 void test_cast_param(int param) {
     // Assignment after cast (still modifies parameter)
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
     param = (int)3.14;
 }
 
@@ -221,7 +222,7 @@ void test_conditional_operator(int param, int flag) {
     int result = flag ? param : local;
 
     // But this modifies it
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
     param = flag ? 10 : 20;
 }
 
@@ -229,7 +230,7 @@ void test_comma_operator(int param) {
     int local = 0;
 
     // Comma operator with parameter modification
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:20: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
     local = (param = 10, 20);
 }
 
@@ -239,49 +240,51 @@ void test_nested_function_call(int param) {
     int result = abs(param);
 
     // But this modifies it
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
     param = abs(param);
 }
 
-void test_typedef_param(typedef int MyInt; MyInt param) {
+typedef int MyInt;
+void test_typedef_param(MyInt param) {
     // Typedef parameter
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
     param = 42;
 }
 
 void test_unsigned_param(unsigned int param) {
     // Unsigned parameter
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
     param = 100U;
 }
 
 void test_long_param(long param) {
     // Long parameter
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
     param = 1000L;
 }
 
 void test_variadic_before_ellipsis(int param, ...) {
     // Named parameter before variadic part
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
     param = 0;
 }
 
 void test_array_pointer_param(int (*arr)[10]) {
     // Pointer to array - modifying pointer itself
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'arr' with increment/decrement operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid modifying function parameter 'arr' with increment/decrement operator [automotive-avoid-function-parameter-modification]
     arr++;
 }
 
 void test_function_pointer_param(void (*func)(void)) {
     // Function pointer - modifying pointer itself
     void another_func(void);
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'func' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: avoid modifying function parameter 'func' with assignment operator [automotive-avoid-function-parameter-modification]
     func = another_func;
 }
 
-void test_enum_param(enum {VALUE_A, VALUE_B} param) {
+enum EnumAB {VALUE_A, VALUE_B};
+void test_enum_param(enum EnumAB param) {
     // Enum parameter
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid modifying function parameter 'param' with assignment operator [automotive-avoid-function-parameter-modification]
     param = VALUE_B;
 }

@@ -27,8 +27,8 @@ struct Line line = {.start.x = 0, .start.y = 0, .end.x = 100, .end.y = 100};
 int range_arr[10] = {[0 ... 4] = 1, [5 ... 9] = 2};
 
 // GNU extension - array range with invalid range (start > end)
-int bad_range[10] = {[5 ... 2] = 1};
-// CHECK-MESSAGES: :[[@LINE-1]]:22: warning: designated initializer array range has start index 5 greater than end index 2
+// Note: This causes a compiler error and cannot be tested
+// int bad_range[10] = {[5 ... 2] = 1};
 
 // Test negative indices (if compiler allows)
 // Note: Most compilers reject negative indices at compile time
@@ -61,7 +61,6 @@ void use_arrays(void) {
     (void)p1.x;
     (void)line.start.x;
     (void)range_arr[0];
-    (void)bad_range[0];
     (void)const_arr[0];
     (void)points[0].x;
     (void)matrix[0][0];

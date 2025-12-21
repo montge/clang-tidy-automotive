@@ -15,10 +15,13 @@ using namespace clang::ast_matchers;
 namespace clang::tidy::automotive {
 
 void WrongBitfieldTypeCheck::registerMatchers(MatchFinder *Finder) {
+  // MISRA Rule 6.1: Bit-fields shall only be declared with an appropriate type
+  // Allowed types: signed int, unsigned int, _Bool
+  // Note: "signed int" and "int" have the same canonical type which prints as "int"
   Finder->addMatcher(
       fieldDecl(allOf(isBitField(),
                       unless(hasType(qualType(hasCanonicalType(anyOf(
-                          asString("signed int"), asString("unsigned int")))))),
+                          asString("int"), asString("unsigned int")))))),
                       unless(hasType(booleanType()))))
           .bind("bitField"),
       this);

@@ -1,8 +1,8 @@
-// RUN: %check_clang_tidy %s misra-c2023-req-8.10 %t -- -std=c99
-// RUN: %check_clang_tidy %s misra-c2023-req-8.10 %t -- -std=c11
+// RUN: %check_clang_tidy %s automotive-missing-static-inline %t -- -- -std=c99
+// RUN: %check_clang_tidy %s automotive-missing-static-inline %t -- -- -std=c11
 
-inline int f() { 
-// CHECK-MESSAGES: :[[@LINE]]:1: warning: inline function shall be static [misra-c2023-req-8.10]
+// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: inline function shall be static [automotive-missing-static-inline]
+inline int f() {
   return 42;
 }
 

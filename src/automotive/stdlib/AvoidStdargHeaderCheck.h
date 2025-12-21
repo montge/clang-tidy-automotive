@@ -9,7 +9,7 @@
 #ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_AUTOMOTIVE_AVOIDSTDARGHEADERCHECK_H
 #define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_AUTOMOTIVE_AVOIDSTDARGHEADERCHECK_H
 
-#include "../../ClangTidyCheck.h"
+#include "AvoidApiCheck.h"
 
 namespace clang::tidy::automotive {
 
@@ -28,23 +28,15 @@ namespace clang::tidy::automotive {
 /// \code
 ///   #include <stdarg.h>  // Warning: stdarg.h usage
 /// \endcode
-class AvoidStdargHeaderCheck : public ClangTidyCheck {
+class AvoidStdargHeaderCheck : public AvoidApiCheck {
 public:
   /// Constructs the check with the given name and context.
   /// \param Name The name of the check as registered.
   /// \param Context The clang-tidy context for configuration.
-  AvoidStdargHeaderCheck(StringRef Name, ClangTidyContext *Context)
-      : ClangTidyCheck(Name, Context) {}
+  AvoidStdargHeaderCheck(StringRef Name, ClangTidyContext *Context);
 
   /// Destructor.
   ~AvoidStdargHeaderCheck() override = default;
-
-  /// Registers preprocessor callbacks for stdarg.h inclusion.
-  /// \param SM The source manager.
-  /// \param PP The preprocessor instance.
-  /// \param ModuleExpanderPP The module expander preprocessor.
-  void registerPPCallbacks(const SourceManager &SM, Preprocessor *PP,
-                           Preprocessor *ModuleExpanderPP) override;
 };
 
 } // namespace clang::tidy::automotive

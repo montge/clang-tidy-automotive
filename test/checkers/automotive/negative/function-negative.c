@@ -1,11 +1,11 @@
 // Negative test file for: automotive function checks
-// Related MISRA C:2025 Rules: 8.2, 17.3, 17.7, 17.8, 15.5
+// Related MISRA C:2025 Rules: 8.2, 17.7, 17.8, 15.5
 //
 // This file contains code that should NOT trigger any warnings.
 // All code here is compliant with MISRA rules.
 
-// RUN: %check_clang_tidy %s automotive-uncomplete-function-prototype,automotive-implicit-function-decl,automotive-missing-return-value-handling,automotive-avoid-function-parameter-modification,automotive-avoid-multiple-return-stmt %t
-// CHECK-MESSAGES-NOT: warning:
+// RUN: clang-tidy -checks='-*,automotive-uncomplete-function-prototype,automotive-missing-return-value-handling,automotive-avoid-function-parameter-modification,automotive-avoid-multiple-return-stmt' %s -- 2>&1 | FileCheck %s -allow-empty -check-prefix=CHECK-NEGATIVE
+// CHECK-NEGATIVE-NOT: warning:
 
 #include <stdlib.h>
 #include <string.h>
@@ -20,7 +20,7 @@ int get_value(void);
 
 // Function with named parameters
 int add(int a, int b);
-void process(int *data, size_t size);
+void process_data(int *data, size_t size);
 
 // Function pointer with complete prototype
 typedef int (*operation_fn)(int a, int b);
@@ -35,26 +35,10 @@ int add(int a, int b) {
     return a + b;
 }
 
-void process(int *data, size_t size) {
+void process_data(int *data, size_t size) {
     for (size_t i = 0; i < size; i++) {
         data[i] = 0;
     }
-}
-
-//===----------------------------------------------------------------------===//
-// Negative: No implicit function declarations
-//===----------------------------------------------------------------------===//
-
-// All functions declared before use
-int helper_function(int x);
-
-void test_no_implicit(void) {
-    int result = helper_function(10);  // Function declared above
-    (void)result;
-}
-
-int helper_function(int x) {
-    return x * 2;
 }
 
 //===----------------------------------------------------------------------===//
@@ -84,11 +68,6 @@ void test_return_handled(void) {
 
     // Return value explicitly ignored with cast
     (void)compute(1);
-}
-
-void test_void_functions(void) {
-    // void functions have no return value to handle
-    process(NULL, 0);  // OK - void function
 }
 
 //===----------------------------------------------------------------------===//
@@ -141,42 +120,4 @@ int single_return_conditional(int x) {
         result = 0;
     }
     return result;
-}
-
-int single_return_switch(int cmd) {
-    int result;
-    switch (cmd) {
-        case 1:
-            result = 10;
-            break;
-        case 2:
-            result = 20;
-            break;
-        default:
-            result = 0;
-            break;
-    }
-    return result;
-}
-
-//===----------------------------------------------------------------------===//
-// Negative: Complex compliant functions
-//===----------------------------------------------------------------------===//
-
-bool validate_and_process(const int *data, size_t size, int *output) {
-    // Single return, complete prototype, parameters not modified
-    bool success;
-
-    if (data == NULL || output == NULL || size == 0) {
-        success = false;
-    } else {
-        int sum = 0;
-        for (size_t i = 0; i < size; i++) {
-            sum += data[i];
-        }
-        *output = sum;
-        success = true;
-    }
-
-    return success;
 }

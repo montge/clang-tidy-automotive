@@ -7,7 +7,7 @@ public:
   // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: move constructor should be declared noexcept
   NoNoexcept(NoNoexcept&& other);
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: move assignment operator should be declared noexcept
+  // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: move assignment operator should be declared noexcept
   NoNoexcept& operator=(NoNoexcept&& other);
 };
 
@@ -34,7 +34,7 @@ public:
   // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: move constructor should be declared noexcept
   WithNoexceptFalse(WithNoexceptFalse&& other) noexcept(false);
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: move assignment operator should be declared noexcept
+  // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: move assignment operator should be declared noexcept
   WithNoexceptFalse& operator=(WithNoexceptFalse&& other) noexcept(false);
 };
 

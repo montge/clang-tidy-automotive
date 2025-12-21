@@ -15,14 +15,14 @@ public:
 void test_dynamic_cast() {
   Base* base = new Derived();
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: dynamic_cast should not be used
+  // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: dynamic_cast should not be used
   Derived* d = dynamic_cast<Derived*>(base);
   if (d) {
     d->bar();
   }
 
   Base& baseRef = *base;
-  // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: dynamic_cast should not be used
+  // CHECK-MESSAGES: :[[@LINE+1]]:19: warning: dynamic_cast should not be used
   Derived& dRef = dynamic_cast<Derived&>(baseRef);
   dRef.bar();
 

@@ -1,3 +1,5 @@
+// RUN: %check_clang_tidy %s automotive-wrong-null-pointer-value %t
+
 // Test: Wrong null pointer value (MISRA Rule 11.9)
 // Check ID: automotive-wrong-null-pointer-value
 
@@ -14,9 +16,9 @@ void test_zero_as_null(void) {
 
 // Violation - using 0 in pointer initialization
 void test_init_with_zero(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: Use NULL instead of 0 for null pointer assignment.
+    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: Use NULL instead of 0 for null pointer assignment.
     char *str1 = 0;
-    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: Use NULL instead of 0 for null pointer assignment.
+    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: Use NULL instead of 0 for null pointer assignment.
     void *ptr2 = 0;
     (void)str1;
     (void)ptr2;
@@ -24,7 +26,7 @@ void test_init_with_zero(void) {
 
 // Violation - function pointer with 0
 void test_function_pointer(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:23: warning: Use NULL instead of 0 for null pointer assignment.
+    // CHECK-MESSAGES: :[[@LINE+1]]:30: warning: Use NULL instead of 0 for null pointer assignment.
     void (*func_ptr)(void) = 0;
     (void)func_ptr;
 }

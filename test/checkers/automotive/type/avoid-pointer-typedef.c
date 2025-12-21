@@ -3,20 +3,20 @@
 // Test: Pointer types should not be hidden in typedefs (MISRA Dir 4.8)
 
 // Violation - typedef hiding pointer
+// CHECK-MESSAGES: :[[@LINE+1]]:14: warning: typedef 'IntPtr' hides pointer type; consider making the pointer explicit at point of use [automotive-c23-adv-dir-4.8]
 typedef int *IntPtr;
-// CHECK-MESSAGES: :[[@LINE-1]]:14: warning: typedef 'IntPtr' hides pointer type
 
+// CHECK-MESSAGES: :[[@LINE+1]]:15: warning: typedef 'StringType' hides pointer type; consider making the pointer explicit at point of use [automotive-c23-adv-dir-4.8]
 typedef char *StringType;
-// CHECK-MESSAGES: :[[@LINE-1]]:15: warning: typedef 'StringType' hides pointer type
 
+// CHECK-MESSAGES: :[[@LINE+1]]:22: warning: typedef 'DataHandle' hides pointer type; consider making the pointer explicit at point of use [automotive-c23-adv-dir-4.8]
 typedef struct Data *DataHandle;
-// CHECK-MESSAGES: :[[@LINE-1]]:22: warning: typedef 'DataHandle' hides pointer type
 
+// CHECK-MESSAGES: :[[@LINE+1]]:20: warning: typedef 'ConstIntPtr' hides pointer type; consider making the pointer explicit at point of use [automotive-c23-adv-dir-4.8]
 typedef const int *ConstIntPtr;
-// CHECK-MESSAGES: :[[@LINE-1]]:20: warning: typedef 'ConstIntPtr' hides pointer type
 
+// CHECK-MESSAGES: :[[@LINE+1]]:15: warning: typedef 'OpaqueHandle' hides pointer type; consider making the pointer explicit at point of use [automotive-c23-adv-dir-4.8]
 typedef void *OpaqueHandle;
-// CHECK-MESSAGES: :[[@LINE-1]]:15: warning: typedef 'OpaqueHandle' hides pointer type
 
 // Compliant - function pointer typedefs (acceptable)
 typedef void (*FunctionPtr)(int);

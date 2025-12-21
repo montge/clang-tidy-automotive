@@ -1,11 +1,11 @@
 // RUN: %check_clang_tidy %s automotive-cpp23-adv-17.0.1 %t
 // Test for automotive-cpp23-adv-17.0.1: Template parameters shall be constrained
 
-// CHECK-MESSAGES: :[[@LINE+2]]:1: warning: function template 'add' has unconstrained type parameters
+// CHECK-MESSAGES: :[[@LINE+2]]:3: warning: function template 'add' has unconstrained type parameters; consider using concepts or static_assert
 template <typename T>
 T add(T a, T b) { return a + b; }
 
-// CHECK-MESSAGES: :[[@LINE+2]]:1: warning: class template 'Container' has unconstrained type parameters
+// CHECK-MESSAGES: :[[@LINE+2]]:7: warning: class template 'Container' has unconstrained type parameters; consider using concepts or static_assert
 template <typename T>
 class Container {
   T value;

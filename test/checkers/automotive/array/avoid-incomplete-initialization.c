@@ -1,9 +1,9 @@
-// Test file for: automotive-avoid-incomplete-initialization
-// Related MISRA C:2025 Rule: 9.3
+// Test file for: automotive-c23-req-9.4
+// Related MISRA C:2025 Rule: 9.4
 //
 // This file tests the detection of incomplete initialization of arrays and structures
 
-// RUN: %check_clang_tidy %s automotive-avoid-incomplete-initialization %t
+// RUN: %check_clang_tidy %s automotive-c23-req-9.4 %t
 
 #include <stdint.h>
 
@@ -13,23 +13,23 @@
 
 void test_array_incomplete_init(void) {
     // Array with 5 elements, only 3 initialized
-    // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: array has 5 elements but only 3 initializers provided; all elements should be explicitly initialized [automotive-avoid-incomplete-initialization]
+    // CHECK-MESSAGES: :[[@LINE+1]]:19: warning: array has 5 elements but only 3 initializers provided; all elements should be explicitly initialized [automotive-c23-req-9.4]
     int arr1[5] = {1, 2, 3};
 
     // Array with 10 elements, only 1 initialized
-    // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: array has 10 elements but only 1 initializers provided; all elements should be explicitly initialized [automotive-avoid-incomplete-initialization]
+    // CHECK-MESSAGES: :[[@LINE+1]]:20: warning: array has 10 elements but only 1 initializers provided; all elements should be explicitly initialized [automotive-c23-req-9.4]
     int arr2[10] = {42};
 
     // Multi-dimensional array with incomplete init
-    // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: array has 3 elements but only 2 initializers provided; all elements should be explicitly initialized [automotive-avoid-incomplete-initialization]
+    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: array has 3 elements but only 2 initializers provided; all elements should be explicitly initialized [automotive-c23-req-9.4]
     int arr3[3][2] = {{1, 2}, {3, 4}};
 
     // Character array partially initialized
-    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: array has 20 elements but only 5 initializers provided; all elements should be explicitly initialized [automotive-avoid-incomplete-initialization]
+    // CHECK-MESSAGES: :[[@LINE+1]]:20: warning: array has 20 elements but only 5 initializers provided; all elements should be explicitly initialized [automotive-c23-req-9.4]
     char str[20] = {'H', 'e', 'l', 'l', 'o'};
 
     // Array with designated initializers (partial)
-    // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: array has 10 elements but only 2 initializers provided; all elements should be explicitly initialized [automotive-avoid-incomplete-initialization]
+    // CHECK-MESSAGES: :[[@LINE+1]]:20: warning: array has 10 elements but only 2 initializers provided; all elements should be explicitly initialized [automotive-c23-req-9.4]
     int arr4[10] = {[0] = 1, [5] = 6};
 }
 
@@ -40,7 +40,7 @@ void test_struct_incomplete_init(void) {
         int y;
         int z;
     };
-    // CHECK-MESSAGES: :[[@LINE+1]]:26: warning: aggregate has 3 members but only 2 initializers provided; all members should be explicitly initialized [automotive-avoid-incomplete-initialization]
+    // CHECK-MESSAGES: :[[@LINE+1]]:23: warning: aggregate has 3 members but only 2 initializers provided; all members should be explicitly initialized [automotive-c23-req-9.4]
     struct Point p1 = {10, 20};
 
     // Struct with 5 fields, only 3 initialized
@@ -51,7 +51,7 @@ void test_struct_incomplete_init(void) {
         float salary;
         char department[20];
     };
-    // CHECK-MESSAGES: :[[@LINE+1]]:28: warning: aggregate has 5 members but only 3 initializers provided; all members should be explicitly initialized [automotive-avoid-incomplete-initialization]
+    // CHECK-MESSAGES: :[[@LINE+1]]:28: warning: aggregate has 5 members but only 3 initializers provided; all members should be explicitly initialized [automotive-c23-req-9.4]
     struct Person person = {"John", 30, 1001};
 
     // Nested struct with partial initialization
@@ -63,7 +63,7 @@ void test_struct_incomplete_init(void) {
         } inner;
         int d;
     };
-    // CHECK-MESSAGES: :[[@LINE+1]]:27: warning: aggregate has 3 members but only 1 initializers provided; all members should be explicitly initialized [automotive-avoid-incomplete-initialization]
+    // CHECK-MESSAGES: :[[@LINE+1]]:26: warning: aggregate has 3 members but only 1 initializers provided; all members should be explicitly initialized [automotive-c23-req-9.4]
     struct Outer outer = {1};
 }
 
@@ -73,7 +73,7 @@ void test_mixed_types(void) {
         int value;
         int status;
     };
-    // CHECK-MESSAGES: :[[@LINE+1]]:28: warning: array has 5 elements but only 2 initializers provided; all elements should be explicitly initialized [automotive-avoid-incomplete-initialization]
+    // CHECK-MESSAGES: :[[@LINE+1]]:26: warning: array has 5 elements but only 2 initializers provided; all elements should be explicitly initialized [automotive-c23-req-9.4]
     struct Data arr[5] = {{1, 0}, {2, 1}};
 
     // Struct containing arrays with partial init
@@ -82,7 +82,7 @@ void test_mixed_types(void) {
         int data[10];
         int footer;
     };
-    // CHECK-MESSAGES: :[[@LINE+1]]:31: warning: aggregate has 3 members but only 2 initializers provided; all members should be explicitly initialized [automotive-avoid-incomplete-initialization]
+    // CHECK-MESSAGES: :[[@LINE+1]]:29: warning: aggregate has 3 members but only 2 initializers provided; all members should be explicitly initialized [automotive-c23-req-9.4]
     struct Container cont = {0xFF, {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
 }
 
@@ -163,6 +163,7 @@ void test_edge_cases(void) {
         float f;
         char c;
     };
+    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: aggregate has 3 members but only 1 initializers provided; all members should be explicitly initialized [automotive-c23-req-9.4]
     union Value v1 = {42};  // Unions only initialize first member - this is OK
 
     // Flexible array member (last member, incomplete type)
@@ -170,6 +171,7 @@ void test_edge_cases(void) {
         int count;
         int data[];  // Flexible array member
     };
+    // CHECK-MESSAGES: :[[@LINE+1]]:27: warning: aggregate has 2 members but only 1 initializers provided; all members should be explicitly initialized [automotive-c23-req-9.4]
     struct FlexArray fa = {5};  // Only count initialized - data is flexible
 
     // Typedef'd array

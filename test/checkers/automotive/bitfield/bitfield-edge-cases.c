@@ -29,8 +29,8 @@ struct ZeroWidth {
 //===----------------------------------------------------------------------===//
 
 struct SingleBitSigned {
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: single-bit signed bit-field
-    int flag : 1;  // Signed single-bit can only be 0 or -1
+    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid signed type for bitfields of single bit
+    int flag : 1;  // Signed single-bit can only be 0 or -1 (int type is OK per MISRA 6.1)
 };
 
 struct SingleBitUnsigned {
@@ -54,8 +54,8 @@ struct MaxWidth {
 // Edge Case: Bitfield in union (should warn for 19.2)
 //===----------------------------------------------------------------------===//
 
+// CHECK-MESSAGES: :[[@LINE+1]]:7: warning: avoid bitfield in union
 union BitfieldUnion {
-    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: bit-field in union
     unsigned int bits : 8;
     unsigned char byte;
 };
@@ -80,7 +80,7 @@ typedef enum { A, B, C } MyEnum;
 struct TypedefBitfield {
     uint32 value : 8;           // Typedef of unsigned int - OK
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: inappropriate bit-field type
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: wrong type in bitfield
     MyEnum state : 2;           // Typedef of enum - should warn
 };
 
@@ -90,8 +90,8 @@ struct TypedefBitfield {
 
 struct MultipleBitfields {
     unsigned int ok1 : 4;       // OK
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: single-bit signed bit-field
-    int bad1 : 1;               // Signed single-bit
+    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid signed type for bitfields of single bit
+    int bad1 : 1;               // Signed single-bit (int type is OK per MISRA 6.1)
     unsigned int ok2 : 8;       // OK
     _Bool ok3 : 1;              // OK
 };
@@ -102,8 +102,9 @@ struct MultipleBitfields {
 
 struct CompliantBitfields {
     unsigned int flags : 4;
-    signed int value : 8;       // Signed but more than 1 bit - OK
-    unsigned char small : 4;
+    signed int value : 8;       // Signed int - OK per MISRA 6.1
+    // CHECK-MESSAGES: :[[@LINE+1]]:19: warning: wrong type in bitfield
+    unsigned char small : 4;    // unsigned char not allowed - only int types and _Bool
     _Bool boolean : 1;
     unsigned int : 0;           // Zero-width alignment
 };

@@ -10,18 +10,18 @@
 //===----------------------------------------------------------------------===//
 
 void test_octal_violations(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: octal constant
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: Avoid octal number
     int a = 0123;  // Octal 123 = decimal 83
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: octal constant
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: Avoid octal number
     int b = 0777;  // Octal 777 = decimal 511
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: octal constant
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: Avoid octal number
     int c = 010;   // Octal 10 = decimal 8
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: octal constant
+    // CHECK-MESSAGES: :[[@LINE+1]]:19: warning: Avoid octal number
     int arr[] = { 0755, 0644 };  // Multiple octals
-    // CHECK-MESSAGES: :[[@LINE-1]]:23: warning: octal constant
+    // CHECK-MESSAGES: :[[@LINE-1]]:25: warning: Avoid octal number
 }
 
 //===----------------------------------------------------------------------===//

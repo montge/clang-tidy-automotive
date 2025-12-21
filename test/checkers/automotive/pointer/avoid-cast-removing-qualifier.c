@@ -4,21 +4,21 @@
 
 // Violation - cast removes const qualifier
 void test_remove_const(const int *const_ptr) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: cast removes const qualifier
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: cast removes 'const' qualifier from pointer type [automotive-c23-req-11.8]
     int *ptr = (int *)const_ptr;
     (void)ptr;
 }
 
 // Violation - cast removes volatile qualifier
 void test_remove_volatile(volatile int *volatile_ptr) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: cast removes volatile qualifier
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: cast removes 'volatile' qualifier from pointer type [automotive-c23-req-11.8]
     int *ptr = (int *)volatile_ptr;
     (void)ptr;
 }
 
 // Violation - cast removes both qualifiers
 void test_remove_both(const volatile int *cv_ptr) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: cast removes
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: cast removes 'const' and 'volatile' qualifiers from pointer type [automotive-c23-req-11.8]
     int *ptr = (int *)cv_ptr;
     (void)ptr;
 }

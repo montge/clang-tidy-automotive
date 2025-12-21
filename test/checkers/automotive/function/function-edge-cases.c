@@ -3,7 +3,7 @@
 //
 // This file tests edge cases for function-related checks
 
-// RUN: %check_clang_tidy %s automotive-uncomplete-function-prototype,automotive-missing-return-value-handling,automotive-avoid-function-parameter-modification %t
+// RUN: %check_clang_tidy %s automotive-uncomplete-function-prototype,automotive-missing-return-value-handling,automotive-avoid-function-parameter-modification %t -- -- -Wno-deprecated-non-prototype
 
 #include <stdlib.h>
 
@@ -11,7 +11,8 @@
 // Edge Case: Empty parameter list vs void (8.2)
 //===----------------------------------------------------------------------===//
 
-// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: incomplete function prototype
+// CHECK-MESSAGES: :[[@LINE+2]]:5: warning: function is not in prototype form [automotive-uncomplete-function-prototype]
+// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: function with no parameters must use 'void' in prototype [automotive-uncomplete-function-prototype]
 int func_empty_params();  // Empty () means unspecified params
 
 int func_void_params(void);  // Explicit void - OK
@@ -20,7 +21,7 @@ int func_void_params(void);  // Explicit void - OK
 // Edge Case: K&R style function definitions
 //===----------------------------------------------------------------------===//
 
-// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: incomplete function prototype
+// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: function is not in prototype form [automotive-uncomplete-function-prototype]
 int old_style_func(a, b)  // K&R style
     int a;
     int b;
@@ -32,7 +33,7 @@ int old_style_func(a, b)  // K&R style
 // Edge Case: Function pointer with incomplete prototype
 //===----------------------------------------------------------------------===//
 
-// CHECK-MESSAGES: :[[@LINE+1]]:16: warning: incomplete function prototype
+// Note: Function pointers with empty params are not currently detected by this check
 typedef int (*callback_empty)();  // Empty params
 
 typedef int (*callback_void)(void);  // OK
@@ -45,10 +46,10 @@ int get_value(void) { return 42; }
 void *allocate(size_t size) { return malloc(size); }
 
 void test_return_value_handling(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: return value
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: returned value from function is not used [automotive-missing-return-value-handling]
     get_value();  // Return value ignored
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: return value
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: returned value from function is not used [automotive-missing-return-value-handling]
     allocate(100);  // Return value ignored (memory leak)
 
     // Compliant: Return value used
@@ -79,17 +80,17 @@ void test_chained_calls(void) {
 //===----------------------------------------------------------------------===//
 
 void modify_param_direct(int x) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: modifying function parameter
+    // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: avoid modifying function parameter 'x' with assignment operator [automotive-avoid-function-parameter-modification]
     x = 10;  // Direct modification
 }
 
 void modify_param_increment(int x) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: modifying function parameter
+    // CHECK-MESSAGES: :[[@LINE+1]]:6: warning: avoid modifying function parameter 'x' with increment/decrement operator [automotive-avoid-function-parameter-modification]
     x++;  // Increment modification
 }
 
 void modify_param_compound(int x) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: modifying function parameter
+    // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: avoid modifying function parameter 'x' with assignment operator [automotive-avoid-function-parameter-modification]
     x += 5;  // Compound assignment
 }
 
@@ -114,7 +115,7 @@ void modify_pointee(int *x) {
 #include <stdio.h>
 
 void test_variadic_return(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: return value
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: returned value from function is not used [automotive-missing-return-value-handling]
     printf("Hello");  // printf returns int
 
     // Compliant

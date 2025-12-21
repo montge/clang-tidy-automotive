@@ -47,15 +47,13 @@ public:
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 
 private:
-  /// Checks source range for implicit int usage.
-  /// \param StartLoc The starting location to check.
-  /// \param EndLoc The ending location to check.
-  /// \param SM The source manager.
-  /// \param Context The AST context.
-  void checkImplicitInt(SourceLocation StartLoc, SourceLocation EndLoc,
-                        const SourceManager &SM, const ASTContext &Context);
+  /// Checks variable declaration for implicit int.
+  void checkVarDecl(const VarDecl *VD, const SourceManager &SM,
+                    const LangOptions &LangOpts);
 
-  std::unique_ptr<IdentifierTable> IdentTable;
+  /// Checks function declaration for implicit int return type.
+  void checkFuncDecl(const FunctionDecl *FD, const SourceManager &SM,
+                     const LangOptions &LangOpts);
 };
 
 } // namespace clang::tidy::automotive

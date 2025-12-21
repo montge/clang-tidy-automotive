@@ -36,6 +36,10 @@ void PointerComponent::addCheckFactories(
   CheckFactories.registerCheck<AvoidCastRemovingQualifierCheck>(
       "automotive-c23-req-11.8");
 
+  // Rule 11.9 - Atomic void pointer (Required)
+  CheckFactories.registerCheck<AvoidAtomicVoidPointerCheck>(
+      "automotive-c23-req-11.9");
+
   CheckFactories.registerCheck<WrongNullPointerValueCheck>(
       "automotive-wrong-null-pointer-value");
 

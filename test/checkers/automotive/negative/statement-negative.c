@@ -4,8 +4,8 @@
 // This file contains code that should NOT trigger any warnings.
 // All code here is compliant with MISRA rules.
 
-// RUN: %check_clang_tidy %s automotive-avoid-goto,automotive-missing-compound,automotive-missing-else,automotive-missing-default-in-switch,automotive-missing-break-in-case %t
-// CHECK-MESSAGES-NOT: warning:
+// RUN: clang-tidy -checks='-*,automotive-avoid-goto,automotive-missing-compound,automotive-missing-else,automotive-missing-default-in-switch,automotive-missing-break-in-case' %s -- 2>&1 | FileCheck %s -allow-empty -check-prefix=CHECK-NEGATIVE
+// CHECK-NEGATIVE-NOT: warning:
 
 #include <stdbool.h>
 

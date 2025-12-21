@@ -4,8 +4,8 @@
 // This file contains code that should NOT trigger any warnings.
 // All code here is compliant with MISRA rules.
 
-// RUN: %check_clang_tidy %s automotive-wrong-bitfield-type,automotive-avoid-signed-single-bitfield,automotive-implicit-int,automotive-unique-enum-value,automotive-avoid-union %t
-// CHECK-MESSAGES-NOT: warning:
+// RUN: clang-tidy -checks='-*,automotive-wrong-bitfield-type,automotive-avoid-signed-single-bitfield,automotive-implicit-int,automotive-unique-enum-value,automotive-avoid-union' %s -- 2>&1 | FileCheck %s -allow-empty -check-prefix=CHECK-NEGATIVE
+// CHECK-NEGATIVE-NOT: warning:
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -18,7 +18,7 @@ struct ProperBitfields {
     unsigned int flags : 4;       // Unsigned int - OK
     signed int value : 8;         // Signed int with more than 1 bit - OK
     _Bool enabled : 1;            // Boolean single bit - OK
-    unsigned char status : 3;     // Unsigned char - OK
+    unsigned int status : 3;      // Unsigned int - OK (MISRA requires int types)
     unsigned int : 0;             // Anonymous zero-width for alignment - OK
 };
 

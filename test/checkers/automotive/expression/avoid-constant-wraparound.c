@@ -4,7 +4,7 @@
 
 // Non-compliant: unsigned subtraction wrap-around
 const unsigned int x1 = 0u - 1u;
-// CHECK-MESSAGES: :[[@LINE-1]]:25: warning: constant expression evaluation leads to unsigned integer wrap-around [automotive-c23-adv-12.4]
+// CHECK-MESSAGES: :[[@LINE-1]]:28: warning: constant expression evaluation leads to unsigned integer wrap-around [automotive-c23-adv-12.4]
 
 const unsigned int x2 = 5u - 10u;
 // CHECK-MESSAGES: :[[@LINE-1]]:28: warning: constant expression evaluation leads to unsigned integer wrap-around [automotive-c23-adv-12.4]

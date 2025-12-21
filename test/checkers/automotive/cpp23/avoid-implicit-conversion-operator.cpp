@@ -3,10 +3,10 @@
 
 class BadConverter {
 public:
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: conversion operator should be declared explicit
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: conversion operator to 'int' should be explicit to avoid unintended implicit conversions
   operator int() const { return value_; }
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: conversion operator should be declared explicit
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: conversion operator to 'bool' should be explicit to avoid unintended implicit conversions
   operator bool() const { return value_ != 0; }
 
 private:

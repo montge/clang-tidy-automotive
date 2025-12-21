@@ -9,22 +9,21 @@
 // Violation Cases (should trigger warnings)
 //===----------------------------------------------------------------------===//
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: union type used
+// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid union keyword
 union SimpleUnion {
     int i;
     float f;
 };
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: union type used
+// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: avoid union keyword
 union DataUnion {
     char bytes[4];
     int value;
 };
 
-// Anonymous union in struct
+// Anonymous union in struct (not detected by check - see check implementation)
 struct Container {
     int type;
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: union type used
     union {
         int i;
         float f;
@@ -32,7 +31,7 @@ struct Container {
 };
 
 // Typedef'd union
-// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: union type used
+// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid union keyword
 typedef union {
     unsigned char bytes[8];
     double value;

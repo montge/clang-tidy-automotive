@@ -10,38 +10,38 @@
 //===----------------------------------------------------------------------===//
 
 // Single # operator (stringification)
-// CHECK-MESSAGES: :[[@LINE+1]]:29: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:22: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
 #define STRINGIFY(x) #x
 
 // Token pasting operator ##
-// CHECK-MESSAGES: :[[@LINE+1]]:26: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:23: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
 #define CONCAT(a, b) a##b
 
 // Multiple # operators
-// CHECK-MESSAGES: :[[@LINE+2]]:35: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
-// CHECK-MESSAGES: :[[@LINE+1]]:44: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+2]]:29: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:33: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
 #define STRINGIFY_TWO(x, y) #x, #y
 
 // Multiple ## operators
 // CHECK-MESSAGES: :[[@LINE+2]]:32: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
-// CHECK-MESSAGES: :[[@LINE+1]]:40: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:35: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
 #define CONCAT_THREE(a, b, c) a##b##c
 
 // # in function-like macro
-// CHECK-MESSAGES: :[[@LINE+1]]:44: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:35: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
 #define MAKE_STRING_LITERAL(name) #name
 
 // ## in function-like macro
-// CHECK-MESSAGES: :[[@LINE+1]]:42: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:47: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
 #define MAKE_IDENTIFIER(prefix, suffix) prefix##suffix
 
 // Complex macro with both # and ##
-// CHECK-MESSAGES: :[[@LINE+2]]:38: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
-// CHECK-MESSAGES: :[[@LINE+1]]:48: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+2]]:37: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:45: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
 #define COMPLEX(prefix, name) prefix##name, #name
 
 // # operator for creating format strings
-// CHECK-MESSAGES: :[[@LINE+1]]:45: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:39: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
 #define LOG_VALUE(x) printf("Value: " #x "\n")
 
 // ## for creating variable names
@@ -49,29 +49,29 @@
 #define DECLARE_VAR(type, name) type var_##name
 
 // Stringification with formatting
-// CHECK-MESSAGES: :[[@LINE+1]]:48: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:40: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
 #define DEBUG_PRINT(x) fprintf(stderr, #x " = %d\n", x)
 
 // Token pasting for function names
-// CHECK-MESSAGES: :[[@LINE+1]]:43: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:38: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
 #define MAKE_FUNC_NAME(prefix) prefix##_function
 
 // # in multi-line macro
-// CHECK-MESSAGES: :[[@LINE+3]]:9: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+3]]:27: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
 #define MULTI_LINE_STRINGIFY(x) \
     do { \
         const char* str = #x; \
     } while (0)
 
 // ## in multi-line macro
-// CHECK-MESSAGES: :[[@LINE+3]]:27: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+3]]:25: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
 #define MULTI_LINE_CONCAT(a, b) \
     do { \
         int combined = a##b; \
     } while (0)
 
 // Nested usage (still uses the operators)
-// CHECK-MESSAGES: :[[@LINE+1]]:37: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:28: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
 #define OUTER_STRINGIFY(x) #x
 #define INNER_VALUE 123
 #define RESULT OUTER_STRINGIFY(INNER_VALUE)
@@ -146,11 +146,11 @@
 #define PRINT_VALUES(...) printf(__VA_ARGS__)
 
 // Variadic macro with # (violation)
-// CHECK-MESSAGES: :[[@LINE+1]]:39: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:27: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
 #define STRINGIFY_VA(...) #__VA_ARGS__
 
 // Variadic macro with ## (violation)
-// CHECK-MESSAGES: :[[@LINE+1]]:44: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:38: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
 #define CONCAT_VA(prefix, ...) prefix##__VA_ARGS__
 
 // Macro using # in comment (should not warn - comments are removed)
@@ -188,16 +188,17 @@
      ((b) * (c)))
 
 // X-Macro pattern using # and ## (violations)
-// CHECK-MESSAGES: :[[@LINE+1]]:30: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:22: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
 #define X_ENUM(name) #name,
 
-// CHECK-MESSAGES: :[[@LINE+1]]:35: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:32: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
 #define X_FUNC(name) void func_##name(void);
 
 // Common assertion macro pattern with #
-// CHECK-MESSAGES: :[[@LINE+1]]:63: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:64: warning: avoid preprocessor operator '#' [automotive-avoid-hash-operator]
 #define ASSERT(cond) if (!(cond)) { fprintf(stderr, "Failed: " #cond); }
 
 // Common pattern for creating unique identifiers with ##
-// CHECK-MESSAGES: :[[@LINE+1]]:43: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+2]]:30: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
+// CHECK-MESSAGES: :[[@LINE+1]]:36: warning: avoid preprocessor operator '##' [automotive-avoid-hash-operator]
 #define UNIQUE_VAR(name) var_##name##_unique

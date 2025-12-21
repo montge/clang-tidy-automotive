@@ -12,7 +12,7 @@
 enum Color { RED, GREEN, BLUE };
 
 struct BadStruct1 {
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: inappropriate bit-field type
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: wrong type in bitfield
     enum Color color : 2;  // Enum as bit-field type
 };
 
@@ -27,9 +27,9 @@ struct GoodStruct1 {
     unsigned int flags : 4;
 };
 
-// Signed int - compliant
+// Signed int - compliant (MISRA 6.1 allows signed int, unsigned int, _Bool)
 struct GoodStruct2 {
-    int value : 8;
+    int value : 8;  // int is signed int - compliant
 };
 
 // _Bool - compliant
@@ -39,5 +39,6 @@ struct GoodStruct3 {
 
 // unsigned char - compliant
 struct GoodStruct4 {
+    // CHECK-MESSAGES: :[[@LINE+1]]:19: warning: wrong type in bitfield
     unsigned char bits : 4;
 };

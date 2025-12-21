@@ -5,7 +5,7 @@
 // Violation - side effect in && right operand
 int test_and_side_effect(int x) {
     int y = 0;
-    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: right operand of && has side effect
+    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: right operand of '&&' operator contains side effects that may not be evaluated due to short-circuit evaluation [automotive-c23-req-13.5]
     if (x > 0 && (y = x) > 0) {
         return 1;
     }
@@ -15,7 +15,7 @@ int test_and_side_effect(int x) {
 // Violation - side effect in || right operand
 int test_or_side_effect(int x) {
     int y = 0;
-    // CHECK-MESSAGES: :[[@LINE+1]]:23: warning: right operand of || has side effect
+    // CHECK-MESSAGES: :[[@LINE+1]]:19: warning: right operand of '||' operator contains side effects that may not be evaluated due to short-circuit evaluation [automotive-c23-req-13.5]
     if (x == 0 || (y = x) > 0) {
         return 1;
     }

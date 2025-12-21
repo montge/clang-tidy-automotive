@@ -34,8 +34,7 @@ public:
                     SourceRange Range, const MacroArgs *Args) override;
 
 private:
-  [[maybe_unused]] AvoidApiCheck
-      &Check; // Will be used when callbacks are implemented
+  AvoidApiCheck &Check;
   ArrayRef<StringRef> MacroNames;
   StringRef HeaderName;
 };
@@ -55,7 +54,16 @@ void AvoidApiCheck::registerMatchers(MatchFinder *Finder) {
 }
 
 void AvoidApiCheck::check(const MatchFinder::MatchResult &Result) {
-  // Implementation deferred - matches handled via PP callbacks
+  const auto *Call = Result.Nodes.getNodeAs<CallExpr>("functionCall");
+  if (!Call)
+    return;
+
+  const FunctionDecl *FD = Call->getDirectCallee();
+  if (!FD)
+    return;
+
+  diag(Call->getBeginLoc(), "use of '%0' is not allowed in safety-critical code")
+      << FD->getName();
 }
 
 void AvoidApiPPCallbacks::InclusionDirective(
@@ -64,14 +72,27 @@ void AvoidApiPPCallbacks::InclusionDirective(
     OptionalFileEntryRef IncludedFile, StringRef SearchPath,
     StringRef RelativePath, const Module *SuggestedModule, bool ModuleImported,
     SrcMgr::CharacteristicKind FileType) {
-  // Header inclusion checking not yet implemented
+  // Check if the included header matches the prohibited header
+  if (!HeaderName.empty() && IncludedFilename == HeaderName) {
+    Check.diag(DirectiveLoc, "inclusion of <%0> is not allowed in safety-critical code")
+        << HeaderName;
+  }
 }
 
 void AvoidApiPPCallbacks::MacroExpands(const Token &MacroNameTok,
                                        const MacroDefinition &MD,
                                        SourceRange Range,
                                        const MacroArgs *Args) {
-  // Macro expansion checking not yet implemented
+  // Check if the expanded macro is in the prohibited list
+  StringRef MacroName = MacroNameTok.getIdentifierInfo()->getName();
+  for (StringRef ProhibitedMacro : MacroNames) {
+    if (MacroName == ProhibitedMacro) {
+      Check.diag(MacroNameTok.getLocation(),
+                 "use of '%0' is not allowed in safety-critical code")
+          << MacroName;
+      return;
+    }
+  }
 }
 
 } // namespace clang::tidy::automotive

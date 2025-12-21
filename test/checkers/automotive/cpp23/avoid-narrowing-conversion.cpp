@@ -3,15 +3,16 @@
 
 void test_narrowing() {
   double d = 3.14;
-  // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: narrowing conversion from 'double' to 'int'
+  // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: narrowing conversion from 'double' to 'int' may result in data loss
   int x = d;
 
   long long big = 1234567890123LL;
-  // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: narrowing conversion from 'long long' to 'int'
+  // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: narrowing conversion from 'long long' to 'int' may result in data loss
   int y = big;
 
+  // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: narrowing conversion from 'int' to 'unsigned int' may result in data loss
   unsigned u = 100;
-  // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: narrowing conversion from 'unsigned int' to 'int'
+  // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: narrowing conversion from 'unsigned int' to 'int' may result in data loss
   int z = u;
 
   (void)x;
