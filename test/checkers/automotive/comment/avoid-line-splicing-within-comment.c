@@ -1,39 +1,26 @@
+// RUN: %check_clang_tidy %s automotive-avoid-line-splicing-within-comment %t -- -- -std=c99
 // RUN: %check_clang_tidy %s automotive-avoid-line-splicing-within-comment %t -- -- -std=c11
 
-// Test: Line splicing in // comments (MISRA Rule 3.2)
+// A comment              Compliant
 
-// This is a compliant comment - no line splicing
+// Another comment \
+   with a line splice     Not compliant
+// CHECK-MESSAGES: :[[@LINE-2]]:20: warning: avoid line-spliceing within a '//' comment [automotive-avoid-line-splicing-within-comment]
 
-// This comment has a line splice \
-   which continues the comment on the next line - NOT compliant
-// CHECK-MESSAGES: :[[@LINE-2]]:35: warning: avoid line-spliceing within a '//' comment
-// CHECK-MESSAGES: :[[@LINE-3]]:35: warning: multi-line // comment [clang-diagnostic-comment]
-
-// Multiple line splices \
-   first continuation \
-   second continuation - NOT compliant
-// CHECK-MESSAGES: :[[@LINE-3]]:26: warning: avoid line-spliceing within a '//' comment
-// CHECK-MESSAGES: :[[@LINE-4]]:26: warning: multi-line // comment [clang-diagnostic-comment]
-// CHECK-MESSAGES: :[[@LINE-4]]:23: warning: avoid line-spliceing within a '//' comment
-// CHECK-MESSAGES: :[[@LINE-5]]:23: warning: multi-line // comment [clang-diagnostic-comment]
-
-// Comment with trailing whitespace after backslash (\) - NOT a splice if whitespace
+// Another comment \
+   with two \
+   line splices           Not compliant
+// CHECK-MESSAGES: :[[@LINE-3]]:20: warning: avoid line-spliceing within a '//' comment [automotive-avoid-line-splicing-within-comment]
+// CHECK-MESSAGES: :[[@LINE-3]]:13: warning: avoid line-spliceing within a '//' comment [automotive-avoid-line-splicing-within-comment]
 
 /\
-/ This creates a comment with spliced slashes - NOT compliant
-// CHECK-MESSAGES: :[[@LINE-2]]:2: warning: avoid line-spliceing within a '//' comment
+/\
+/\
+printf("chrismas tree");  Not compliant 
+// CHECK-MESSAGES: :[[@LINE-4]]:2: warning: avoid line-spliceing within a '//' comment [automotive-avoid-line-splicing-within-comment]
+// CHECK-MESSAGES: :[[@LINE-4]]:2: warning: avoid line-spliceing within a '//' comment [automotive-avoid-line-splicing-within-comment]
+// CHECK-MESSAGES: :[[@LINE-4]]:2: warning: avoid line-spliceing within a '//' comment [automotive-avoid-line-splicing-within-comment]
 
-/* Block comments can have line splices \
-   this is allowed because the standard permits it for block comments */
-
-// Compliant: backslash not at end of line
-// path\to\file is fine because backslash is followed by other chars
-
-void test_function(void) {
-    // Compliant: comment inside function
-    int x = 0;
-    (void)x;
-}
-
-// Compliant: trigraph that looks like backslash (??/) followed by newline
-// Note: Trigraphs are a separate issue (Rule 4.2)
+/* \
+                          Compliant - block comment '/*' allows line splice
+*/
