@@ -37,7 +37,8 @@ void ImplicitIntCheck::checkVarDecl(const VarDecl *VD, const SourceManager &SM,
   if (SM.isInSystemHeader(VD->getLocation()))
     return;
 
-  // Check if the type specifier location is valid - if invalid, type was implicit
+  // Check if the type specifier location is valid - if invalid, type was
+  // implicit
   TypeSourceInfo *TSI = VD->getTypeSourceInfo();
   if (!TSI)
     return;
@@ -57,7 +58,8 @@ void ImplicitIntCheck::checkVarDecl(const VarDecl *VD, const SourceManager &SM,
     return;
 
   // Check if the declaration has an explicit type keyword
-  CharSourceRange BeforeNameRange = CharSourceRange::getCharRange(DeclStart, NameLoc);
+  CharSourceRange BeforeNameRange =
+      CharSourceRange::getCharRange(DeclStart, NameLoc);
   StringRef DeclText = Lexer::getSourceText(BeforeNameRange, SM, LangOpts);
 
   // Look for type keywords - if none found and it's an int type, it's implicit
@@ -67,22 +69,18 @@ void ImplicitIntCheck::checkVarDecl(const VarDecl *VD, const SourceManager &SM,
 
   // Check if there's an explicit type specifier
   // These are the keywords that indicate explicit int type
-  bool hasExplicitType = DeclText.contains("int") ||
-                         DeclText.contains("char") ||
-                         DeclText.contains("short") ||
-                         DeclText.contains("long") ||
-                         DeclText.contains("_Bool") ||
-                         DeclText.contains("bool");
+  bool hasExplicitType =
+      DeclText.contains("int") || DeclText.contains("char") ||
+      DeclText.contains("short") || DeclText.contains("long") ||
+      DeclText.contains("_Bool") || DeclText.contains("bool");
 
   if (!hasExplicitType && QT->isIntegerType()) {
     // Check for storage class or qualifiers without type
-    bool hasStorageOrQualifier = DeclText.contains("const") ||
-                                  DeclText.contains("volatile") ||
-                                  DeclText.contains("static") ||
-                                  DeclText.contains("extern") ||
-                                  DeclText.contains("register") ||
-                                  DeclText.contains("unsigned") ||
-                                  DeclText.contains("signed");
+    bool hasStorageOrQualifier =
+        DeclText.contains("const") || DeclText.contains("volatile") ||
+        DeclText.contains("static") || DeclText.contains("extern") ||
+        DeclText.contains("register") || DeclText.contains("unsigned") ||
+        DeclText.contains("signed");
 
     if (hasStorageOrQualifier) {
       diag(VD->getLocation(), "implicit int type in declaration");
@@ -90,7 +88,8 @@ void ImplicitIntCheck::checkVarDecl(const VarDecl *VD, const SourceManager &SM,
   }
 }
 
-void ImplicitIntCheck::checkFuncDecl(const FunctionDecl *FD, const SourceManager &SM,
+void ImplicitIntCheck::checkFuncDecl(const FunctionDecl *FD,
+                                     const SourceManager &SM,
                                      const LangOptions &LangOpts) {
   // Skip if in system header
   if (SM.isInSystemHeader(FD->getLocation()))
@@ -108,22 +107,22 @@ void ImplicitIntCheck::checkFuncDecl(const FunctionDecl *FD, const SourceManager
     return;
 
   // Get the text before the function name
-  CharSourceRange BeforeNameRange = CharSourceRange::getCharRange(FuncStart, NameLoc);
+  CharSourceRange BeforeNameRange =
+      CharSourceRange::getCharRange(FuncStart, NameLoc);
   StringRef DeclText = Lexer::getSourceText(BeforeNameRange, SM, LangOpts);
 
   // Check if there's an explicit return type
   QualType ReturnType = FD->getReturnType();
   if (ReturnType->isIntegerType() && !ReturnType->isVoidType()) {
-    bool hasExplicitType = DeclText.contains("int") ||
-                           DeclText.contains("char") ||
-                           DeclText.contains("short") ||
-                           DeclText.contains("long") ||
-                           DeclText.contains("void") ||
-                           DeclText.contains("_Bool") ||
-                           DeclText.contains("bool");
+    bool hasExplicitType =
+        DeclText.contains("int") || DeclText.contains("char") ||
+        DeclText.contains("short") || DeclText.contains("long") ||
+        DeclText.contains("void") || DeclText.contains("_Bool") ||
+        DeclText.contains("bool");
 
     if (!hasExplicitType) {
-      diag(FD->getLocation(), "implicit int return type in function declaration");
+      diag(FD->getLocation(),
+           "implicit int return type in function declaration");
     }
   }
 }

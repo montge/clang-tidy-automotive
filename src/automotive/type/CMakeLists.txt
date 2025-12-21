@@ -1,5 +1,6 @@
 
 add_clang_library(clangTidyAutomotiveTypeComponent STATIC
+  AvoidAtomicVoidCheck.cpp
   AvoidPointerTypedefCheck.cpp
   AvoidUnionCheck.cpp
   DuplicateTagNameCheck.cpp

@@ -9,6 +9,7 @@
 #include "StatementComponent.h"
 #include "AvoidBooleanInSwitchCheck.h"
 #include "AvoidGotoCheck.h"
+#include "AvoidSingleClauseSwitchCheck.h"
 #include "ForwardGotoLabelCheck.h"
 #include "GotoLabelSameBlockCheck.h"
 #include "MissingBreakInCaseStmtCheck.h"
@@ -54,6 +55,10 @@ void StatementComponent::addCheckFactories(
   // Rule 15.4 - Multiple loop terminators (Advisory)
   CheckFactories.registerCheck<MultipleLoopTerminatorsCheck>(
       "automotive-c23-adv-15.4");
+
+  // Rule 16.6 - Switch minimum clauses (Required)
+  CheckFactories.registerCheck<AvoidSingleClauseSwitchCheck>(
+      "automotive-c23-req-16.6");
 }
 
 } // namespace clang::tidy::automotive

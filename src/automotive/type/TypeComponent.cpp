@@ -7,6 +7,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "TypeComponent.h"
+#include "AvoidAtomicVoidCheck.h"
 #include "AvoidPointerTypedefCheck.h"
 #include "AvoidUnionCheck.h"
 #include "DuplicateTagNameCheck.h"
@@ -36,6 +37,10 @@ void TypeComponent::addCheckFactories(ClangTidyCheckFactories &CheckFactories) {
   // Dir 4.8 - Pointer hiding in typedefs (Advisory)
   CheckFactories.registerCheck<AvoidPointerTypedefCheck>(
       "automotive-c23-adv-dir-4.8");
+
+  // Rule 11.10 - Atomic void restriction (Required)
+  CheckFactories.registerCheck<AvoidAtomicVoidCheck>(
+      "automotive-c23-req-11.10");
 }
 
 } // namespace clang::tidy::automotive

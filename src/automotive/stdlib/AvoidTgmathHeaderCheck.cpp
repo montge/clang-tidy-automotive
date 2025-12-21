@@ -13,10 +13,9 @@ namespace clang::tidy::automotive {
 // tgmath.h defines type-generic macros that expand to functions from math.h
 // We primarily check for header inclusion, but also flag some common usages
 static const StringRef AvoidFunctions[] = {
-    "acos",  "asin",  "atan",   "atan2",  "ceil",   "cos",
-    "cosh",  "exp",   "fabs",   "floor",  "fmod",   "frexp",
-    "ldexp", "log",   "log10",  "modf",   "pow",    "sin",
-    "sinh",  "sqrt",  "tan",    "tanh"};
+    "acos", "asin",  "atan", "atan2", "ceil",  "cos", "cosh",  "exp",
+    "fabs", "floor", "fmod", "frexp", "ldexp", "log", "log10", "modf",
+    "pow",  "sin",   "sinh", "sqrt",  "tan",   "tanh"};
 
 AvoidTgmathHeaderCheck::AvoidTgmathHeaderCheck(StringRef Name,
                                                ClangTidyContext *Context)

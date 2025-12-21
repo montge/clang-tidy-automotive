@@ -239,9 +239,74 @@ These rules cannot be fully verified by static analysis:
 | 9.5 | Required | Designated initializer bounds |
 | 22.2-22.10 | Various | Resource management patterns |
 
+## Missing Rules (Gap Analysis)
+
+See `docs/MISRA-GAP-ANALYSIS.md` for detailed analysis.
+
+### MISRA C:2025 Missing Rules Summary
+
+**Missing Mandatory (9 rules):** 7.5, 9.7, 12.5, 17.9, 18.10, 19.1, 21.18, 21.22, 22.20
+
+**Missing Required (47 rules):** 1.5, 2.2, 6.3, 7.2, 7.4, 7.6, 8.6, 8.18, 9.6, 11.10, 11.11, 12.6, 14.2, 16.1, 16.6, 17.10, 17.13, 18.9, 19.3, 20.6, 20.7, 20.8, 20.9, 20.13, 20.14, 20.15, 21.9, 21.14, 21.23, 21.24, 21.25, 21.26, 22.11, 22.13, 22.15, 22.16, 22.17, 22.18, 22.19, 23.4, 23.6, 23.8
+
+**Missing Advisory (10 rules):** 8.13, 8.16, 8.17, 8.19, 17.11, 17.12, 23.1, 23.3, 23.5, 23.7
+
+**Missing Directives (2):** Dir 1.2, Dir 4.2
+
+### MISRA C++:2023 Missing Rules Summary
+
+**Missing Mandatory (1 rule):** 25.5
+
+**Missing Required (40 rules):** 0.1, 0.3, 4.6, 5.7, 5.10, 5.13, 6.2, 6.4, 6.7, 7.0, 7.11, 8.7, 9.2, 9.3, 9.4, 9.5, 9.6, 10.1, 10.2, 10.4, 11.6, 12.2, 12.3, 13.1, 13.3, 16.5, 17.8, 18.1, 18.3, 19.1, 19.2, 19.3, 21.2, 21.6, 21.10, 22.3, 22.4, 28.3, 28.6, 30.0
+
+**Missing Advisory (21 rules):** 0.0, 0.2, 4.1, 5.0, 5.7, 6.0, 6.5, 6.8, 6.9, 8.0, 8.1, 8.18, 8.19, 8.20, 10.3, 11.3, 14.1, 16.6, 18.5, 19.0, 26.3
+
+**Missing Directives (2):** Dir 0.3, Dir 5.7
+
 ## Planned Implementations
 
-### High Priority (Required Rules)
+### Phase 1: Quick Wins (Decidable, Low Complexity)
+
+**MISRA C:2025:**
+- Rule 6.3: Bit-field in union
+- Rule 7.2: Unsigned literal suffix
+- Rule 7.4: String literal const assignment
+- Rule 11.10: Atomic void restriction
+- Rule 11.11: Implicit NULL comparison
+- Rule 16.6: Switch minimum clauses
+- Rule 17.10: Noreturn void return type
+- Rule 17.13: Function type qualification
+- Rule 20.8: #if expression value
+- Rule 20.9: #if undefined identifiers
+- Rule 20.13: Valid preprocessing directive
+- Rule 20.14: Preprocessor directive file scope
+- Rule 21.9: bsearch/qsort prohibition
+- Rule 21.24: Random number prohibition
+
+**MISRA C++:2023:**
+- Rule 9.3: Compound statement body
+- Rule 9.4: Switch minimum clauses
+- Rule 12.3: Union prohibition
+- Rule 21.10: <ctime> prohibition
+- Rule 18.1: Exception prohibition
+- Rule 21.6: Dynamic memory prohibition
+
+### Phase 2: Medium Complexity
+
+- Rule 1.5: Obsolescent features
+- Rule 16.1: Well-formed switch
+- Rule 14.2: Well-formed for loop
+- Rule 20.7: Macro expansion parentheses
+- Essential type checks for generics (23.x)
+
+### Phase 3: Advanced Analysis
+
+- Rule 2.2: Dead code detection
+- Rule 9.7: Atomic initialization
+- Rule 19.1/19.3: Overlapping storage
+- Rule 22.x: Thread safety rules
+
+### Completed Implementations
 - ~~Rule 10.2-10.8: Essential type model checks~~ (Implemented)
 - ~~Rule 11.2-11.7: Pointer conversion checks~~ (Implemented)
 - ~~Rule 12.2: Shift operator checks~~ (Implemented)
@@ -250,16 +315,11 @@ These rules cannot be fully verified by static analysis:
 - ~~Rule 20.1-20.3: Preprocessor directive checks~~ (Implemented)
 - ~~Rule 21.1: Reserved macro identifiers~~ (Implemented)
 - ~~Rule 21.2: Reserved identifier declarations~~ (Implemented)
-
-### Remaining Required Rules
 - ~~Rule 18.6: Address of automatic object persisting past scope~~ (Implemented)
 - ~~Rule 9.2: Explicit enumerator values~~ (Implemented)
 - ~~Rule 9.4: Complete aggregate initialization~~ (Implemented)
 - ~~Rule 9.5: Designated initializer bounds~~ (Implemented)
-- ~~Rule 9.1: Uninitialized variable detection~~ (Implemented as automotive-c23-req-9.1)
-
-### Medium Priority (Advisory Rules)
-- Dir 4.2: Language subset selection
+- ~~Rule 9.1: Uninitialized variable detection~~ (Implemented)
 - ~~Rule 1.2: Language extensions~~ (Implemented)
 - ~~Rule 2.7: Unused parameters~~ (Implemented)
 - ~~Rule 4.2: Trigraph sequences~~ (Implemented)

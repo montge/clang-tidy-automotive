@@ -11,8 +11,8 @@
 namespace clang::tidy::automotive {
 
 static const StringRef AvoidFunctions[] = {
-    "clock",     "difftime", "mktime", "time",    "asctime",
-    "ctime",     "gmtime",   "localtime", "strftime", "timespec_get"};
+    "clock", "difftime", "mktime",    "time",     "asctime",
+    "ctime", "gmtime",   "localtime", "strftime", "timespec_get"};
 
 AvoidTimeHeaderCheck::AvoidTimeHeaderCheck(StringRef Name,
                                            ClangTidyContext *Context)

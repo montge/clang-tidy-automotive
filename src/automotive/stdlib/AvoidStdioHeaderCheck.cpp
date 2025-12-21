@@ -11,16 +11,14 @@
 namespace clang::tidy::automotive {
 
 static const StringRef AvoidFunctions[] = {
-    "printf",  "fprintf", "sprintf",  "snprintf", "vprintf",
-    "vfprintf", "vsprintf", "vsnprintf",
-    "scanf",   "fscanf",  "sscanf",   "vscanf",   "vfscanf", "vsscanf",
-    "fopen",   "fclose",  "fread",    "fwrite",   "fflush",
-    "fgetc",   "fgets",   "fputc",    "fputs",    "getc",    "getchar",
-    "gets",    "putc",    "putchar",  "puts",     "ungetc",
-    "fseek",   "ftell",   "rewind",   "fgetpos",  "fsetpos",
-    "clearerr", "feof",   "ferror",   "perror",
-    "remove",  "rename",  "tmpfile",  "tmpnam",   "freopen", "setbuf",
-    "setvbuf"};
+    "printf",   "fprintf",   "sprintf", "snprintf", "vprintf", "vfprintf",
+    "vsprintf", "vsnprintf", "scanf",   "fscanf",   "sscanf",  "vscanf",
+    "vfscanf",  "vsscanf",   "fopen",   "fclose",   "fread",   "fwrite",
+    "fflush",   "fgetc",     "fgets",   "fputc",    "fputs",   "getc",
+    "getchar",  "gets",      "putc",    "putchar",  "puts",    "ungetc",
+    "fseek",    "ftell",     "rewind",  "fgetpos",  "fsetpos", "clearerr",
+    "feof",     "ferror",    "perror",  "remove",   "rename",  "tmpfile",
+    "tmpnam",   "freopen",   "setbuf",  "setvbuf"};
 
 AvoidStdioHeaderCheck::AvoidStdioHeaderCheck(StringRef Name,
                                              ClangTidyContext *Context)

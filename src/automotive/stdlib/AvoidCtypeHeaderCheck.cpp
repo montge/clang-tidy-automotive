@@ -11,9 +11,9 @@
 namespace clang::tidy::automotive {
 
 static const StringRef AvoidFunctions[] = {
-    "isalnum",  "isalpha", "isblank", "iscntrl", "isdigit",
-    "isgraph",  "islower", "isprint", "ispunct", "isspace",
-    "isupper",  "isxdigit", "tolower", "toupper"};
+    "isalnum", "isalpha",  "isblank", "iscntrl", "isdigit",
+    "isgraph", "islower",  "isprint", "ispunct", "isspace",
+    "isupper", "isxdigit", "tolower", "toupper"};
 
 AvoidCtypeHeaderCheck::AvoidCtypeHeaderCheck(StringRef Name,
                                              ClangTidyContext *Context)

@@ -8,6 +8,8 @@
 
 #include "FunctionComponent.h"
 #include "AvoidFunctionParameterModificationCheck.h"
+#include "AvoidNoreturnNonVoidCheck.h"
+#include "AvoidQualifiedFunctionTypeCheck.h"
 #include "AvoidStaticInArrayParamCheck.h"
 #include "FunctionDeclarationMismatchCheck.h"
 #include "ImplicitFunctionDeclCheck.h"
@@ -34,6 +36,14 @@ void FunctionComponent::addCheckFactories(
   // Rule 17.6 - Static keyword in array parameters (Mandatory)
   CheckFactories.registerCheck<AvoidStaticInArrayParamCheck>(
       "automotive-c23-mand-17.6");
+
+  // Rule 17.10 - Noreturn with non-void return type (Required)
+  CheckFactories.registerCheck<AvoidNoreturnNonVoidCheck>(
+      "automotive-c23-req-17.10");
+
+  // Rule 17.13 - Qualified function type (Required)
+  CheckFactories.registerCheck<AvoidQualifiedFunctionTypeCheck>(
+      "automotive-c23-req-17.13");
 }
 
 } // namespace clang::tidy::automotive
