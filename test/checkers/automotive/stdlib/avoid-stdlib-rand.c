@@ -13,7 +13,7 @@
 //===----------------------------------------------------------------------===//
 
 void test_rand_violations(void) {
-    // Note: srand is not currently detected by this check
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: Avoid 'srand' call from stdlib [automotive-avoid-stdlib-rand]
     srand(time(0));
 
     // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: Avoid 'rand' call from stdlib [automotive-avoid-stdlib-rand]

@@ -15,8 +15,11 @@ using namespace clang::ast_matchers;
 namespace clang::tidy::automotive {
 
 void AvoidStdlibRandCheck::registerMatchers(MatchFinder *Finder) {
+  // Match rand() and srand() calls from stdlib.h
+  // Rule 21.12 prohibits rand(), Rule 21.24 extends to srand()
   Finder->addMatcher(
-      callExpr(callee(functionDecl(hasName("rand")))).bind("func"), this);
+      callExpr(callee(functionDecl(hasAnyName("rand", "srand")))).bind("func"),
+      this);
 }
 
 void AvoidStdlibRandCheck::check(const MatchFinder::MatchResult &Result) {
