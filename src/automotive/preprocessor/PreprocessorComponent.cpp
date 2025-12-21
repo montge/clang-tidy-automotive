@@ -8,6 +8,7 @@
 
 #include "PreprocessorComponent.h"
 #include "AvoidCodeBeforeIncludeCheck.h"
+#include "AvoidCrossFileIfCheck.h"
 #include "AvoidHashOperatorCheck.h"
 #include "AvoidIncludeSyntaxErrorCheck.h"
 #include "AvoidInvalidHeaderCharCheck.h"
@@ -62,6 +63,10 @@ void PreprocessorComponent::addCheckFactories(
   // Rule 1.2 - Language extensions (Advisory)
   CheckFactories.registerCheck<AvoidLanguageExtensionCheck>(
       "automotive-c23-adv-1.2");
+
+  // Rule 20.14 - #if/#endif same file (Required)
+  CheckFactories.registerCheck<AvoidCrossFileIfCheck>(
+      "automotive-c23-req-20.14");
 }
 
 } // namespace clang::tidy::automotive
