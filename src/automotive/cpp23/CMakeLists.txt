@@ -10,6 +10,7 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidImplicitConversionCheck.cpp
   AvoidImplicitLambdaCaptureCheck.cpp
   AvoidImplicitConversionOperatorCheck.cpp
+  AvoidModifyingByValueParamCheck.cpp
   AvoidNarrowingConversionCheck.cpp
   AvoidNestedSwitchLabelCheck.cpp
   AvoidNonCompoundBodyCheck.cpp

@@ -17,6 +17,7 @@
 #include "AvoidImplicitConversionCheck.h"
 #include "AvoidImplicitConversionOperatorCheck.h"
 #include "AvoidImplicitLambdaCaptureCheck.h"
+#include "AvoidModifyingByValueParamCheck.h"
 #include "AvoidNarrowingConversionCheck.h"
 #include "AvoidNestedSwitchLabelCheck.h"
 #include "AvoidNonCompoundBodyCheck.h"
@@ -141,6 +142,10 @@ void Cpp23Component::addCheckFactories(
   // MISRA C++:2023 Rule 9.5 - Switch label in outermost compound statement
   CheckFactories.registerCheck<AvoidNestedSwitchLabelCheck>(
       "automotive-cpp23-req-9.5");
+
+  // MISRA C++:2023 Rule 13.3 - Parameter by value modification
+  CheckFactories.registerCheck<AvoidModifyingByValueParamCheck>(
+      "automotive-cpp23-req-13.3");
 }
 
 } // namespace clang::tidy::automotive
