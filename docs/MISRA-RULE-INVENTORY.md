@@ -18,11 +18,11 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|-------|-------------|-------|---------|--------|
 | Directives | 18 | 5 | 0 | 0 | 13 |
 | Mandatory | 4 | 5 | 0 | 0 | 0 |
-| Required | 113 | 71 | 15 | 0 | 27 |
+| Required | 113 | 80 | 15 | 0 | 18 |
 | Advisory | 41 | 27 | 8 | 0 | 6 |
-| **Total** | **176** | **104** | **25** | **0** | **47** |
+| **Total** | **176** | **113** | **25** | **0** | **38** |
 
-*Note: 104 MISRA C:2025 checks + 16 MISRA C++:2023 checks = 120 total automotive checks*
+*Note: 113 MISRA C:2025 checks + 22 MISRA C++:2023 checks = 135 total automotive checks*
 
 ## Implemented Checks
 
@@ -41,6 +41,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-c23-adv-15.4` | 15.4 | Advisory | Multiple loop terminators |
 | `automotive-c23-req-15.2` | 15.2 | Required | Goto and label in same block |
 | `automotive-unused-label` | 2.6 | Advisory | Unused labels |
+| `automotive-c23-req-16.6` | 16.6 | Required | Switch minimum clauses |
 
 ### Expression Checks
 | Check ID | MISRA Rule | Category | Description |
@@ -70,7 +71,9 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|------------|----------|-------------|
 | `automotive-c23-adv-4.2` | 4.2 | Advisory | Trigraph sequences |
 | `automotive-avoid-octal-number` | 7.1 | Required | Octal literal constants |
+| `automotive-c23-req-7.2` | 7.2 | Required | Unsigned literal without suffix |
 | `automotive-avoid-lowercase-literal-suffix` | 7.3 | Required | Lowercase 'l' suffix |
+| `automotive-c23-req-7.4` | 7.4 | Required | String literal to non-const pointer |
 | `automotive-unterminated-escape-sequence` | 4.1 | Required | Incomplete escape sequences |
 
 ### Identifier Checks
@@ -88,6 +91,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-unique-enum-value` | 8.12 | Required | Duplicate enum values |
 | `automotive-unused-type` | 2.3 | Advisory | Unused type declarations |
 | `automotive-c23-req-9.2` | 9.2 | Required | Explicit enumerator values |
+| `automotive-c23-req-11.10` | 11.10 | Required | Atomic void type restriction |
 
 ### Bitfield Checks
 | Check ID | MISRA Rule | Category | Description |
@@ -104,6 +108,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-c23-adv-11.4` | 11.4 | Advisory | Pointer to/from integer cast |
 | `automotive-c23-req-11.8` | 11.8 | Required | Cast removing const/volatile |
 | `automotive-wrong-null-pointer-value` | 11.9 | Required | Incorrect NULL pointer literal |
+| `automotive-c23-req-11.11` | 11.11 | Required | Implicit NULL comparison |
 | `automotive-c23-req-18.6` | 18.6 | Required | Address of automatic object escaping |
 
 ### Array Checks
@@ -130,6 +135,8 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-avoid-multiple-return-stmt` | 15.5 | Advisory | Multiple return statements |
 | `automotive-missing-return-value-handling` | 17.7 | Required | Ignoring return values |
 | `automotive-missing-return-void` | 17.4 | Mandatory | Non-void function missing return |
+| `automotive-c23-req-17.10` | 17.10 | Required | Noreturn function with non-void return |
+| `automotive-c23-req-17.13` | 17.13 | Required | Qualified function type restriction |
 
 ### Storage Checks
 | Check ID | MISRA Rule | Category | Description |
@@ -157,6 +164,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-avoid-undef` | 20.5 | Advisory | #undef usage |
 | `automotive-avoid-hash-operator` | 20.10 | Advisory | # operator in macros |
 | `automotive-avoid-multiple-hash-operators` | 20.11 | Required | Multiple # or ## operators |
+| `automotive-c23-req-20.14` | 20.14 | Required | #if/#endif in same file |
 | `automotive-avoid-reserved-macro-identifier` | 21.1 | Required | Reserved identifier in #define/#undef |
 | `automotive-unused-macro` | 2.5 | Advisory | Unused macros |
 
@@ -177,6 +185,7 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 | `automotive-avoid-ascii-to-number` | 21.7 | Required | atoi/atof functions |
 | `automotive-avoid-stdlib-exit` | 21.8 | Required | abort/exit functions |
 | `automotive-avoid-stdlib-system` | 21.8 | Required | system() function |
+| `automotive-c23-req-21.9` | 21.9 | Required | bsearch/qsort functions |
 | `automotive-c23-req-21.10` | 21.10 | Required | <time.h> time functions |
 | `automotive-c23-req-21.11` | 21.11 | Required | <tgmath.h> type-generic math |
 | `automotive-avoid-stdlib-rand` | 21.12 | Required | rand() function |
@@ -195,6 +204,16 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|------------|----------|-------------|
 | `automotive-c23-req-14.1` | 14.1 | Required | Float loop counter (cert-flp30-c) |
 | `automotive-c23-req-17.2` | 17.2 | Required | No recursion (misc-no-recursion) |
+
+### MISRA C++:2023 Checks
+| Check ID | MISRA Rule | Category | Description |
+|----------|------------|----------|-------------|
+| `automotive-cpp23-req-9.3` | 9.3 | Required | Compound statement body required |
+| `automotive-cpp23-req-9.4` | 9.4 | Required | Switch minimum clauses |
+| `automotive-cpp23-req-12.3` | 12.3 | Required | Union prohibition |
+| `automotive-cpp23-req-18.1` | 18.1 | Required | Exception prohibition |
+| `automotive-cpp23-req-21.6` | 21.6 | Required | Dynamic memory prohibition |
+| `automotive-cpp23-req-21.10` | 21.10 | Required | <ctime> prohibition |
 
 ## Rules Covered by Built-in Clang Warnings
 
@@ -247,7 +266,7 @@ See `docs/MISRA-GAP-ANALYSIS.md` for detailed analysis.
 
 **Missing Mandatory (9 rules):** 7.5, 9.7, 12.5, 17.9, 18.10, 19.1, 21.18, 21.22, 22.20
 
-**Missing Required (47 rules):** 1.5, 2.2, 6.3, 7.2, 7.4, 7.6, 8.6, 8.18, 9.6, 11.10, 11.11, 12.6, 14.2, 16.1, 16.6, 17.10, 17.13, 18.9, 19.3, 20.6, 20.7, 20.8, 20.9, 20.13, 20.14, 20.15, 21.9, 21.14, 21.23, 21.24, 21.25, 21.26, 22.11, 22.13, 22.15, 22.16, 22.17, 22.18, 22.19, 23.4, 23.6, 23.8
+**Missing Required (38 rules):** 1.5, 2.2, 6.3, 7.6, 8.6, 8.18, 9.6, 12.6, 14.2, 16.1, 18.9, 19.3, 20.6, 20.7, 20.8, 20.9, 20.13, 20.15, 21.14, 21.23, 21.24, 21.25, 21.26, 22.11, 22.13, 22.15, 22.16, 22.17, 22.18, 22.19, 23.4, 23.6, 23.8
 
 **Missing Advisory (10 rules):** 8.13, 8.16, 8.17, 8.19, 17.11, 17.12, 23.1, 23.3, 23.5, 23.7
 
@@ -257,7 +276,7 @@ See `docs/MISRA-GAP-ANALYSIS.md` for detailed analysis.
 
 **Missing Mandatory (1 rule):** 25.5
 
-**Missing Required (40 rules):** 0.1, 0.3, 4.6, 5.7, 5.10, 5.13, 6.2, 6.4, 6.7, 7.0, 7.11, 8.7, 9.2, 9.3, 9.4, 9.5, 9.6, 10.1, 10.2, 10.4, 11.6, 12.2, 12.3, 13.1, 13.3, 16.5, 17.8, 18.1, 18.3, 19.1, 19.2, 19.3, 21.2, 21.6, 21.10, 22.3, 22.4, 28.3, 28.6, 30.0
+**Missing Required (34 rules):** 0.1, 0.3, 4.6, 5.7, 5.10, 5.13, 6.2, 6.4, 6.7, 7.0, 7.11, 8.7, 9.2, 9.5, 9.6, 10.1, 10.2, 10.4, 11.6, 12.2, 13.1, 13.3, 16.5, 17.8, 18.3, 19.1, 19.2, 19.3, 21.2, 22.3, 22.4, 28.3, 28.6, 30.0
 
 **Missing Advisory (21 rules):** 0.0, 0.2, 4.1, 5.0, 5.7, 6.0, 6.5, 6.8, 6.9, 8.0, 8.1, 8.18, 8.19, 8.20, 10.3, 11.3, 14.1, 16.6, 18.5, 19.0, 26.3
 
@@ -267,29 +286,29 @@ See `docs/MISRA-GAP-ANALYSIS.md` for detailed analysis.
 
 ### Phase 1: Quick Wins (Decidable, Low Complexity)
 
-**MISRA C:2025:**
-- Rule 6.3: Bit-field in union
-- Rule 7.2: Unsigned literal suffix
-- Rule 7.4: String literal const assignment
-- Rule 11.10: Atomic void restriction
-- Rule 11.11: Implicit NULL comparison
-- Rule 16.6: Switch minimum clauses
-- Rule 17.10: Noreturn void return type
-- Rule 17.13: Function type qualification
-- Rule 20.8: #if expression value
-- Rule 20.9: #if undefined identifiers
-- Rule 20.13: Valid preprocessing directive
-- Rule 20.14: Preprocessor directive file scope
-- Rule 21.9: bsearch/qsort prohibition
-- Rule 21.24: Random number prohibition
+**MISRA C:2025 (9 implemented, 5 pending):**
+- ~~Rule 7.2: Unsigned literal suffix~~ (Implemented)
+- ~~Rule 7.4: String literal const assignment~~ (Implemented)
+- ~~Rule 11.10: Atomic void restriction~~ (Implemented)
+- ~~Rule 11.11: Implicit NULL comparison~~ (Implemented)
+- ~~Rule 16.6: Switch minimum clauses~~ (Implemented)
+- ~~Rule 17.10: Noreturn void return type~~ (Implemented)
+- ~~Rule 17.13: Function type qualification~~ (Implemented)
+- ~~Rule 20.14: Preprocessor directive file scope~~ (Implemented)
+- ~~Rule 21.9: bsearch/qsort prohibition~~ (Implemented)
+- Rule 6.3: Bit-field in union (already covered by `automotive-avoid-bitfield-in-union`)
+- Rule 20.8: #if expression value (Deferred - complex expression analysis)
+- Rule 20.9: #if undefined identifiers (Deferred - complex macro tracking)
+- Rule 20.13: Valid preprocessing directive (Deferred - Clang already reports as errors)
+- Rule 21.24: Random number prohibition (Pending)
 
-**MISRA C++:2023:**
-- Rule 9.3: Compound statement body
-- Rule 9.4: Switch minimum clauses
-- Rule 12.3: Union prohibition
-- Rule 21.10: <ctime> prohibition
-- Rule 18.1: Exception prohibition
-- Rule 21.6: Dynamic memory prohibition
+**MISRA C++:2023 (6 implemented):**
+- ~~Rule 9.3: Compound statement body~~ (Implemented)
+- ~~Rule 9.4: Switch minimum clauses~~ (Implemented)
+- ~~Rule 12.3: Union prohibition~~ (Implemented)
+- ~~Rule 18.1: Exception prohibition~~ (Implemented)
+- ~~Rule 21.6: Dynamic memory prohibition~~ (Implemented)
+- ~~Rule 21.10: <ctime> prohibition~~ (Implemented)
 
 ### Phase 2: Medium Complexity
 
@@ -307,6 +326,25 @@ See `docs/MISRA-GAP-ANALYSIS.md` for detailed analysis.
 - Rule 22.x: Thread safety rules
 
 ### Completed Implementations
+
+**Phase 1 Quick Wins (December 2025):**
+- ~~Rule 7.2: Unsigned literal suffix~~ (Implemented)
+- ~~Rule 7.4: String literal const assignment~~ (Implemented)
+- ~~Rule 11.10: Atomic void restriction~~ (Implemented)
+- ~~Rule 11.11: Implicit NULL comparison~~ (Implemented)
+- ~~Rule 16.6: Switch minimum clauses~~ (Implemented)
+- ~~Rule 17.10: Noreturn void return type~~ (Implemented)
+- ~~Rule 17.13: Function type qualification~~ (Implemented)
+- ~~Rule 20.14: Preprocessor directive file scope~~ (Implemented)
+- ~~Rule 21.9: bsearch/qsort prohibition~~ (Implemented)
+- ~~C++ Rule 9.3: Compound statement body~~ (Implemented)
+- ~~C++ Rule 9.4: Switch minimum clauses~~ (Implemented)
+- ~~C++ Rule 12.3: Union prohibition~~ (Implemented)
+- ~~C++ Rule 18.1: Exception prohibition~~ (Implemented)
+- ~~C++ Rule 21.6: Dynamic memory prohibition~~ (Implemented)
+- ~~C++ Rule 21.10: <ctime> prohibition~~ (Implemented)
+
+**Previous Implementations:**
 - ~~Rule 10.2-10.8: Essential type model checks~~ (Implemented)
 - ~~Rule 11.2-11.7: Pointer conversion checks~~ (Implemented)
 - ~~Rule 12.2: Shift operator checks~~ (Implemented)
