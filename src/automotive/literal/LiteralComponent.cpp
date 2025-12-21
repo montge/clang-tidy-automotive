@@ -9,6 +9,7 @@
 #include "LiteralComponent.h"
 #include "AvoidLowercaseLiteralSuffixCheck.h"
 #include "AvoidOctalNumberCheck.h"
+#include "AvoidSmallIntConstMacroCheck.h"
 #include "AvoidStringLiteralToNonConstCheck.h"
 #include "AvoidTrigraphCheck.h"
 #include "AvoidUnsignedLiteralWithoutSuffixCheck.h"
@@ -30,6 +31,10 @@ void LiteralComponent::addCheckFactories(
       "automotive-c23-req-7.2");
   CheckFactories.registerCheck<AvoidStringLiteralToNonConstCheck>(
       "automotive-c23-req-7.4");
+
+  // Rule 7.6 - Small integer constant macros (Required)
+  CheckFactories.registerCheck<AvoidSmallIntConstMacroCheck>(
+      "automotive-c23-req-7.6");
 }
 
 } // namespace clang::tidy::automotive
