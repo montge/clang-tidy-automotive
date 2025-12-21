@@ -10,6 +10,7 @@
 #include "AvoidGlobalObjectCheck.h"
 #include "AvoidReservedIdentifierDeclarationCheck.h"
 #include "AvoidRestrictTypeCheck.h"
+#include "AvoidTentativeDefinitionInHeaderCheck.h"
 #include "AvoidUninitializedReadCheck.h"
 #include "MissingStaticForInternalCheck.h"
 
@@ -36,6 +37,10 @@ void StorageComponent::addCheckFactories(
   // Rule 8.7 - Static for internal linkage (Advisory)
   CheckFactories.registerCheck<MissingStaticForInternalCheck>(
       "automotive-c23-adv-8.7");
+
+  // Rule 8.18 - Tentative definitions in header files (Required)
+  CheckFactories.registerCheck<AvoidTentativeDefinitionInHeaderCheck>(
+      "automotive-c23-req-8.18");
 }
 
 } // namespace clang::tidy::automotive
