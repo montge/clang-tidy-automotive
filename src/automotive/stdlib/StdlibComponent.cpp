@@ -41,6 +41,11 @@ void StdlibComponent::addCheckFactories(
   CheckFactories.registerCheck<AvoidStdlibRandCheck>(
       "automotive-avoid-stdlib-rand");
 
+  // Rule 21.24 - Random number generator functions (Required)
+  // Extends 21.12 (rand) to include srand
+  CheckFactories.registerCheck<AvoidStdlibRandCheck>(
+      "automotive-c23-req-21.24");
+
   // Rule 21.3 / Dir 4.12 - Dynamic memory allocation (Required)
   CheckFactories.registerCheck<AvoidStdlibMemoryCheck>(
       "automotive-c23-req-21.3");
