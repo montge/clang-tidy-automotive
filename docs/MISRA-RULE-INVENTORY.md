@@ -18,11 +18,11 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 |----------|-------|-------------|-------|---------|--------|
 | Directives | 18 | 5 | 0 | 0 | 13 |
 | Mandatory | 4 | 5 | 0 | 0 | 0 |
-| Required | 113 | 83 | 15 | 0 | 15 |
-| Advisory | 41 | 27 | 8 | 0 | 6 |
-| **Total** | **176** | **116** | **25** | **0** | **35** |
+| Required | 113 | 95 | 15 | 0 | 3 |
+| Advisory | 41 | 32 | 8 | 0 | 1 |
+| **Total** | **176** | **132** | **25** | **0** | **17** |
 
-*Note: 116 MISRA C:2025 checks + 22 MISRA C++:2023 checks = 138 total automotive checks*
+*Note: 122 MISRA C:2025 checks + 34 MISRA C++:2023 checks = 156 total automotive checks*
 
 ## Implemented Checks
 
@@ -211,12 +211,33 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 ### MISRA C++:2023 Checks
 | Check ID | MISRA Rule | Category | Description |
 |----------|------------|----------|-------------|
+| `automotive-cpp23-req-0.1` | 0.1 | Required | Implicit lambda capture prohibition |
+| `automotive-cpp23-req-6.2` | 6.2 | Required | Identifier shadowing detection |
+| `automotive-cpp23-req-6.4` | 6.4 | Required | Assignment in sub-expressions |
+| `automotive-cpp23-req-6.5` | 6.5 | Required | Floating-point loop counter prohibition |
+| `automotive-cpp23-req-6.7` | 6.7 | Required | Floating-point equality comparison |
+| `automotive-cpp23-req-7.11` | 7.11 | Required | Null pointer literal assignment |
+| `automotive-cpp23-req-9.2` | 9.2 | Required | Uninitialized auto variable |
 | `automotive-cpp23-req-9.3` | 9.3 | Required | Compound statement body required |
 | `automotive-cpp23-req-9.4` | 9.4 | Required | Switch minimum clauses |
+| `automotive-cpp23-req-9.5` | 9.5 | Required | Nested switch label prohibition |
+| `automotive-cpp23-req-9.6` | 9.6 | Required | Missing return value detection |
 | `automotive-cpp23-req-12.3` | 12.3 | Required | Union prohibition |
+| `automotive-cpp23-req-13.3` | 13.3 | Required | By-value parameter modification |
 | `automotive-cpp23-req-18.1` | 18.1 | Required | Exception prohibition |
+| `automotive-cpp23-req-19.3` | 19.3 | Required | realloc prohibition |
 | `automotive-cpp23-req-21.6` | 21.6 | Required | Dynamic memory prohibition |
 | `automotive-cpp23-req-21.10` | 21.10 | Required | <ctime> prohibition |
+
+### MISRA C:2025 Additional Checks (Phase 2)
+| Check ID | MISRA Rule | Category | Description |
+|----------|------------|----------|-------------|
+| `automotive-c23-req-12.5` | 12.5 | Required | sizeof on array parameter |
+| `automotive-c25-adv-8.17` | 8.17 | Advisory | Multiple alignment specifiers |
+| `automotive-c25-req-8.16` | 8.16 | Required | Zero alignment specification |
+| `automotive-c25-req-12.6` | 12.6 | Required | Atomic struct member access |
+| `automotive-c25-req-14.2` | 14.2 | Required | Well-formed for loop |
+| `automotive-c23-req-20.15` | 20.15 | Required | Reserved identifier #define/#undef |
 
 ## Rules Covered by Built-in Clang Warnings
 
@@ -267,11 +288,11 @@ See `docs/MISRA-GAP-ANALYSIS.md` for detailed analysis.
 
 ### MISRA C:2025 Missing Rules Summary
 
-**Missing Mandatory (9 rules):** 7.5, 9.7, 12.5, 17.9, 18.10, 19.1, 21.18, 21.22, 22.20
+**Missing Mandatory (6 rules):** 7.5, 9.7, 17.9, 18.10, 19.1, 21.18, 21.22, 22.20
 
-**Missing Required (35 rules):** 1.5, 2.2, 6.3, 8.6, 9.6, 12.6, 14.2, 16.1, 18.9, 19.3, 20.6, 20.7, 20.8, 20.9, 20.13, 20.15, 21.14, 21.23, 21.25, 21.26, 22.11, 22.13, 22.15, 22.16, 22.17, 22.18, 22.19, 23.4, 23.6, 23.8
+**Missing Required (28 rules):** 1.5, 2.2, 6.3, 8.6, 9.6, 16.1, 18.9, 19.3, 20.6, 20.7, 20.8, 20.9, 20.13, 21.14, 21.23, 21.25, 21.26, 22.11, 22.13, 22.15, 22.16, 22.17, 22.18, 22.19, 23.4, 23.6, 23.8
 
-**Missing Advisory (10 rules):** 8.13, 8.16, 8.17, 8.19, 17.11, 17.12, 23.1, 23.3, 23.5, 23.7
+**Missing Advisory (7 rules):** 8.13, 8.19, 17.11, 17.12, 23.1, 23.3, 23.5, 23.7
 
 **Missing Directives (2):** Dir 1.2, Dir 4.2
 
@@ -279,9 +300,9 @@ See `docs/MISRA-GAP-ANALYSIS.md` for detailed analysis.
 
 **Missing Mandatory (1 rule):** 25.5
 
-**Missing Required (34 rules):** 0.1, 0.3, 4.6, 5.7, 5.10, 5.13, 6.2, 6.4, 6.7, 7.0, 7.11, 8.7, 9.2, 9.5, 9.6, 10.1, 10.2, 10.4, 11.6, 12.2, 13.1, 13.3, 16.5, 17.8, 18.3, 19.1, 19.2, 19.3, 21.2, 22.3, 22.4, 28.3, 28.6, 30.0
+**Missing Required (22 rules):** 0.3, 4.6, 5.7, 5.10, 5.13, 7.0, 8.7, 10.1, 10.2, 10.4, 11.6, 12.2, 13.1, 16.5, 17.8, 18.3, 19.1, 19.2, 21.2, 22.3, 22.4, 28.3, 28.6, 30.0
 
-**Missing Advisory (21 rules):** 0.0, 0.2, 4.1, 5.0, 5.7, 6.0, 6.5, 6.8, 6.9, 8.0, 8.1, 8.18, 8.19, 8.20, 10.3, 11.3, 14.1, 16.6, 18.5, 19.0, 26.3
+**Missing Advisory (18 rules):** 0.0, 0.2, 4.1, 5.0, 5.7, 6.0, 6.8, 6.9, 8.0, 8.1, 8.18, 8.19, 8.20, 10.3, 14.1, 16.6, 18.5, 19.0, 26.3
 
 **Missing Directives (2):** Dir 0.3, Dir 5.7
 

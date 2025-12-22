@@ -24,7 +24,8 @@ void MissingElseCheck::check(const MatchFinder::MatchResult &Result) {
   const auto *MatchedDecl = Result.Nodes.getNodeAs<IfStmt>("ifStmt");
 
   if (MatchedDecl) {
-    diag(MatchedDecl->getThen()->getEndLoc(), "missing else statment");
+    diag(MatchedDecl->getThen()->getEndLoc(),
+         "if...else if chain should terminate with an else clause");
   }
 }
 

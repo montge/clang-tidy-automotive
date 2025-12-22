@@ -9,34 +9,34 @@
 // Violation Cases (should trigger warnings)
 //===----------------------------------------------------------------------===//
 
+// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: function has multiple return statements
 int bad_function1(int x) {
     if (x < 0) {
-        // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid multiple return statement
+        // CHECK-MESSAGES: :[[@LINE+1]]:9: note: return statement here
         return -1;
     }
-    // CHECK-MESSAGES: :[[@LINE+2]]:5: warning: avoid multiple return statement
-    // CHECK-MESSAGES: :[[@LINE-6]]:1: note: multiple return statement within function
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: note: return statement here
     return x;
 }
 
+// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: function has multiple return statements
 int bad_function2(int x) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: avoid multiple return statement
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: note: return statement here
     if (x == 0) return 0;
-    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: avoid multiple return statement
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: note: return statement here
     if (x == 1) return 1;
-    // CHECK-MESSAGES: :[[@LINE+2]]:5: warning: avoid multiple return statement
-    // CHECK-MESSAGES: :[[@LINE-6]]:1: note: multiple return statement within function
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: note: return statement here
     return x * 2;
 }
 
+// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: function has multiple return statements
 int early_return(int *ptr) {
     if (ptr == 0) {
-        // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid multiple return statement
+        // CHECK-MESSAGES: :[[@LINE+1]]:9: note: return statement here
         return -1;  // Early return for error
     }
     // Process...
-    // CHECK-MESSAGES: :[[@LINE+2]]:5: warning: avoid multiple return statement
-    // CHECK-MESSAGES: :[[@LINE-7]]:1: note: multiple return statement within function
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: note: return statement here
     return *ptr;
 }
 

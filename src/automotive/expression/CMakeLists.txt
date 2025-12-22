@@ -1,5 +1,6 @@
 
 add_automotive_component(clangTidyAutomotiveExpressionComponent
+  AvoidAtomicMemberAccessCheck.cpp
   AvoidAssignmentInExpressionCheck.cpp
   AvoidCharacterArithmeticCheck.cpp
   AvoidCompositeExpressionMismatchCheck.cpp

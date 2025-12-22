@@ -39,7 +39,20 @@ void AvoidPartialArrayInitCheck::check(const MatchFinder::MatchResult &Result) {
   }
 
   uint64_t ArraySize = ArrayTy->getSize().getZExtValue();
-  unsigned InitCount = Init->getNumInits();
+
+  // Use syntactic form to get actual written initializers
+  // (semantic form may include implicit value inits for gaps)
+  const InitListExpr *SyntacticInit =
+      Init->isSyntacticForm() ? Init : Init->getSyntacticForm();
+  if (!SyntacticInit)
+    SyntacticInit = Init;
+
+  unsigned InitCount = SyntacticInit->getNumInits();
+
+  // Skip empty initializer {} - this is explicit zero initialization
+  if (InitCount == 0) {
+    return;
+  }
 
   if (InitCount < ArraySize) {
     diag(Var->getLocation(), "avoid partially initialized array");

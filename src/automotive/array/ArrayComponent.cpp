@@ -15,6 +15,7 @@
 #include "AvoidPointerArithmeticCheck.h"
 #include "AvoidVariableLengthArrayCheck.h"
 #include "MissingExternalArraySizeCheck.h"
+#include "PartialArrayInitCheck.h"
 
 namespace clang::tidy::automotive {
 
@@ -45,6 +46,9 @@ void ArrayComponent::addCheckFactories(
   // Rule 9.5 - Designated initializer bounds (Required)
   CheckFactories.registerCheck<AvoidDesignatedInitializerBoundsCheck>(
       "automotive-c23-req-9.5");
+
+  // Rule 9.7 - Partial array initialization (Advisory)
+  CheckFactories.registerCheck<PartialArrayInitCheck>("automotive-c25-adv-9.7");
 }
 
 } // namespace clang::tidy::automotive

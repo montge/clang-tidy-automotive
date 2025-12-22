@@ -33,6 +33,10 @@ void AvoidEssentialTypeMismatchCheck::check(
   if (Result.SourceManager->isInSystemHeader(BinOp->getOperatorLoc()))
     return;
 
+  // Skip if in macro
+  if (BinOp->getOperatorLoc().isMacroID())
+    return;
+
   const Expr *LHS = BinOp->getLHS()->IgnoreParenImpCasts();
   const Expr *RHS = BinOp->getRHS()->IgnoreParenImpCasts();
 
@@ -45,11 +49,61 @@ void AvoidEssentialTypeMismatchCheck::check(
   if (LHSET == EssentialType::Other || RHSET == EssentialType::Other)
     return;
 
-  // Check for signed/unsigned mismatch
+  // MISRA C:2012 Rule 10.4 - all essential type mismatches should be flagged
+  // The following combinations are problematic:
+  // - Signed vs Unsigned
+  // - Integer vs Floating
+  // - Character vs Integer
+  // - Boolean vs anything non-boolean
+  // - Enum vs anything non-enum
+
+  bool isMismatch = false;
+
+  // Signed/unsigned mismatch
   if ((LHSET == EssentialType::SignedInt &&
        RHSET == EssentialType::UnsignedInt) ||
       (LHSET == EssentialType::UnsignedInt &&
        RHSET == EssentialType::SignedInt)) {
+    isMismatch = true;
+  }
+
+  // Integer/floating mismatch
+  if ((LHSET == EssentialType::FloatingPoint &&
+       (RHSET == EssentialType::SignedInt ||
+        RHSET == EssentialType::UnsignedInt)) ||
+      (RHSET == EssentialType::FloatingPoint &&
+       (LHSET == EssentialType::SignedInt ||
+        LHSET == EssentialType::UnsignedInt))) {
+    isMismatch = true;
+  }
+
+  // Character vs numeric type mismatch
+  if ((LHSET == EssentialType::Character &&
+       (RHSET == EssentialType::SignedInt ||
+        RHSET == EssentialType::UnsignedInt ||
+        RHSET == EssentialType::FloatingPoint)) ||
+      (RHSET == EssentialType::Character &&
+       (LHSET == EssentialType::SignedInt ||
+        LHSET == EssentialType::UnsignedInt ||
+        LHSET == EssentialType::FloatingPoint))) {
+    isMismatch = true;
+  }
+
+  // Boolean vs non-boolean (except logical operators which expect booleans)
+  if (!BinOp->isLogicalOp()) {
+    if ((LHSET == EssentialType::Boolean && RHSET != EssentialType::Boolean) ||
+        (RHSET == EssentialType::Boolean && LHSET != EssentialType::Boolean)) {
+      isMismatch = true;
+    }
+  }
+
+  // Enum vs non-enum (except same enum or comparison with constant)
+  if ((LHSET == EssentialType::Enum && RHSET != EssentialType::Enum) ||
+      (RHSET == EssentialType::Enum && LHSET != EssentialType::Enum)) {
+    isMismatch = true;
+  }
+
+  if (isMismatch) {
     diag(BinOp->getOperatorLoc(),
          "operands have different essential type categories: '%0' and '%1'")
         << getEssentialTypeName(LHSET) << getEssentialTypeName(RHSET);

@@ -49,12 +49,14 @@ public:
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 
 private:
-  /// Checks for invalid escape sequences in a string.
-  /// \param StartLoc The starting location of the string literal.
-  /// \param EndLoc The ending location of the string literal.
-  /// \param Str The string content to check.
-  void checkEscapeSequences(SourceLocation StartLoc, SourceLocation EndLoc,
-                            StringRef Str);
+  /// Checks source text for problematic escape sequences.
+  /// Detects octal escapes followed by digits (ambiguous) and
+  /// overly long hex escapes that may overflow.
+  /// \param Loc The location for diagnostics.
+  /// \param Source The raw source text of the string literal.
+  /// \param SM The source manager.
+  void checkSourceForProblematicEscapes(SourceLocation Loc, StringRef Source,
+                                        const SourceManager &SM);
 };
 
 } // namespace clang::tidy::automotive

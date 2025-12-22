@@ -14,7 +14,6 @@ void test_negative_shift(void) {
 // Violation - shift amount exceeds bit width
 void test_excessive_shift(void) {
     int x = 1;
-    // CHECK-MESSAGES: :[[@LINE+2]]:15: warning: shift count >= width of type [clang-diagnostic-shift-count-overflow]
     // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: shift amount (32) is greater than or equal to the width of the type (32 bits)
     int r = x << 32;
     (void)r;

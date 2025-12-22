@@ -9,4 +9,5 @@ add_automotive_component(clangTidyAutomotiveArrayComponent
   AvoidPointerArithmeticCheck.cpp
   AvoidVariableLengthArrayCheck.cpp
   MissingExternalArraySizeCheck.cpp
+  PartialArrayInitCheck.cpp
 )

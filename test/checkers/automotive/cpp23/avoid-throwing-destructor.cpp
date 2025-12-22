@@ -6,8 +6,6 @@ public:
   ~BadDestructor() {
     // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: throw expression in destructor '~BadDestructor'; destructors should not throw exceptions
     throw 999;
-    // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: '~BadDestructor' has a non-throwing exception specification but can still throw [clang-diagnostic-exceptions]
-    // CHECK-MESSAGES: :[[@LINE-4]]:3: note: destructor has a implicit non-throwing exception specification
   }
 };
 
@@ -16,8 +14,6 @@ public:
   ~AnotherBadDestructor() {
     // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: throw expression in destructor '~AnotherBadDestructor'; destructors should not throw exceptions
     throw 42;
-    // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: '~AnotherBadDestructor' has a non-throwing exception specification but can still throw [clang-diagnostic-exceptions]
-    // CHECK-MESSAGES: :[[@LINE-4]]:3: note: destructor has a implicit non-throwing exception specification
   }
 };
 

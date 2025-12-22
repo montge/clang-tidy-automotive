@@ -1,4 +1,4 @@
-// RUN: %check_clang_tidy %s automotive-cpp23-req-13.3 %t
+// RUN: %check_clang_tidy %s automotive-cpp23-req-13.3 %t -- -- -std=c++11
 // Test for automotive-cpp23-req-13.3
 // Related MISRA C++:2023 Rule: 13.3
 
@@ -9,33 +9,33 @@
 //===----------------------------------------------------------------------===//
 
 void test_assignment(int x) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: assignment of parameter 'x' passed by value
+    // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: assignment of parameter 'x' passed by value; modifications do not affect the caller
     x = 10;
 }
 
 void test_compound_assignment(int x) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: assignment of parameter 'x' passed by value
+    // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: assignment of parameter 'x' passed by value; modifications do not affect the caller
     x += 5;
 }
 
 void test_increment(int x) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: increment of parameter 'x' passed by value
+    // CHECK-MESSAGES: :[[@LINE+1]]:6: warning: increment of parameter 'x' passed by value; modifications do not affect the caller
     x++;
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: increment of parameter 'x' passed by value
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: increment of parameter 'x' passed by value; modifications do not affect the caller
     ++x;
 }
 
 void test_decrement(int x) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: decrement of parameter 'x' passed by value
+    // CHECK-MESSAGES: :[[@LINE+1]]:6: warning: decrement of parameter 'x' passed by value; modifications do not affect the caller
     x--;
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: decrement of parameter 'x' passed by value
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: decrement of parameter 'x' passed by value; modifications do not affect the caller
     --x;
 }
 
 void test_multiple_params(int a, int b) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: assignment of parameter 'a' passed by value
+    // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: assignment of parameter 'a' passed by value; modifications do not affect the caller
     a = 1;
-    // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: assignment of parameter 'b' passed by value
+    // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: assignment of parameter 'b' passed by value; modifications do not affect the caller
     b = 2;
 }
 
