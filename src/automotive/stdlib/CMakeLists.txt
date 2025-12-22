@@ -14,6 +14,7 @@ add_clang_library(clangTidyAutomotiveStdlibComponent STATIC
   AvoidTgmathHeaderCheck.cpp
   AvoidTimeHeaderCheck.cpp
   AvoidWcharHeaderCheck.cpp
+  ErrnoTestingCheck.cpp
   ExitCheck.cpp
   StdlibComponent.cpp
 )
