@@ -14,7 +14,10 @@
 #include "AvoidTentativeDefinitionInHeaderCheck.h"
 #include "AvoidUninitializedReadCheck.h"
 #include "AvoidZeroAlignmentCheck.h"
+#include "DuplicateExternalIdentifierCheck.h"
+#include "ExternalSymbolCollectorCheck.h"
 #include "MissingStaticForInternalCheck.h"
+#include "MultipleExternalDefinitionCheck.h"
 
 namespace clang::tidy::automotive {
 
@@ -51,6 +54,18 @@ void StorageComponent::addCheckFactories(
   // Rule 8.17 - Multiple alignment specifiers (Advisory)
   CheckFactories.registerCheck<AvoidMultipleAlignmentCheck>(
       "automotive-c25-adv-8.17");
+
+  // External symbol collector for CTU analysis (Pass 1)
+  CheckFactories.registerCheck<ExternalSymbolCollectorCheck>(
+      "automotive-collect-external-symbols");
+
+  // Rule 5.8 - Unique external identifiers (Required)
+  CheckFactories.registerCheck<DuplicateExternalIdentifierCheck>(
+      "automotive-c23-req-5.8");
+
+  // Rule 8.6 - Single external definition (Required)
+  CheckFactories.registerCheck<MultipleExternalDefinitionCheck>(
+      "automotive-c23-req-8.6");
 }
 
 } // namespace clang::tidy::automotive

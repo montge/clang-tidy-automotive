@@ -7,6 +7,9 @@ add_clang_library(clangTidyAutomotiveStorageComponent STATIC
   AvoidRestrictTypeCheck.cpp
   AvoidTentativeDefinitionInHeaderCheck.cpp
   AvoidUninitializedReadCheck.cpp
+  DuplicateExternalIdentifierCheck.cpp
+  ExternalSymbolCollectorCheck.cpp
   MissingStaticForInternalCheck.cpp
+  MultipleExternalDefinitionCheck.cpp
   StorageComponent.cpp
 )
