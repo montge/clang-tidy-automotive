@@ -14,6 +14,7 @@ add_automotive_component(clangTidyAutomotiveStdlibComponent
   AvoidTgmathHeaderCheck.cpp
   AvoidTimeHeaderCheck.cpp
   AvoidWcharHeaderCheck.cpp
+  ErrnoTestingCheck.cpp
   ExitCheck.cpp
   StdlibComponent.cpp
 )

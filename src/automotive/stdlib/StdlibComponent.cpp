@@ -20,6 +20,7 @@
 #include "AvoidTimeHeaderCheck.h"
 #include "AvoidWcharHeaderCheck.h"
 #include "AvoidstdlibsystemcallCheck.h"
+#include "ErrnoTestingCheck.h"
 #include "ExitCheck.h"
 
 namespace clang::tidy::automotive {
@@ -73,6 +74,10 @@ void StdlibComponent::addCheckFactories(
   // Rule 21.9 - bsearch/qsort prohibition (Required)
   CheckFactories.registerCheck<AvoidBsearchQsortCheck>(
       "automotive-c23-req-21.9");
+
+  // Rule 22.10 - errno testing (Required)
+  // errno shall only be tested after an errno-setting function
+  CheckFactories.registerCheck<ErrnoTestingCheck>("automotive-c23-req-22.10");
 }
 
 } // namespace clang::tidy::automotive
