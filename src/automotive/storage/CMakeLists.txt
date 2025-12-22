@@ -9,6 +9,7 @@ add_automotive_component(clangTidyAutomotiveStorageComponent
   AvoidUninitializedReadCheck.cpp
   DuplicateExternalIdentifierCheck.cpp
   ExternalSymbolCollectorCheck.cpp
+  MissingPriorDeclarationCheck.cpp
   MissingStaticForInternalCheck.cpp
   MultipleExternalDefinitionCheck.cpp
   StorageComponent.cpp

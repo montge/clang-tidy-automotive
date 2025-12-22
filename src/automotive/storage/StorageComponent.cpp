@@ -16,6 +16,7 @@
 #include "AvoidZeroAlignmentCheck.h"
 #include "DuplicateExternalIdentifierCheck.h"
 #include "ExternalSymbolCollectorCheck.h"
+#include "MissingPriorDeclarationCheck.h"
 #include "MissingStaticForInternalCheck.h"
 #include "MultipleExternalDefinitionCheck.h"
 
@@ -66,6 +67,10 @@ void StorageComponent::addCheckFactories(
   // Rule 8.6 - Single external definition (Required)
   CheckFactories.registerCheck<MultipleExternalDefinitionCheck>(
       "automotive-c23-req-8.6");
+
+  // Rule 8.4 - Prior declaration for external definitions (Required)
+  CheckFactories.registerCheck<MissingPriorDeclarationCheck>(
+      "automotive-c23-req-8.4");
 }
 
 } // namespace clang::tidy::automotive
