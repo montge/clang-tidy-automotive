@@ -36,9 +36,23 @@ AST_MATCHER(SwitchStmt, hasDefaultStmt) {
 }
 
 static bool isEssentiallyBooleanHelper(const Expr &Node) {
+  // Handle implicit casts - check for non-boolean to boolean conversions
+  // These are NOT essentially boolean per MISRA rules
+  if (const auto *Cast = dyn_cast<ImplicitCastExpr>(&Node)) {
+    CastKind CK = Cast->getCastKind();
+    // Pointer-to-boolean and integer-to-boolean casts are NOT essentially
+    // boolean - they rely on implicit conversion rules
+    if (CK == CK_PointerToBoolean || CK == CK_IntegralToBoolean ||
+        CK == CK_FloatingToBoolean || CK == CK_MemberPointerToBoolean) {
+      return false;
+    }
+    // For other casts (like LValueToRValue), check the sub-expression
+    return isEssentiallyBooleanHelper(*Cast->getSubExpr());
+  }
+
   QualType Type = Node.getType();
 
-  // Direct Boolean type check (_Bool in C99+).
+  // Direct Boolean type check (_Bool in C99+, bool in C++).
   if (Type->isBooleanType()) {
     return true;
   }
@@ -60,11 +74,6 @@ static bool isEssentiallyBooleanHelper(const Expr &Node) {
   // Recursively check the inner expression.
   if (const auto *Paren = dyn_cast<ParenExpr>(&Node)) {
     return isEssentiallyBooleanHelper(*Paren->getSubExpr());
-  }
-
-  // Handle implicit casts to boolean, such as (bool)x.
-  if (const auto *Cast = dyn_cast<ImplicitCastExpr>(&Node)) {
-    return isEssentiallyBooleanHelper(*Cast->getSubExpr());
   }
 
   // If none of the above conditions match, the expression is not essentially

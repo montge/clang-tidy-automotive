@@ -32,6 +32,16 @@ void UnusedParameterCheck::check(const MatchFinder::MatchResult &Result) {
   if (Result.SourceManager->isInSystemHeader(Func->getLocation()))
     return;
 
+  // Skip virtual method overrides - parameters are required by interface
+  if (const auto *Method = dyn_cast<CXXMethodDecl>(Func)) {
+    if (Method->isVirtual() || Method->size_overridden_methods() > 0)
+      return;
+  }
+
+  // Skip main function - argc/argv are often unused
+  if (Func->isMain())
+    return;
+
   // Check each parameter
   for (const ParmVarDecl *Param : Func->parameters()) {
     // Skip unnamed parameters - they're explicitly unused
