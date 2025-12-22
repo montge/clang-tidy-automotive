@@ -1,0 +1,4139 @@
+{
+  "version": "1.0.0",
+  "generated": "generate_traceability_matrix.py",
+  "statistics": {
+    "total_requirements": 405,
+    "total_checks": 181,
+    "mapped_checks": 83,
+    "c2025_requirements": 225,
+    "cpp2023_requirements": 180,
+    "status_counts": {
+      "implemented": 83,
+      "missing": 322,
+      "excluded": 0
+    }
+  },
+  "requirements": {
+    "misra-c-2025": {
+      "Dir_1_1": {
+        "file": "docs/requirements/misra-c-2025/Dir_1_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_1_2": {
+        "file": "docs/requirements/misra-c-2025/Dir_1_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_2_1": {
+        "file": "docs/requirements/misra-c-2025/Dir_2_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_3_1": {
+        "file": "docs/requirements/misra-c-2025/Dir_3_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_1": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_10": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_10.rst",
+        "check_ids": [
+          "automotive-c23-req-dir-4.10"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_11": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_11.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_12": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_12.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_13": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_13.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_14": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_14.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_15": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_15.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_2": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_3": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_4": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_5": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_6": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_6.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_7": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_7.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_8": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_8.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_4_9": {
+        "file": "docs/requirements/misra-c-2025/Dir_4_9.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_5_1": {
+        "file": "docs/requirements/misra-c-2025/Dir_5_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_5_2": {
+        "file": "docs/requirements/misra-c-2025/Dir_5_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_5_3": {
+        "file": "docs/requirements/misra-c-2025/Dir_5_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_10_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_10_1.rst",
+        "check_ids": [
+          "automotive-c23-req-10.1"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_10_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_10_2.rst",
+        "check_ids": [
+          "automotive-c23-req-10.2"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_10_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_10_3.rst",
+        "check_ids": [
+          "automotive-c23-req-10.3"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_10_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_10_4.rst",
+        "check_ids": [
+          "automotive-c23-req-10.4"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_10_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_10_5.rst",
+        "check_ids": [
+          "automotive-c23-adv-10.5"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_10_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_10_6.rst",
+        "check_ids": [
+          "automotive-c23-req-10.6"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_10_7": {
+        "file": "docs/requirements/misra-c-2025/Rule_10_7.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_10_8": {
+        "file": "docs/requirements/misra-c-2025/Rule_10_8.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_11_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_11_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_11_10": {
+        "file": "docs/requirements/misra-c-2025/Rule_11_10.rst",
+        "check_ids": [
+          "automotive-c23-req-11.10"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_11_11": {
+        "file": "docs/requirements/misra-c-2025/Rule_11_11.rst",
+        "check_ids": [
+          "automotive-c23-req-11.11"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_11_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_11_2.rst",
+        "check_ids": [
+          "automotive-c23-req-11.2"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_11_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_11_3.rst",
+        "check_ids": [
+          "automotive-c23-req-11.3"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_11_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_11_4.rst",
+        "check_ids": [
+          "automotive-c23-adv-11.4"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_11_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_11_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_11_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_11_6.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_11_7": {
+        "file": "docs/requirements/misra-c-2025/Rule_11_7.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_11_8": {
+        "file": "docs/requirements/misra-c-2025/Rule_11_8.rst",
+        "check_ids": [
+          "automotive-c23-req-11.8"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_11_9": {
+        "file": "docs/requirements/misra-c-2025/Rule_11_9.rst",
+        "check_ids": [
+          "automotive-c23-req-11.9"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_12_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_12_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_12_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_12_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_12_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_12_4.rst",
+        "check_ids": [
+          "automotive-c23-adv-12.4"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_12_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_12_5.rst",
+        "check_ids": [
+          "automotive-c23-req-12.5"
+        ],
+        "status": "implemented",
+        "category": "mandatory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_12_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_12_6.rst",
+        "check_ids": [
+          "automotive-c25-req-12.6"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_13_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_13_1.rst",
+        "check_ids": [
+          "automotive-c23-req-13.1"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_13_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_13_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_13_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_13_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_13_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_13_4.rst",
+        "check_ids": [
+          "automotive-c23-adv-13.4"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_13_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_13_5.rst",
+        "check_ids": [
+          "automotive-c23-req-13.5"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_13_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_13_6.rst",
+        "check_ids": [
+          "automotive-c23-mand-13.6"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_14_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_14_1.rst",
+        "check_ids": [
+          "automotive-c23-req-14.1"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_14_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_14_2.rst",
+        "check_ids": [
+          "automotive-c25-req-14.2"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_14_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_14_3.rst",
+        "check_ids": [
+          "automotive-c23-req-14.3"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_14_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_14_4.rst",
+        "check_ids": [
+          "automotive-c23-req-14.4"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_15_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_15_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_15_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_15_2.rst",
+        "check_ids": [
+          "automotive-c23-req-15.2"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_15_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_15_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_15_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_15_4.rst",
+        "check_ids": [
+          "automotive-c23-adv-15.4"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_15_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_15_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_15_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_15_6.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_15_7": {
+        "file": "docs/requirements/misra-c-2025/Rule_15_7.rst",
+        "check_ids": [
+          "automotive-c25-req-15.7"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_16_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_16_1.rst",
+        "check_ids": [
+          "automotive-c25-req-16.1"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_16_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_16_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_16_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_16_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_16_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_16_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_16_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_16_5.rst",
+        "check_ids": [
+          "automotive-c23-req-16.5"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_16_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_16_6.rst",
+        "check_ids": [
+          "automotive-c23-req-16.6"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_16_7": {
+        "file": "docs/requirements/misra-c-2025/Rule_16_7.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_17_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_17_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_17_10": {
+        "file": "docs/requirements/misra-c-2025/Rule_17_10.rst",
+        "check_ids": [
+          "automotive-c23-req-17.10"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_17_11": {
+        "file": "docs/requirements/misra-c-2025/Rule_17_11.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_17_12": {
+        "file": "docs/requirements/misra-c-2025/Rule_17_12.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_17_13": {
+        "file": "docs/requirements/misra-c-2025/Rule_17_13.rst",
+        "check_ids": [
+          "automotive-c23-req-17.13"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_17_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_17_2.rst",
+        "check_ids": [
+          "automotive-c23-req-17.2"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_17_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_17_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_17_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_17_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_17_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_17_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_17_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_17_6.rst",
+        "check_ids": [
+          "automotive-c23-mand-17.6"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_17_7": {
+        "file": "docs/requirements/misra-c-2025/Rule_17_7.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_17_8": {
+        "file": "docs/requirements/misra-c-2025/Rule_17_8.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_17_9": {
+        "file": "docs/requirements/misra-c-2025/Rule_17_9.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_18_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_18_1.rst",
+        "check_ids": [
+          "automotive-c23-req-18.1"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_18_10": {
+        "file": "docs/requirements/misra-c-2025/Rule_18_10.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_18_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_18_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_18_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_18_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_18_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_18_4.rst",
+        "check_ids": [
+          "automotive-c23-adv-18.4"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_18_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_18_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_18_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_18_6.rst",
+        "check_ids": [
+          "automotive-c23-req-18.6"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_18_7": {
+        "file": "docs/requirements/misra-c-2025/Rule_18_7.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_18_8": {
+        "file": "docs/requirements/misra-c-2025/Rule_18_8.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_18_9": {
+        "file": "docs/requirements/misra-c-2025/Rule_18_9.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_19_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_19_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_19_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_19_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_19_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_19_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_1_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_1_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_1_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_1_2.rst",
+        "check_ids": [
+          "automotive-c23-adv-1.2"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_1_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_1_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_1_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_1_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_1_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_1_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_20_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_20_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_20_10": {
+        "file": "docs/requirements/misra-c-2025/Rule_20_10.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_20_11": {
+        "file": "docs/requirements/misra-c-2025/Rule_20_11.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_20_13": {
+        "file": "docs/requirements/misra-c-2025/Rule_20_13.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_20_14": {
+        "file": "docs/requirements/misra-c-2025/Rule_20_14.rst",
+        "check_ids": [
+          "automotive-c23-req-20.14"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_20_15": {
+        "file": "docs/requirements/misra-c-2025/Rule_20_15.rst",
+        "check_ids": [
+          "automotive-c23-req-20.15"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_20_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_20_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_20_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_20_3.rst",
+        "check_ids": [
+          "automotive-c23-req-20.3"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_20_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_20_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_20_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_20_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_20_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_20_6.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_20_7": {
+        "file": "docs/requirements/misra-c-2025/Rule_20_7.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_20_8": {
+        "file": "docs/requirements/misra-c-2025/Rule_20_8.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_20_9": {
+        "file": "docs/requirements/misra-c-2025/Rule_20_9.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_21_10": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_10.rst",
+        "check_ids": [
+          "automotive-c23-req-21.10"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_11": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_11.rst",
+        "check_ids": [
+          "automotive-c23-req-21.11"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_12": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_12.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_13": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_13.rst",
+        "check_ids": [
+          "automotive-c23-mand-21.13"
+        ],
+        "status": "implemented",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_21_14": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_14.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_21_16": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_16.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_17": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_17.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_21_18": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_18.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_21_19": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_19.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_21_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_2.rst",
+        "check_ids": [
+          "automotive-c23-req-21.2"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_21_20": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_20.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_21_21": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_21.rst",
+        "check_ids": [
+          "automotive-c23-req-21.21"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_22": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_22.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_23": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_23.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_24": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_24.rst",
+        "check_ids": [
+          "automotive-c23-req-21.24"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_25": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_25.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_26": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_26.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_21_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_3.rst",
+        "check_ids": [
+          "automotive-c23-req-21.3"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_6.rst",
+        "check_ids": [
+          "automotive-c23-req-21.6"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_7": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_7.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_8": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_8.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_9": {
+        "file": "docs/requirements/misra-c-2025/Rule_21_9.rst",
+        "check_ids": [
+          "automotive-c23-req-21.9"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_22_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_10": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_10.rst",
+        "check_ids": [
+          "automotive-c23-req-22.10"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_11": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_11.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_12": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_12.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_13": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_13.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_22_14": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_14.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_15": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_15.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_16": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_16.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_17": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_17.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_18": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_18.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_19": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_19.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_20": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_20.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_6.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_7": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_7.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_8": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_8.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_22_9": {
+        "file": "docs/requirements/misra-c-2025/Rule_22_9.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_23_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_23_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_23_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_23_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_23_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_23_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_23_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_23_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_23_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_23_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_23_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_23_6.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_23_7": {
+        "file": "docs/requirements/misra-c-2025/Rule_23_7.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_23_8": {
+        "file": "docs/requirements/misra-c-2025/Rule_23_8.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_2_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_2_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_2_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_2_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_2_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_2_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_2_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_2_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_2_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_2_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_2_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_2_6.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_2_7": {
+        "file": "docs/requirements/misra-c-2025/Rule_2_7.rst",
+        "check_ids": [
+          "automotive-c23-adv-2.7"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_2_8": {
+        "file": "docs/requirements/misra-c-2025/Rule_2_8.rst",
+        "check_ids": [
+          "automotive-c23-adv-2.8"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_3_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_3_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_3_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_3_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_4_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_4_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_4_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_4_2.rst",
+        "check_ids": [
+          "automotive-c23-adv-4.2"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_5_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_5_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_5_10": {
+        "file": "docs/requirements/misra-c-2025/Rule_5_10.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_5_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_5_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_5_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_5_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_5_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_5_4.rst",
+        "check_ids": [
+          "automotive-c23-req-5.4"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_5_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_5_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_5_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_5_6.rst",
+        "check_ids": [
+          "automotive-c23-req-5.6"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_5_7": {
+        "file": "docs/requirements/misra-c-2025/Rule_5_7.rst",
+        "check_ids": [
+          "automotive-c23-req-5.7"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_5_8": {
+        "file": "docs/requirements/misra-c-2025/Rule_5_8.rst",
+        "check_ids": [
+          "automotive-c23-req-5.8"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_5_9": {
+        "file": "docs/requirements/misra-c-2025/Rule_5_9.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_6_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_6_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_6_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_7_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_7_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_7_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_7_2.rst",
+        "check_ids": [
+          "automotive-c23-req-7.2"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_7_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_7_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_7_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_7_4.rst",
+        "check_ids": [
+          "automotive-c23-req-7.4"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_7_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_7_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_7_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_7_6.rst",
+        "check_ids": [
+          "automotive-c23-req-7.6"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_10": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_10.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_11": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_11.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_12": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_12.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_13": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_13.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_8_14": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_14.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_15": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_15.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_16": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_16.rst",
+        "check_ids": [
+          "automotive-c25-req-8.16"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_17": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_17.rst",
+        "check_ids": [
+          "automotive-c25-adv-8.17"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_18": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_18.rst",
+        "check_ids": [
+          "automotive-c23-req-8.18"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_19": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_19.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_6.rst",
+        "check_ids": [
+          "automotive-c23-req-8.6"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_7": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_7.rst",
+        "check_ids": [
+          "automotive-c23-adv-8.7"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_8_8": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_8.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_9": {
+        "file": "docs/requirements/misra-c-2025/Rule_8_9.rst",
+        "check_ids": [
+          "automotive-c23-adv-8.9"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_9_1": {
+        "file": "docs/requirements/misra-c-2025/Rule_9_1.rst",
+        "check_ids": [
+          "automotive-c23-req-9.1"
+        ],
+        "status": "implemented",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_9_2": {
+        "file": "docs/requirements/misra-c-2025/Rule_9_2.rst",
+        "check_ids": [
+          "automotive-c23-req-9.2"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_9_3": {
+        "file": "docs/requirements/misra-c-2025/Rule_9_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_9_4": {
+        "file": "docs/requirements/misra-c-2025/Rule_9_4.rst",
+        "check_ids": [
+          "automotive-c23-req-9.4"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_9_5": {
+        "file": "docs/requirements/misra-c-2025/Rule_9_5.rst",
+        "check_ids": [
+          "automotive-c23-req-9.5"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_9_6": {
+        "file": "docs/requirements/misra-c-2025/Rule_9_6.rst",
+        "check_ids": [
+          "automotive-c25-req-9.6"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_9_7": {
+        "file": "docs/requirements/misra-c-2025/Rule_9_7.rst",
+        "check_ids": [
+          "automotive-c25-adv-9.7"
+        ],
+        "status": "implemented",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "index": {
+        "file": "docs/requirements/misra-c-2025/index.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "unknown",
+        "decidability": "unknown",
+        "notes": ""
+      }
+    },
+    "misra-cpp-2023": {
+      "Dir_0_3_1": {
+        "file": "docs/requirements/misra-cpp-2023/Dir_0_3_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_0_3_2": {
+        "file": "docs/requirements/misra-cpp-2023/Dir_0_3_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_15_8_1": {
+        "file": "docs/requirements/misra-cpp-2023/Dir_15_8_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Dir_5_7_2": {
+        "file": "docs/requirements/misra-cpp-2023/Dir_5_7_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_0_0_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_0_0_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_0_0_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_0_0_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_0_1_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_0_1_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_0_1_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_0_1_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_0_2_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_0_2_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_0_2_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_0_2_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_0_2_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_0_2_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_0_2_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_0_2_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_10_0_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_10_0_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_10_1_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_10_1_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_10_1_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_10_1_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_10_2_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_10_2_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_10_2_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_10_2_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_10_2_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_10_2_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_10_3_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_10_3_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_10_4_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_10_4_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_11_3_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_11_3_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_11_3_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_11_3_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_11_6_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_11_6_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_11_6_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_11_6_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_11_6_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_11_6_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_12_2_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_12_2_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_12_2_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_12_2_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_12_2_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_12_2_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_12_3_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_12_3_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_13_1_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_13_1_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_13_1_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_13_1_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_13_3_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_13_3_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_13_3_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_13_3_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_13_3_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_13_3_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_13_3_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_13_3_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_14_1_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_14_1_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_15_0_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_15_0_1.rst",
+        "check_ids": [
+          "automotive-cpp23-req-15.0.1"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_15_0_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_15_0_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_15_1_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_15_1_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_15_1_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_15_1_2.rst",
+        "check_ids": [
+          "automotive-cpp23-req-15.1.2"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_15_1_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_15_1_3.rst",
+        "check_ids": [
+          "automotive-cpp23-req-15.1.3"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_15_1_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_15_1_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_15_1_5": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_15_1_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_16_5_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_16_5_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_16_5_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_16_5_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_16_6_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_16_6_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_17_8_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_17_8_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_18_1_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_18_1_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_18_1_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_18_1_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_18_3_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_18_3_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_18_3_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_18_3_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_18_3_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_18_3_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_18_4_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_18_4_1.rst",
+        "check_ids": [
+          "automotive-cpp23-req-18.4.1"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_18_5_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_18_5_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_18_5_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_18_5_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_19_0_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_0_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_19_0_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_0_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_19_0_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_0_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_19_0_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_0_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_19_1_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_1_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_19_1_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_1_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_19_1_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_1_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_19_2_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_2_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_19_2_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_2_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_19_2_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_2_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_19_3_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_3_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_19_3_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_3_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_19_3_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_3_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_19_3_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_3_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_19_3_5": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_3_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_19_6_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_19_6_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_10_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_21_10_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_21_10_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_21_10_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_21_10_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_21_10_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_21_2_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_21_2_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_2_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_21_2_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_2_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_21_2_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_2_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_21_2_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_21_6_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_21_6_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_21_6_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_21_6_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_21_6_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_21_6_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_21_6_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_21_6_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_21_6_5": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_21_6_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_22_3_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_22_3_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_22_4_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_22_4_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_23_11_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_23_11_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_24_5_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_24_5_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_24_5_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_24_5_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_25_5_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_25_5_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_25_5_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_25_5_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_25_5_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_25_5_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_26_3_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_26_3_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_28_3_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_28_3_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_28_6_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_28_6_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_28_6_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_28_6_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_28_6_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_28_6_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_28_6_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_28_6_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_30_0_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_30_0_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_30_0_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_30_0_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_4_1_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_4_1_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_4_1_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_4_1_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_4_1_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_4_1_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_4_6_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_4_6_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_5_0_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_5_0_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_5_10_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_5_10_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_5_13_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_5_13_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_5_13_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_5_13_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_5_13_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_5_13_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_5_13_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_5_13_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_5_13_5": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_5_13_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_5_13_6": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_5_13_6.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_5_13_7": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_5_13_7.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_5_7_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_5_7_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_5_7_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_5_7_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_0_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_0_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_0_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_0_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_6_0_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_0_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_0_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_0_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_2_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_2_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_2_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_2_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_2_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_2_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_2_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_2_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_4_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_4_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_4_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_4_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_4_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_4_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_5_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_5_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_5_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_5_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_7_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_7_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_7_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_7_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_8_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_8_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_6_8_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_8_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_8_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_8_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_8_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_8_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_9_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_9_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_6_9_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_6_9_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_7_0_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_7_0_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_7_0_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_7_0_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_7_0_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_7_0_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_7_0_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_7_0_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_7_0_5": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_7_0_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_7_0_6": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_7_0_6.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_7_11_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_7_11_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_7_11_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_7_11_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_7_11_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_7_11_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_8_0_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_0_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_14_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_14_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_8_18_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_18_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "mandatory",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_8_18_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_18_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_19_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_19_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_1_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_1_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_1_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_1_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_20_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_20_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_8_2_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_2_1.rst",
+        "check_ids": [
+          "automotive-cpp23-req-8.2.1"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_2_10": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_2_10.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_8_2_11": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_2_11.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_2_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_2_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_2_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_2_3.rst",
+        "check_ids": [
+          "automotive-cpp23-req-8.2.3"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_2_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_2_4.rst",
+        "check_ids": [
+          "automotive-cpp23-req-8.2.4"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_2_5": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_2_5.rst",
+        "check_ids": [
+          "automotive-cpp23-adv-8.2.5"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_2_6": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_2_6.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_2_7": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_2_7.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_2_8": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_2_8.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_2_9": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_2_9.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_8_3_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_3_1.rst",
+        "check_ids": [
+          "automotive-cpp23-req-8.3.1"
+        ],
+        "status": "implemented",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_3_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_3_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_8_7_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_7_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_8_7_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_7_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_8_9_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_8_9_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "undecidable",
+        "notes": ""
+      },
+      "Rule_9_2_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_9_2_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_9_3_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_9_3_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_9_4_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_9_4_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_9_4_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_9_4_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_9_5_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_9_5_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_9_5_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_9_5_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_9_6_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_9_6_1.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "advisory",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_9_6_2": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_9_6_2.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_9_6_3": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_9_6_3.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "Rule_9_6_4": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_9_6_4.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "unknown",
+        "notes": ""
+      },
+      "Rule_9_6_5": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_9_6_5.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": ""
+      },
+      "index": {
+        "file": "docs/requirements/misra-cpp-2023/index.rst",
+        "check_ids": [],
+        "status": "missing",
+        "category": "unknown",
+        "decidability": "unknown",
+        "notes": ""
+      }
+    }
+  },
+  "checks": {
+    "automotive-c23-req-21.2": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_21_2"
+      ]
+    },
+    "automotive-c23-adv-8.9": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_8_9"
+      ]
+    },
+    "automotive-c23-req-9.1": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_9_1"
+      ]
+    },
+    "automotive-avoid-restrict-type": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-adv-8.7": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_8_7"
+      ]
+    },
+    "automotive-c23-req-8.18": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_8_18"
+      ]
+    },
+    "automotive-c25-req-8.16": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_8_16"
+      ]
+    },
+    "automotive-c25-adv-8.17": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_8_17"
+      ]
+    },
+    "automotive-collect-external-symbols": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-req-5.8": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_5_8"
+      ]
+    },
+    "automotive-c23-req-8.6": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_8_6"
+      ]
+    },
+    "automotive-c23-req-8.4": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-stdarg-header": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-setjmp-header": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-signal-header": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-ascii-to-number": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-stdlib-exit": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-stdlib-system": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-stdlib-rand": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-req-21.24": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_21_24"
+      ]
+    },
+    "automotive-c23-req-21.3": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_21_3"
+      ]
+    },
+    "automotive-c23-req-21.6": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_21_6"
+      ]
+    },
+    "automotive-c23-req-21.10": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_21_10"
+      ]
+    },
+    "automotive-c23-req-21.21": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_21_21"
+      ]
+    },
+    "automotive-c23-req-21.11": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_21_11"
+      ]
+    },
+    "automotive-c23-mand-21.13": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_21_13"
+      ]
+    },
+    "automotive-c23-req-21.9": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_21_9"
+      ]
+    },
+    "automotive-c23-req-22.10": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_22_10"
+      ]
+    },
+    "automotive-avoid-union": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-req-5.7": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_5_7"
+      ]
+    },
+    "automotive-c23-req-5.6": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_5_6"
+      ]
+    },
+    "automotive-implicit-int": {
+      "mapped_requirements": []
+    },
+    "automotive-unique-enum-value": {
+      "mapped_requirements": []
+    },
+    "automotive-unused-type": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-req-9.2": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_9_2"
+      ]
+    },
+    "automotive-c23-adv-dir-4.8": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-req-11.10": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_11_10"
+      ]
+    },
+    "automotive-c25-req-9.6": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_9_6"
+      ]
+    },
+    "automotive-c23-req-10.1": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_10_1"
+      ]
+    },
+    "automotive-c23-req-10.2": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_10_2"
+      ]
+    },
+    "automotive-c23-req-10.3": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_10_3"
+      ]
+    },
+    "automotive-c23-req-10.4": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_10_4"
+      ]
+    },
+    "automotive-c23-adv-10.5": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_10_5"
+      ]
+    },
+    "automotive-c23-req-10.6": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_10_6"
+      ]
+    },
+    "automotive-c23-adv-12.4": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_12_4"
+      ]
+    },
+    "automotive-c23-req-13.1": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_13_1"
+      ]
+    },
+    "automotive-c23-adv-13.4": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_13_4"
+      ]
+    },
+    "automotive-c23-req-13.5": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_13_5"
+      ]
+    },
+    "automotive-c23-mand-13.6": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_13_6"
+      ]
+    },
+    "automotive-c23-req-12.5": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_12_5"
+      ]
+    },
+    "automotive-c23-req-14.3": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_14_3"
+      ]
+    },
+    "automotive-c23-req-14.4": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_14_4"
+      ]
+    },
+    "automotive-c25-req-12.6": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_12_6"
+      ]
+    },
+    "automotive-c23-req-14.1": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_14_1"
+      ]
+    },
+    "automotive-c23-req-17.2": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_17_2"
+      ]
+    },
+    "automotive-c12-req-14.1": {
+      "mapped_requirements": []
+    },
+    "automotive-unused-label": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-goto": {
+      "mapped_requirements": []
+    },
+    "automotive-forward-goto-label": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-req-15.2": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_15_2"
+      ]
+    },
+    "automotive-missing-break-in-case": {
+      "mapped_requirements": []
+    },
+    "automotive-missing-default-in-switch": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-req-16.5": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_16_5"
+      ]
+    },
+    "automotive-avoid-boolean-in-switch": {
+      "mapped_requirements": []
+    },
+    "automotive-x-req-16.2": {
+      "mapped_requirements": []
+    },
+    "automotive-missing-compound": {
+      "mapped_requirements": []
+    },
+    "automotive-missing-else": {
+      "mapped_requirements": []
+    },
+    "automotive-c25-req-15.7": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_15_7"
+      ]
+    },
+    "automotive-c23-adv-15.4": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_15_4"
+      ]
+    },
+    "automotive-c23-req-16.6": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_16_6"
+      ]
+    },
+    "automotive-c25-req-14.2": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_14_2"
+      ]
+    },
+    "automotive-c25-req-16.1": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_16_1"
+      ]
+    },
+    "automotive-avoid-multiple-return-stmt": {
+      "mapped_requirements": []
+    },
+    "automotive-missing-return-value-handling": {
+      "mapped_requirements": []
+    },
+    "automotive-missing-return-void": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-macro-named-as-ckeyword": {
+      "mapped_requirements": []
+    },
+    "automotive-unused-macro": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-undef": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-hash-operator": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-multiple-hash-operators": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-code-before-include": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-invalid-header-char": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-req-20.3": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_20_3"
+      ]
+    },
+    "automotive-avoid-reserved-macro-identifier": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-req-20.15": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_20_15"
+      ]
+    },
+    "automotive-c23-req-5.4": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_5_4"
+      ]
+    },
+    "automotive-c23-req-dir-4.10": {
+      "mapped_requirements": [
+        "misra-c-2025/Dir_4_10"
+      ]
+    },
+    "automotive-c23-adv-1.2": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_1_2"
+      ]
+    },
+    "automotive-c23-req-20.14": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_20_14"
+      ]
+    },
+    "automotive-c23-adv-2.8": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_2_8"
+      ]
+    },
+    "automotive-c23-adv-2.7": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_2_7"
+      ]
+    },
+    "automotive-x-adv-2.4": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-req-11.2": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_11_2"
+      ]
+    },
+    "automotive-c23-req-11.3": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_11_3"
+      ]
+    },
+    "automotive-c23-adv-11.4": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_11_4"
+      ]
+    },
+    "automotive-c23-req-11.8": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_11_8"
+      ]
+    },
+    "automotive-c23-req-11.9": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_11_9"
+      ]
+    },
+    "automotive-wrong-null-pointer-value": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-req-18.6": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_18_6"
+      ]
+    },
+    "automotive-c23-req-11.11": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_11_11"
+      ]
+    },
+    "automotive-wrong-bitfield-type": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-signed-single-bitfield": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-bitfield-in-union": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-comment-within-comment": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-line-splicing-within-comment": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-partial-array-init": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-flexible-array-member": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-variable-length-array": {
+      "mapped_requirements": []
+    },
+    "automotive-missing-external-array-size": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-req-18.1": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_18_1"
+      ]
+    },
+    "automotive-c23-adv-18.4": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_18_4"
+      ]
+    },
+    "automotive-c23-req-9.4": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_9_4"
+      ]
+    },
+    "automotive-c23-req-9.5": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_9_5"
+      ]
+    },
+    "automotive-c25-adv-9.7": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_9_7"
+      ]
+    },
+    "automotive-cpp23-req-8.2.1": {
+      "mapped_requirements": [
+        "misra-cpp-2023/Rule_8_2_1"
+      ]
+    },
+    "automotive-cpp23-req-15.3": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-15.7": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-15.1.3": {
+      "mapped_requirements": [
+        "misra-cpp-2023/Rule_15_1_3"
+      ]
+    },
+    "automotive-cpp23-req-18.4.2": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-8.4.1": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-15.0.1": {
+      "mapped_requirements": [
+        "misra-cpp-2023/Rule_15_0_1"
+      ]
+    },
+    "automotive-cpp23-adv-8.2.5": {
+      "mapped_requirements": [
+        "misra-cpp-2023/Rule_8_2_5"
+      ]
+    },
+    "automotive-cpp23-req-18.4.1": {
+      "mapped_requirements": [
+        "misra-cpp-2023/Rule_18_4_1"
+      ]
+    },
+    "automotive-cpp23-req-8.2.3": {
+      "mapped_requirements": [
+        "misra-cpp-2023/Rule_8_2_3"
+      ]
+    },
+    "automotive-cpp23-req-8.2.4": {
+      "mapped_requirements": [
+        "misra-cpp-2023/Rule_8_2_4"
+      ]
+    },
+    "automotive-cpp23-req-15.1.2": {
+      "mapped_requirements": [
+        "misra-cpp-2023/Rule_15_1_2"
+      ]
+    },
+    "automotive-cpp23-req-18.4.3": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-8.3.1": {
+      "mapped_requirements": [
+        "misra-cpp-2023/Rule_8_3_1"
+      ]
+    },
+    "automotive-cpp23-adv-17.0.1": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-adv-17.1.1": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-9.3": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-9.4": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-12.3": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-18.1": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-21.6": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-21.10": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-6.7": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-0.1": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-adv-11.3": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-9.5": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-13.3": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-6.4": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-6.5": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-9.6": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-19.3": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-9.2": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-7.11": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-6.2": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-7.0": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-adv-4.1": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-adv-6.0": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-adv-16.5": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-adv-8.0": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-adv-8.1": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-adv-18.5": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-adv-19.0": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-adv-10.3": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-5.0": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-adv-6.8": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-req-7.4": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-adv-8.19": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-adv-8.20": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-adv-8.18": {
+      "mapped_requirements": []
+    },
+    "automotive-cpp23-mand-6.8.2": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-comma-operator": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-req-12.2": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-octal-number": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-lowercase-literal-suffix": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-adv-4.2": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_4_2"
+      ]
+    },
+    "automotive-unterminated-escape-sequence": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-req-7.2": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_7_2"
+      ]
+    },
+    "automotive-c23-req-7.4": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_7_4"
+      ]
+    },
+    "automotive-c23-req-7.6": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_7_6"
+      ]
+    },
+    "automotive-uncomplete-function-prototype": {
+      "mapped_requirements": []
+    },
+    "automotive-function-declaration-mismatch": {
+      "mapped_requirements": []
+    },
+    "automotive-missing-static-inline": {
+      "mapped_requirements": []
+    },
+    "automotive-implicit-function-decl": {
+      "mapped_requirements": []
+    },
+    "automotive-avoid-function-parameter-modification": {
+      "mapped_requirements": []
+    },
+    "automotive-c23-mand-17.6": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_17_6"
+      ]
+    },
+    "automotive-c23-req-17.10": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_17_10"
+      ]
+    },
+    "automotive-c23-req-17.13": {
+      "mapped_requirements": [
+        "misra-c-2025/Rule_17_13"
+      ]
+    }
+  }
+}

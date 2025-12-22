@@ -30,6 +30,7 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   UninitializedAutoVarCheck.cpp
   AvoidNonCompoundBodyCheck.cpp
   AvoidReinterpretCastCheck.cpp
+  AvoidReturnLocalAddressCheck.cpp
   AvoidSingleClauseSwitchCppCheck.cpp
   AvoidSlicingCheck.cpp
   AvoidStatementExpressionCheck.cpp

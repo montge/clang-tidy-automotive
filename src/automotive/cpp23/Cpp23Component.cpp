@@ -34,6 +34,7 @@
 #include "AvoidOverloadedLogicalOperatorCheck.h"
 #include "AvoidReallocCheck.h"
 #include "AvoidReinterpretCastCheck.h"
+#include "AvoidReturnLocalAddressCheck.h"
 #include "AvoidSingleClauseSwitchCppCheck.h"
 #include "AvoidSlicingCheck.h"
 #include "AvoidStatementExpressionCheck.h"
@@ -254,6 +255,11 @@ void Cpp23Component::addCheckFactories(
   // MISRA C++:2023 Rule 8.18 - Statement expression extension prohibition
   CheckFactories.registerCheck<cpp23::AvoidStatementExpressionCheck>(
       "automotive-cpp23-adv-8.18");
+
+  // MISRA C++:2023 Rule 6.8.2 - Return of pointer/reference to local
+  // (Mandatory)
+  CheckFactories.registerCheck<cpp23::AvoidReturnLocalAddressCheck>(
+      "automotive-cpp23-mand-6.8.2");
 }
 
 } // namespace clang::tidy::automotive
