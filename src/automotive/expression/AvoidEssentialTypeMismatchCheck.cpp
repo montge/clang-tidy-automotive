@@ -30,11 +30,16 @@ void AvoidEssentialTypeMismatchCheck::check(
   if (!BinOp)
     return;
 
-  if (Result.SourceManager->isInSystemHeader(BinOp->getOperatorLoc()))
-    return;
+  SourceLocation OpLoc = BinOp->getOperatorLoc();
 
-  // Skip if in macro
-  if (BinOp->getOperatorLoc().isMacroID())
+  // For macro expansions, use the expansion location (where macro is called)
+  // This allows us to detect issues in user code that calls macros with
+  // mismatched types
+  if (OpLoc.isMacroID())
+    OpLoc = Result.SourceManager->getExpansionLoc(OpLoc);
+
+  // Skip if in system header
+  if (Result.SourceManager->isInSystemHeader(OpLoc))
     return;
 
   const Expr *LHS = BinOp->getLHS()->IgnoreParenImpCasts();
@@ -104,7 +109,7 @@ void AvoidEssentialTypeMismatchCheck::check(
   }
 
   if (isMismatch) {
-    diag(BinOp->getOperatorLoc(),
+    diag(OpLoc,
          "operands have different essential type categories: '%0' and '%1'")
         << getEssentialTypeName(LHSET) << getEssentialTypeName(RHSET);
   }
