@@ -1,30 +1,52 @@
 
 add_clang_library(clangTidyAutomotiveCpp23Component STATIC
+  AvoidAssignmentInSubExpressionCheck.cpp
+  AvoidAssignmentResultCheck.cpp
+  AvoidCharacterComparisonMismatchCheck.cpp
+  AvoidCharacterTypeMismatchCheck.cpp
+  AvoidIdentifierShadowingCheck.cpp
+  AvoidOverloadedLogicalOperatorCheck.cpp
+  AvoidUninitializedArrayCheck.cpp
   AvoidConstCastCheck.cpp
   AvoidCStyleCastCheck.cpp
   AvoidCtimeCppCheck.cpp
   AvoidDynamicCastCheck.cpp
+  AvoidDynamicExceptionSpecCheck.cpp
   AvoidDynamicMemoryCppCheck.cpp
   AvoidExceptionCheck.cpp
   AvoidFloatingPointEqualityCheck.cpp
+  AvoidFloatingPointLoopCounterCheck.cpp
   AvoidImplicitConversionCheck.cpp
   AvoidImplicitLambdaCaptureCheck.cpp
   AvoidImplicitConversionOperatorCheck.cpp
   AvoidModifyingByValueParamCheck.cpp
+  MissingReturnCheck.cpp
   AvoidNarrowingConversionCheck.cpp
   AvoidNestedSwitchLabelCheck.cpp
+  AvoidNoreturnReturnCheck.cpp
+  NoreturnVoidReturnCheck.cpp
+  AvoidNullLiteralAssignmentCheck.cpp
+  AvoidReallocCheck.cpp
+  UninitializedAutoVarCheck.cpp
   AvoidNonCompoundBodyCheck.cpp
   AvoidReinterpretCastCheck.cpp
   AvoidSingleClauseSwitchCppCheck.cpp
   AvoidSlicingCheck.cpp
+  AvoidStatementExpressionCheck.cpp
   AvoidThrowInNoexceptCheck.cpp
   AvoidThrowingDestructorCheck.cpp
   AvoidUnionCppCheck.cpp
   Cpp23Component.cpp
   ExplicitConstructorCheck.cpp
+  ExplicitLambdaCaptureCheck.cpp
   NoexceptMoveCheck.cpp
   ProperConceptDefinitionCheck.cpp
   RuleOfFiveCheck.cpp
+  SinglePointOfExitCheck.cpp
+  SuboptimalBreakContinueCheck.cpp
   UnconstrainedTemplateCheck.cpp
+  UseAddressofCheck.cpp
+  UseUnnamedNamespaceCheck.cpp
+  AvoidInlineTypeDefinitionCheck.cpp
   VirtualDestructorCheck.cpp
 )

@@ -1,42 +1,59 @@
 # Clang-Tidy Automotive
 
-A collection of clang-tidy checks for automotive safety-critical code, supporting both MISRA C:2025 and MISRA C++:2023 guidelines.
+A comprehensive collection of clang-tidy checks for automotive safety-critical code, implementing MISRA C and MISRA C++ coding guidelines across multiple standard versions.
 
 [![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=montge_clang-tidy-automotive&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=montge_clang-tidy-automotive)
 [![CI](https://github.com/montge/clang-tidy-automotive/actions/workflows/ci.yml/badge.svg)](https://github.com/montge/clang-tidy-automotive/actions/workflows/ci.yml)
 
 ## Features
 
-- **103 custom checks** covering statements, expressions, types, functions, and more
-- **MISRA C:2025 alignment** with documented rule mappings (93/176 rules)
-- **MISRA C++:2023 support** with dedicated C++ checks (5 checks, ~75 via clang-tidy aliases)
+- **172 custom checks** covering statements, expressions, types, functions, and more
+- **Multi-version MISRA support:**
+  - MISRA C:2012/2023 (65 checks)
+  - MISRA C:2025 (8 checks)
+  - MISRA C++:2023 (46 checks)
+  - Generic automotive checks (53 checks)
 - **SonarQube/SonarCloud integration** for enterprise quality gates
 - **Comprehensive examples** with violation/compliant pairs
 - **Doxygen documentation** for all check implementations
 
-## Check Categories
+## Supported MISRA Standards
 
-### MISRA C:2025 Checks
+### MISRA C:2012/2023 (`automotive-c23-*`)
 
-| Category | Checks | Coverage |
-|----------|--------|----------|
-| Statement | 15 | goto, switch, compound statements, control flow |
-| Expression | 8 | assignments, conditions, side effects |
-| Function | 6 | prototypes, return values, parameters |
-| Type | 7 | unions, enums, implicit types, duplicates |
-| Bitfield | 3 | types, signed single-bit |
-| Literal | 3 | octal, suffixes, escapes |
-| Preprocessor | 8 | macros, #undef, hash operators, includes |
-| Pointer | 6 | NULL, void pointers, arithmetic, casts |
-| Array | 5 | VLA, flexible members, initialization |
-| Standard Library | 7 | dangerous functions |
-| Storage | 3 | linkage, static |
+65 checks covering the core MISRA C guidelines:
+- Essential type model and conversions
+- Pointer safety and NULL handling
+- Control flow and statement structure
+- Standard library restrictions
 
-### MISRA C++:2023 Checks
+### MISRA C:2025 (`automotive-c25-*`)
 
-| Category | Checks | Coverage |
-|----------|--------|----------|
-| cpp23 | 5 | C-style casts, object slicing, virtual destructors, explicit constructors, noexcept move |
+8 checks for the latest MISRA C:2025 standard:
+- Well-formed switch statements (Rule 16.1)
+- Else-if termination (Rule 15.7)
+- For loop structure (Rule 14.2)
+- Array initialization (Rule 9.7)
+- Chained designators (Rule 9.6)
+
+### MISRA C++:2023 (`automotive-cpp23-*`)
+
+46 checks for modern C++ safety:
+- Cast restrictions (C-style, const, reinterpret, dynamic)
+- Object lifecycle (slicing, Rule of Five, virtual destructors)
+- Exception safety (noexcept, throwing destructors)
+- Lambda captures and conversions
+- Template constraints and concepts
+- Memory management restrictions
+
+### Generic Checks (`automotive-*`)
+
+53 checks applicable across standards:
+- goto restrictions and label management
+- Switch statement structure
+- Compound statement requirements
+- Preprocessor hygiene
+- Unused code detection
 
 See [MISRA Rule Inventory](docs/MISRA-RULE-INVENTORY.md) for C rules and [MISRA C++:2023 Inventory](docs/MISRA-CPP-2023-INVENTORY.md) for C++ rules.
 
@@ -92,15 +109,23 @@ when using clang-tidy.
 ./build/bin/clang-tidy --checks="-*,automotive-*" your-code.cpp -- -std=c++17
 ```
 
-### Available C++ Checks
+### Sample C++ Checks
 
 | Check ID | MISRA Rule | Description |
 |----------|------------|-------------|
 | `automotive-cpp23-req-8.2.1` | 8.2.1 | Avoid C-style casts |
-| `automotive-cpp23-req-15.1.3` | 15.1.3 | Explicit single-argument constructors |
+| `automotive-cpp23-req-8.2.3` | 8.2.3 | Avoid const_cast |
+| `automotive-cpp23-req-8.2.4` | 8.2.4 | Avoid reinterpret_cast |
+| `automotive-cpp23-req-15.0.1` | 15.0.1 | Rule of Five |
+| `automotive-cpp23-req-15.1.3` | 15.1.3 | Explicit constructors |
 | `automotive-cpp23-req-15.3` | 15.3 | Avoid object slicing |
 | `automotive-cpp23-req-15.7` | 15.7 | Virtual destructor requirement |
+| `automotive-cpp23-req-18.4.1` | 18.4.1 | No throwing destructors |
 | `automotive-cpp23-req-18.4.2` | 18.4.2 | Noexcept move operations |
+| `automotive-cpp23-adv-6.8` | 6.8 | Suboptimal break/continue |
+| `automotive-cpp23-req-7.4` | 7.4 | Assignment result not used |
+
+Run `clang-tidy --list-checks --checks='automotive-cpp23-*'` to see all 46 C++ checks.
 
 See [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) for more information.
 

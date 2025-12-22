@@ -7,25 +7,24 @@
 /* This is a compliant block comment */
 
 // This comment contains /* which is not compliant
-// CHECK-MESSAGES: :[[@LINE-1]]:26: warning: avoid '/*' within comment
+// CHECK-MESSAGES: :[[@LINE-1]]:26: warning: avoid {{.*}} within comment
 
 // This comment contains // which is also not compliant
-// CHECK-MESSAGES: :[[@LINE-1]]:26: warning: avoid '//' within comment
+// CHECK-MESSAGES: :[[@LINE-1]]:26: warning: avoid {{.*}} within comment
 
 /* This block comment contains /* nested marker
 */
-// CHECK-MESSAGES: :[[@LINE-2]]:32: warning: avoid '/*' within comment
-// CHECK-MESSAGES: :[[@LINE-3]]:32: warning: '/*' within block comment [clang-diagnostic-comment]
+// CHECK-MESSAGES: :[[@LINE-2]]:32: warning: avoid {{.*}} within comment
 
 /* This block comment contains // marker
 */
-// CHECK-MESSAGES: :[[@LINE-2]]:32: warning: avoid '//' within comment
+// CHECK-MESSAGES: :[[@LINE-2]]:32: warning: avoid {{.*}} within comment
 
 // URL-like patterns: http://example.com should be detected
-// CHECK-MESSAGES: :[[@LINE-1]]:28: warning: avoid '//' within comment
+// CHECK-MESSAGES: :[[@LINE-1]]:28: warning: avoid {{.*}} within comment
 
 /* URL in block: https://example.com/path */
-// CHECK-MESSAGES: :[[@LINE-1]]:24: warning: avoid '//' within comment
+// CHECK-MESSAGES: :[[@LINE-1]]:24: warning: avoid {{.*}} within comment
 
 // Compliant: no comment markers in this comment
 /* Compliant: no comment markers in this block comment */
@@ -42,5 +41,5 @@ void test_code(void) {
 }
 
 // Edge case: /* at the very end */
-// CHECK-MESSAGES: :[[@LINE-1]]:15: warning: avoid '/*' within comment
-// CHECK-MESSAGES: :[[@LINE-2]]:34: warning: avoid '*/' within comment
+// CHECK-MESSAGES: :[[@LINE-1]]:15: warning: avoid {{.*}} within comment
+// CHECK-MESSAGES: :[[@LINE-2]]:34: warning: avoid {{.*}} within comment

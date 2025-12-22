@@ -1,35 +1,35 @@
-// RUN: %check_clang_tidy %s automotive-c23-req-12.5 %t
+// RUN: %check_clang_tidy %s automotive-c23-req-12.5 %t -- -- -Wno-sizeof-array-argument
 // Test for automotive-c23-req-12.5
 // Related MISRA C:2025 Rule: 12.5
 
 // This test verifies that sizeof on array parameters is detected.
 
-#include <stddef.h>
+typedef unsigned long size_t;
 
 //===----------------------------------------------------------------------===//
 // Violation Cases (should trigger warnings)
 //===----------------------------------------------------------------------===//
 
 void test_array_param_complete(int arr[10]) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: sizeof applied to parameter 'arr' declared as array
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: sizeof applied to parameter 'arr' declared as array; this gives the size of a pointer, not the array
     size_t s = sizeof(arr);
     (void)s;
 }
 
 void test_array_param_incomplete(int arr[]) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: sizeof applied to parameter 'arr' declared as array
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: sizeof applied to parameter 'arr' declared as array; this gives the size of a pointer, not the array
     size_t s = sizeof(arr);
     (void)s;
 }
 
 void test_multidim_array(int arr[5][10]) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: sizeof applied to parameter 'arr' declared as array
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: sizeof applied to parameter 'arr' declared as array; this gives the size of a pointer, not the array
     size_t s = sizeof(arr);
     (void)s;
 }
 
 void test_array_in_expression(char buf[100]) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:24: warning: sizeof applied to parameter 'buf' declared as array
+    // CHECK-MESSAGES: :[[@LINE+1]]:24: warning: sizeof applied to parameter 'buf' declared as array; this gives the size of a pointer, not the array
     size_t remaining = sizeof(buf) - 1;
     (void)remaining;
 }

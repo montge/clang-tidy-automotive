@@ -8,6 +8,7 @@
 
 #include "StaticInlineCheck.h"
 #include "clang/AST/ASTContext.h"
+#include "clang/AST/DeclCXX.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
 
 using namespace clang::ast_matchers;
@@ -24,10 +25,25 @@ void StaticInlineCheck::registerMatchers(MatchFinder *Finder) {
 void StaticInlineCheck::check(const MatchFinder::MatchResult &Result) {
   const auto *MatchedDecl = Result.Nodes.getNodeAs<FunctionDecl>("inline");
 
-  if (MatchedDecl) {
-    diag(MatchedDecl->getBeginLoc(), "inline function shall be static")
-        << FixItHint::CreateInsertion(MatchedDecl->getBeginLoc(), "static ");
+  if (!MatchedDecl)
+    return;
+
+  // Skip system headers
+  if (Result.SourceManager->isInSystemHeader(MatchedDecl->getLocation()))
+    return;
+
+  // Skip C++ lambda call operators - lambdas cannot be declared static
+  if (const auto *MD = dyn_cast<CXXMethodDecl>(MatchedDecl)) {
+    if (MD->getParent()->isLambda())
+      return;
   }
+
+  // Skip class member functions - they have different rules
+  if (isa<CXXMethodDecl>(MatchedDecl))
+    return;
+
+  diag(MatchedDecl->getBeginLoc(), "inline function shall be static")
+      << FixItHint::CreateInsertion(MatchedDecl->getBeginLoc(), "static ");
 }
 
 } // namespace clang::tidy::automotive

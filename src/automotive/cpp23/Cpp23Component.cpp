@@ -7,31 +7,53 @@
 //===----------------------------------------------------------------------===//
 
 #include "Cpp23Component.h"
+#include "AvoidAssignmentInSubExpressionCheck.h"
+#include "AvoidAssignmentResultCheck.h"
 #include "AvoidCStyleCastCheck.h"
+#include "AvoidCharacterComparisonMismatchCheck.h"
+#include "AvoidCharacterTypeMismatchCheck.h"
 #include "AvoidConstCastCheck.h"
 #include "AvoidCtimeCppCheck.h"
 #include "AvoidDynamicCastCheck.h"
+#include "AvoidDynamicExceptionSpecCheck.h"
 #include "AvoidDynamicMemoryCppCheck.h"
 #include "AvoidExceptionCheck.h"
 #include "AvoidFloatingPointEqualityCheck.h"
+#include "AvoidFloatingPointLoopCounterCheck.h"
+#include "AvoidIdentifierShadowingCheck.h"
 #include "AvoidImplicitConversionCheck.h"
 #include "AvoidImplicitConversionOperatorCheck.h"
 #include "AvoidImplicitLambdaCaptureCheck.h"
+#include "AvoidInlineTypeDefinitionCheck.h"
 #include "AvoidModifyingByValueParamCheck.h"
 #include "AvoidNarrowingConversionCheck.h"
 #include "AvoidNestedSwitchLabelCheck.h"
 #include "AvoidNonCompoundBodyCheck.h"
+#include "AvoidNoreturnReturnCheck.h"
+#include "AvoidNullLiteralAssignmentCheck.h"
+#include "AvoidOverloadedLogicalOperatorCheck.h"
+#include "AvoidReallocCheck.h"
 #include "AvoidReinterpretCastCheck.h"
 #include "AvoidSingleClauseSwitchCppCheck.h"
 #include "AvoidSlicingCheck.h"
+#include "AvoidStatementExpressionCheck.h"
 #include "AvoidThrowInNoexceptCheck.h"
 #include "AvoidThrowingDestructorCheck.h"
+#include "AvoidUninitializedArrayCheck.h"
 #include "AvoidUnionCppCheck.h"
 #include "ExplicitConstructorCheck.h"
+#include "ExplicitLambdaCaptureCheck.h"
+#include "MissingReturnCheck.h"
 #include "NoexceptMoveCheck.h"
+#include "NoreturnVoidReturnCheck.h"
 #include "ProperConceptDefinitionCheck.h"
 #include "RuleOfFiveCheck.h"
+#include "SinglePointOfExitCheck.h"
+#include "SuboptimalBreakContinueCheck.h"
 #include "UnconstrainedTemplateCheck.h"
+#include "UninitializedAutoVarCheck.h"
+#include "UseAddressofCheck.h"
+#include "UseUnnamedNamespaceCheck.h"
 #include "VirtualDestructorCheck.h"
 
 namespace clang::tidy::automotive {
@@ -146,6 +168,92 @@ void Cpp23Component::addCheckFactories(
   // MISRA C++:2023 Rule 13.3 - Parameter by value modification
   CheckFactories.registerCheck<AvoidModifyingByValueParamCheck>(
       "automotive-cpp23-req-13.3");
+
+  // MISRA C++:2023 Rule 6.4 - Assignment in sub-expression
+  CheckFactories.registerCheck<AvoidAssignmentInSubExpressionCheck>(
+      "automotive-cpp23-req-6.4");
+
+  // MISRA C++:2023 Rule 6.5 - Floating-point loop counter
+  CheckFactories.registerCheck<AvoidFloatingPointLoopCounterCheck>(
+      "automotive-cpp23-req-6.5");
+
+  // MISRA C++:2023 Rule 9.6 - All return paths
+  CheckFactories.registerCheck<MissingReturnCheck>("automotive-cpp23-req-9.6");
+
+  // MISRA C++:2023 Rule 19.3 - realloc prohibition
+  CheckFactories.registerCheck<AvoidReallocCheck>("automotive-cpp23-req-19.3");
+
+  // MISRA C++:2023 Rule 9.2 - Auto variable initialization
+  CheckFactories.registerCheck<UninitializedAutoVarCheck>(
+      "automotive-cpp23-req-9.2");
+
+  // MISRA C++:2023 Rule 7.11 - Null pointer literal assignment
+  CheckFactories.registerCheck<AvoidNullLiteralAssignmentCheck>(
+      "automotive-cpp23-req-7.11");
+
+  // MISRA C++:2023 Rule 6.2 - Identifier shadowing
+  CheckFactories.registerCheck<AvoidIdentifierShadowingCheck>(
+      "automotive-cpp23-req-6.2");
+
+  // MISRA C++:2023 Rule 7.0 - Character type assignment
+  CheckFactories.registerCheck<cpp23::AvoidCharacterTypeMismatchCheck>(
+      "automotive-cpp23-req-7.0");
+
+  // MISRA C++:2023 Rule 4.1 - Character comparison type mismatch
+  CheckFactories.registerCheck<cpp23::AvoidCharacterComparisonMismatchCheck>(
+      "automotive-cpp23-adv-4.1");
+
+  // MISRA C++:2023 Rule 6.0 - Uninitialized array
+  CheckFactories.registerCheck<cpp23::AvoidUninitializedArrayCheck>(
+      "automotive-cpp23-adv-6.0");
+
+  // MISRA C++:2023 Rule 16.5 - Overloaded logical operators
+  CheckFactories.registerCheck<cpp23::AvoidOverloadedLogicalOperatorCheck>(
+      "automotive-cpp23-adv-16.5");
+
+  // MISRA C++:2023 Rule 8.0 - Single point of exit
+  CheckFactories.registerCheck<cpp23::SinglePointOfExitCheck>(
+      "automotive-cpp23-adv-8.0");
+
+  // MISRA C++:2023 Rule 8.1 - Explicit lambda capture
+  CheckFactories.registerCheck<cpp23::ExplicitLambdaCaptureCheck>(
+      "automotive-cpp23-adv-8.1");
+
+  // MISRA C++:2023 Rule 18.5 - Dynamic exception specification
+  CheckFactories.registerCheck<cpp23::AvoidDynamicExceptionSpecCheck>(
+      "automotive-cpp23-adv-18.5");
+
+  // MISRA C++:2023 Rule 19.0 - Use std::addressof
+  CheckFactories.registerCheck<cpp23::UseAddressofCheck>(
+      "automotive-cpp23-adv-19.0");
+
+  // MISRA C++:2023 Rule 10.3 - Unnamed namespace for internal linkage
+  CheckFactories.registerCheck<cpp23::UseUnnamedNamespaceCheck>(
+      "automotive-cpp23-adv-10.3");
+
+  // MISRA C++:2023 Rule 5.0 - Inline type definition
+  CheckFactories.registerCheck<cpp23::AvoidInlineTypeDefinitionCheck>(
+      "automotive-cpp23-req-5.0");
+
+  // MISRA C++:2023 Rule 6.8 - Suboptimal break/continue placement
+  CheckFactories.registerCheck<cpp23::SuboptimalBreakContinueCheck>(
+      "automotive-cpp23-adv-6.8");
+
+  // MISRA C++:2023 Rule 7.4 - The result of an assignment shall not be used
+  CheckFactories.registerCheck<cpp23::AvoidAssignmentResultCheck>(
+      "automotive-cpp23-req-7.4");
+
+  // MISRA C++:2023 Rule 8.19 - Noreturn functions shall not return
+  CheckFactories.registerCheck<AvoidNoreturnReturnCheck>(
+      "automotive-cpp23-adv-8.19");
+
+  // MISRA C++:2023 Rule 8.20 - Noreturn functions should have void return type
+  CheckFactories.registerCheck<NoreturnVoidReturnCheck>(
+      "automotive-cpp23-adv-8.20");
+
+  // MISRA C++:2023 Rule 8.18 - Statement expression extension prohibition
+  CheckFactories.registerCheck<cpp23::AvoidStatementExpressionCheck>(
+      "automotive-cpp23-adv-8.18");
 }
 
 } // namespace clang::tidy::automotive

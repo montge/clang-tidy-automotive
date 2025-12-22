@@ -17,19 +17,35 @@ namespace clang::tidy::automotive {
 
 void AvoidNonBooleanInConditionCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(
-      ifStmt(hasCondition(expr(unless(automotive::isEssentiallyBoolean()))
+      ifStmt(unless(isExpansionInSystemHeader()),
+             hasCondition(expr(unless(automotive::isEssentiallyBoolean()))
                               .bind("condition")))
           .bind("ifStmt"),
       this);
   Finder->addMatcher(
-      whileStmt(hasCondition(expr(unless(automotive::isEssentiallyBoolean()))
+      whileStmt(unless(isExpansionInSystemHeader()),
+                hasCondition(expr(unless(automotive::isEssentiallyBoolean()))
                                  .bind("condition")))
           .bind("whileStmt"),
       this);
   Finder->addMatcher(
-      forStmt(hasCondition(expr(unless(automotive::isEssentiallyBoolean()))
+      doStmt(unless(isExpansionInSystemHeader()),
+             hasCondition(expr(unless(automotive::isEssentiallyBoolean()))
+                              .bind("condition")))
+          .bind("doStmt"),
+      this);
+  Finder->addMatcher(
+      forStmt(unless(isExpansionInSystemHeader()),
+              hasCondition(expr(unless(automotive::isEssentiallyBoolean()))
                                .bind("condition")))
           .bind("forStmt"),
+      this);
+  Finder->addMatcher(
+      conditionalOperator(
+          unless(isExpansionInSystemHeader()),
+          hasCondition(expr(unless(automotive::isEssentiallyBoolean()))
+                           .bind("condition")))
+          .bind("ternary"),
       this);
 }
 

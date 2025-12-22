@@ -91,9 +91,18 @@ AST_MATCHER_P(SwitchStmt, hasBody, clang::ast_matchers::internal::Matcher<Stmt>,
 }
 
 AST_MATCHER(InitListExpr, isZeroInitializer) {
-  return Node.getNumInits() == 1 &&
-         llvm::isa<IntegerLiteral>(Node.getInit(0)) &&
-         llvm::cast<IntegerLiteral>(Node.getInit(0))->getValue() == 0;
+  if (Node.getNumInits() != 1)
+    return false;
+
+  const Expr *Init = Node.getInit(0)->IgnoreParenImpCasts();
+  if (const auto *IL = llvm::dyn_cast<IntegerLiteral>(Init))
+    return IL->getValue() == 0;
+
+  // Also handle floating point zero
+  if (const auto *FL = llvm::dyn_cast<FloatingLiteral>(Init))
+    return FL->getValue().isZero();
+
+  return false;
 }
 
 AST_MATCHER(InitListExpr, isStringLiteralInit) {

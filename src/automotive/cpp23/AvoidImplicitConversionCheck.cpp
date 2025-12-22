@@ -33,12 +33,24 @@ void AvoidImplicitConversionCheck::registerMatchers(MatchFinder *Finder) {
 
 bool AvoidImplicitConversionCheck::isSignificantConversion(
     QualType From, QualType To, const ASTContext &Ctx) const {
+  // Skip null or invalid types
+  if (From.isNull() || To.isNull())
+    return false;
+
   // Get canonical types for comparison
   From = From.getCanonicalType();
   To = To.getCanonicalType();
 
   // Same type - no conversion needed
   if (From == To)
+    return false;
+
+  // Skip dependent types (templates) that may not have complete type info
+  if (From->isDependentType() || To->isDependentType())
+    return false;
+
+  // Skip incomplete types that may crash getTypeSize
+  if (From->isIncompleteType() || To->isIncompleteType())
     return false;
 
   // Ignore array to pointer decay
@@ -66,6 +78,9 @@ bool AvoidImplicitConversionCheck::isSignificantConversion(
     // Float to double promotion - less significant, allow
     // Check by type size: float (32 bit) to double (64 bit)
     if (From->isFloatingType() && To->isFloatingType()) {
+      // Guard against types that may not have size info
+      if (!Ctx.getTypeInfo(From).Width || !Ctx.getTypeInfo(To).Width)
+        return false;
       uint64_t FromSize = Ctx.getTypeSize(From);
       uint64_t ToSize = Ctx.getTypeSize(To);
       if (FromSize < ToSize)
@@ -79,6 +94,9 @@ bool AvoidImplicitConversionCheck::isSignificantConversion(
       return true;
 
     // Standard integer promotions (char/short to int) - allow
+    // Guard against types that may not have size info
+    if (!Ctx.getTypeInfo(From).Width || !Ctx.getTypeInfo(To).Width)
+      return false;
     uint64_t FromSize = Ctx.getTypeSize(From);
     uint64_t ToSize = Ctx.getTypeSize(To);
     if (FromSize < 32 && ToSize >= 32 && From->isIntegerType() &&

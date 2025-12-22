@@ -19,6 +19,8 @@
 #include "MultipleLoopTerminatorsCheck.h"
 #include "UnstructuredSwitchStmtCheck.h"
 #include "UnusedLabelCheck.h"
+#include "WellFormedForLoopCheck.h"
+#include "WellFormedSwitchCheck.h"
 #include "WrongOrderInSwitchStmtCheck.h"
 
 namespace clang::tidy::automotive {
@@ -52,6 +54,9 @@ void StatementComponent::addCheckFactories(
       "automotive-missing-compound");
   CheckFactories.registerCheck<MissingElseCheck>("automotive-missing-else");
 
+  // MISRA C:2025 Rule 15.7 - else if terminated with else (Required)
+  CheckFactories.registerCheck<MissingElseCheck>("automotive-c25-req-15.7");
+
   // Rule 15.4 - Multiple loop terminators (Advisory)
   CheckFactories.registerCheck<MultipleLoopTerminatorsCheck>(
       "automotive-c23-adv-15.4");
@@ -59,6 +64,14 @@ void StatementComponent::addCheckFactories(
   // Rule 16.6 - Switch minimum clauses (Required)
   CheckFactories.registerCheck<AvoidSingleClauseSwitchCheck>(
       "automotive-c23-req-16.6");
+
+  // Rule 14.2 - Well-formed for loop (Required)
+  CheckFactories.registerCheck<WellFormedForLoopCheck>(
+      "automotive-c25-req-14.2");
+
+  // Rule 16.1 - Well-formed switch (Required)
+  CheckFactories.registerCheck<WellFormedSwitchCheck>(
+      "automotive-c25-req-16.1");
 }
 
 } // namespace clang::tidy::automotive

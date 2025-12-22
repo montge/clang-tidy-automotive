@@ -14,23 +14,20 @@ void test_shift_bounds(void) {
   int32_t z = 1;
 
   // Non-compliant: shift amount equals bit width (32 bits)
+  // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: shift amount (32) is greater than or equal to the width of the type (32 bits) [automotive-c23-req-12.2]
   uint32_t a = x << 32;
-  // CHECK-MESSAGES: :[[@LINE-1]]:18: warning: shift count >= width of type [clang-diagnostic-shift-count-overflow]
-  // CHECK-MESSAGES: :[[@LINE-2]]:21: warning: shift amount (32) is greater than or equal to the width of the type (32 bits) [automotive-c23-req-12.2]
 
   // Non-compliant: shift amount exceeds bit width
+  // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: shift amount (33) is greater than or equal to the width of the type (32 bits) [automotive-c23-req-12.2]
   uint32_t b = x << 33;
-  // CHECK-MESSAGES: :[[@LINE-1]]:18: warning: shift count >= width of type [clang-diagnostic-shift-count-overflow]
-  // CHECK-MESSAGES: :[[@LINE-2]]:21: warning: shift amount (33) is greater than or equal to the width of the type (32 bits) [automotive-c23-req-12.2]
 
   // Non-compliant: shift amount equals bit width for uint8_t (8 bits)
+  // CHECK-MESSAGES: :[[@LINE+1]]:20: warning: shift amount (8) is greater than or equal to the width of the type (8 bits) [automotive-c23-req-12.2]
   uint8_t c = y << 8;
-  // CHECK-MESSAGES: :[[@LINE-1]]:20: warning: shift amount (8) is greater than or equal to the width of the type (8 bits) [automotive-c23-req-12.2]
 
   // Non-compliant: right shift with excessive amount
+  // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: shift amount (32) is greater than or equal to the width of the type (32 bits) [automotive-c23-req-12.2]
   uint32_t d = x >> 32;
-  // CHECK-MESSAGES: :[[@LINE-1]]:18: warning: shift count >= width of type [clang-diagnostic-shift-count-overflow]
-  // CHECK-MESSAGES: :[[@LINE-2]]:21: warning: shift amount (32) is greater than or equal to the width of the type (32 bits) [automotive-c23-req-12.2]
 
   // Compliant: shift within bounds
   uint32_t e = x << 31;  // Maximum valid shift for 32-bit type
@@ -42,9 +39,8 @@ void test_shift_bounds(void) {
   x >>= 8;
 
   // Non-compliant: compound assignment with excessive shift
+  // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: shift amount (32) is greater than or equal to the width of the type (32 bits) [automotive-c23-req-12.2]
   x <<= 32;
-  // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: shift count >= width of type [clang-diagnostic-shift-count-overflow]
-  // CHECK-MESSAGES: :[[@LINE-2]]:9: warning: shift amount (32) is greater than or equal to the width of the type (32 bits) [automotive-c23-req-12.2]
 }
 
 // Test with different integer types
@@ -53,9 +49,8 @@ void test_different_types(void) {
   uint16_t u16 = 1;
 
   // Non-compliant: shift equals 64-bit width
+  // CHECK-MESSAGES: :[[@LINE+1]]:23: warning: shift amount (64) is greater than or equal to the width of the type (64 bits) [automotive-c23-req-12.2]
   uint64_t a = u64 << 64;
-  // CHECK-MESSAGES: :[[@LINE-1]]:20: warning: shift count >= width of type [clang-diagnostic-shift-count-overflow]
-  // CHECK-MESSAGES: :[[@LINE-2]]:23: warning: shift amount (64) is greater than or equal to the width of the type (64 bits) [automotive-c23-req-12.2]
 
   // Compliant: shift within 64-bit bounds
   uint64_t b = u64 << 63;

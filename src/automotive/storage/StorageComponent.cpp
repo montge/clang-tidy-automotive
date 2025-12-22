@@ -8,10 +8,12 @@
 
 #include "StorageComponent.h"
 #include "AvoidGlobalObjectCheck.h"
+#include "AvoidMultipleAlignmentCheck.h"
 #include "AvoidReservedIdentifierDeclarationCheck.h"
 #include "AvoidRestrictTypeCheck.h"
 #include "AvoidTentativeDefinitionInHeaderCheck.h"
 #include "AvoidUninitializedReadCheck.h"
+#include "AvoidZeroAlignmentCheck.h"
 #include "MissingStaticForInternalCheck.h"
 
 namespace clang::tidy::automotive {
@@ -41,6 +43,14 @@ void StorageComponent::addCheckFactories(
   // Rule 8.18 - Tentative definitions in header files (Required)
   CheckFactories.registerCheck<AvoidTentativeDefinitionInHeaderCheck>(
       "automotive-c23-req-8.18");
+
+  // Rule 8.16 - Zero alignment specifier (Required)
+  CheckFactories.registerCheck<AvoidZeroAlignmentCheck>(
+      "automotive-c25-req-8.16");
+
+  // Rule 8.17 - Multiple alignment specifiers (Advisory)
+  CheckFactories.registerCheck<AvoidMultipleAlignmentCheck>(
+      "automotive-c25-adv-8.17");
 }
 
 } // namespace clang::tidy::automotive

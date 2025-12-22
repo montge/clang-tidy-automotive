@@ -8,6 +8,7 @@
 
 #include "TypeComponent.h"
 #include "AvoidAtomicVoidCheck.h"
+#include "AvoidMixedDesignatorCheck.h"
 #include "AvoidPointerTypedefCheck.h"
 #include "AvoidUnionCheck.h"
 #include "DuplicateTagNameCheck.h"
@@ -41,6 +42,10 @@ void TypeComponent::addCheckFactories(ClangTidyCheckFactories &CheckFactories) {
   // Rule 11.10 - Atomic void restriction (Required)
   CheckFactories.registerCheck<AvoidAtomicVoidCheck>(
       "automotive-c23-req-11.10");
+
+  // MISRA C:2025 Rule 9.6 - Mixed designators in initializer
+  CheckFactories.registerCheck<AvoidMixedDesignatorCheck>(
+      "automotive-c25-req-9.6");
 }
 
 } // namespace clang::tidy::automotive

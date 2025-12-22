@@ -92,19 +92,14 @@ void test_fully_initialized_arrays(void) {
 }
 
 void test_zero_initialization(void) {
-    // Zero initialization is allowed (special case)
+    // Zero initialization with {0} is allowed (special case - universal zero initializer)
     int arr1[10] = {0};
-    // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: avoid partially initialized array [automotive-avoid-partial-array-init]
     char arr2[50] = {0};
-    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: avoid partially initialized array [automotive-avoid-partial-array-init]
     float arr3[5] = {0};
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: avoid partially initialized array [automotive-avoid-partial-array-init]
     double arr4[3] = {0};
 
-    // Empty initialization list (zero-initializes all)
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: avoid partially initialized array [automotive-avoid-partial-array-init]
+    // Empty initialization list {} (zero-initializes all) - also compliant
     int arr5[5] = {};
-    // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: avoid partially initialized array [automotive-avoid-partial-array-init]
     char arr6[10] = {};
 }
 

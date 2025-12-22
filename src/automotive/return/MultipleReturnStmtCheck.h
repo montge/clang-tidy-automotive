@@ -50,8 +50,9 @@ public:
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 
 private:
-  const FunctionDecl *CurrentFunc = nullptr;
-  const ReturnStmt *PreviousReturn = nullptr;
+  /// Collects all return statements from a function body.
+  void collectReturnStmts(const Stmt *S,
+                          llvm::SmallVectorImpl<const ReturnStmt *> &Returns);
 };
 
 } // namespace clang::tidy::automotive

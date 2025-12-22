@@ -1,8 +1,6 @@
-// RUN: %check_clang_tidy %s automotive-cpp23-req-21.6 %t
+// RUN: %check_clang_tidy %s automotive-cpp23-req-21.6 %t -- -- -std=c++11
 // Test for automotive-cpp23-req-21.6: Dynamic memory prohibition
 // Related MISRA C++:2023 Rule: 21.6
-
-#include <memory>
 
 //===----------------------------------------------------------------------===//
 // Violation Cases (should trigger warnings)
@@ -28,7 +26,7 @@ public:
 };
 
 void test_new_class() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:19: warning: dynamic memory allocation shall not be used [automotive-cpp23-req-21.6]
+    // CHECK-MESSAGES: :[[@LINE+1]]:20: warning: dynamic memory allocation shall not be used [automotive-cpp23-req-21.6]
     MyClass *obj = new MyClass();
     // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: dynamic memory deallocation shall not be used [automotive-cpp23-req-21.6]
     delete obj;

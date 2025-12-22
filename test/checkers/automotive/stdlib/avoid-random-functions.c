@@ -5,8 +5,9 @@
 // This test verifies that random number generator functions from <stdlib.h>
 // are detected and flagged.
 
-#include <stdlib.h>
-#include <time.h>
+// Forward declarations to avoid -nostdinc++ issues
+void srand(unsigned int seed);
+int rand(void);
 
 //===----------------------------------------------------------------------===//
 // Violation Cases (should trigger warnings)
@@ -17,7 +18,7 @@ void test_random_violations(void) {
     srand(42);
 
     // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: Avoid 'srand' call from stdlib [automotive-c23-req-21.24]
-    srand((unsigned int)time(0));
+    srand(12345);
 
     // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: Avoid 'rand' call from stdlib [automotive-c23-req-21.24]
     int x = rand();
@@ -26,7 +27,7 @@ void test_random_violations(void) {
     int y = rand() % 100;
 
     // Using rand() result in expression
-    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: Avoid 'rand' call from stdlib [automotive-c23-req-21.24]
+    // CHECK-MESSAGES: :[[@LINE+1]]:19: warning: Avoid 'rand' call from stdlib [automotive-c23-req-21.24]
     int z = 10 + (rand() % 50);
 
     (void)x;

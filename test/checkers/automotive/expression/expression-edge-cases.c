@@ -64,8 +64,10 @@ void test_non_boolean_edge_cases(int x, int *ptr, void *vptr) {
 void test_ternary_non_boolean(int x, int *ptr) {
     int result;
 
-    // Ternary operator conditions are not currently detected by this check
+    // Ternary operator conditions now detected by this check
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: avoid using non-boolean expression in control flow condition [automotive-c23-req-14.4]
     result = x ? 1 : 0;  // Integer as ternary condition
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: avoid using non-boolean expression in control flow condition [automotive-c23-req-14.4]
     result = ptr ? 1 : 0;  // Pointer as ternary condition
 
     // Compliant: Explicit comparison

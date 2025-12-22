@@ -1,8 +1,6 @@
-// RUN: %check_clang_tidy %s automotive-cpp23-req-12.3 %t
+// RUN: %check_clang_tidy %s automotive-cpp23-req-12.3 %t -- -- -std=c++11
 // Test for automotive-cpp23-req-12.3: Union prohibition
 // Related MISRA C++:2023 Rule: 12.3
-
-#include <variant>
 
 //===----------------------------------------------------------------------===//
 // Violation Cases (should trigger warnings)
@@ -32,14 +30,7 @@ class ContainsUnion {
 // Compliant Cases (should NOT trigger warnings)
 //===----------------------------------------------------------------------===//
 
-// Use std::variant instead of union
-class GoodClass {
-    std::variant<int, float> data;
-public:
-    void setInt(int i) { data = i; }
-    void setFloat(float f) { data = f; }
-};
-
+// Use std::variant instead of union (in C++17)
 // Regular struct
 struct RegularStruct {
     int x;

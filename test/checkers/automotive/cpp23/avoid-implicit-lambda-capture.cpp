@@ -1,4 +1,4 @@
-// RUN: %check_clang_tidy %s automotive-cpp23-req-0.1 %t
+// RUN: %check_clang_tidy %s automotive-cpp23-req-0.1 %t -- -- -std=c++14 -Wno-c++14-extensions
 // Test for automotive-cpp23-req-0.1
 // Related MISRA C++:2023 Rule: 0.1
 
@@ -11,7 +11,7 @@
 void test_implicit_capture_by_copy() {
     int x = 1, y = 2;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: lambda uses implicit capture-by-copy [=]
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: lambda uses implicit capture-by-copy [=]; all captures should be explicitly listed
     auto f = [=]() { return x + y; };
 
     (void)f;
@@ -20,7 +20,7 @@ void test_implicit_capture_by_copy() {
 void test_implicit_capture_by_ref() {
     int x = 1, y = 2;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: lambda uses implicit capture-by-reference [&]
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: lambda uses implicit capture-by-reference [&]; all captures should be explicitly listed
     auto f = [&]() { return x + y; };
 
     (void)f;
@@ -30,7 +30,7 @@ void test_implicit_with_explicit() {
     int x = 1, y = 2;
 
     // Even when some captures are explicit, implicit default is still a problem
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: lambda uses implicit capture-by-copy [=]
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: lambda uses implicit capture-by-copy [=]; all captures should be explicitly listed
     auto f = [=, &x]() { return x + y; };
 
     (void)f;
@@ -39,7 +39,7 @@ void test_implicit_with_explicit() {
 void test_implicit_by_ref_with_explicit() {
     int x = 1, y = 2;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: lambda uses implicit capture-by-reference [&]
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: lambda uses implicit capture-by-reference [&]; all captures should be explicitly listed
     auto f = [&, x]() { return x + y; };
 
     (void)f;

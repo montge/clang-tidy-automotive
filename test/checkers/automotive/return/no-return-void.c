@@ -10,15 +10,13 @@
 //===----------------------------------------------------------------------===//
 
 // Noreturn function with int return type
-// CHECK-MESSAGES: :[[@LINE+2]]:5: warning: use 'void' as return type
-// CHECK-MESSAGES: :[[@LINE+1]]:40: warning: GCC does not allow 'noreturn' attribute in this position on a function definition
+// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: use 'void' as return type
 int bad_function1(void) __attribute__((noreturn)) {
     while(1);
 }
 
 // Noreturn function with pointer return type
-// CHECK-MESSAGES: :[[@LINE+2]]:7: warning: use 'void' as return type
-// CHECK-MESSAGES: :[[@LINE+1]]:42: warning: GCC does not allow 'noreturn' attribute in this position on a function definition
+// CHECK-MESSAGES: :[[@LINE+1]]:7: warning: use 'void' as return type
 void* bad_function2(void) __attribute__((noreturn)) {
     while(1);
 }
@@ -34,7 +32,6 @@ int bad_function3(void) {
 //===----------------------------------------------------------------------===//
 
 // Noreturn function with void return type - OK
-// CHECK-MESSAGES: :[[@LINE+1]]:42: warning: GCC does not allow 'noreturn' attribute in this position on a function definition
 void good_function1(void) __attribute__((noreturn)) {
     while(1);
 }

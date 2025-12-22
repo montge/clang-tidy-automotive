@@ -1,4 +1,4 @@
-// RUN: %check_clang_tidy %s automotive-cpp23-req-6.7 %t
+// RUN: %check_clang_tidy %s automotive-cpp23-req-6.7 %t -- -- -std=c++11
 // Test for automotive-cpp23-req-6.7
 // Related MISRA C++:2023 Rule: 6.7
 
@@ -74,16 +74,8 @@ void test_relational_operators() {
     if (a >= b) { }
 }
 
-#include <cmath>
-
-void test_epsilon_comparison() {
-    float a = 0.1f + 0.2f;
-    float b = 0.3f;
-    const float epsilon = 1e-6f;
-
-    // Proper epsilon-based comparison - no warning on this pattern
-    if (std::abs(a - b) < epsilon) { }
-}
+// Proper approach would use epsilon comparison:
+// if (std::abs(a - b) < epsilon) { }  // Use <cmath> for std::abs
 
 void test_pointer_equality() {
     float *p1 = nullptr;

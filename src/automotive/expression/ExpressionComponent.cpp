@@ -8,6 +8,7 @@
 
 #include "ExpressionComponent.h"
 #include "AvoidAssignmentInExpressionCheck.h"
+#include "AvoidAtomicMemberAccessCheck.h"
 #include "AvoidCharacterArithmeticCheck.h"
 #include "AvoidCompositeExpressionMismatchCheck.h"
 #include "AvoidConstantWrapAroundCheck.h"
@@ -82,6 +83,10 @@ void ExpressionComponent::addCheckFactories(
   // Rule 14.4 - Non-boolean in condition (Required)
   CheckFactories.registerCheck<AvoidNonBooleanInConditionCheck>(
       "automotive-c23-req-14.4");
+
+  // Rule 12.6 - Atomic struct member access (Required)
+  CheckFactories.registerCheck<AvoidAtomicMemberAccessCheck>(
+      "automotive-c25-req-12.6");
 }
 
 } // namespace clang::tidy::automotive

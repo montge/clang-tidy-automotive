@@ -95,6 +95,12 @@ void ImplicitIntCheck::checkFuncDecl(const FunctionDecl *FD,
   if (SM.isInSystemHeader(FD->getLocation()))
     return;
 
+  // Skip C++ lambda call operators - lambdas have deduced return types
+  if (const auto *MD = dyn_cast<CXXMethodDecl>(FD)) {
+    if (MD->getParent()->isLambda())
+      return;
+  }
+
   // Skip if it's a definition that was already declared with explicit type
   if (FD->isThisDeclarationADefinition() && FD->getPreviousDecl())
     return;

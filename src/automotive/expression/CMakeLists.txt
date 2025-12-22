@@ -1,5 +1,6 @@
 
 add_clang_library(clangTidyAutomotiveExpressionComponent STATIC
+  AvoidAtomicMemberAccessCheck.cpp
   AvoidAssignmentInExpressionCheck.cpp
   AvoidCharacterArithmeticCheck.cpp
   AvoidCompositeExpressionMismatchCheck.cpp

@@ -135,9 +135,7 @@
 
 // Undef after multiple defines with same name (redefinition)
 #define REDEF_MACRO 1
-// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: 'REDEF_MACRO' macro redefined [clang-diagnostic-macro-redefined]
 #define REDEF_MACRO 2
-// CHECK-MESSAGES: :137:9: note: previous definition is here
 // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: avoid #undef [automotive-avoid-undef]
 #undef REDEF_MACRO
 

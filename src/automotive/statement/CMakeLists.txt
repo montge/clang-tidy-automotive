@@ -13,5 +13,7 @@ add_clang_library(clangTidyAutomotiveStatementComponent STATIC
   StatementComponent.cpp
   UnstructuredSwitchStmtCheck.cpp
   UnusedLabelCheck.cpp
+  WellFormedForLoopCheck.cpp
+  WellFormedSwitchCheck.cpp
   WrongOrderInSwitchStmtCheck.cpp
 )

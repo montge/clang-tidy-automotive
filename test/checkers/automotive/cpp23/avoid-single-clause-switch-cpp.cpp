@@ -1,4 +1,4 @@
-// RUN: %check_clang_tidy %s automotive-cpp23-req-9.4 %t
+// RUN: %check_clang_tidy %s automotive-cpp23-req-9.4 %t -- -- -std=c++11 -Wno-switch
 // Test for automotive-cpp23-req-9.4: Switch minimum clauses
 // Related MISRA C++:2023 Rule: 9.4
 

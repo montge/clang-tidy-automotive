@@ -1,38 +1,39 @@
-// RUN: %check_clang_tidy %s automotive-cpp23-req-18.1 %t
+// RUN: %check_clang_tidy %s automotive-cpp23-req-18.1 %t -- -- -std=c++11
 // Test for automotive-cpp23-req-18.1: Exception prohibition
 // Related MISRA C++:2023 Rule: 18.1
-
-#include <stdexcept>
 
 //===----------------------------------------------------------------------===//
 // Violation Cases (should trigger warnings)
 //===----------------------------------------------------------------------===//
 
 void test_throw() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: exceptions shall not be used [automotive-cpp23-req-18.1]
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: exception handling shall not be used [automotive-cpp23-req-18.1]
     throw 42;
 }
 
-void test_throw_exception() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: exceptions shall not be used [automotive-cpp23-req-18.1]
-    throw std::runtime_error("error");
+void test_throw_string() {
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: exception handling shall not be used [automotive-cpp23-req-18.1]
+    throw "error";
 }
 
 void test_try_catch() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: exceptions shall not be used [automotive-cpp23-req-18.1]
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: exception handling shall not be used [automotive-cpp23-req-18.1]
     try {
         // code
+    // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: exception handling shall not be used [automotive-cpp23-req-18.1]
     } catch (...) {
         // handler
     }
 }
 
 void test_try_specific_catch() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: exceptions shall not be used [automotive-cpp23-req-18.1]
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: exception handling shall not be used [automotive-cpp23-req-18.1]
     try {
         // code
-    } catch (const std::exception& e) {
+    // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: exception handling shall not be used [automotive-cpp23-req-18.1]
+    } catch (int e) {
         // handler
+        (void)e;
     }
 }
 
@@ -52,16 +53,6 @@ ErrorCode safe_function(int input) {
         return ErrorCode::InvalidInput;
     }
     return ErrorCode::Success;
-}
-
-// Optional/Expected pattern (C++17/23)
-#include <optional>
-
-std::optional<int> safe_division(int a, int b) {
-    if (b == 0) {
-        return std::nullopt;
-    }
-    return a / b;
 }
 
 // noexcept functions
