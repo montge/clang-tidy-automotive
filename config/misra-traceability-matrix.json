@@ -3,14 +3,14 @@
   "generated": "generate_traceability_matrix.py",
   "statistics": {
     "total_requirements": 405,
-    "total_checks": 190,
-    "mapped_checks": 196,
+    "total_checks": 193,
+    "mapped_checks": 205,
     "c2025_requirements": 225,
     "cpp2023_requirements": 180,
     "status_counts": {
-      "implemented": 196,
-      "missing": 151,
-      "excluded": 58
+      "implemented": 205,
+      "missing": 141,
+      "excluded": 59
     }
   },
   "requirements": {
@@ -2323,11 +2323,11 @@
       },
       "Rule_11_6_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_11_6_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": ["modernize-return-braced-init-list"],
+        "status": "excluded",
         "category": "mandatory",
         "decidability": "undecidable",
-        "notes": ""
+        "notes": "Covered by clang-tidy modernize-return-braced-init-list check. Undecidable - requires manual review for full compliance."
       },
       "Rule_11_6_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_11_6_3.rst",
@@ -2871,27 +2871,27 @@
       },
       "Rule_25_5_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_25_5_1.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": ["automotive-cpp23-req-25.5.1"],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Pointers to localeconv results shall be const-qualified"
       },
       "Rule_25_5_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_25_5_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": ["automotive-cpp23-mand-25.5.2"],
+        "status": "implemented",
         "category": "mandatory",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Pointers to getenv/setlocale results shall be const-qualified"
       },
       "Rule_25_5_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_25_5_3.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": ["automotive-cpp23-mand-25.5.3"],
+        "status": "implemented",
         "category": "mandatory",
         "decidability": "undecidable",
-        "notes": ""
+        "notes": "Pointers to strerror results shall be const-qualified. Undecidable aspects require manual review."
       },
       "Rule_26_3_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_26_3_1.rst",

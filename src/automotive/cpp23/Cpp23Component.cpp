@@ -427,6 +427,21 @@ void Cpp23Component::addCheckFactories(
   CheckFactories.registerCheck<cpp23::LocaleConstPointerCheck>(
       "automotive-cpp23-mand-25.5");
 
+  // MISRA C++:2023 Rule 25.5.1 - Pointers to localeconv returned pointers
+  // shall only be used as pointers to const (Required)
+  CheckFactories.registerCheck<cpp23::LocaleConstPointerCheck>(
+      "automotive-cpp23-req-25.5.1");
+
+  // MISRA C++:2023 Rule 25.5.2 - Pointers to getenv/setlocale returned pointers
+  // shall only be used as pointers to const (Mandatory)
+  CheckFactories.registerCheck<cpp23::LocaleConstPointerCheck>(
+      "automotive-cpp23-mand-25.5.2");
+
+  // MISRA C++:2023 Rule 25.5.3 - Pointers to strerror returned pointers
+  // shall only be used as pointers to const (Mandatory)
+  CheckFactories.registerCheck<cpp23::LocaleConstPointerCheck>(
+      "automotive-cpp23-mand-25.5.3");
+
   // MISRA C++:2023 Rule 5.10 - Array to pointer decay should be avoided
   CheckFactories.registerCheck<cpp23::AvoidArrayToPointerDecayCheck>(
       "automotive-cpp23-req-5.10");
