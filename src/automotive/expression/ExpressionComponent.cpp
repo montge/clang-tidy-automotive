@@ -21,6 +21,7 @@
 #include "AvoidSideEffectInLogicalOperandCheck.h"
 #include "AvoidSideEffectInSizeofCheck.h"
 #include "AvoidSizeofArrayParameterCheck.h"
+#include "GenericDefaultPositionCheck.h"
 #include "InvariantControlCheck.h"
 
 namespace clang::tidy::automotive {
@@ -87,6 +88,10 @@ void ExpressionComponent::addCheckFactories(
   // Rule 12.6 - Atomic struct member access (Required)
   CheckFactories.registerCheck<AvoidAtomicMemberAccessCheck>(
       "automotive-c25-req-12.6");
+
+  // Rule 23.8 - Generic default position (Required)
+  CheckFactories.registerCheck<GenericDefaultPositionCheck>(
+      "automotive-c25-req-23.8");
 }
 
 } // namespace clang::tidy::automotive

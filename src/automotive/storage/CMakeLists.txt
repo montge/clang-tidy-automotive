@@ -12,5 +12,6 @@ add_automotive_component(clangTidyAutomotiveStorageComponent
   MissingPriorDeclarationCheck.cpp
   MissingStaticForInternalCheck.cpp
   MultipleExternalDefinitionCheck.cpp
+  StaticStorageClassCheck.cpp
   StorageComponent.cpp
 )

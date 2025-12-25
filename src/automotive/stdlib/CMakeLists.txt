@@ -17,4 +17,5 @@ add_automotive_component(clangTidyAutomotiveStdlibComponent
   ErrnoTestingCheck.cpp
   ExitCheck.cpp
   StdlibComponent.cpp
+  TgmathOperandTypeCheck.cpp
 )

@@ -13,6 +13,7 @@
 #include "AvoidStringLiteralToNonConstCheck.h"
 #include "AvoidTrigraphCheck.h"
 #include "AvoidUnsignedLiteralWithoutSuffixCheck.h"
+#include "IntConstMacroFormCheck.h"
 #include "UnterminatedEscapeSequenceCheck.h"
 
 namespace clang::tidy::automotive {
@@ -31,6 +32,10 @@ void LiteralComponent::addCheckFactories(
       "automotive-c23-req-7.2");
   CheckFactories.registerCheck<AvoidStringLiteralToNonConstCheck>(
       "automotive-c23-req-7.4");
+
+  // Rule 7.5 - Integer constant macro argument form (Mandatory)
+  CheckFactories.registerCheck<IntConstMacroFormCheck>(
+      "automotive-c25-mand-7.5");
 
   // Rule 7.6 - Small integer constant macros (Required)
   CheckFactories.registerCheck<AvoidSmallIntConstMacroCheck>(

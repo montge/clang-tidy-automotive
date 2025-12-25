@@ -15,5 +15,6 @@ add_automotive_component(clangTidyAutomotiveExpressionComponent
   AvoidSideEffectInSizeofCheck.cpp
   AvoidSizeofArrayParameterCheck.cpp
   ExpressionComponent.cpp
+  GenericDefaultPositionCheck.cpp
   InvariantControlCheck.cpp
 )

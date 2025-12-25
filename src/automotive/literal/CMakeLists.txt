@@ -6,6 +6,7 @@ add_automotive_component(clangTidyAutomotiveLiteralComponent
   AvoidStringLiteralToNonConstCheck.cpp
   AvoidTrigraphCheck.cpp
   AvoidUnsignedLiteralWithoutSuffixCheck.cpp
+  IntConstMacroFormCheck.cpp
   LiteralComponent.cpp
   UnterminatedEscapeSequenceCheck.cpp
 )
