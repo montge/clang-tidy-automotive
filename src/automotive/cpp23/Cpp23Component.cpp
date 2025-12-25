@@ -7,7 +7,11 @@
 //===----------------------------------------------------------------------===//
 
 #include "Cpp23Component.h"
+#include "AutoTypeRestrictionCheck.h"
 #include "AvoidArrayToPointerDecayCheck.h"
+#include "AvoidAsmCheck.h"
+#include "AvoidBoolArithmeticCheck.h"
+#include "AvoidCArrayCheck.h"
 #include "AvoidAssignmentInSubExpressionCheck.h"
 #include "AvoidAssignmentResultCheck.h"
 #include "AvoidCStyleCastCheck.h"
@@ -32,6 +36,7 @@
 #include "AvoidImplicitConversionCheck.h"
 #include "AvoidImplicitConversionOperatorCheck.h"
 #include "AvoidImplicitLambdaCaptureCheck.h"
+#include "AvoidLambdaThisCaptureCheck.h"
 #include "AvoidImplicitUpcastCheck.h"
 #include "AvoidInlineTypeDefinitionCheck.h"
 #include "AvoidMemberPointerConversionCheck.h"
@@ -43,10 +48,12 @@
 #include "AvoidNoreturnReturnCheck.h"
 #include "AvoidNullLiteralAssignmentCheck.h"
 #include "AvoidObjectSlicingCheck.h"
+#include "AvoidOffsetofCheck.h"
 #include "AvoidOverlappingCopyCheck.h"
 #include "AvoidOverloadedLogicalOperatorCheck.h"
 #include "AvoidReallocCheck.h"
 #include "AvoidReinterpretCastCheck.h"
+#include "AvoidSignedBitwiseCheck.h"
 #include "AvoidReturnLocalAddressCheck.h"
 #include "AvoidSingleClauseSwitchCppCheck.h"
 #include "AvoidSlicingCheck.h"
@@ -59,6 +66,7 @@
 // errors
 #include "AvoidThrowInNoexceptCheck.h"
 #include "AvoidThrowingDestructorCheck.h"
+#include "AvoidTypeidOnDereferencedPointerCheck.h"
 #include "AvoidTypePunningCheck.h"
 #include "AvoidUnaryMinusOnUnsignedCheck.h"
 #include "AvoidUnboundedLoopCheck.h"
@@ -73,9 +81,12 @@
 #include "AvoidVirtualCallInCtorDtorCheck.h"
 #include "AvoidVirtualFunctionDefaultArgCheck.h"
 #include "AvoidVoidPointerCastCheck.h"
+#include "AvoidVolatileCheck.h"
 #include "AvoidWideVariableScopeCheck.h"
 #include "DefaultArgumentOrderCheck.h"
+#include "ExceptionBaseClassCheck.h"
 #include "ExplicitConstructorCheck.h"
+#include "ExplicitEnumTypeCheck.h"
 #include "ExplicitLambdaCaptureCheck.h"
 #include "LocaleConstPointerCheck.h"
 #include "MissingReturnCheck.h"
@@ -89,7 +100,11 @@
 #include "SuboptimalBreakContinueCheck.h"
 #include "UnconstrainedTemplateCheck.h"
 #include "UninitializedAutoVarCheck.h"
+#include "UninitializedVariableCheck.h"
 #include "UseAddressofCheck.h"
+#include "UseNodiscardCheck.h"
+#include "UseNullptrCheck.h"
+#include "UseOverrideCheck.h"
 #include "UseUnnamedNamespaceCheck.h"
 #include "VirtualDestructorCheck.h"
 
@@ -470,6 +485,91 @@ void Cpp23Component::addCheckFactories(
   // when used (Partial)
   CheckFactories.registerCheck<cpp23::CheckFilePointerValidityCheck>(
       "automotive-cpp23-adv-21.2");
+
+  // MISRA C++:2023 Rule 21.2.1 - The macro offsetof shall not be used
+  // (Required)
+  CheckFactories.registerCheck<AvoidOffsetofCheck>(
+      "automotive-cpp23-req-21.2.1");
+
+  // MISRA C++:2023 Rule 6.2.1 - Boolean values shall not be used in
+  // arithmetic operations (Required)
+  CheckFactories.registerCheck<AvoidBoolArithmeticCheck>(
+      "automotive-cpp23-req-6.2.1");
+
+  // MISRA C++:2023 Rule 7.0.1 - The asm declaration shall not be used
+  // (Required)
+  CheckFactories.registerCheck<cpp23::AvoidAsmCheck>(
+      "automotive-cpp23-req-7.0.1");
+
+  // MISRA C++:2023 Rule 7.11.2 - nullptr shall be the only null pointer
+  // constant (Required)
+  CheckFactories.registerCheck<cpp23::UseNullptrCheck>(
+      "automotive-cpp23-req-7.11.2");
+
+  // MISRA C++:2023 Rule 8.1.1 - Lambda shall not implicitly capture this
+  // (Required)
+  CheckFactories.registerCheck<cpp23::AvoidLambdaThisCaptureCheck>(
+      "automotive-cpp23-req-8.1.1");
+
+  // MISRA C++:2023 Rule 8.8.1 - Signed integer operands shall not be
+  // used in bitwise operations (Required)
+  CheckFactories.registerCheck<AvoidSignedBitwiseCheck>(
+      "automotive-cpp23-req-8.8.1");
+
+  // MISRA C++:2023 Rule 10.1.2 - Type specifiers shall be used with auto
+  // (Advisory)
+  CheckFactories.registerCheck<cpp23::AutoTypeRestrictionCheck>(
+      "automotive-cpp23-adv-10.1.2");
+
+  // MISRA C++:2023 Rule 10.2.1 - Enumerations shall be declared with an
+  // explicit underlying type (Advisory)
+  CheckFactories.registerCheck<ExplicitEnumTypeCheck>(
+      "automotive-cpp23-adv-10.2.1");
+
+  // MISRA C++:2023 Rule 10.4.1 - The volatile type qualifier shall not be
+  // used (Required)
+  CheckFactories.registerCheck<cpp23::AvoidVolatileCheck>(
+      "automotive-cpp23-req-10.4.1");
+
+  // MISRA C++:2023 Rule 10.6.1 - [[nodiscard]] attribute should be used
+  // (Advisory)
+  CheckFactories.registerCheck<cpp23::UseNodiscardCheck>(
+      "automotive-cpp23-adv-10.6.1");
+
+  // MISRA C++:2023 Rule 11.3.1 - C-style arrays shall not be used
+  // (Advisory)
+  CheckFactories.registerCheck<cpp23::AvoidCArrayCheck>(
+      "automotive-cpp23-adv-11.3.1");
+
+  // MISRA C++:2023 Rule 11.6.1 - Variables shall be initialized
+  // (Advisory)
+  CheckFactories.registerCheck<cpp23::UninitializedVariableCheck>(
+      "automotive-cpp23-adv-11.6.1");
+
+  // MISRA C++:2023 Rule 12.2.1 - A class shall declare a virtual destructor
+  // if it has virtual functions (Advisory)
+  CheckFactories.registerCheck<RequireVirtualDestructorCheck>(
+      "automotive-cpp23-adv-12.2.1");
+
+  // MISRA C++:2023 Rule 13.3.2 - An override function shall be declared
+  // with the override specifier (Required)
+  CheckFactories.registerCheck<cpp23::UseOverrideCheck>(
+      "automotive-cpp23-req-13.3.2");
+
+  // MISRA C++:2023 Rule 16.6.1 - A forwarding reference shall not bind
+  // to a temporary (Advisory)
+  CheckFactories.registerCheck<cpp23::AvoidTemplateRefTemporaryCheck>(
+      "automotive-cpp23-adv-16.6.1");
+
+  // MISRA C++:2023 Rule 17.3.1 - typeid shall not be used on a dereferenced
+  // pointer (Advisory)
+  CheckFactories.registerCheck<cpp23::AvoidTypeidOnDereferencedPointerCheck>(
+      "automotive-cpp23-adv-17.3.1");
+
+  // MISRA C++:2023 Rule 18.3.1 - Exceptions shall be derived from
+  // std::exception (Advisory)
+  CheckFactories.registerCheck<ExceptionBaseClassCheck>(
+      "automotive-cpp23-adv-18.3.1");
 }
 
 } // namespace clang::tidy::automotive

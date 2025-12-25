@@ -8,9 +8,9 @@
     "c2025_requirements": 225,
     "cpp2023_requirements": 180,
     "status_counts": {
-      "implemented": 205,
-      "missing": 122,
-      "excluded": 78
+      "implemented": 212,
+      "missing": 119,
+      "excluded": 74
     }
   },
   "requirements": {
@@ -2249,17 +2249,17 @@
         "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Type specifiers shall be used with auto"
       },
       "Rule_10_2_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_10_2_1.rst",
         "check_ids": [
-          "automotive-cpp23-req-10.2.1"
+          "automotive-cpp23-adv-10.2.1"
         ],
         "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Enumerations shall have explicit underlying type"
       },
       "Rule_10_2_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_10_2_2.rst",
@@ -2292,22 +2292,22 @@
       "Rule_10_4_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_10_4_1.rst",
         "check_ids": [
-          "hicpp-no-assembler"
-        ],
-        "status": "excluded",
-        "category": "required",
-        "decidability": "decidable",
-        "notes": "Covered by clang-tidy hicpp-no-assembler"
-      },
-      "Rule_11_3_1": {
-        "file": "docs/requirements/misra-cpp-2023/Rule_11_3_1.rst",
-        "check_ids": [
-          "automotive-cpp23-adv-11.3"
+          "automotive-cpp23-req-10.4.1"
         ],
         "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "volatile type qualifier shall not be used"
+      },
+      "Rule_11_3_1": {
+        "file": "docs/requirements/misra-cpp-2023/Rule_11_3_1.rst",
+        "check_ids": [
+          "automotive-cpp23-adv-11.3.1"
+        ],
+        "status": "implemented",
+        "category": "required",
+        "decidability": "decidable",
+        "notes": "C-style arrays shall not be used"
       },
       "Rule_11_3_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_11_3_2.rst",
@@ -2320,12 +2320,12 @@
       "Rule_11_6_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_11_6_1.rst",
         "check_ids": [
-          "cppcoreguidelines-init-variables"
+          "automotive-cpp23-adv-11.6.1"
         ],
-        "status": "excluded",
+        "status": "implemented",
         "category": "advisory",
         "decidability": "unknown",
-        "notes": "Covered by clang-tidy cppcoreguidelines-init-variables"
+        "notes": "Variables shall be initialized"
       },
       "Rule_11_6_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_11_6_2.rst",
@@ -2347,11 +2347,13 @@
       },
       "Rule_12_2_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_12_2_1.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-adv-12.2.1"
+        ],
+        "status": "implemented",
         "category": "advisory",
         "decidability": "unknown",
-        "notes": ""
+        "notes": "Virtual destructor required for virtual functions"
       },
       "Rule_12_2_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_12_2_2.rst",
@@ -2408,12 +2410,12 @@
       "Rule_13_3_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_13_3_2.rst",
         "check_ids": [
-          "hicpp-use-override"
+          "automotive-cpp23-req-13.3.2"
         ],
-        "status": "excluded",
+        "status": "implemented",
         "category": "required",
         "decidability": "unknown",
-        "notes": "Covered by clang-tidy hicpp-use-override, modernize-use-override"
+        "notes": "override specifier shall be used"
       },
       "Rule_13_3_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_13_3_3.rst",
@@ -2523,11 +2525,13 @@
       },
       "Rule_16_6_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_16_6_1.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-adv-16.6.1"
+        ],
+        "status": "implemented",
         "category": "advisory",
         "decidability": "unknown",
-        "notes": ""
+        "notes": "Forwarding reference shall not bind to temporary"
       },
       "Rule_17_8_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_17_8_1.rst",
@@ -2562,12 +2566,12 @@
       "Rule_18_3_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_18_3_1.rst",
         "check_ids": [
-          "hicpp-exception-baseclass"
+          "automotive-cpp23-adv-18.3.1"
         ],
-        "status": "excluded",
+        "status": "implemented",
         "category": "advisory",
         "decidability": "decidable",
-        "notes": "Covered by clang-tidy hicpp-exception-baseclass"
+        "notes": "Exceptions shall derive from std::exception"
       },
       "Rule_18_3_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_18_3_2.rst",
@@ -2781,11 +2785,13 @@
       },
       "Rule_21_2_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_21_2_1.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-req-21.2.1"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "offsetof macro shall not be used"
       },
       "Rule_21_2_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_21_2_2.rst",
@@ -3159,12 +3165,12 @@
       "Rule_6_2_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_6_2_1.rst",
         "check_ids": [
-          "automotive-cpp23-req-6.2"
+          "automotive-cpp23-req-6.2.1"
         ],
         "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Boolean values shall not be used in arithmetic operations"
       },
       "Rule_6_2_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_6_2_2.rst",
@@ -3311,12 +3317,12 @@
       "Rule_7_0_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_7_0_1.rst",
         "check_ids": [
-          "automotive-cpp23-req-7.0"
+          "automotive-cpp23-req-7.0.1"
         ],
         "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "asm declaration shall not be used"
       },
       "Rule_7_0_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_7_0_2.rst",
@@ -3376,7 +3382,7 @@
         "status": "implemented",
         "category": "advisory",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "nullptr shall be the only null pointer constant"
       },
       "Rule_7_11_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_7_11_3.rst",
@@ -3436,12 +3442,12 @@
       "Rule_8_1_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_8_1_1.rst",
         "check_ids": [
-          "automotive-cpp23-adv-8.1"
+          "automotive-cpp23-req-8.1.1"
         ],
         "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Lambda shall not implicitly capture this"
       },
       "Rule_8_1_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_8_1_2.rst",
