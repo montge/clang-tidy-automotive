@@ -8,7 +8,7 @@ void test_composite_to_wider_violation(void) {
   int16_t y = 1000;
   int64_t result;
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: composite expression with narrower type assigned to object with wider type; computation may lose precision before widening
+  // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: composite expression with narrower type assigned to object with wider type; computation may lose precision before widening
   result = x * y;  // int16_t * int16_t promoted to int (32-bit) assigned to int64_t
   (void)result;
 }
@@ -18,7 +18,7 @@ void test_bitwise_to_wider_violation(void) {
   uint16_t b = 0x5678;
   uint64_t result;
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: composite expression with narrower type assigned to object with wider type; computation may lose precision before widening
+  // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: composite expression with narrower type assigned to object with wider type; computation may lose precision before widening
   result = a | b;  // 32-bit result assigned to 64-bit
   (void)result;
 }
