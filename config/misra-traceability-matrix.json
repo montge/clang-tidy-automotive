@@ -3,13 +3,13 @@
   "generated": "generate_traceability_matrix.py",
   "statistics": {
     "total_requirements": 405,
-    "total_checks": 181,
-    "mapped_checks": 187,
+    "total_checks": 182,
+    "mapped_checks": 188,
     "c2025_requirements": 225,
     "cpp2023_requirements": 180,
     "status_counts": {
-      "implemented": 187,
-      "missing": 159,
+      "implemented": 188,
+      "missing": 158,
       "excluded": 59
     }
   },
@@ -1361,8 +1361,10 @@
       },
       "Rule_22_13": {
         "file": "docs/requirements/misra-c-2025/Rule_22_13.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-c25-req-22.13"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
         "notes": ""

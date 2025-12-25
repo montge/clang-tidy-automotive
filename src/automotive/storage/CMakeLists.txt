@@ -14,4 +14,5 @@ add_automotive_component(clangTidyAutomotiveStorageComponent
   MultipleExternalDefinitionCheck.cpp
   StaticStorageClassCheck.cpp
   StorageComponent.cpp
+  ThreadObjectStorageCheck.cpp
 )
