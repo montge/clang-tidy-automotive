@@ -1,509 +1,923 @@
 {
   "$schema": "./misra-rule-mapping.schema.json",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "standard": "MISRA C:2025",
-  "generated": "2025-01-01T00:00:00Z",
+  "generated": "2025-12-25T00:00:00Z",
   "description": "Mapping between clang-tidy-automotive checks and MISRA C:2025 rules",
-  "rules": [
+  "statistics": {
+    "total_checks": 379,
+    "c25_checks": 128,
+    "c23_checks": 68,
+    "cpp23_checks": 129
+  },
+  "c25_rules": [
     {
-      "check_id": "automotive-unused-label",
-      "misra_rule": "2.6",
-      "misra_title": "A function should not contain unused label declarations",
-      "category": "Advisory",
-      "coverage": "full",
-      "notes": "Detects labels that are declared but never referenced."
-    },
-    {
-      "check_id": "automotive-unused-macro",
-      "misra_rule": "2.5",
-      "misra_title": "A project should not contain unused macro declarations",
-      "category": "Advisory",
-      "coverage": "full",
-      "notes": "Detects macros that are defined but never used."
-    },
-    {
-      "check_id": "automotive-unused-type",
-      "misra_rule": "2.3",
-      "misra_title": "A project should not contain unused type declarations",
-      "category": "Advisory",
-      "coverage": "full",
-      "notes": "Detects type declarations that are never used."
-    },
-    {
-      "check_id": "automotive-x-adv-2.4",
-      "misra_rule": "2.4",
-      "misra_title": "A project should not contain unused tag declarations",
-      "category": "Advisory",
-      "coverage": "full",
-      "notes": "Detects struct/union/enum tags that are never used."
-    },
-    {
-      "check_id": "automotive-c23-adv-2.8",
-      "misra_rule": "2.8",
-      "misra_title": "A project should not contain unused object definitions",
-      "category": "Advisory",
-      "coverage": "full",
-      "notes": "Detects objects that are defined but never used."
-    },
-    {
-      "check_id": "automotive-avoid-comment-within-comment",
-      "misra_rule": "3.1",
-      "misra_title": "The character sequences /* and // shall not be used within a comment",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects comment markers inside comments."
-    },
-    {
-      "check_id": "automotive-avoid-line-splicing-within-comment",
-      "misra_rule": "3.2",
-      "misra_title": "Line-splicing shall not be used in // comments",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects backslash-newline sequences in C++ comments."
-    },
-    {
-      "check_id": "automotive-unterminated-escape-sequence",
-      "misra_rule": "4.1",
-      "misra_title": "Octal and hexadecimal escape sequences shall be terminated",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects unterminated escape sequences in string literals."
-    },
-    {
-      "check_id": "automotive-wrong-bitfield-type",
-      "misra_rule": "6.1",
-      "misra_title": "Bit-fields shall only be declared with an appropriate type",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects bit-fields with inappropriate types."
-    },
-    {
-      "check_id": "automotive-avoid-signed-single-bitfield",
-      "misra_rule": "6.2",
-      "misra_title": "Single-bit named bit fields shall not be of a signed type",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects single-bit signed bit-fields."
-    },
-    {
-      "check_id": "automotive-avoid-octal-number",
-      "misra_rule": "7.1",
-      "misra_title": "Octal constants shall not be used",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects octal literal constants."
-    },
-    {
-      "check_id": "automotive-avoid-lowercase-literal-suffix",
-      "misra_rule": "7.3",
-      "misra_title": "The lowercase character 'l' shall not be used in a literal suffix",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects lowercase 'l' suffix which can be confused with digit '1'."
-    },
-    {
-      "check_id": "automotive-implict-int",
-      "misra_rule": "8.1",
-      "misra_title": "Types shall be explicitly stated",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects implicit int type declarations."
-    },
-    {
-      "check_id": "automotive-uncomplete-function-prototype",
-      "misra_rule": "8.2",
-      "misra_title": "Function types shall be in prototype form with named parameters",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects incomplete function prototypes."
-    },
-    {
-      "check_id": "automotive-function-declaration-mismatch",
-      "misra_rule": "8.3",
-      "misra_title": "All declarations of an object or function shall use the same names and type qualifiers",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects mismatched function declarations."
-    },
-    {
-      "check_id": "automotive-missing-static-internal-linkage",
-      "misra_rule": "8.8",
-      "misra_title": "If a function has internal linkage then all re-declarations shall include the static storage class specifier",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects internal functions without static keyword."
-    },
-    {
-      "check_id": "automotive-static-inline",
-      "misra_rule": "8.10",
-      "misra_title": "An inline function shall be declared with the static storage class",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects inline functions without static."
-    },
-    {
-      "check_id": "automotive-missing-external-array-size",
-      "misra_rule": "8.11",
-      "misra_title": "When an array with external linkage is declared, its size should be explicitly specified",
-      "category": "Advisory",
-      "coverage": "full",
-      "notes": "Detects external arrays without explicit size."
-    },
-    {
-      "check_id": "automotive-unique-enum-value",
-      "misra_rule": "8.12",
-      "misra_title": "Within an enumerator list, the value of an implicitly-specified enumeration constant shall be unique",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects duplicate enum values."
-    },
-    {
-      "check_id": "automotive-avoid-restrict-type",
-      "misra_rule": "8.14",
-      "misra_title": "The restrict type qualifier shall not be used",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects restrict qualifier usage."
-    },
-    {
-      "check_id": "automotive-avoid-partial-array-init",
-      "misra_rule": "9.3",
-      "misra_title": "Arrays shall not be partially initialized",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects partial array initialization."
-    },
-    {
-      "check_id": "automotive-avoid-comma-operator",
-      "misra_rule": "12.3",
-      "misra_title": "The comma operator should not be used",
-      "category": "Advisory",
-      "coverage": "full",
-      "notes": "Detects comma operator usage in expressions."
-    },
-    {
-      "check_id": "automotive-c23-adv-13.4",
-      "misra_rule": "13.4",
-      "misra_title": "The result of an assignment operator should not be used",
-      "category": "Advisory",
-      "coverage": "full",
-      "notes": "Detects assignments used as expressions."
-    },
-    {
-      "check_id": "automotive-c23-req-14.1",
-      "misra_rule": "14.1",
-      "misra_title": "A loop counter shall not have essentially floating type",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects floating-point loop counters. Uses cert-flp30-c."
-    },
-    {
-      "check_id": "automotive-c23-req-14.3",
-      "misra_rule": "14.3",
-      "misra_title": "Controlling expressions shall not be invariant",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects invariant controlling expressions."
-    },
-    {
-      "check_id": "automotive-c23-req-14.4",
-      "misra_rule": "14.4",
-      "misra_title": "The controlling expression of an if-statement and the controlling expression of an iteration-statement shall have essentially Boolean type",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects non-boolean controlling expressions."
-    },
-    {
-      "check_id": "automotive-avoid-goto",
-      "misra_rule": "15.1",
-      "misra_title": "The goto statement should not be used",
-      "category": "Advisory",
-      "coverage": "full",
-      "notes": "Detects all goto statements."
-    },
-    {
-      "check_id": "automotive-forward-goto-label",
-      "misra_rule": "15.3",
-      "misra_title": "Any label referenced by a goto statement shall be declared in the same block, or in any block enclosing the goto statement",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects forward jumps to labels."
-    },
-    {
-      "check_id": "automotive-avoid-multiple-return-stmt",
-      "misra_rule": "15.5",
-      "misra_title": "A function should have a single point of exit at the end",
-      "category": "Advisory",
-      "coverage": "full",
-      "notes": "Detects multiple return statements in a function."
-    },
-    {
-      "check_id": "automotive-missing-compound",
-      "misra_rule": "15.6",
-      "misra_title": "The body of an iteration-statement or a selection-statement shall be a compound-statement",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects if/while/for without braces."
-    },
-    {
-      "check_id": "automotive-missing-else",
-      "misra_rule": "15.7",
-      "misra_title": "All if...else if constructs shall be terminated with an else statement",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects else-if chains without final else."
-    },
-    {
-      "check_id": "automotive-x-req-16.2",
-      "misra_rule": "16.2",
-      "misra_title": "A switch label shall only be used when the most closely-enclosing compound statement is the body of a switch statement",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects unstructured switch statements."
-    },
-    {
-      "check_id": "automotive-missing-break-in-case",
-      "misra_rule": "16.3",
-      "misra_title": "An unconditional break statement shall terminate every switch-clause",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects switch case fall-through."
-    },
-    {
-      "check_id": "automotive-missing-default-in-switch",
-      "misra_rule": "16.4",
-      "misra_title": "Every switch statement shall have a default label",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects switch statements without default."
-    },
-    {
-      "check_id": "automotive-c23-req-16.5",
-      "misra_rule": "16.5",
-      "misra_title": "A default label shall appear as either the first or the last switch label of a switch statement",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects default label in wrong position."
-    },
-    {
-      "check_id": "automotive-avoid-boolean-in-switch",
-      "misra_rule": "16.7",
-      "misra_title": "A switch-expression shall not have essentially Boolean type",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects switch on boolean expressions."
-    },
-    {
-      "check_id": "automotive-avoid-stdarg-header",
-      "misra_rule": "17.1",
-      "misra_title": "The features of <stdarg.h> shall not be used",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects <stdarg.h> usage."
-    },
-    {
-      "check_id": "automotive-c23-req-17.2",
-      "misra_rule": "17.2",
-      "misra_title": "Functions shall not call themselves, either directly or indirectly",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects recursive functions. Uses misc-no-recursion."
-    },
-    {
-      "check_id": "automotive-implicit-function-decl",
-      "misra_rule": "17.3",
-      "misra_title": "A function shall not be declared implicitly",
-      "category": "Mandatory",
-      "coverage": "full",
-      "notes": "Detects implicit function declarations."
-    },
-    {
-      "check_id": "automotive-no-return-void",
-      "misra_rule": "17.4",
-      "misra_title": "All exit paths from a function with non-void return type shall have an explicit return statement with an expression",
-      "category": "Mandatory",
-      "coverage": "full",
-      "notes": "Detects non-void functions missing return."
-    },
-    {
-      "check_id": "automotive-missing-return-value-handling",
-      "misra_rule": "17.7",
-      "misra_title": "The value returned by a function having non-void return type shall be used",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects ignored return values."
-    },
-    {
-      "check_id": "automotive-avoid-function-parameter-modification",
-      "misra_rule": "17.8",
-      "misra_title": "A function parameter should not be modified",
-      "category": "Advisory",
-      "coverage": "full",
-      "notes": "Detects modification of function parameters."
-    },
-    {
-      "check_id": "automotive-avoid-flexible-array-member",
-      "misra_rule": "18.7",
-      "misra_title": "Flexible array members shall not be declared",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects flexible array member declarations."
-    },
-    {
-      "check_id": "automotive-avoid-variable-length-array",
-      "misra_rule": "18.8",
-      "misra_title": "Variable-length array types shall not be used",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects variable-length array declarations."
-    },
-    {
-      "check_id": "automotive-avoid-union",
-      "misra_rule": "19.2",
-      "misra_title": "The union keyword should not be used",
-      "category": "Advisory",
-      "coverage": "full",
-      "notes": "Detects union type usage."
-    },
-    {
-      "check_id": "automotive-avoid-bitfield-in-union",
-      "misra_rule": "19.2",
-      "misra_title": "The union keyword should not be used",
-      "category": "Advisory",
-      "coverage": "related",
-      "notes": "Detects bit-fields in unions."
-    },
-    {
-      "check_id": "automotive-avoid-macro-named-as-ckeyword",
-      "misra_rule": "20.4",
-      "misra_title": "A macro shall not be defined with the same name as a keyword",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects macros named as C keywords."
-    },
-    {
-      "check_id": "automotive-avoid-undef",
-      "misra_rule": "20.5",
-      "misra_title": "#undef should not be used",
-      "category": "Advisory",
-      "coverage": "full",
-      "notes": "Detects #undef preprocessor directives."
-    },
-    {
-      "check_id": "automotive-avoid-hash-operator",
-      "misra_rule": "20.10",
-      "misra_title": "The # and ## preprocessor operators should not be used",
-      "category": "Advisory",
-      "coverage": "full",
-      "notes": "Detects # operator in macros."
-    },
-    {
-      "check_id": "automotive-avoid-multiple-hash-operators",
-      "misra_rule": "20.11",
-      "misra_title": "A macro parameter immediately following a # operator shall not immediately be followed by a ## operator",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects # followed by ## on same parameter."
-    },
-    {
-      "check_id": "automotive-avoid-setjmp-header",
-      "misra_rule": "21.4",
-      "misra_title": "The standard header file <setjmp.h> shall not be used",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects setjmp/longjmp usage."
-    },
-    {
-      "check_id": "automotive-avoid-signal-header",
-      "misra_rule": "21.5",
-      "misra_title": "The standard header file <signal.h> shall not be used",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects signal() function usage."
-    },
-    {
-      "check_id": "automotive-avoid-ascii-to-number",
-      "misra_rule": "21.7",
-      "misra_title": "The atof, atoi, atol and atoll functions of <stdlib.h> shall not be used",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects atoi/atof/atol/atoll usage."
-    },
-    {
-      "check_id": "automotive-avoid-stdlib-exit-call",
-      "misra_rule": "21.8",
-      "misra_title": "The library functions abort, exit and system of <stdlib.h> shall not be used",
-      "category": "Required",
-      "coverage": "partial",
-      "notes": "Detects abort/exit functions."
-    },
-    {
-      "check_id": "automotive-avoid-stdlib-system-call",
-      "misra_rule": "21.8",
-      "misra_title": "The library functions abort, exit and system of <stdlib.h> shall not be used",
-      "category": "Required",
-      "coverage": "partial",
-      "notes": "Detects system() function."
-    },
-    {
-      "check_id": "automotive-avoid-stdlib-rand-call",
-      "misra_rule": "21.12",
-      "misra_title": "The exception handling functions of <fenv.h> should not be used",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects rand() function usage."
-    },
-    {
-      "check_id": "automotive-wrong-null-pointer-value",
-      "misra_rule": "11.9",
-      "misra_title": "The macro NULL shall be the only permitted form of integer null pointer constant",
-      "category": "Required",
-      "coverage": "full",
-      "notes": "Detects incorrect NULL pointer literals."
-    }
-  ],
-  "unimplemented_rules": [
-    {
-      "misra_rule": "1.1",
-      "misra_title": "The program shall contain no violations of the standard C syntax and constraints",
-      "category": "Required",
-      "reason": "Covered by compiler diagnostics"
-    },
-    {
+      "check_id": "automotive-c25-adv-1.2",
       "misra_rule": "1.2",
       "misra_title": "Language extensions should not be used",
       "category": "Advisory",
-      "reason": "Requires compiler-specific analysis"
+      "coverage": "full"
     },
     {
-      "misra_rule": "1.3",
-      "misra_title": "There shall be no occurrence of undefined or critical unspecified behaviour",
+      "check_id": "automotive-c25-req-1.5",
+      "misra_rule": "1.5",
+      "misra_title": "Deprecated features should not be used",
       "category": "Required",
-      "reason": "Covered by UBSan and other sanitizers"
+      "coverage": "full"
     },
     {
-      "misra_rule": "2.1",
-      "misra_title": "A project shall not contain unreachable code",
-      "category": "Required",
-      "reason": "Partially covered by -Wunreachable-code"
+      "check_id": "automotive-c25-adv-2.4",
+      "misra_rule": "2.4",
+      "misra_title": "A project should not contain unused tag declarations",
+      "category": "Advisory",
+      "coverage": "full"
     },
     {
-      "misra_rule": "2.2",
-      "misra_title": "There shall be no dead code",
+      "check_id": "automotive-c25-adv-2.7",
+      "misra_rule": "2.7",
+      "misra_title": "There should be no unused parameters in functions",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-2.8",
+      "misra_rule": "2.8",
+      "misra_title": "A project should not contain unused object definitions",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-3.1",
+      "misra_rule": "3.1",
+      "misra_title": "The character sequences /* and // shall not be used within a comment",
       "category": "Required",
-      "reason": "Requires full program analysis"
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-3.2",
+      "misra_rule": "3.2",
+      "misra_title": "Line-splicing shall not be used in // comments",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-4.2",
+      "misra_rule": "4.2",
+      "misra_title": "Trigraphs shall not be used",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-5.4",
+      "misra_rule": "5.4",
+      "misra_title": "Macro identifiers shall be distinct",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-5.6",
+      "misra_rule": "5.6",
+      "misra_title": "A typedef name shall be a unique identifier",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-5.7",
+      "misra_rule": "5.7",
+      "misra_title": "A tag name shall be a unique identifier",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-6.1",
+      "misra_rule": "6.1",
+      "misra_title": "Bit-fields shall only be declared with an appropriate type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-6.2",
+      "misra_rule": "6.2",
+      "misra_title": "Single-bit named bit fields shall not be of a signed type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-6.3",
+      "misra_rule": "6.3",
+      "misra_title": "A bit field shall not be declared as a member of a union",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-7.1",
+      "misra_rule": "7.1",
+      "misra_title": "Octal constants shall not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-7.2",
+      "misra_rule": "7.2",
+      "misra_title": "A u or U suffix shall be applied to all integer constants of unsigned type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-7.3",
+      "misra_rule": "7.3",
+      "misra_title": "The lowercase character l shall not be used in a literal suffix",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-7.4",
+      "misra_rule": "7.4",
+      "misra_title": "A string literal shall not be assigned to an object unless the object type is pointer to const-qualified char",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-mand-7.5",
+      "misra_rule": "7.5",
+      "misra_title": "The argument of an integer constant macro shall have an appropriate form",
+      "category": "Mandatory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-7.6",
+      "misra_rule": "7.6",
+      "misra_title": "The small integer constant macros shall only be used for objects of the appropriate essential type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-8.8",
+      "misra_rule": "8.8",
+      "misra_title": "The static storage class specifier shall be used in all declarations of objects and functions with internal linkage",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-8.16",
+      "misra_rule": "8.16",
+      "misra_title": "The alignment specification of an object should not be relaxed",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-8.17",
+      "misra_rule": "8.17",
+      "misra_title": "An alignment specification of zero should not be used",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-8.19",
+      "misra_rule": "8.19",
+      "misra_title": "External objects should not be declared in source files",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-9.2",
+      "misra_rule": "9.2",
+      "misra_title": "The initializer for an aggregate or union shall be enclosed in braces",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-9.6",
+      "misra_rule": "9.6",
+      "misra_title": "Chained designators should not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-9.7",
+      "misra_rule": "9.7",
+      "misra_title": "Array or struct initialization should be complete",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-10.1",
+      "misra_rule": "10.1",
+      "misra_title": "Operands shall not be of an inappropriate essential type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-10.2",
+      "misra_rule": "10.2",
+      "misra_title": "Expressions of essentially character type shall not be used inappropriately in addition and subtraction operations",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-10.3",
+      "misra_rule": "10.3",
+      "misra_title": "The value of an expression shall not be assigned to an object with a narrower essential type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-10.4",
+      "misra_rule": "10.4",
+      "misra_title": "Both operands of an operator with usual arithmetic conversions shall have the same essential type category",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-10.5",
+      "misra_rule": "10.5",
+      "misra_title": "The value of an expression should not be cast to an inappropriate essential type",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-10.6",
+      "misra_rule": "10.6",
+      "misra_title": "The value of a composite expression shall not be assigned to an object with wider essential type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-10.7",
+      "misra_rule": "10.7",
+      "misra_title": "If a composite expression is used as one operand of an operator, the other operand shall not have wider essential type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-10.8",
+      "misra_rule": "10.8",
+      "misra_title": "The value of a composite expression shall not be cast to a different essential type category or a wider essential type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-11.2",
+      "misra_rule": "11.2",
+      "misra_title": "Conversions shall not be performed between a pointer to an incomplete type and any other type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-11.3",
+      "misra_rule": "11.3",
+      "misra_title": "A cast shall not be performed between a pointer to object type and a pointer to a different object type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-11.4",
+      "misra_rule": "11.4",
+      "misra_title": "A conversion should not be performed between a pointer to object and an integer type",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-11.7",
+      "misra_rule": "11.7",
+      "misra_title": "A cast shall not be performed between pointer to object and a non-integer arithmetic type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-11.8",
+      "misra_rule": "11.8",
+      "misra_title": "A cast shall not remove any const or volatile qualification from the type pointed to by a pointer",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-11.9",
+      "misra_rule": "11.9",
+      "misra_title": "The macro NULL shall be the only permitted form of integer null pointer constant",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-11.10",
+      "misra_rule": "11.10",
+      "misra_title": "The _Atomic type qualifier shall not be applied to the void type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-11.11",
+      "misra_rule": "11.11",
+      "misra_title": "A pointer comparison shall not use implicit NULL comparison",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-12.1",
+      "misra_rule": "12.1",
+      "misra_title": "The precedence of operators within expressions should be made explicit",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-12.2",
+      "misra_rule": "12.2",
+      "misra_title": "The right hand operand of a shift operator shall lie in the range zero to one less than the width",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-12.4",
+      "misra_rule": "12.4",
+      "misra_title": "Evaluation of constant expressions should not lead to unsigned integer wrap-around",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-mand-12.5",
+      "misra_rule": "12.5",
+      "misra_title": "The sizeof operator shall not have an operand which is a function parameter declared as array of type",
+      "category": "Mandatory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-12.6",
+      "misra_rule": "12.6",
+      "misra_title": "A structure member of an atomic structure shall not be accessed",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-13.1",
+      "misra_rule": "13.1",
+      "misra_title": "Initializer lists shall not contain persistent side effects",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-13.2",
+      "misra_rule": "13.2",
+      "misra_title": "The value of an expression and its persistent side effects shall be the same under all permitted evaluation orders",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-13.3",
+      "misra_rule": "13.3",
+      "misra_title": "A full expression containing an increment or decrement operator should have no other potential side effects",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-13.4",
+      "misra_rule": "13.4",
+      "misra_title": "The result of an assignment operator should not be used",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-13.5",
+      "misra_rule": "13.5",
+      "misra_title": "The right hand operand of a logical && or || operator shall not contain persistent side effects",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-mand-13.6",
+      "misra_rule": "13.6",
+      "misra_title": "The operand of the sizeof operator shall not contain any expression which has potential side effects",
+      "category": "Mandatory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-14.2",
+      "misra_rule": "14.2",
+      "misra_title": "A for loop shall be well-formed",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-14.3",
+      "misra_rule": "14.3",
+      "misra_title": "Controlling expressions shall not be invariant",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-14.4",
+      "misra_rule": "14.4",
+      "misra_title": "The controlling expression of an if-statement or iteration-statement shall have essentially Boolean type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-15.1",
+      "misra_rule": "15.1",
+      "misra_title": "The goto statement should not be used",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-15.2",
+      "misra_rule": "15.2",
+      "misra_title": "The goto statement shall jump to a label declared later in the same function",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-15.3",
+      "misra_rule": "15.3",
+      "misra_title": "Any label referenced by a goto shall be declared in the same block or enclosing block",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-15.4",
+      "misra_rule": "15.4",
+      "misra_title": "There should be no more than one break or goto statement used to terminate any iteration statement",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-15.6",
+      "misra_rule": "15.6",
+      "misra_title": "The body of an iteration-statement or selection-statement shall be a compound-statement",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-15.7",
+      "misra_rule": "15.7",
+      "misra_title": "All if...else if constructs shall be terminated with an else statement",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-16.1",
+      "misra_rule": "16.1",
+      "misra_title": "All switch statements shall be well-formed",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-16.3",
+      "misra_rule": "16.3",
+      "misra_title": "An unconditional break statement shall terminate every switch-clause",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-16.4",
+      "misra_rule": "16.4",
+      "misra_title": "Every switch statement shall have a default label",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-16.5",
+      "misra_rule": "16.5",
+      "misra_title": "A default label shall appear as either the first or the last switch label",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-16.6",
+      "misra_rule": "16.6",
+      "misra_title": "Every switch statement shall have at least two switch-clauses",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-17.1",
+      "misra_rule": "17.1",
+      "misra_title": "The features of <stdarg.h> shall not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-mand-17.3",
+      "misra_rule": "17.3",
+      "misra_title": "A function shall not be declared implicitly",
+      "category": "Mandatory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-17.4",
+      "misra_rule": "17.4",
+      "misra_title": "A function should have a single point of exit at the end",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-mand-17.6",
+      "misra_rule": "17.6",
+      "misra_title": "The declaration of an array parameter shall not contain the static keyword",
+      "category": "Mandatory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-17.7",
+      "misra_rule": "17.7",
+      "misra_title": "The value returned by a function having non-void return type shall be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-17.8",
+      "misra_rule": "17.8",
+      "misra_title": "A non-void function shall have a return statement with expression",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-17.10",
+      "misra_rule": "17.10",
+      "misra_title": "A function declared with _Noreturn shall have void return type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-17.12",
+      "misra_rule": "17.12",
+      "misra_title": "A function parameter should not be modified",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-17.13",
+      "misra_rule": "17.13",
+      "misra_title": "A function type shall not include any type qualifiers",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-18.4",
+      "misra_rule": "18.4",
+      "misra_title": "The +, -, += and -= operators should not be applied to an expression of pointer type",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-18.6",
+      "misra_rule": "18.6",
+      "misra_title": "The address of an object with automatic storage shall not escape the block",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-18.9",
+      "misra_rule": "18.9",
+      "misra_title": "An object with automatic storage shall not be used outside of its lifetime",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-mand-18.10",
+      "misra_rule": "18.10",
+      "misra_title": "Pointers to variably-modified types shall not be used",
+      "category": "Mandatory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-19.2",
+      "misra_rule": "19.2",
+      "misra_title": "The union keyword should not be used",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-20.1",
+      "misra_rule": "20.1",
+      "misra_title": "#include directives should only be preceded by preprocessor directives or comments",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-20.2",
+      "misra_rule": "20.2",
+      "misra_title": "The ', \", or \\ characters and the /* or // character sequences shall not occur in a header file name",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-20.3",
+      "misra_rule": "20.3",
+      "misra_title": "The #include directive shall be followed by either a <filename> or \"filename\" sequence",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-20.4",
+      "misra_rule": "20.4",
+      "misra_title": "A macro shall not be defined with the same name as a keyword",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-20.5",
+      "misra_rule": "20.5",
+      "misra_title": "#undef should not be used",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-20.6",
+      "misra_rule": "20.6",
+      "misra_title": "Tokens that look like a preprocessing directive shall not occur within a macro argument",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-20.7",
+      "misra_rule": "20.7",
+      "misra_title": "Expressions resulting from macro expansion shall be surrounded by parentheses",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-20.8",
+      "misra_rule": "20.8",
+      "misra_title": "The #if or #elif controlling expression shall evaluate to 0 or 1",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-20.9",
+      "misra_rule": "20.9",
+      "misra_title": "All identifiers used in #if or #elif controlling expressions shall be defined",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-20.10",
+      "misra_rule": "20.10",
+      "misra_title": "The # and ## preprocessor operators should not be used",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-20.11",
+      "misra_rule": "20.11",
+      "misra_title": "A macro parameter immediately following # shall not be followed by ##",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-20.14",
+      "misra_rule": "20.14",
+      "misra_title": "All #else, #elif and #endif preprocessor directives shall reside in the same file",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-20.15",
+      "misra_rule": "20.15",
+      "misra_title": "Precautions shall be taken to prevent header files being included more than once",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.3",
+      "misra_rule": "21.3",
+      "misra_title": "The memory allocation and deallocation functions shall not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.4",
+      "misra_rule": "21.4",
+      "misra_title": "The standard header file <setjmp.h> shall not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.5",
+      "misra_rule": "21.5",
+      "misra_title": "The standard header file <signal.h> shall not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.6",
+      "misra_rule": "21.6",
+      "misra_title": "The Standard Library input/output functions shall not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.7",
+      "misra_rule": "21.7",
+      "misra_title": "The atof, atoi, atol and atoll functions shall not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.8",
+      "misra_rule": "21.8",
+      "misra_title": "The abort, exit, getenv and system functions shall not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.9",
+      "misra_rule": "21.9",
+      "misra_title": "The bsearch and qsort functions shall not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.10",
+      "misra_rule": "21.10",
+      "misra_title": "The Standard Library time and date functions shall not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.11",
+      "misra_rule": "21.11",
+      "misra_title": "The standard header file <tgmath.h> shall not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.12",
+      "misra_rule": "21.12",
+      "misra_title": "The rand and srand functions shall not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-mand-21.13",
+      "misra_rule": "21.13",
+      "misra_title": "Any value passed to a character handling function shall be representable as unsigned char",
+      "category": "Mandatory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.14",
+      "misra_rule": "21.14",
+      "misra_title": "The memcmp function shall not be used to compare null-terminated strings",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.17",
+      "misra_rule": "21.17",
+      "misra_title": "The system function shall not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.21",
+      "misra_rule": "21.21",
+      "misra_title": "The Standard Library wide character functions shall not be used",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-mand-21.22",
+      "misra_rule": "21.22",
+      "misra_title": "All operand arguments to type-generic macros shall have appropriate type",
+      "category": "Mandatory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.23",
+      "misra_rule": "21.23",
+      "misra_title": "All operand arguments to multi-argument tgmath macros shall have the same standard type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-21.25",
+      "misra_rule": "21.25",
+      "misra_title": "All memory synchronization operations shall be sequentially consistent",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-22.8",
+      "misra_rule": "22.8",
+      "misra_title": "The value of errno shall be zero before calling an errno-setting function",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-22.9",
+      "misra_rule": "22.9",
+      "misra_title": "The value of errno shall be tested after calling an errno-setting function",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-22.10",
+      "misra_rule": "22.10",
+      "misra_title": "The value of errno shall only be tested when the last function called was an errno-setting function",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-22.11",
+      "misra_rule": "22.11",
+      "misra_title": "A thread that was joined or detached shall not be subsequently joined or detached",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-22.13",
+      "misra_rule": "22.13",
+      "misra_title": "A thread object shall not be used after it has been destroyed",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-mand-22.18",
+      "misra_rule": "22.18",
+      "misra_title": "A non-recursive mutex shall not be recursively locked",
+      "category": "Mandatory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-22.19",
+      "misra_rule": "22.19",
+      "misra_title": "A condition variable shall be associated with at most one mutex",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-23.1",
+      "misra_rule": "23.1",
+      "misra_title": "A generic selection should not be expanded from a macro",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-23.2",
+      "misra_rule": "23.2",
+      "misra_title": "A generic selection controlling expression shall not have side effects",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-23.3",
+      "misra_rule": "23.3",
+      "misra_title": "A generic selection should have a non-default association",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-23.4",
+      "misra_rule": "23.4",
+      "misra_title": "A generic selection association type shall be appropriate to the type being matched",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-23.5",
+      "misra_rule": "23.5",
+      "misra_title": "A generic selection should not use implicit pointer conversion",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-23.6",
+      "misra_rule": "23.6",
+      "misra_title": "A generic selection associated expression shall have an appropriate essential type",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-adv-23.7",
+      "misra_rule": "23.7",
+      "misra_title": "A generic selection expanded from a macro should not evaluate its argument multiple times",
+      "category": "Advisory",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-23.8",
+      "misra_rule": "23.8",
+      "misra_title": "A default association shall appear at the start or end of the association list",
+      "category": "Required",
+      "coverage": "full"
+    },
+    {
+      "check_id": "automotive-c25-req-dir-4.10",
+      "misra_rule": "Dir 4.10",
+      "misra_title": "Precautions shall be taken in order to prevent the contents of a header file being included more than once",
+      "category": "Required",
+      "coverage": "full"
     }
   ],
   "manual_review_rules": [
     {
       "misra_rule": "Dir 1.1",
-      "misra_title": "Any implementation-defined behaviour on which the output of the program depends shall be documented and understood",
+      "misra_title": "Any implementation-defined behaviour shall be documented",
       "category": "Required",
       "reason": "Requires documentation review"
     },
     {
       "misra_rule": "Dir 2.1",
-      "misra_title": "All source files shall compile without any compilation errors",
+      "misra_title": "All source files shall compile without errors",
       "category": "Required",
       "reason": "Build system verification"
     },
@@ -511,7 +925,7 @@
       "misra_rule": "Dir 4.1",
       "misra_title": "Run-time failures shall be minimized",
       "category": "Required",
-      "reason": "Requires runtime analysis and testing"
+      "reason": "Requires runtime analysis"
     },
     {
       "misra_rule": "Dir 4.3",
@@ -521,9 +935,23 @@
     },
     {
       "misra_rule": "Dir 4.7",
-      "misra_title": "If a function returns error information, then that error information shall be tested",
+      "misra_title": "Error information shall be tested",
       "category": "Required",
-      "reason": "Requires semantic analysis of error handling patterns"
+      "reason": "Requires semantic error handling analysis"
+    }
+  ],
+  "compiler_covered_rules": [
+    {
+      "misra_rule": "1.1",
+      "misra_title": "The program shall contain no violations of the standard C syntax",
+      "category": "Required",
+      "reason": "Covered by compiler diagnostics"
+    },
+    {
+      "misra_rule": "1.3",
+      "misra_title": "There shall be no undefined or critical unspecified behaviour",
+      "category": "Required",
+      "reason": "Covered by UBSan and sanitizers"
     }
   ]
 }
