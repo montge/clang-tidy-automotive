@@ -22,6 +22,8 @@
 #include "AvoidSideEffectInSizeofCheck.h"
 #include "AvoidSizeofArrayParameterCheck.h"
 #include "GenericDefaultPositionCheck.h"
+#include "GenericFromMacroCheck.h"
+#include "GenericNonDefaultCheck.h"
 #include "InvariantControlCheck.h"
 
 namespace clang::tidy::automotive {
@@ -88,6 +90,14 @@ void ExpressionComponent::addCheckFactories(
   // Rule 12.6 - Atomic struct member access (Required)
   CheckFactories.registerCheck<AvoidAtomicMemberAccessCheck>(
       "automotive-c25-req-12.6");
+
+  // Rule 23.1 - Generic from macro (Advisory)
+  CheckFactories.registerCheck<GenericFromMacroCheck>(
+      "automotive-c25-adv-23.1");
+
+  // Rule 23.3 - Generic non-default association (Advisory)
+  CheckFactories.registerCheck<GenericNonDefaultCheck>(
+      "automotive-c25-adv-23.3");
 
   // Rule 23.8 - Generic default position (Required)
   CheckFactories.registerCheck<GenericDefaultPositionCheck>(

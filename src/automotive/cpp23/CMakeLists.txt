@@ -10,6 +10,7 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidCArrayCheck.cpp
   AvoidCharacterComparisonMismatchCheck.cpp
   AvoidCharacterTypeMismatchCheck.cpp
+  CheckFilePointerValidityCheck.cpp
   CheckStreamStateCheck.cpp
   AvoidCompositeNarrowingCheck.cpp
   AvoidConstCastCheck.cpp

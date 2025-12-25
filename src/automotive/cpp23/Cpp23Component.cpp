@@ -13,6 +13,7 @@
 #include "AvoidCStyleCastCheck.h"
 #include "AvoidCharacterComparisonMismatchCheck.h"
 #include "AvoidCharacterTypeMismatchCheck.h"
+#include "CheckFilePointerValidityCheck.h"
 #include "AvoidCompositeNarrowingCheck.h"
 #include "AvoidConstCastCheck.h"
 #include "AvoidConstOnlyOverloadCheck.h"
@@ -448,6 +449,11 @@ void Cpp23Component::addCheckFactories(
   // called from a context where those side effects would be discarded
   CheckFactories.registerCheck<cpp23::AvoidDiscardedSideEffectsCheck>(
       "automotive-cpp23-req-28.3");
+
+  // MISRA C++:2023 Rule 21.2 - A pointer to a file shall have a valid value
+  // when used (Partial)
+  CheckFactories.registerCheck<cpp23::CheckFilePointerValidityCheck>(
+      "automotive-cpp23-adv-21.2");
 }
 
 } // namespace clang::tidy::automotive
