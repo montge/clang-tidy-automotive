@@ -8,6 +8,7 @@ add_clang_library(clangTidyAutomotiveFunctionComponent STATIC
   FunctionDeclarationMismatchCheck.cpp
   FunctionIdentifierUsageCheck.cpp
   ImplicitFunctionDeclCheck.cpp
+  ObsolescentFeaturesCheck.cpp
   StaticInlineCheck.cpp
   UncompleteFunctionPrototypeCheck.cpp
 )

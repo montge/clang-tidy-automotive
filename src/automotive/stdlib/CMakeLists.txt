@@ -4,6 +4,7 @@ add_clang_library(clangTidyAutomotiveStdlibComponent STATIC
   AvoidApiCheck.cpp
   AvoidBsearchQsortCheck.cpp
   AvoidCtypeHeaderCheck.cpp
+  AvoidMemcmpOnStringsCheck.cpp
   AvoidSetjmpHeaderCheck.cpp
   AvoidSignalHeaderCheck.cpp
   AvoidStdargHeaderCheck.cpp
