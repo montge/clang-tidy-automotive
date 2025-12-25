@@ -9,7 +9,7 @@ This document provides a comprehensive gap analysis between the MISRA requiremen
 | Standard | Total Rules/Dirs | Implemented | Excluded | Missing |
 |----------|------------------|-------------|----------|---------|
 | MISRA C:2025 | 225 | 138 | 59 | 28 |
-| MISRA C++:2023 | 180 | 49 | 0 | 131 |
+| MISRA C++:2023 | 180 | 75 | 10 | 95 |
 
 ### Exclusion Breakdown (MISRA C:2025)
 
@@ -123,76 +123,90 @@ These require runtime/dataflow analysis and are marked as excluded:
 
 ## MISRA C++:2023 Gap Analysis
 
-### Missing Mandatory Rules (1 rule) - HIGHEST PRIORITY
+**Current Status: 75 checks implemented**
 
-| Rule | Title | Decidability |
-|------|-------|--------------|
-| **25.5** | The pointers returned by localeconv, getenv, setlocale, strerror must only be used as pointer to const-qualified type | Decidable |
+### Missing Mandatory Rules (0 rules) - ✅ COMPLETE
 
-### Missing Required Rules (34 rules) - HIGH PRIORITY
+| Rule | Title | Status |
+|------|-------|--------|
+| ~~**25.5**~~ | The pointers returned by localeconv, getenv, setlocale, strerror must only be used as pointer to const-qualified type | ✅ `automotive-cpp23-mand-25.5` |
 
-| Rule | Title | Decidability |
-|------|-------|--------------|
-| **0.1** | A variable shall not be implicitly captured in a lambda | Decidable |
-| **0.3** | Unknown | Decidable |
-| **4.6** | Memory used for synchronization shall be appropriately sequenced | Undecidable |
-| **5.7** | An identifier shall be declared within the smallest possible scope | Decidable |
-| **5.10** | An identifier with array type shall not be used in an expression with pointer semantics | Decidable |
-| **5.13** | An identifier should not have both internal and external linkage | Decidable |
-| **6.2** | An identifier declared in a local scope shall not have the same name as an identifier in an enclosing scope | Decidable |
-| **6.4** | Assignment operators shall not be used in sub-expressions | Decidable |
-| **6.7** | Floating-point expressions shall not be tested for equality or inequality | Decidable |
-| **7.0** | A value of any of the standard character types shall only be assigned to a variable of the same character type | Decidable |
-| **7.11** | A literal value shall not be assigned to a null pointer constant | Decidable |
-| **8.7** | Pointer arithmetic shall not be applied to a pointer to object of non-array type | Undecidable |
-| **9.2** | Initialization of an auto variable shall happen at its declaration | Decidable |
-| **9.5** | A switch label shall only be used in the outermost compound statement of a switch body | Decidable |
-| **9.6** | All paths that can return values shall return a value | Decidable |
-| **10.1** | The value of an expression shall not be assigned to an object of a different essential type | Decidable |
-| **10.2** | An expression containing arithmetic operators of the same essential type shall not be implicitly converted to a different essential type | Decidable |
-| **10.4** | The value of a composite expression shall not be assigned to a narrower essential type | Decidable |
-| **11.6** | A pointer to member shall not be converted to a pointer to another member type | Decidable |
-| **12.2** | Subtraction between two pointers shall only be performed when they are pointing to elements of the same array | Undecidable |
-| **13.1** | An object shall not be copied or moved to an overlapping object | Undecidable |
-| **13.3** | A parameter passed by value shall not be modified | Decidable |
-| **16.5** | A class should only define an overloaded operator && or operator || if it does not rely on short-circuit evaluation | Decidable |
-| **17.8** | Virtual functions shall not be called during construction or destruction | Undecidable |
-| **18.3** | A move or copy constructor shall not leave the original object in an invalid state | Undecidable |
-| **19.1** | An object shall not undergo type-punning | Decidable |
-| **19.2** | A reference or pointer to a derived class shall not be implicitly cast to a reference or pointer to a base class | Decidable |
-| **19.3** | The <cstdlib> function realloc shall not be used | Decidable |
-| **21.2** | A pointer to a file shall have a valid value when used | Undecidable |
-| **22.3** | A pointer object shall have a value that points to an object | Undecidable |
-| **22.4** | A pointer object shall have a value that is within the bounds of an array object | Undecidable |
-| **28.3** | A function with side effects shall not be called from a context where those side effects would be discarded | Undecidable |
-| **28.6** | A function call site shall be compatible with the function signature | Decidable |
-| **30.0** | Standard library stream objects shall not be used while in a fail state | Undecidable |
+### Missing Required Rules (12 rules) - Mostly Undecidable
 
-### Missing Advisory Rules (21 rules)
+| Rule | Title | Decidability | Status |
+|------|-------|--------------|--------|
+| **0.3** | Unknown | Decidable | Missing |
+| **4.6** | Memory used for synchronization shall be appropriately sequenced | Undecidable | Excluded |
+| **8.7** | Pointer arithmetic shall not be applied to a pointer to object of non-array type | Undecidable | Excluded |
+| **10.4** | The value of a composite expression shall not be assigned to a narrower essential type | Decidable | Missing |
+| **12.2** | Subtraction between two pointers shall only be performed when they are pointing to elements of the same array | Undecidable | Excluded |
+| **17.8** | Virtual functions shall not be called during construction or destruction | Undecidable | Excluded |
+| **18.3** | A move or copy constructor shall not leave the original object in an invalid state | Undecidable | Excluded |
+| **19.2** | A reference or pointer to a derived class shall not be implicitly cast to a reference or pointer to a base class | Decidable | Missing |
+| **21.2** | A pointer to a file shall have a valid value when used | Undecidable | Excluded |
+| **22.3** | A pointer object shall have a value that points to an object | Undecidable | Excluded |
+| **22.4** | A pointer object shall have a value that is within the bounds of an array object | Undecidable | Excluded |
+| **28.3** | A function with side effects shall not be called from a context where those side effects would be discarded | Undecidable | Excluded |
+| **28.6** | A function call site shall be compatible with the function signature | Decidable | Missing |
+| **30.0** | Standard library stream objects shall not be used while in a fail state | Undecidable | Excluded |
 
-| Rule | Title | Decidability |
-|------|-------|--------------|
-| **0.0** | A controlling expression shall not be invariant | Undecidable |
-| **0.2** | A project shall not contain infeasible paths | Undecidable |
-| **4.1** | The value of a standard character shall only be compared to a character literal of the same type | Decidable |
-| **5.0** | A type-specifier-seq or type-id shall not define any types | Decidable |
-| **5.7** (Adv) | A tag name should not hide other identifiers | Decidable |
-| **6.0** | An array object should be explicitly initialized | Decidable |
-| **6.5** | A loop counter shall not be of floating type | Decidable |
-| **6.8** | A function should not contain sub-optimal use of break or continue statements | Decidable |
-| **6.9** | An object shall only be declared in a block if that block always uses the object | Undecidable |
-| **8.0** | A function should have a single point of exit | Decidable |
-| **8.1** | All variables captured by a lambda expression should be explicitly listed in the capture list | Decidable |
-| **8.18** | The statement expression extension to C should not be used | Decidable |
-| **8.19** | A noreturn function shall not return | Decidable |
-| **8.20** | A noreturn function should have void return type | Decidable |
-| **10.3** | An unnamed namespace should be used to define entities with internal linkage | Decidable |
-| **11.3** | A C-style cast should not be performed | Decidable |
-| **14.1** | A variable or non-static data member should only be declared as constexpr if it has no mutable sub-objects | Decidable |
-| **16.6** | A non-type template parameter of reference type should not bind to a temporary | Decidable |
-| **18.5** | An exception-specification shall not be dynamic | Decidable |
-| **19.0** | std::addressof should be used to obtain the address of an object | Decidable |
-| **26.3** | Every module interface or partition shall be imported by every other partition of the same module | Decidable |
+### Missing Advisory Rules (5 rules) - Mostly Undecidable
+
+| Rule | Title | Decidability | Status |
+|------|-------|--------------|--------|
+| **0.0** | A controlling expression shall not be invariant | Undecidable | Excluded |
+| **0.2** | A project shall not contain infeasible paths | Undecidable | Excluded |
+| **5.7** (Adv) | A tag name should not hide other identifiers | Decidable | Missing |
+| **6.9** | An object shall only be declared in a block if that block always uses the object | Undecidable | Excluded |
+| **16.6** | A non-type template parameter of reference type should not bind to a temporary | Decidable | Missing |
+| **26.3** | Every module interface or partition shall be imported by every other partition of the same module | Decidable | Deferred (C++20 modules) |
+
+### Implemented Required Rules (Previously Listed as Missing)
+
+The following rules were listed as missing but are now implemented:
+
+| Rule | Check Name |
+|------|------------|
+| 0.1 | `automotive-cpp23-req-0.1` |
+| 5.7 | `automotive-cpp23-req-5.7` |
+| 5.10 | `automotive-cpp23-req-5.10` |
+| 5.13 | `automotive-cpp23-req-5.13` |
+| 6.2 | `automotive-cpp23-req-6.2` |
+| 6.4 | `automotive-cpp23-req-6.4` |
+| 6.7 | `automotive-cpp23-req-6.7` |
+| 7.0 | `automotive-cpp23-req-7.0` |
+| 7.11 | `automotive-cpp23-req-7.11` |
+| 9.2 | `automotive-cpp23-req-9.2` |
+| 9.5 | `automotive-cpp23-req-9.5` |
+| 9.6 | `automotive-cpp23-req-9.6` |
+| 10.1 | `automotive-cpp23-req-10.1` |
+| 10.2 | `automotive-cpp23-req-10.2` |
+| 11.6 | `automotive-cpp23-req-11.6` |
+| 13.1 | `automotive-cpp23-req-13.1` |
+| 13.3 | `automotive-cpp23-req-13.3` |
+| 16.5 | `automotive-cpp23-adv-16.5` |
+| 19.1 | `automotive-cpp23-req-19.1` |
+| 19.3 | `automotive-cpp23-req-19.3` |
+
+### Implemented Advisory Rules (Previously Listed as Missing)
+
+| Rule | Check Name |
+|------|------------|
+| 4.1 | `automotive-cpp23-adv-4.1` |
+| 5.0 | `automotive-cpp23-req-5.0` |
+| 6.0 | `automotive-cpp23-adv-6.0` |
+| 6.5 | `automotive-cpp23-req-6.5` |
+| 6.8 | `automotive-cpp23-adv-6.8` |
+| 8.0 | `automotive-cpp23-adv-8.0` |
+| 8.1 | `automotive-cpp23-adv-8.1` |
+| 8.18 | `automotive-cpp23-adv-8.18` |
+| 8.19 | `automotive-cpp23-adv-8.19` |
+| 8.20 | `automotive-cpp23-adv-8.20` |
+| 10.3 | `automotive-cpp23-adv-10.3` |
+| 11.3 | `automotive-cpp23-adv-11.3` |
+| 14.1 | `automotive-cpp23-adv-14.1` |
+| 18.5 | `automotive-cpp23-adv-18.5` |
+| 19.0 | `automotive-cpp23-adv-19.0` |
 
 ### Missing Directives (2)
 
