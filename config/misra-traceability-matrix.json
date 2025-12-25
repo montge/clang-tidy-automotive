@@ -1220,12 +1220,13 @@
         "notes": ""
       },
       "Rule_21_23": {
-        "file": "docs/requirements/misra-c-2025/Rule_21_23.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-c25-req-21.23"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "TgmathConsistentTypeCheck"
       },
       "Rule_21_24": {
         "file": "docs/requirements/misra-c-2025/Rule_21_24.rst",

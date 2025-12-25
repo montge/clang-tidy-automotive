@@ -19,4 +19,5 @@ add_clang_library(clangTidyAutomotiveStdlibComponent STATIC
   MemorySyncOrderCheck.cpp
   StdlibComponent.cpp
   TgmathOperandTypeCheck.cpp
+  TgmathConsistentTypeCheck.cpp
 )
