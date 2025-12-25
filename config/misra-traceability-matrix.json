@@ -4,13 +4,13 @@
   "statistics": {
     "total_requirements": 405,
     "total_checks": 198,
-    "mapped_checks": 210,
+    "mapped_checks": 213,
     "c2025_requirements": 225,
     "cpp2023_requirements": 180,
     "status_counts": {
-      "implemented": 222,
-      "missing": 109,
-      "excluded": 74
+      "implemented": 225,
+      "missing": 105,
+      "excluded": 75
     }
   },
   "requirements": {
@@ -2311,11 +2311,13 @@
       },
       "Rule_11_3_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_11_3_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-adv-11.3.2"
+        ],
+        "status": "implemented",
         "category": "advisory",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Const-only overloads should be avoided"
       },
       "Rule_11_6_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_11_6_1.rst",
@@ -2869,11 +2871,13 @@
       },
       "Rule_21_6_5": {
         "file": "docs/requirements/misra-cpp-2023/Rule_21_6_5.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "-Wdelete-incomplete"
+        ],
+        "status": "excluded",
         "category": "required",
-        "decidability": "unknown",
-        "notes": ""
+        "decidability": "decidable",
+        "notes": "Covered by Clang compiler warning -Wdelete-incomplete"
       },
       "Rule_22_3_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_22_3_1.rst",
@@ -3130,11 +3134,13 @@
       },
       "Rule_5_7_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_5_7_1.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-adv-5.7.1"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Tag names should not hide other identifiers"
       },
       "Rule_5_7_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_5_7_3.rst",
@@ -3172,11 +3178,13 @@
       },
       "Rule_6_0_4": {
         "file": "docs/requirements/misra-cpp-2023/Rule_6_0_4.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-req-6.0.4"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Unary minus on unsigned type prohibited"
       },
       "Rule_6_2_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_6_2_1.rst",
