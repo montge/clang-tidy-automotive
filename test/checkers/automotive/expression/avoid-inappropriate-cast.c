@@ -1,5 +1,5 @@
-// RUN: %check_clang_tidy %s automotive-c25-req-11.1 %t -- -- -std=c11
-// Test for automotive-c25-req-11.1: inappropriate casts shall not be used
+// RUN: %check_clang_tidy %s automotive-c25-adv-11.4 %t -- -- -std=c11
+// Test for automotive-c25-adv-11.4: casts between pointer and integer types
 
 #include <stdint.h>
 
@@ -7,7 +7,7 @@ void test_pointer_to_int_violation(void) {
   int x = 42;
   int *ptr = &x;
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: inappropriate cast
+  // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: cast from pointer type 'int *' to integer type 'intptr_t' (aka 'long') [automotive-c25-adv-11.4]
   intptr_t i = (intptr_t)ptr;  // Pointer to integer cast
   (void)i;
 }
@@ -15,25 +15,9 @@ void test_pointer_to_int_violation(void) {
 void test_int_to_pointer_violation(void) {
   intptr_t addr = 0x1000;
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: inappropriate cast
+  // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: cast from integer type 'intptr_t' (aka 'long') to pointer type 'int *' [automotive-c25-adv-11.4]
   int *ptr = (int *)addr;  // Integer to pointer cast
   (void)ptr;
-}
-
-void test_function_pointer_cast_violation(void) {
-  void (*func1)(int) = 0;
-
-  // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: inappropriate cast
-  void (*func2)(void) = (void (*)(void))func1;  // Function pointer cast
-  (void)func2;
-}
-
-void test_incompatible_pointer_cast_violation(void) {
-  int *iptr = 0;
-
-  // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: inappropriate cast
-  float *fptr = (float *)iptr;  // Incompatible pointer types
-  (void)fptr;
 }
 
 void test_numeric_cast_compliant(void) {

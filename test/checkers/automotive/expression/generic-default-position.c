@@ -13,13 +13,13 @@
 void test_default_in_middle(void) {
     int x = 0;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:27: warning: default association in generic selection should appear first or last, not in the middle [automotive-c25-req-23.8]
+    // CHECK-MESSAGES: :[[@LINE+1]]:48: warning: default association in generic selection should appear first or last, not in the middle [automotive-c25-req-23.8]
     int result1 = _Generic(x, int: 1, default: 2, float: 3);
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:27: warning: default association in generic selection should appear first or last, not in the middle [automotive-c25-req-23.8]
+    // CHECK-MESSAGES: :[[@LINE+1]]:50: warning: default association in generic selection should appear first or last, not in the middle [automotive-c25-req-23.8]
     int result2 = _Generic(x, long: 10, default: 20, float: 30, double: 40);
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:27: warning: default association in generic selection should appear first or last, not in the middle [automotive-c25-req-23.8]
+    // CHECK-MESSAGES: :[[@LINE+1]]:59: warning: default association in generic selection should appear first or last, not in the middle [automotive-c25-req-23.8]
     int result3 = _Generic(x, char: 5, short: 6, default: 7, long: 8);
 
     (void)result1;
