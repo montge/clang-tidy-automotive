@@ -3,14 +3,14 @@
   "generated": "generate_traceability_matrix.py",
   "statistics": {
     "total_requirements": 405,
-    "total_checks": 182,
-    "mapped_checks": 188,
+    "total_checks": 185,
+    "mapped_checks": 191,
     "c2025_requirements": 225,
     "cpp2023_requirements": 180,
     "status_counts": {
-      "implemented": 188,
-      "missing": 158,
-      "excluded": 59
+      "implemented": 191,
+      "missing": 156,
+      "excluded": 58
     }
   },
   "requirements": {
@@ -1077,16 +1077,20 @@
       },
       "Rule_20_8": {
         "file": "docs/requirements/misra-c-2025/Rule_20_8.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-c25-req-20.8"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
         "notes": ""
       },
       "Rule_20_9": {
         "file": "docs/requirements/misra-c-2025/Rule_20_9.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-c25-req-20.9"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
         "notes": ""
@@ -1240,11 +1244,13 @@
       },
       "Rule_21_25": {
         "file": "docs/requirements/misra-c-2025/Rule_21_25.rst",
-        "check_ids": [],
-        "status": "excluded",
+        "check_ids": [
+          "automotive-c25-req-21.25"
+        ],
+        "status": "implemented",
         "category": "required",
-        "decidability": "undecidable",
-        "notes": "Requires dataflow/runtime analysis"
+        "decidability": "decidable",
+        "notes": "Checks memory_order argument for seq_cst"
       },
       "Rule_21_26": {
         "file": "docs/requirements/misra-c-2025/Rule_21_26.rst",
