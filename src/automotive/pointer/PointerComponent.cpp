@@ -10,10 +10,14 @@
 #include "AvoidAtomicVoidPointerCheck.h"
 #include "AvoidAutoAddressEscapeCheck.h"
 #include "AvoidCastRemovingQualifierCheck.h"
+#include "AvoidConstQualifierRemovalCheck.h"
 #include "AvoidImplicitNullComparisonCheck.h"
 #include "AvoidIncompatiblePointerCastCheck.h"
 #include "AvoidIncompatiblePointerConversionCheck.h"
+#include "AvoidPointerArithmeticC25Check.h"
 #include "AvoidPointerIntegerCastCheck.h"
+#include "AvoidPointerToFloatCastCheck.h"
+#include "AvoidPointerTypeCastCheck.h"
 #include "WrongNullPointerValueCheck.h"
 
 namespace clang::tidy::automotive {
@@ -29,13 +33,25 @@ void PointerComponent::addCheckFactories(
   CheckFactories.registerCheck<AvoidIncompatiblePointerCastCheck>(
       "automotive-c23-req-11.3");
 
+  // C:2025 Rule 11.3 - Incompatible pointer cast (Required)
+  CheckFactories.registerCheck<AvoidPointerTypeCastCheck>(
+      "automotive-c25-req-11.3");
+
   // Rule 11.4 - Pointer to/from integer cast (Advisory)
   CheckFactories.registerCheck<AvoidPointerIntegerCastCheck>(
       "automotive-c23-adv-11.4");
 
+  // Rule 11.7 - Pointer to/from floating-point cast (Required)
+  CheckFactories.registerCheck<AvoidPointerToFloatCastCheck>(
+      "automotive-c25-req-11.7");
+
   // Rule 11.8 - Cast removing const/volatile (Required)
   CheckFactories.registerCheck<AvoidCastRemovingQualifierCheck>(
       "automotive-c23-req-11.8");
+
+  // C:2025 Rule 11.8 - Cast removing const/volatile (Required)
+  CheckFactories.registerCheck<AvoidConstQualifierRemovalCheck>(
+      "automotive-c25-req-11.8");
 
   // Rule 11.9 - Atomic void pointer (Required)
   CheckFactories.registerCheck<AvoidAtomicVoidPointerCheck>(
@@ -51,6 +67,10 @@ void PointerComponent::addCheckFactories(
   // Rule 11.11 - Implicit NULL comparison (Required)
   CheckFactories.registerCheck<AvoidImplicitNullComparisonCheck>(
       "automotive-c23-req-11.11");
+
+  // C:2025 Rule 18.4 - Pointer arithmetic (Advisory)
+  CheckFactories.registerCheck<AvoidPointerArithmeticC25Check>(
+      "automotive-c25-adv-18.4");
 }
 
 } // namespace clang::tidy::automotive
