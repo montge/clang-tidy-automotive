@@ -21,6 +21,7 @@
 #include "AvoidSideEffectInLogicalOperandCheck.h"
 #include "AvoidSideEffectInSizeofCheck.h"
 #include "AvoidSizeofArrayParameterCheck.h"
+#include "GenericAppropriateTypeCheck.h"
 #include "GenericDefaultPositionCheck.h"
 #include "GenericEssentialTypeCheck.h"
 #include "GenericFromMacroCheck.h"
@@ -105,6 +106,10 @@ void ExpressionComponent::addCheckFactories(
   // Rule 23.3 - Generic non-default association (Advisory)
   CheckFactories.registerCheck<GenericNonDefaultCheck>(
       "automotive-c25-adv-23.3");
+
+  // Rule 23.4 - Generic appropriate type (Required)
+  CheckFactories.registerCheck<GenericAppropriateTypeCheck>(
+      "automotive-c25-req-23.4");
 
   // Rule 23.5 - Generic implicit pointer conversion (Advisory)
   CheckFactories.registerCheck<GenericImplicitPointerCheck>(
