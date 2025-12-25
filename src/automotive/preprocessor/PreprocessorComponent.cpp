@@ -21,6 +21,7 @@
 #include "MacroParenthesesCheck.h"
 #include "MissingHeaderGuardCheck.h"
 #include "PreprocessorDirectiveInMacroArgCheck.h"
+#include "ReservedIdentifierMacroCheck.h"
 #include "UnusedMacroCheck.h"
 
 namespace clang::tidy::automotive {
@@ -55,8 +56,8 @@ void PreprocessorComponent::addCheckFactories(
       "automotive-avoid-reserved-macro-identifier");
 
   // Rule 20.15 - #define/#undef reserved identifiers (Required)
-  CheckFactories.registerCheck<AvoidReservedMacroIdentifierCheck>(
-      "automotive-c23-req-20.15");
+  CheckFactories.registerCheck<ReservedIdentifierMacroCheck>(
+      "automotive-c25-req-20.15");
 
   // Rule 5.4 - Macro identifier conflicts
   CheckFactories.registerCheck<AvoidMacroIdentifierConflictCheck>(

@@ -13,7 +13,6 @@
 #include "AvoidCStyleCastCheck.h"
 #include "AvoidCharacterComparisonMismatchCheck.h"
 #include "AvoidCharacterTypeMismatchCheck.h"
-#include "CheckFilePointerValidityCheck.h"
 #include "AvoidCompositeNarrowingCheck.h"
 #include "AvoidConstCastCheck.h"
 #include "AvoidConstOnlyOverloadCheck.h"
@@ -54,6 +53,8 @@
 #include "AvoidStatementExpressionCheck.h"
 #include "AvoidTagNameHidingCheck.h"
 #include "AvoidTemplateRefTemporaryCheck.h"
+#include "AvoidTemporaryBindingToNTTPCheck.h"
+#include "CheckFilePointerValidityCheck.h"
 #include "CheckStreamStateCheck.h"
 // errors
 #include "AvoidThrowInNoexceptCheck.h"
@@ -304,7 +305,7 @@ void Cpp23Component::addCheckFactories(
 
   // MISRA C++:2023 Rule 16.6 - Non-type template parameter of reference type
   // should not bind to a temporary
-  CheckFactories.registerCheck<cpp23::AvoidTemplateRefTemporaryCheck>(
+  CheckFactories.registerCheck<cpp23::AvoidTemporaryBindingToNTTPCheck>(
       "automotive-cpp23-adv-16.6");
 
   // MISRA C++:2023 Rule 8.0 - Single point of exit
