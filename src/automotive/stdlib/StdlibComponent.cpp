@@ -21,12 +21,15 @@
 #include "AvoidTimeHeaderCheck.h"
 #include "AvoidWcharHeaderCheck.h"
 #include "AvoidstdlibsystemcallCheck.h"
+#include "CondVarMutexAssociationCheck.h"
 #include "ErrnoTestingCheck.h"
 #include "ErrnoUsageCheck.h"
 #include "ExitCheck.h"
 #include "MemorySyncOrderCheck.h"
+#include "RecursiveMutexLockCheck.h"
 #include "TgmathConsistentTypeCheck.h"
 #include "TgmathOperandTypeCheck.h"
+#include "ThreadJoinDetachCheck.h"
 
 namespace clang::tidy::automotive {
 
@@ -109,6 +112,21 @@ void StdlibComponent::addCheckFactories(
   // Rule 21.14 - memcmp shall not be used for string comparison (Required)
   CheckFactories.registerCheck<AvoidMemcmpOnStringsCheck>(
       "automotive-c25-req-21.14");
+
+  // Rule 22.11 - A thread that was previously joined or detached shall not
+  // be subsequently joined or detached (Required)
+  CheckFactories.registerCheck<ThreadJoinDetachCheck>(
+      "automotive-c25-req-22.11");
+
+  // Rule 22.18 - A non-recursive mutex shall not be recursively locked
+  // (Mandatory)
+  CheckFactories.registerCheck<RecursiveMutexLockCheck>(
+      "automotive-c25-mand-22.18");
+
+  // Rule 22.19 - A condition variable shall be associated with at most one
+  // mutex object (Required)
+  CheckFactories.registerCheck<CondVarMutexAssociationCheck>(
+      "automotive-c25-req-22.19");
 }
 
 } // namespace clang::tidy::automotive

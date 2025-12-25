@@ -15,11 +15,14 @@ add_clang_library(clangTidyAutomotiveStdlibComponent STATIC
   AvoidTgmathHeaderCheck.cpp
   AvoidTimeHeaderCheck.cpp
   AvoidWcharHeaderCheck.cpp
+  CondVarMutexAssociationCheck.cpp
   ErrnoTestingCheck.cpp
   ErrnoUsageCheck.cpp
   ExitCheck.cpp
   MemorySyncOrderCheck.cpp
+  RecursiveMutexLockCheck.cpp
   StdlibComponent.cpp
   TgmathOperandTypeCheck.cpp
   TgmathConsistentTypeCheck.cpp
+  ThreadJoinDetachCheck.cpp
 )
