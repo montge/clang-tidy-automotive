@@ -19,4 +19,5 @@ add_automotive_component(clangTidyAutomotiveStdlibComponent
   MemorySyncOrderCheck.cpp
   StdlibComponent.cpp
   TgmathOperandTypeCheck.cpp
+  TgmathConsistentTypeCheck.cpp
 )
