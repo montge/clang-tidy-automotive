@@ -7,6 +7,10 @@
 //===----------------------------------------------------------------------===//
 
 #include "Cpp23Component.h"
+#include "../stdlib/AtoXCheck.h"
+#include "../stdlib/AvoidSetjmpHeaderCheck.h"
+#include "../stdlib/AvoidSignalHeaderCheck.h"
+#include "../stdlib/AvoidstdlibsystemcallCheck.h"
 #include "AutoTypeRestrictionCheck.h"
 #include "AvoidArrayToPointerDecayCheck.h"
 #include "AvoidAsmCheck.h"
@@ -224,6 +228,11 @@ void Cpp23Component::addCheckFactories(
   // MISRA C++:2023 Rule 21.6 - Dynamic memory prohibition
   CheckFactories.registerCheck<AvoidDynamicMemoryCppCheck>(
       "automotive-cpp23-req-21.6");
+
+  // MISRA C++:2023 Rule 21.6.2 - Dynamic memory shall be managed automatically
+  // (Required) - Raw new/delete is nonautomatic memory management
+  CheckFactories.registerCheck<AvoidDynamicMemoryCppCheck>(
+      "automotive-cpp23-req-21.6.2");
 
   // MISRA C++:2023 Rule 21.10 - ctime prohibition
   CheckFactories.registerCheck<AvoidCtimeCppCheck>(
@@ -486,10 +495,29 @@ void Cpp23Component::addCheckFactories(
   CheckFactories.registerCheck<cpp23::CheckFilePointerValidityCheck>(
       "automotive-cpp23-adv-21.2");
 
-  // MISRA C++:2023 Rule 21.2.1 - The macro offsetof shall not be used
+  // MISRA C++:2023 Rule 21.2.1 - The library functions atof, atoi, atol and
+  // atoll from <cstdlib> shall not be used (Required)
+  CheckFactories.registerCheck<AtoXCheck>("automotive-cpp23-req-21.2.1");
+
+  // MISRA C++:2023 Rule 21.2.3 - The library function system from <cstdlib>
+  // shall not be used (Required)
+  CheckFactories.registerCheck<AvoidstdlibsystemcallCheck>(
+      "automotive-cpp23-req-21.2.3");
+
+  // MISRA C++:2023 Rule 21.2.4 - The macro offsetof shall not be used
   // (Required)
   CheckFactories.registerCheck<AvoidOffsetofCheck>(
-      "automotive-cpp23-req-21.2.1");
+      "automotive-cpp23-req-21.2.4");
+
+  // MISRA C++:2023 Rule 21.10.2 - The standard header file <csetjmp>
+  // shall not be used (Required)
+  CheckFactories.registerCheck<AvoidSetjmpHeaderCheck>(
+      "automotive-cpp23-req-21.10.2");
+
+  // MISRA C++:2023 Rule 21.10.3 - The standard header file <csignal>
+  // shall not be used (Required)
+  CheckFactories.registerCheck<AvoidSignalHeaderCheck>(
+      "automotive-cpp23-req-21.10.3");
 
   // MISRA C++:2023 Rule 6.2.1 - Boolean values shall not be used in
   // arithmetic operations (Required)
