@@ -3,13 +3,13 @@
   "generated": "generate_traceability_matrix.py",
   "statistics": {
     "total_requirements": 405,
-    "total_checks": 193,
-    "mapped_checks": 205,
+    "total_checks": 198,
+    "mapped_checks": 210,
     "c2025_requirements": 225,
     "cpp2023_requirements": 180,
     "status_counts": {
-      "implemented": 217,
-      "missing": 114,
+      "implemented": 222,
+      "missing": 109,
       "excluded": 74
     }
   },
@@ -2775,19 +2775,23 @@
       },
       "Rule_21_10_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_21_10_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-req-21.10.2"
+        ],
+        "status": "implemented",
         "category": "advisory",
-        "decidability": "unknown",
-        "notes": ""
+        "decidability": "decidable",
+        "notes": "csetjmp shall not be used"
       },
       "Rule_21_10_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_21_10_3.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-req-21.10.3"
+        ],
+        "status": "implemented",
         "category": "advisory",
-        "decidability": "unknown",
-        "notes": ""
+        "decidability": "decidable",
+        "notes": "csignal shall not be used"
       },
       "Rule_21_2_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_21_2_1.rst",
@@ -2797,7 +2801,7 @@
         "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": "offsetof macro shall not be used"
+        "notes": "atof, atoi, atol, atoll from cstdlib shall not be used"
       },
       "Rule_21_2_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_21_2_2.rst",
@@ -2809,19 +2813,23 @@
       },
       "Rule_21_2_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_21_2_3.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-req-21.2.3"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "system from cstdlib shall not be used"
       },
       "Rule_21_2_4": {
         "file": "docs/requirements/misra-cpp-2023/Rule_21_2_4.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-req-21.2.4"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "offsetof macro shall not be used"
       },
       "Rule_21_6_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_21_6_1.rst",
@@ -2835,11 +2843,13 @@
       },
       "Rule_21_6_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_21_6_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-req-21.6.2"
+        ],
+        "status": "implemented",
         "category": "required",
-        "decidability": "unknown",
-        "notes": ""
+        "decidability": "decidable",
+        "notes": "Raw new/delete is nonautomatic memory management"
       },
       "Rule_21_6_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_21_6_3.rst",

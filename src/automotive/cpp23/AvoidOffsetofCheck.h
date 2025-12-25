@@ -19,7 +19,7 @@ namespace clang::tidy::automotive {
 /// mechanism that relies on implementation-defined behavior and can lead
 /// to undefined behavior when used with non-standard-layout types.
 ///
-/// Related MISRA C++:2023 Rule 21.2.1 - The macro offsetof shall not be used.
+/// Related MISRA C++:2023 Rule 21.2.4 - The macro offsetof shall not be used.
 ///
 /// Example:
 /// \code
