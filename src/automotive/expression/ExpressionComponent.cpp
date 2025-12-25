@@ -22,9 +22,11 @@
 #include "AvoidSideEffectInSizeofCheck.h"
 #include "AvoidSizeofArrayParameterCheck.h"
 #include "GenericDefaultPositionCheck.h"
+#include "GenericEssentialTypeCheck.h"
 #include "GenericFromMacroCheck.h"
 #include "GenericImplicitPointerCheck.h"
 #include "GenericNonDefaultCheck.h"
+#include "GenericSideEffectCheck.h"
 #include "InvariantControlCheck.h"
 
 namespace clang::tidy::automotive {
@@ -96,6 +98,10 @@ void ExpressionComponent::addCheckFactories(
   CheckFactories.registerCheck<GenericFromMacroCheck>(
       "automotive-c25-adv-23.1");
 
+  // Rule 23.2 - Generic side effects in controlling expression (Required)
+  CheckFactories.registerCheck<GenericSideEffectCheck>(
+      "automotive-c25-req-23.2");
+
   // Rule 23.3 - Generic non-default association (Advisory)
   CheckFactories.registerCheck<GenericNonDefaultCheck>(
       "automotive-c25-adv-23.3");
@@ -103,6 +109,10 @@ void ExpressionComponent::addCheckFactories(
   // Rule 23.5 - Generic implicit pointer conversion (Advisory)
   CheckFactories.registerCheck<GenericImplicitPointerCheck>(
       "automotive-c25-adv-23.5");
+
+  // Rule 23.6 - Generic essential type match (Required)
+  CheckFactories.registerCheck<GenericEssentialTypeCheck>(
+      "automotive-c25-req-23.6");
 
   // Rule 23.8 - Generic default position (Required)
   CheckFactories.registerCheck<GenericDefaultPositionCheck>(

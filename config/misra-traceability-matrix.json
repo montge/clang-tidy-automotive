@@ -1490,24 +1490,29 @@
       },
       "Rule_23_1": {
         "file": "docs/requirements/misra-c-2025/Rule_23_1.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-c25-adv-23.1"
+        ],
+        "status": "implemented",
         "category": "advisory",
         "decidability": "decidable",
         "notes": ""
       },
       "Rule_23_2": {
-        "file": "docs/requirements/misra-c-2025/Rule_23_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-c25-req-23.2"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "GenericSideEffectCheck"
       },
       "Rule_23_3": {
         "file": "docs/requirements/misra-c-2025/Rule_23_3.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-c25-adv-23.3"
+        ],
+        "status": "implemented",
         "category": "advisory",
         "decidability": "decidable",
         "notes": ""
@@ -1522,19 +1527,22 @@
       },
       "Rule_23_5": {
         "file": "docs/requirements/misra-c-2025/Rule_23_5.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-c25-adv-23.5"
+        ],
+        "status": "implemented",
         "category": "advisory",
         "decidability": "decidable",
         "notes": ""
       },
       "Rule_23_6": {
-        "file": "docs/requirements/misra-c-2025/Rule_23_6.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-c25-req-23.6"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "GenericEssentialTypeCheck"
       },
       "Rule_23_7": {
         "file": "docs/requirements/misra-c-2025/Rule_23_7.rst",

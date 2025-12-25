@@ -19,5 +19,7 @@ add_automotive_component(clangTidyAutomotiveExpressionComponent
   GenericFromMacroCheck.cpp
   GenericImplicitPointerCheck.cpp
   GenericNonDefaultCheck.cpp
+  GenericSideEffectCheck.cpp
+  GenericEssentialTypeCheck.cpp
   InvariantControlCheck.cpp
 )
