@@ -30,6 +30,16 @@ void UnusedCodeModule::addCheckFactories(
   /* Experimental
   ------------------------------------------------------------------ */
   CheckFactories.registerCheck<UnusedTagCheck>("automotive-x-adv-2.4");
+
+  // MISRA C:2025 Rule 2.4 - Unused tag declarations (Advisory)
+  CheckFactories.registerCheck<UnusedTagCheck>("automotive-c25-adv-2.4");
+
+  // MISRA C:2025 Rule 2.7 - Unused parameters (Advisory)
+  CheckFactories.registerCheck<UnusedParameterCheck>("automotive-c25-adv-2.7");
+
+  // MISRA C:2025 Rule 2.8 - Unused object definitions (Advisory)
+  CheckFactories.registerCheck<UnusedObjectDefinitionCheck>(
+      "automotive-c25-adv-2.8");
 }
 
 } // namespace clang::tidy::automotive
