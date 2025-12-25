@@ -11,6 +11,23 @@
 #include "../stdlib/AvoidSetjmpHeaderCheck.h"
 #include "../stdlib/AvoidSignalHeaderCheck.h"
 #include "../stdlib/AvoidstdlibsystemcallCheck.h"
+#include "../preprocessor/AvoidCrossFileIfCheck.h"
+#include "../preprocessor/MissingHeaderGuardCheck.h"
+#include "../preprocessor/MacroParenthesesCheck.h"
+#include "../preprocessor/AvoidUndefCheck.h"
+#include "../preprocessor/AvoidReservedMacroIdentifierCheck.h"
+#include "../preprocessor/AvoidHashOperatorCheck.h"
+#include "../preprocessor/AvoidIncludeSyntaxErrorCheck.h"
+#include "../preprocessor/AvoidCodeBeforeIncludeCheck.h"
+#include "../preprocessor/AvoidMacroNamedAsCkeywordCheck.h"
+#include "../statement/AvoidGotoCheck.h"
+#include "../statement/MissingElseCheck.h"
+#include "../statement/MissingDefaultInSwitchStmtCheck.h"
+#include "../statement/MissingBreakInCaseStmtCheck.h"
+#include "../statement/ForwardGotoLabelCheck.h"
+#include "../expression/AvoidSideEffectInSizeofCheck.h"
+#include "../expression/AvoidSideEffectInLogicalOperandCheck.h"
+#include "../expression/AvoidAssignmentInExpressionCheck.h"
 #include "AutoTypeRestrictionCheck.h"
 #include "AvoidArrayToPointerDecayCheck.h"
 #include "AvoidAsmCheck.h"
@@ -598,6 +615,88 @@ void Cpp23Component::addCheckFactories(
   // std::exception (Advisory)
   CheckFactories.registerCheck<ExceptionBaseClassCheck>(
       "automotive-cpp23-adv-18.3.1");
+
+  // MISRA C++:2023 Rule 19.1.2 - All #else, #elif and #endif preprocessing
+  // directives shall reside in the same file as the #if, #ifdef or #ifndef
+  // directive to which they are related (Required)
+  CheckFactories.registerCheck<AvoidCrossFileIfCheck>(
+      "automotive-cpp23-req-19.1.2");
+
+  // MISRA C++:2023 Rule 19.2.1 - All header files shall have a header guard
+  // (Required)
+  CheckFactories.registerCheck<MissingHeaderGuardCheck>(
+      "automotive-cpp23-req-19.2.1");
+
+  // MISRA C++:2023 Rule 19.3.4 - Macro arguments shall be enclosed in
+  // parentheses (Required)
+  CheckFactories.registerCheck<MacroParenthesesCheck>(
+      "automotive-cpp23-req-19.3.4");
+
+  // MISRA C++:2023 Rule 19.0.1 - #undef should not be used (Advisory)
+  CheckFactories.registerCheck<AvoidUndefCheck>("automotive-cpp23-adv-19.0.1");
+
+  // MISRA C++:2023 Rule 19.0.2 - A macro identifier shall not be reserved
+  // (Required)
+  CheckFactories.registerCheck<AvoidReservedMacroIdentifierCheck>(
+      "automotive-cpp23-req-19.0.2");
+
+  // MISRA C++:2023 Rule 19.3.3 - The # and ## operators should not be used
+  // (Advisory)
+  CheckFactories.registerCheck<AvoidHashOperatorCheck>(
+      "automotive-cpp23-adv-19.3.3");
+
+  // MISRA C++:2023 Rule 19.3.2 - The #include directive shall only be preceded
+  // by preprocessor directives or comments (Required)
+  CheckFactories.registerCheck<AvoidCodeBeforeIncludeCheck>(
+      "automotive-cpp23-req-19.3.2");
+
+  // MISRA C++:2023 Rule 19.3.1 - #include directive shall use standard form
+  // (Required)
+  CheckFactories.registerCheck<AvoidIncludeSyntaxErrorCheck>(
+      "automotive-cpp23-req-19.3.1");
+
+  // MISRA C++:2023 Rule 19.0.3 - Macros shall not be named after C/C++ keywords
+  // (Required)
+  CheckFactories.registerCheck<AvoidMacroNamedAsCkeywordCheck>(
+      "automotive-cpp23-req-19.0.3");
+
+  // MISRA C++:2023 Rule 9.6.4 - The goto statement should not be used
+  // (Advisory)
+  CheckFactories.registerCheck<AvoidGotoCheck>("automotive-cpp23-adv-9.6.4");
+
+  // MISRA C++:2023 Rule 9.4.1 - All if-else-if chains should terminate with
+  // an else clause (Required)
+  CheckFactories.registerCheck<MissingElseCheck>("automotive-cpp23-req-9.4.1");
+
+  // MISRA C++:2023 Rule 9.5.2 - An unconditional break or throw statement
+  // shall terminate every switch-clause (Required)
+  CheckFactories.registerCheck<MissingBreakInCaseStmtCheck>(
+      "automotive-cpp23-req-9.5.2");
+
+  // MISRA C++:2023 Rule 9.5.3 - Every switch statement shall have a default
+  // clause (Required)
+  CheckFactories.registerCheck<MissingDefaultInSwitchStmtCheck>(
+      "automotive-cpp23-req-9.5.3");
+
+  // MISRA C++:2023 Rule 9.6.3 - The goto statement shall only jump forward
+  // to a label in the same block (Required)
+  CheckFactories.registerCheck<ForwardGotoLabelCheck>(
+      "automotive-cpp23-req-9.6.3");
+
+  // MISRA C++:2023 Rule 7.5.3 - sizeof operand shall not contain side effects
+  // (Mandatory)
+  CheckFactories.registerCheck<AvoidSideEffectInSizeofCheck>(
+      "automotive-cpp23-mand-7.5.3");
+
+  // MISRA C++:2023 Rule 8.14 - Right hand operand of logical operators
+  // shall not contain side effects (Required)
+  CheckFactories.registerCheck<AvoidSideEffectInLogicalOperandCheck>(
+      "automotive-cpp23-req-8.14");
+
+  // MISRA C++:2023 Rule 7.4.2 - Assignment operators shall not be used in
+  // sub-expressions (Advisory)
+  CheckFactories.registerCheck<AvoidAssignmentInExpressionCheck>(
+      "automotive-cpp23-adv-7.4.2");
 }
 
 } // namespace clang::tidy::automotive

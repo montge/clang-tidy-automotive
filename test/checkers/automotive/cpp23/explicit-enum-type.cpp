@@ -1,4 +1,4 @@
-// RUN: %check_clang_tidy %s automotive-cpp23-req-10.2.1 %t
+// RUN: %check_clang_tidy %s automotive-cpp23-adv-10.2.1 %t
 
 // Test: Enumeration underlying type shall be explicitly specified
 
