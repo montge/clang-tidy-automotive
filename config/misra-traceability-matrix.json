@@ -9,8 +9,8 @@
     "cpp2023_requirements": 180,
     "status_counts": {
       "implemented": 205,
-      "missing": 141,
-      "excluded": 59
+      "missing": 124,
+      "excluded": 76
     }
   },
   "requirements": {
@@ -2271,11 +2271,13 @@
       },
       "Rule_10_2_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_10_2_3.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "bugprone-suspicious-enum-usage"
+        ],
+        "status": "excluded",
         "category": "advisory",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Covered by clang-tidy bugprone-suspicious-enum-usage"
       },
       "Rule_10_3_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_10_3_1.rst",
@@ -2289,11 +2291,13 @@
       },
       "Rule_10_4_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_10_4_1.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "hicpp-no-assembler"
+        ],
+        "status": "excluded",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Covered by clang-tidy hicpp-no-assembler"
       },
       "Rule_11_3_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_11_3_1.rst",
@@ -2315,15 +2319,19 @@
       },
       "Rule_11_6_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_11_6_1.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "cppcoreguidelines-init-variables"
+        ],
+        "status": "excluded",
         "category": "advisory",
         "decidability": "unknown",
-        "notes": ""
+        "notes": "Covered by clang-tidy cppcoreguidelines-init-variables"
       },
       "Rule_11_6_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_11_6_2.rst",
-        "check_ids": ["modernize-return-braced-init-list"],
+        "check_ids": [
+          "modernize-return-braced-init-list"
+        ],
         "status": "excluded",
         "category": "mandatory",
         "decidability": "undecidable",
@@ -2399,11 +2407,13 @@
       },
       "Rule_13_3_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_13_3_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "hicpp-use-override"
+        ],
+        "status": "excluded",
         "category": "required",
         "decidability": "unknown",
-        "notes": ""
+        "notes": "Covered by clang-tidy hicpp-use-override, modernize-use-override"
       },
       "Rule_13_3_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_13_3_3.rst",
@@ -2441,11 +2451,13 @@
       },
       "Rule_15_0_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_15_0_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "hicpp-use-equals-default"
+        ],
+        "status": "excluded",
         "category": "advisory",
         "decidability": "unknown",
-        "notes": ""
+        "notes": "Covered by clang-tidy hicpp-use-equals-default, modernize-use-equals-default"
       },
       "Rule_15_1_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_15_1_1.rst",
@@ -2519,11 +2531,13 @@
       },
       "Rule_17_8_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_17_8_1.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "bugprone-forwarding-reference-overload"
+        ],
+        "status": "excluded",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Covered by clang-tidy bugprone-forwarding-reference-overload"
       },
       "Rule_18_1_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_18_1_1.rst",
@@ -2545,19 +2559,23 @@
       },
       "Rule_18_3_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_18_3_1.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "hicpp-exception-baseclass"
+        ],
+        "status": "excluded",
         "category": "advisory",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Covered by clang-tidy hicpp-exception-baseclass"
       },
       "Rule_18_3_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_18_3_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "bugprone-empty-catch"
+        ],
+        "status": "excluded",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Covered by clang-tidy bugprone-empty-catch"
       },
       "Rule_18_3_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_18_3_3.rst",
@@ -2607,19 +2625,23 @@
       },
       "Rule_19_0_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_19_0_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "cppcoreguidelines-macro-usage"
+        ],
+        "status": "excluded",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Covered by clang-tidy cppcoreguidelines-macro-usage check"
       },
       "Rule_19_0_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_19_0_3.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "bugprone-macro-parentheses"
+        ],
+        "status": "excluded",
         "category": "advisory",
         "decidability": "unknown",
-        "notes": ""
+        "notes": "Covered by clang-tidy bugprone-macro-parentheses"
       },
       "Rule_19_0_4": {
         "file": "docs/requirements/misra-cpp-2023/Rule_19_0_4.rst",
@@ -2839,11 +2861,13 @@
       },
       "Rule_22_4_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_22_4_1.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "modernize-use-emplace"
+        ],
+        "status": "excluded",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Covered by clang-tidy modernize-use-emplace check"
       },
       "Rule_23_11_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_23_11_1.rst",
@@ -2871,7 +2895,9 @@
       },
       "Rule_25_5_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_25_5_1.rst",
-        "check_ids": ["automotive-cpp23-req-25.5.1"],
+        "check_ids": [
+          "automotive-cpp23-req-25.5.1"
+        ],
         "status": "implemented",
         "category": "required",
         "decidability": "decidable",
@@ -2879,7 +2905,9 @@
       },
       "Rule_25_5_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_25_5_2.rst",
-        "check_ids": ["automotive-cpp23-mand-25.5.2"],
+        "check_ids": [
+          "automotive-cpp23-mand-25.5.2"
+        ],
         "status": "implemented",
         "category": "mandatory",
         "decidability": "decidable",
@@ -2887,7 +2915,9 @@
       },
       "Rule_25_5_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_25_5_3.rst",
-        "check_ids": ["automotive-cpp23-mand-25.5.3"],
+        "check_ids": [
+          "automotive-cpp23-mand-25.5.3"
+        ],
         "status": "implemented",
         "category": "mandatory",
         "decidability": "undecidable",
@@ -3003,11 +3033,13 @@
       },
       "Rule_5_10_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_5_10_1.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "bugprone-reserved-identifier"
+        ],
+        "status": "excluded",
         "category": "required",
         "decidability": "unknown",
-        "notes": ""
+        "notes": "Covered by clang-tidy bugprone-reserved-identifier"
       },
       "Rule_5_13_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_5_13_1.rst",
@@ -3046,11 +3078,13 @@
       },
       "Rule_5_13_5": {
         "file": "docs/requirements/misra-cpp-2023/Rule_5_13_5.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "modernize-raw-string-literal"
+        ],
+        "status": "excluded",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Covered by clang-tidy modernize-raw-string-literal"
       },
       "Rule_5_13_6": {
         "file": "docs/requirements/misra-cpp-2023/Rule_5_13_6.rst",
@@ -3062,11 +3096,13 @@
       },
       "Rule_5_13_7": {
         "file": "docs/requirements/misra-cpp-2023/Rule_5_13_7.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "modernize-use-bool-literals"
+        ],
+        "status": "excluded",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Covered by clang-tidy modernize-use-bool-literals"
       },
       "Rule_5_7_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_5_7_1.rst",
@@ -3260,11 +3296,13 @@
       },
       "Rule_6_9_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_6_9_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "cppcoreguidelines-interfaces-global-init"
+        ],
+        "status": "excluded",
         "category": "advisory",
         "decidability": "unknown",
-        "notes": ""
+        "notes": "Covered by clang-tidy cppcoreguidelines-interfaces-global-init"
       },
       "Rule_7_0_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_7_0_1.rst",
@@ -3403,11 +3441,13 @@
       },
       "Rule_8_1_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_8_1_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "cppcoreguidelines-pro-bounds-constant-array-index"
+        ],
+        "status": "excluded",
         "category": "advisory",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Covered by clang-tidy cppcoreguidelines-pro-bounds-constant-array-index"
       },
       "Rule_8_20_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_8_20_1.rst",
@@ -3447,11 +3487,13 @@
       },
       "Rule_8_2_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_8_2_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "cppcoreguidelines-pro-type-reinterpret-cast"
+        ],
+        "status": "excluded",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Covered by clang-tidy cppcoreguidelines-pro-type-reinterpret-cast"
       },
       "Rule_8_2_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_8_2_3.rst",
