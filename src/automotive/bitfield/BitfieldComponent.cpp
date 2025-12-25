@@ -23,8 +23,7 @@ void BitfieldComponent::addCheckFactories(
       "automotive-avoid-signed-single-bitfield");
   CheckFactories.registerCheck<AvoidBitfieldInUnionCheck>(
       "automotive-avoid-bitfield-in-union");
-  CheckFactories.registerCheck<BitfieldInUnionCheck>(
-      "automotive-c25-req-6.3");
+  CheckFactories.registerCheck<BitfieldInUnionCheck>("automotive-c25-req-6.3");
 }
 
 } // namespace clang::tidy::automotive

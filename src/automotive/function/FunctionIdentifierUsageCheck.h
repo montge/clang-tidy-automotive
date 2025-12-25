@@ -14,15 +14,17 @@
 namespace clang::tidy::automotive {
 
 /// @ingroup misra-c25-function
-/// @brief Detects function identifiers used without & or parenthesized parameter list.
+/// @brief Detects function identifiers used without & or parenthesized
+/// parameter list.
 ///
-/// A function identifier should only be used with either the address-of operator (&)
-/// or followed by a parenthesized parameter list (function call). Using a function
-/// identifier in other contexts (e.g., direct assignment to a pointer) is discouraged
-/// as it can reduce code clarity.
+/// A function identifier should only be used with either the address-of
+/// operator (&) or followed by a parenthesized parameter list (function call).
+/// Using a function identifier in other contexts (e.g., direct assignment to a
+/// pointer) is discouraged as it can reduce code clarity.
 ///
 /// @par MISRA C:2025 Rule 17.12
-/// A function identifier should only be used with & or parenthesized parameter list.
+/// A function identifier should only be used with & or parenthesized parameter
+/// list.
 /// @par Category: Advisory
 ///
 /// Example:

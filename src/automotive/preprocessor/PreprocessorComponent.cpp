@@ -18,6 +18,8 @@
 #include "AvoidMultipleHashOperatorsCheck.h"
 #include "AvoidReservedMacroIdentifierCheck.h"
 #include "AvoidUndefCheck.h"
+#include "IfExpressionValueCheck.h"
+#include "IfUndefinedIdentifierCheck.h"
 #include "MacroParenthesesCheck.h"
 #include "MissingHeaderGuardCheck.h"
 #include "PreprocessorDirectiveInMacroArgCheck.h"
@@ -82,6 +84,14 @@ void PreprocessorComponent::addCheckFactories(
   // Rule 20.7 - Macro parameter parenthesization (Required)
   CheckFactories.registerCheck<MacroParenthesesCheck>(
       "automotive-c25-req-20.7");
+
+  // Rule 20.8 - #if/#elif expression shall evaluate to 0 or 1 (Required)
+  CheckFactories.registerCheck<IfExpressionValueCheck>(
+      "automotive-c25-req-20.8");
+
+  // Rule 20.9 - Undefined identifiers in #if/#elif (Required)
+  CheckFactories.registerCheck<IfUndefinedIdentifierCheck>(
+      "automotive-c25-req-20.9");
 }
 
 } // namespace clang::tidy::automotive

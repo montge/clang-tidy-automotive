@@ -26,8 +26,8 @@ void FunctionIdentifierUsageCheck::registerMatchers(MatchFinder *Finder) {
           hasCastKind(CK_FunctionToPointerDecay),
           has(declRefExpr(to(functionDecl().bind("func"))).bind("ref")),
           // Exclude if parent is UnaryOperator with & (explicit address-of)
-          unless(hasParent(unaryOperator(hasOperatorName("&"))))
-      ).bind("cast"),
+          unless(hasParent(unaryOperator(hasOperatorName("&")))))
+          .bind("cast"),
       this);
 }
 

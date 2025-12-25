@@ -16,6 +16,7 @@ add_clang_library(clangTidyAutomotiveStdlibComponent STATIC
   AvoidWcharHeaderCheck.cpp
   ErrnoTestingCheck.cpp
   ExitCheck.cpp
+  MemorySyncOrderCheck.cpp
   StdlibComponent.cpp
   TgmathOperandTypeCheck.cpp
 )
