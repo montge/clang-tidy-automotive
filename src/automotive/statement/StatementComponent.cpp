@@ -35,6 +35,16 @@ void StatementComponent::addCheckFactories(
   CheckFactories.registerCheck<GotoLabelSameBlockCheck>(
       "automotive-c23-req-15.2");
 
+  // MISRA C++:2023 Rule 9.6.2 - A goto statement shall reference a label
+  // in an enclosing block (Required)
+  CheckFactories.registerCheck<GotoLabelSameBlockCheck>(
+      "automotive-cpp23-req-9.6.2");
+
+  // MISRA C++:2023 Rule 9.6.3 - A goto statement shall jump forward
+  // (Required)
+  CheckFactories.registerCheck<ForwardGotoLabelCheck>(
+      "automotive-cpp23-req-9.6.3");
+
   CheckFactories.registerCheck<MissingBreakInCaseStmtCheck>(
       "automotive-missing-break-in-case");
   CheckFactories.registerCheck<MissingDefaultInSwitchStmtCheck>(
