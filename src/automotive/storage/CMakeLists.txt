@@ -1,5 +1,6 @@
 
 add_automotive_component(clangTidyAutomotiveStorageComponent
+  AvoidExternInSourceFileCheck.cpp
   AvoidGlobalObjectCheck.cpp
   AvoidMultipleAlignmentCheck.cpp
   AvoidZeroAlignmentCheck.cpp

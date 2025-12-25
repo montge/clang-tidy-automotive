@@ -7,6 +7,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "StorageComponent.h"
+#include "AvoidExternInSourceFileCheck.h"
 #include "AvoidGlobalObjectCheck.h"
 #include "AvoidMultipleAlignmentCheck.h"
 #include "AvoidReservedIdentifierDeclarationCheck.h"
@@ -82,6 +83,11 @@ void StorageComponent::addCheckFactories(
   // Thread objects shall have static storage duration
   CheckFactories.registerCheck<ThreadObjectStorageCheck>(
       "automotive-c25-req-22.13");
+
+  // Rule 8.19 - External declarations in source files (Advisory)
+  // There should be no external declarations in a source file
+  CheckFactories.registerCheck<AvoidExternInSourceFileCheck>(
+      "automotive-c25-adv-8.19");
 }
 
 } // namespace clang::tidy::automotive
