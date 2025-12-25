@@ -19,5 +19,7 @@ add_clang_library(clangTidyAutomotiveExpressionComponent STATIC
   GenericFromMacroCheck.cpp
   GenericImplicitPointerCheck.cpp
   GenericNonDefaultCheck.cpp
+  GenericSideEffectCheck.cpp
+  GenericEssentialTypeCheck.cpp
   InvariantControlCheck.cpp
 )
