@@ -127,6 +127,66 @@ void StdlibComponent::addCheckFactories(
   // mutex object (Required)
   CheckFactories.registerCheck<CondVarMutexAssociationCheck>(
       "automotive-c25-req-22.19");
+
+  // MISRA C:2025 Rule 21.1 - #define/#undef reserved identifiers (Required)
+  // Note: Registered in PreprocessorComponent
+
+  // MISRA C:2025 Rule 21.3 - Dynamic memory allocation (Required)
+  CheckFactories.registerCheck<AvoidStdlibMemoryCheck>(
+      "automotive-c25-req-21.3");
+
+  // MISRA C:2025 Rule 21.4 - setjmp header (Required)
+  CheckFactories.registerCheck<AvoidSetjmpHeaderCheck>(
+      "automotive-c25-req-21.4");
+
+  // MISRA C:2025 Rule 21.5 - signal header (Required)
+  CheckFactories.registerCheck<AvoidSignalHeaderCheck>(
+      "automotive-c25-req-21.5");
+
+  // MISRA C:2025 Rule 21.6 - stdio header I/O functions (Required)
+  CheckFactories.registerCheck<AvoidStdioHeaderCheck>(
+      "automotive-c25-req-21.6");
+
+  // MISRA C:2025 Rule 21.7 - atof/atoi/atol/atoll (Required)
+  CheckFactories.registerCheck<AtoXCheck>("automotive-c25-req-21.7");
+
+  // MISRA C:2025 Rule 21.8 - abort/exit/quick_exit/getenv (Required)
+  CheckFactories.registerCheck<ExitCheck>("automotive-c25-req-21.8");
+
+  // MISRA C:2025 Rule 21.9 - bsearch/qsort prohibition (Required)
+  CheckFactories.registerCheck<AvoidBsearchQsortCheck>(
+      "automotive-c25-req-21.9");
+
+  // MISRA C:2025 Rule 21.10 - time.h functions (Required)
+  CheckFactories.registerCheck<AvoidTimeHeaderCheck>(
+      "automotive-c25-req-21.10");
+
+  // MISRA C:2025 Rule 21.11 - tgmath.h (Required)
+  CheckFactories.registerCheck<AvoidTgmathHeaderCheck>(
+      "automotive-c25-req-21.11");
+
+  // MISRA C:2025 Rule 21.12 - rand/srand functions (Required)
+  CheckFactories.registerCheck<AvoidStdlibRandCheck>(
+      "automotive-c25-req-21.12");
+
+  // MISRA C:2025 Rule 21.13 - ctype.h functions (Mandatory)
+  CheckFactories.registerCheck<AvoidCtypeHeaderCheck>(
+      "automotive-c25-mand-21.13");
+
+  // MISRA C:2025 Rule 21.17 - system function (Required)
+  CheckFactories.registerCheck<AvoidstdlibsystemcallCheck>(
+      "automotive-c25-req-21.17");
+
+  // MISRA C:2025 Rule 21.21 - wchar.h functions (Required)
+  CheckFactories.registerCheck<AvoidWcharHeaderCheck>(
+      "automotive-c25-req-21.21");
+
+  // MISRA C:2025 Rule 17.1 - stdarg.h (Required)
+  CheckFactories.registerCheck<AvoidStdargHeaderCheck>(
+      "automotive-c25-req-17.1");
+
+  // MISRA C:2025 Rule 22.10 - errno testing (Required)
+  CheckFactories.registerCheck<ErrnoTestingCheck>("automotive-c25-req-22.10");
 }
 
 } // namespace clang::tidy::automotive

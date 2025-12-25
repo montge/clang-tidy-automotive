@@ -107,6 +107,49 @@ void PreprocessorComponent::addCheckFactories(
   // shall be avoided (Required)
   CheckFactories.registerCheck<IfUndefinedIdentifierCheck>(
       "automotive-cpp23-req-19.3.4");
+
+  // MISRA C:2025 Rule 20.1 - #include preceded only by preprocessor directives
+  CheckFactories.registerCheck<AvoidCodeBeforeIncludeCheck>(
+      "automotive-c25-req-20.1");
+
+  // MISRA C:2025 Rule 20.2 - Invalid characters in header names (Required)
+  CheckFactories.registerCheck<AvoidInvalidHeaderCharCheck>(
+      "automotive-c25-req-20.2");
+
+  // MISRA C:2025 Rule 20.3 - #include syntax (Required)
+  CheckFactories.registerCheck<AvoidIncludeSyntaxErrorCheck>(
+      "automotive-c25-req-20.3");
+
+  // MISRA C:2025 Rule 20.4 - Macro shall not be named after keyword (Required)
+  CheckFactories.registerCheck<AvoidMacroNamedAsCkeywordCheck>(
+      "automotive-c25-req-20.4");
+
+  // MISRA C:2025 Rule 20.5 - #undef should not be used (Advisory)
+  CheckFactories.registerCheck<AvoidUndefCheck>("automotive-c25-adv-20.5");
+
+  // MISRA C:2025 Rule 20.10 - # and ## operators should not be used (Advisory)
+  CheckFactories.registerCheck<AvoidHashOperatorCheck>(
+      "automotive-c25-adv-20.10");
+
+  // MISRA C:2025 Rule 20.11 - # or ## shall not occur more than once (Required)
+  CheckFactories.registerCheck<AvoidMultipleHashOperatorsCheck>(
+      "automotive-c25-req-20.11");
+
+  // MISRA C:2025 Rule 20.14 - #if/#endif in same file (Required)
+  CheckFactories.registerCheck<AvoidCrossFileIfCheck>(
+      "automotive-c25-req-20.14");
+
+  // MISRA C:2025 Rule 5.4 - Macro identifier conflicts (Required)
+  CheckFactories.registerCheck<AvoidMacroIdentifierConflictCheck>(
+      "automotive-c25-req-5.4");
+
+  // MISRA C:2025 Directive 4.10 - Header guard (Required)
+  CheckFactories.registerCheck<MissingHeaderGuardCheck>(
+      "automotive-c25-req-dir-4.10");
+
+  // MISRA C:2025 Rule 1.2 - Language extensions (Advisory)
+  CheckFactories.registerCheck<AvoidLanguageExtensionCheck>(
+      "automotive-c25-adv-1.2");
 }
 
 } // namespace clang::tidy::automotive

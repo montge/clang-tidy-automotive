@@ -40,6 +40,29 @@ void LiteralComponent::addCheckFactories(
   // Rule 7.6 - Small integer constant macros (Required)
   CheckFactories.registerCheck<AvoidSmallIntConstMacroCheck>(
       "automotive-c23-req-7.6");
+
+  // MISRA C:2025 Rule 7.1 - Octal constants shall not be used (Required)
+  CheckFactories.registerCheck<AvoidOctalNumberCheck>(
+      "automotive-c25-req-7.1");
+
+  // MISRA C:2025 Rule 7.2 - Unsigned suffix for unsigned constants (Required)
+  CheckFactories.registerCheck<AvoidUnsignedLiteralWithoutSuffixCheck>(
+      "automotive-c25-req-7.2");
+
+  // MISRA C:2025 Rule 7.3 - Lowercase literal suffix (Required)
+  CheckFactories.registerCheck<AvoidLowercaseLiteralSuffixCheck>(
+      "automotive-c25-req-7.3");
+
+  // MISRA C:2025 Rule 7.4 - String literal to non-const pointer (Required)
+  CheckFactories.registerCheck<AvoidStringLiteralToNonConstCheck>(
+      "automotive-c25-req-7.4");
+
+  // MISRA C:2025 Rule 7.6 - Small integer constant macros (Required)
+  CheckFactories.registerCheck<AvoidSmallIntConstMacroCheck>(
+      "automotive-c25-req-7.6");
+
+  // MISRA C:2025 Rule 4.2 - Trigraphs shall not be used (Advisory)
+  CheckFactories.registerCheck<AvoidTrigraphCheck>("automotive-c25-adv-4.2");
 }
 
 } // namespace clang::tidy::automotive
