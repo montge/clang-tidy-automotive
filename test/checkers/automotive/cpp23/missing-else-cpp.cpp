@@ -2,11 +2,11 @@
 // Test for automotive-cpp23-req-9.4.1: if-else-if chains shall end with else
 
 void test_missing_else(int x) {
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: if-else if chain should end with an else clause
   if (x == 0) {
     return;
   } else if (x == 1) {
     return;
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: if...else if chain should terminate with an else clause [automotive-cpp23-req-9.4.1]
   }  // Missing final else
 }
 
