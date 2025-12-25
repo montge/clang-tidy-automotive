@@ -2,6 +2,7 @@
 add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   PARTIAL_SOURCES_INTENDED
   AutoTypeRestrictionCheck.cpp
+  AvoidArrayToPointerDecayCheck.cpp
   AvoidAsmCheck.cpp
   AvoidAssignmentInSubExpressionCheck.cpp
   AvoidAssignmentResultCheck.cpp
@@ -70,6 +71,7 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   ExplicitConstructorCheck.cpp
   ExplicitEnumTypeCheck.cpp
   ExplicitLambdaCaptureCheck.cpp
+  LocaleConstPointerCheck.cpp
   MissingReturnCheck.cpp
   NoexceptMoveCheck.cpp
   NoreturnVoidReturnCheck.cpp
