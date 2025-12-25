@@ -35,7 +35,8 @@ bool MemorySyncOrderCheck::isNonSeqCstMemoryOrder(const Expr *E) const {
   }
 
   // Check for integer literals that correspond to memory_order values
-  // memory_order enum values: relaxed=0, consume=1, acquire=2, release=3, acq_rel=4, seq_cst=5
+  // memory_order enum values: relaxed=0, consume=1, acquire=2, release=3,
+  // acq_rel=4, seq_cst=5
   if (const auto *IL = dyn_cast<IntegerLiteral>(E)) {
     llvm::APInt Value = IL->getValue();
     // seq_cst is 5 (__ATOMIC_SEQ_CST), all others are violations
@@ -48,20 +49,55 @@ bool MemorySyncOrderCheck::isNonSeqCstMemoryOrder(const Expr *E) const {
 
 void MemorySyncOrderCheck::registerMatchers(MatchFinder *Finder) {
   // Match atomic expressions - C11 atomic operations use AtomicExpr
+  // Don't use unless(isExpansionInSystemHeader()) because we want to catch
+  // user code that calls atomic macros which expand in system headers
   Finder->addMatcher(atomicExpr().bind("atomicOp"), this);
+
+  // Fence functions are not AtomicExpr, they're regular function calls
+  Finder->addMatcher(
+      callExpr(callee(functionDecl(hasAnyName(
+                   "atomic_thread_fence", "atomic_signal_fence",
+                   "__c11_atomic_thread_fence", "__c11_atomic_signal_fence"))))
+          .bind("fenceCall"),
+      this);
 }
 
 void MemorySyncOrderCheck::check(const MatchFinder::MatchResult &Result) {
+  // Check for fence function calls
+  if (const auto *FenceCall = Result.Nodes.getNodeAs<CallExpr>("fenceCall")) {
+    // Get the spelling location of the first argument
+    if (FenceCall->getNumArgs() > 0) {
+      SourceLocation CallLoc = Result.SourceManager->getSpellingLoc(
+          FenceCall->getArg(0)->getBeginLoc());
+
+      if (!Result.SourceManager->isInSystemHeader(CallLoc)) {
+        const Expr *MemOrder = FenceCall->getArg(0);
+        if (MemOrder && isNonSeqCstMemoryOrder(MemOrder)) {
+          diag(CallLoc,
+               "atomic fence operation shall use memory_order_seq_cst");
+        }
+      }
+    }
+    return;
+  }
+
   const auto *AE = Result.Nodes.getNodeAs<AtomicExpr>("atomicOp");
   if (!AE)
     return;
 
-  // Get the spelling location (where the code was actually written)
-  SourceLocation SpellingLoc = Result.SourceManager->getSpellingLoc(AE->getBeginLoc());
+  // For atomic operations that come from macros, we need to check where the
+  // arguments were written (not where the macro expands)
+  // Get the pointer argument's spelling location as a proxy for where the call
+  // was made
+  const Expr *Ptr = AE->getPtr();
+  if (!Ptr)
+    return;
 
-  // Skip if the spelling location is in system header
-  // This allows us to catch user code that calls atomic macros
-  if (Result.SourceManager->isInSystemHeader(SpellingLoc))
+  SourceLocation CallLoc =
+      Result.SourceManager->getSpellingLoc(Ptr->getBeginLoc());
+
+  // Skip if the call is in system header
+  if (Result.SourceManager->isInSystemHeader(CallLoc))
     return;
 
   // Check if this is an operation that uses explicit memory ordering
@@ -75,16 +111,15 @@ void MemorySyncOrderCheck::check(const MatchFinder::MatchResult &Result) {
   // Get the memory order argument
   const Expr *Order = AE->getOrder();
   if (Order && isNonSeqCstMemoryOrder(Order)) {
-    diag(SpellingLoc,
-         "atomic operation shall use memory_order_seq_cst");
+    diag(CallLoc, "atomic operation shall use memory_order_seq_cst");
   }
 
   // For compare_exchange operations, also check the failure ordering
   if (AE->isCmpXChg()) {
     const Expr *OrderFail = AE->getOrderFail();
     if (OrderFail && isNonSeqCstMemoryOrder(OrderFail)) {
-      diag(SpellingLoc,
-           "atomic operation shall use memory_order_seq_cst for failure ordering");
+      diag(CallLoc, "atomic operation shall use memory_order_seq_cst for "
+                    "failure ordering");
     }
   }
 }

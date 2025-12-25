@@ -57,11 +57,12 @@ bool isBooleanExpression(const SourceManager &SM, Preprocessor *PP,
         // Verify the rest are valid numeric characters
         for (size_t i = StartIdx; i < ConditionText.size(); ++i) {
           char c = ConditionText[i];
-          // Allow digits, hex chars (a-f, A-F), x/X for hex prefix, u/U/l/L for suffixes
-          if (!std::isdigit(c) && c != 'x' && c != 'X' &&
-              c != 'a' && c != 'b' && c != 'c' && c != 'd' && c != 'e' && c != 'f' &&
-              c != 'A' && c != 'B' && c != 'C' && c != 'D' && c != 'E' && c != 'F' &&
-              c != 'u' && c != 'U' && c != 'l' && c != 'L') {
+          // Allow digits, hex chars (a-f, A-F), x/X for hex prefix, u/U/l/L for
+          // suffixes
+          if (!std::isdigit(c) && c != 'x' && c != 'X' && c != 'a' &&
+              c != 'b' && c != 'c' && c != 'd' && c != 'e' && c != 'f' &&
+              c != 'A' && c != 'B' && c != 'C' && c != 'D' && c != 'E' &&
+              c != 'F' && c != 'u' && c != 'U' && c != 'l' && c != 'L') {
             IsNumericLiteral = false;
             break;
           }
