@@ -128,6 +128,85 @@ void ExpressionComponent::addCheckFactories(
   // multiple times (side effects would be evaluated multiple times)
   CheckFactories.registerCheck<GenericSideEffectCheck>(
       "automotive-c25-adv-23.7");
+
+  // === MISRA C:2025 Chapter 10 - Essential Type Model ===
+
+  // MISRA C:2025 Rule 10.1 - Inappropriate essential type (Required)
+  CheckFactories.registerCheck<AvoidInappropriateEssentialTypeCheck>(
+      "automotive-c25-req-10.1");
+
+  // MISRA C:2025 Rule 10.2 - Character arithmetic (Required)
+  CheckFactories.registerCheck<AvoidCharacterArithmeticCheck>(
+      "automotive-c25-req-10.2");
+
+  // MISRA C:2025 Rule 10.3 - Narrowing assignment (Required)
+  CheckFactories.registerCheck<AvoidNarrowingCompoundAssignmentCheck>(
+      "automotive-c25-req-10.3");
+
+  // MISRA C:2025 Rule 10.4 - Essential type mismatch (Required)
+  CheckFactories.registerCheck<AvoidEssentialTypeMismatchCheck>(
+      "automotive-c25-req-10.4");
+
+  // MISRA C:2025 Rule 10.5 - Inappropriate cast (Advisory)
+  CheckFactories.registerCheck<AvoidInappropriateCastCheck>(
+      "automotive-c25-adv-10.5");
+
+  // MISRA C:2025 Rule 10.6 - Composite expression to wider type (Required)
+  CheckFactories.registerCheck<AvoidCompositeExpressionMismatchCheck>(
+      "automotive-c25-req-10.6");
+
+  // MISRA C:2025 Rule 10.7 - Composite expression with narrower type (Required)
+  CheckFactories.registerCheck<AvoidCompositeExpressionMismatchCheck>(
+      "automotive-c25-req-10.7");
+
+  // MISRA C:2025 Rule 10.8 - Composite expression cast (Required)
+  CheckFactories.registerCheck<AvoidCompositeExpressionMismatchCheck>(
+      "automotive-c25-req-10.8");
+
+  // === MISRA C:2025 Chapter 13 - Side Effects ===
+
+  // MISRA C:2025 Rule 13.1 - Side effects in initializer (Required)
+  CheckFactories.registerCheck<AvoidSideEffectInInitializerCheck>(
+      "automotive-c25-req-13.1");
+
+  // MISRA C:2025 Rule 13.2 - Evaluation order dependency (Required)
+  // Note: Partially covered by initializer check
+  CheckFactories.registerCheck<AvoidSideEffectInInitializerCheck>(
+      "automotive-c25-req-13.2");
+
+  // MISRA C:2025 Rule 13.3 - Increment/decrement side effect (Required)
+  CheckFactories.registerCheck<AvoidSideEffectInInitializerCheck>(
+      "automotive-c25-req-13.3");
+
+  // MISRA C:2025 Rule 13.4 - Assignment as expression (Advisory)
+  CheckFactories.registerCheck<AvoidAssignmentInExpressionCheck>(
+      "automotive-c25-adv-13.4");
+
+  // MISRA C:2025 Rule 13.5 - Logical operator side effects (Required)
+  CheckFactories.registerCheck<AvoidSideEffectInLogicalOperandCheck>(
+      "automotive-c25-req-13.5");
+
+  // MISRA C:2025 Rule 13.6 - sizeof side effects (Mandatory)
+  CheckFactories.registerCheck<AvoidSideEffectInSizeofCheck>(
+      "automotive-c25-mand-13.6");
+
+  // === MISRA C:2025 Chapter 12 - Expressions (additional) ===
+
+  // MISRA C:2025 Rule 12.4 - Constant wrap-around (Advisory)
+  CheckFactories.registerCheck<AvoidConstantWrapAroundCheck>(
+      "automotive-c25-adv-12.4");
+
+  // MISRA C:2025 Rule 12.5 - sizeof on array parameter (Mandatory)
+  CheckFactories.registerCheck<AvoidSizeofArrayParameterCheck>(
+      "automotive-c25-mand-12.5");
+
+  // MISRA C:2025 Rule 14.3 - Controlling expression invariant (Required)
+  CheckFactories.registerCheck<InvariantControlCheck>(
+      "automotive-c25-req-14.3");
+
+  // MISRA C:2025 Rule 14.4 - Non-boolean controlling expression (Required)
+  CheckFactories.registerCheck<AvoidNonBooleanInConditionCheck>(
+      "automotive-c25-req-14.4");
 }
 
 } // namespace clang::tidy::automotive
