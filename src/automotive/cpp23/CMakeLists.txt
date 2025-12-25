@@ -56,6 +56,7 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidStatementExpressionCheck.cpp
   AvoidTagNameHidingCheck.cpp
   AvoidTemplateRefTemporaryCheck.cpp
+  AvoidTemporaryBindingToNTTPCheck.cpp
   AvoidThrowInNoexceptCheck.cpp
   AvoidThrowingDestructorCheck.cpp
   AvoidTypeidOnDereferencedPointerCheck.cpp
