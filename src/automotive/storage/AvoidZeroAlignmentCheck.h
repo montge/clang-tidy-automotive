@@ -21,7 +21,8 @@ namespace clang::tidy::automotive {
 /// results in undefined behavior and should be avoided.
 ///
 /// @par MISRA C:2025 Rule 8.16 (Advisory)
-/// The alignment specification of zero should not appear in an object declaration.
+/// The alignment specification of zero should not appear in an object
+/// declaration.
 ///
 /// Example:
 /// @code

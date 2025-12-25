@@ -23,6 +23,7 @@
 #include "AvoidSizeofArrayParameterCheck.h"
 #include "GenericDefaultPositionCheck.h"
 #include "GenericFromMacroCheck.h"
+#include "GenericImplicitPointerCheck.h"
 #include "GenericNonDefaultCheck.h"
 #include "InvariantControlCheck.h"
 
@@ -98,6 +99,10 @@ void ExpressionComponent::addCheckFactories(
   // Rule 23.3 - Generic non-default association (Advisory)
   CheckFactories.registerCheck<GenericNonDefaultCheck>(
       "automotive-c25-adv-23.3");
+
+  // Rule 23.5 - Generic implicit pointer conversion (Advisory)
+  CheckFactories.registerCheck<GenericImplicitPointerCheck>(
+      "automotive-c25-adv-23.5");
 
   // Rule 23.8 - Generic default position (Required)
   CheckFactories.registerCheck<GenericDefaultPositionCheck>(

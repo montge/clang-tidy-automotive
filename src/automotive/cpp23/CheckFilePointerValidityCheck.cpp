@@ -8,8 +8,8 @@
 
 #include "CheckFilePointerValidityCheck.h"
 #include "clang/AST/ASTContext.h"
-#include "clang/ASTMatchers/ASTMatchFinder.h"
 #include "clang/AST/ParentMapContext.h"
+#include "clang/ASTMatchers/ASTMatchFinder.h"
 
 using namespace clang::ast_matchers;
 
@@ -53,45 +53,40 @@ AST_MATCHER(CallExpr, usesFILEPointer) {
 } // namespace
 
 void CheckFilePointerValidityCheck::registerMatchers(MatchFinder *Finder) {
-  // Match uninitialized FILE* declarations (local variables only, not parameters)
+  // Match uninitialized FILE* declarations (local variables only, not
+  // parameters)
   Finder->addMatcher(
-      varDecl(hasType(pointerType(pointee(hasDeclaration(
-                  namedDecl(hasAnyName("FILE", "_IO_FILE")))))),
-              hasLocalStorage(),
-              unless(isStaticLocal()),
-              unless(hasInitializer(anything())),
-              unless(parmVarDecl()))
+      varDecl(hasType(pointerType(pointee(
+                  hasDeclaration(namedDecl(hasAnyName("FILE", "_IO_FILE")))))),
+              hasLocalStorage(), unless(isStaticLocal()),
+              unless(hasInitializer(anything())), unless(parmVarDecl()))
           .bind("uninit_file"),
       this);
 
   // Match calls to fopen-like functions (return FILE*)
-  Finder->addMatcher(
-      callExpr(isFopenLikeCall()).bind("fopen_call"),
-      this);
+  Finder->addMatcher(callExpr(isFopenLikeCall()).bind("fopen_call"), this);
 
   // Match calls to fclose
   Finder->addMatcher(
       callExpr(isFcloseCall(),
-               hasArgument(0, ignoringParenImpCasts(
-                                 declRefExpr(to(varDecl().bind("closed_var"))))))
+               hasArgument(0, ignoringParenImpCasts(declRefExpr(
+                                  to(varDecl().bind("closed_var"))))))
           .bind("fclose_call"),
       this);
 
   // Match FILE* usage in function calls
-  Finder->addMatcher(
-      callExpr(usesFILEPointer(),
-               hasAnyArgument(ignoringParenImpCasts(
-                   declRefExpr(to(varDecl().bind("used_file_var"))))))
-          .bind("file_use"),
-      this);
+  Finder->addMatcher(callExpr(usesFILEPointer(),
+                              hasAnyArgument(ignoringParenImpCasts(declRefExpr(
+                                  to(varDecl().bind("used_file_var"))))))
+                         .bind("file_use"),
+                     this);
 }
 
 void CheckFilePointerValidityCheck::check(
     const MatchFinder::MatchResult &Result) {
 
   // Check for uninitialized FILE* declarations
-  if (const auto *UninitFile =
-          Result.Nodes.getNodeAs<VarDecl>("uninit_file")) {
+  if (const auto *UninitFile = Result.Nodes.getNodeAs<VarDecl>("uninit_file")) {
     diag(UninitFile->getLocation(),
          "FILE* variable %0 declared without initialization; "
          "using an uninitialized FILE* is undefined behavior")
@@ -127,15 +122,17 @@ void CheckFilePointerValidityCheck::check(
     }
 
     if (!HasNullCheck) {
-      diag(FopenCall->getBeginLoc(),
-           "FILE* returned from %0 may be NULL and should be checked before use")
+      diag(
+          FopenCall->getBeginLoc(),
+          "FILE* returned from %0 may be NULL and should be checked before use")
           << FopenCall->getDirectCallee()->getName();
     }
   }
 
   // Check for FILE* usage after fclose
   // This is a simplified pattern-based check
-  if (const auto *FcloseCall = Result.Nodes.getNodeAs<CallExpr>("fclose_call")) {
+  if (const auto *FcloseCall =
+          Result.Nodes.getNodeAs<CallExpr>("fclose_call")) {
     if (const auto *ClosedVar = Result.Nodes.getNodeAs<VarDecl>("closed_var")) {
       // Note: Full dataflow analysis would be needed for comprehensive checking
       // This basic check just warns about the fclose call

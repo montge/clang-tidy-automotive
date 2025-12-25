@@ -22,6 +22,7 @@
 #include "AvoidstdlibsystemcallCheck.h"
 #include "ErrnoTestingCheck.h"
 #include "ExitCheck.h"
+#include "MemorySyncOrderCheck.h"
 #include "TgmathOperandTypeCheck.h"
 
 namespace clang::tidy::automotive {
@@ -84,6 +85,12 @@ void StdlibComponent::addCheckFactories(
   // All operand arguments to type-generic macros shall have appropriate type
   CheckFactories.registerCheck<TgmathOperandTypeCheck>(
       "automotive-c25-mand-21.22");
+
+  // Rule 21.25 - Memory synchronization order (Required)
+  // All memory synchronization operations shall be executed in sequentially
+  // consistent order
+  CheckFactories.registerCheck<MemorySyncOrderCheck>(
+      "automotive-c25-req-21.25");
 }
 
 } // namespace clang::tidy::automotive
