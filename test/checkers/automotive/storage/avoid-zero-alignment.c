@@ -1,7 +1,7 @@
-// RUN: %check_clang_tidy %s automotive-c25-req-8.16 %t
+// RUN: %check_clang_tidy %s automotive-c25-adv-8.16 %t
 
 // Test: Zero alignment specifier (MISRA C:2025 Rule 8.16)
-// Check ID: automotive-c25-req-8.16
+// Check ID: automotive-c25-adv-8.16
 
 // ============= Compliant: Valid alignment values =============
 

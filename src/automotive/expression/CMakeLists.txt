@@ -16,5 +16,7 @@ add_automotive_component(clangTidyAutomotiveExpressionComponent
   AvoidSizeofArrayParameterCheck.cpp
   ExpressionComponent.cpp
   GenericDefaultPositionCheck.cpp
+  GenericFromMacroCheck.cpp
+  GenericNonDefaultCheck.cpp
   InvariantControlCheck.cpp
 )

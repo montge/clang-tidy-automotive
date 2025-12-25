@@ -20,8 +20,8 @@ namespace clang::tidy::automotive {
 /// Using zero as an alignment value in _Alignas or alignas specifiers
 /// results in undefined behavior and should be avoided.
 ///
-/// @par MISRA C:2025 Rule 8.16 (Required)
-/// An alignment specification shall not specify an alignment of zero.
+/// @par MISRA C:2025 Rule 8.16 (Advisory)
+/// The alignment specification of zero should not appear in an object declaration.
 ///
 /// Example:
 /// @code

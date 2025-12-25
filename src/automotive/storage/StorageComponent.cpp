@@ -49,9 +49,9 @@ void StorageComponent::addCheckFactories(
   CheckFactories.registerCheck<AvoidTentativeDefinitionInHeaderCheck>(
       "automotive-c23-req-8.18");
 
-  // Rule 8.16 - Zero alignment specifier (Required)
+  // Rule 8.16 - Zero alignment specifier (Advisory)
   CheckFactories.registerCheck<AvoidZeroAlignmentCheck>(
-      "automotive-c25-req-8.16");
+      "automotive-c25-adv-8.16");
 
   // Rule 8.17 - Multiple alignment specifiers (Advisory)
   CheckFactories.registerCheck<AvoidMultipleAlignmentCheck>(
