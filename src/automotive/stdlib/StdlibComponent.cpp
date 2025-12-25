@@ -10,6 +10,7 @@
 #include "AtoXCheck.h"
 #include "AvoidBsearchQsortCheck.h"
 #include "AvoidCtypeHeaderCheck.h"
+#include "AvoidMemcmpOnStringsCheck.h"
 #include "AvoidSetjmpHeaderCheck.h"
 #include "AvoidSignalHeaderCheck.h"
 #include "AvoidStdargHeaderCheck.h"
@@ -104,6 +105,10 @@ void StdlibComponent::addCheckFactories(
   // consistent order
   CheckFactories.registerCheck<MemorySyncOrderCheck>(
       "automotive-c25-req-21.25");
+
+  // Rule 21.14 - memcmp shall not be used for string comparison (Required)
+  CheckFactories.registerCheck<AvoidMemcmpOnStringsCheck>(
+      "automotive-c25-req-21.14");
 }
 
 } // namespace clang::tidy::automotive

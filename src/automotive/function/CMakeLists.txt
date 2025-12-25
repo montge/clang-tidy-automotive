@@ -8,6 +8,7 @@ add_automotive_component(clangTidyAutomotiveFunctionComponent
   FunctionDeclarationMismatchCheck.cpp
   FunctionIdentifierUsageCheck.cpp
   ImplicitFunctionDeclCheck.cpp
+  ObsolescentFeaturesCheck.cpp
   StaticInlineCheck.cpp
   UncompleteFunctionPrototypeCheck.cpp
 )

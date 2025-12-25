@@ -14,6 +14,7 @@
 #include "FunctionDeclarationMismatchCheck.h"
 #include "FunctionIdentifierUsageCheck.h"
 #include "ImplicitFunctionDeclCheck.h"
+#include "ObsolescentFeaturesCheck.h"
 #include "StaticInlineCheck.h"
 #include "UncompleteFunctionPrototypeCheck.h"
 
@@ -49,6 +50,10 @@ void FunctionComponent::addCheckFactories(
   // Rule 17.13 - Qualified function type (Required)
   CheckFactories.registerCheck<AvoidQualifiedFunctionTypeCheck>(
       "automotive-c23-req-17.13");
+
+  // Rule 1.5 - Obsolescent language features (Required)
+  CheckFactories.registerCheck<ObsolescentFeaturesCheck>(
+      "automotive-c25-req-1.5");
 }
 
 } // namespace clang::tidy::automotive
