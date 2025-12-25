@@ -24,6 +24,14 @@ void BitfieldComponent::addCheckFactories(
   CheckFactories.registerCheck<AvoidBitfieldInUnionCheck>(
       "automotive-avoid-bitfield-in-union");
   CheckFactories.registerCheck<BitfieldInUnionCheck>("automotive-c25-req-6.3");
+
+  // MISRA C:2025 Rule 6.1 - Bit-field type restrictions (Required)
+  CheckFactories.registerCheck<WrongBitfieldTypeCheck>(
+      "automotive-c25-req-6.1");
+
+  // MISRA C:2025 Rule 6.2 - Single-bit signed bit-field (Required)
+  CheckFactories.registerCheck<AvoidSignedSingleBitFieldCheck>(
+      "automotive-c25-req-6.2");
 }
 
 } // namespace clang::tidy::automotive
