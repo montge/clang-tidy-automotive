@@ -1,0 +1,28 @@
+# Thread Safety Focused Configuration
+#
+# Combines automotive thread checks with Clang's built-in Thread Safety Analysis.
+# Use this for projects with heavy concurrency requirements.
+#
+# Usage:
+#   clang-tidy -config-file=config/clang-tidy-thread-safety.yaml your_file.c --
+
+Checks: >
+  -*,
+  automotive-c25-req-22.8,
+  automotive-c25-req-22.9,
+  automotive-c25-req-22.11,
+  automotive-c25-req-22.13,
+  automotive-c25-mand-22.18,
+  automotive-c25-req-22.19,
+  clang-analyzer-unix.BlockInCriticalSection,
+  clang-analyzer-core.uninitialized.*
+
+# Enable all Thread Safety Analysis warnings
+ExtraArgs:
+  - '-Wthread-safety'
+  - '-Wthread-safety-negative'
+  - '-Wthread-safety-precise'
+  - '-Wthread-safety-reference'
+  - '-Wthread-safety-beta'
+
+HeaderFilterRegex: '.*'
