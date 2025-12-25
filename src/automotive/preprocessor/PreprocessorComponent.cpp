@@ -18,6 +18,7 @@
 #include "AvoidMultipleHashOperatorsCheck.h"
 #include "AvoidReservedMacroIdentifierCheck.h"
 #include "AvoidUndefCheck.h"
+#include "MacroParenthesesCheck.h"
 #include "MissingHeaderGuardCheck.h"
 #include "PreprocessorDirectiveInMacroArgCheck.h"
 #include "UnusedMacroCheck.h"
@@ -76,6 +77,10 @@ void PreprocessorComponent::addCheckFactories(
   // Rule 20.6 - Preprocessing directive in macro argument (Required)
   CheckFactories.registerCheck<PreprocessorDirectiveInMacroArgCheck>(
       "automotive-c25-req-20.6");
+
+  // Rule 20.7 - Macro parameter parenthesization (Required)
+  CheckFactories.registerCheck<MacroParenthesesCheck>(
+      "automotive-c25-req-20.7");
 }
 
 } // namespace clang::tidy::automotive

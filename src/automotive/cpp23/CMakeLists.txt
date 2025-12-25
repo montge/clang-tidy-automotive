@@ -65,6 +65,7 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidUnionCppCheck.cpp
   AvoidUnionTypePunningCheck.cpp
   AvoidUnrelatedPointerConversionCheck.cpp
+  AvoidUnrelatedPointerSubtractionCheck.cpp
   AvoidUnsignedWrapAroundCheck.cpp
   AvoidUnusedVariadicTemplateCheck.cpp
   AvoidVirtualBaseClassCheck.cpp

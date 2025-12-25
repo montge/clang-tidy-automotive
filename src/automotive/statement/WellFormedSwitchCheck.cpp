@@ -23,6 +23,16 @@ bool WellFormedSwitchCheck::hasTerminatingStatement(
   if (!S)
     return false;
 
+  // Check for [[fallthrough]] attribute on the statement
+  if (const auto *AS = dyn_cast<AttributedStmt>(S)) {
+    for (const Attr *A : AS->getAttrs()) {
+      if (isa<FallThroughAttr>(A))
+        return true;
+    }
+    // Continue checking the sub-statement
+    return hasTerminatingStatement(AS->getSubStmt(), Context);
+  }
+
   // Check for explicit terminating statements
   if (isa<BreakStmt>(S) || isa<ReturnStmt>(S) || isa<ContinueStmt>(S) ||
       isa<CXXThrowExpr>(S) || isa<GotoStmt>(S))
@@ -64,6 +74,14 @@ void WellFormedSwitchCheck::check(const MatchFinder::MatchResult &Result) {
   const Stmt *Body = Switch->getBody();
   if (!Body)
     return;
+
+  // MISRA C:2025 Rule 16.1: Switch body must be a compound statement
+  const CompoundStmt *CS = dyn_cast<CompoundStmt>(Body);
+  if (!CS) {
+    diag(Switch->getSwitchLoc(),
+         "switch statement body must be a compound statement");
+    return;
+  }
 
   bool HasDefault = false;
   unsigned NumCases = 0;
@@ -107,11 +125,6 @@ void WellFormedSwitchCheck::check(const MatchFinder::MatchResult &Result) {
   // Check for fall-through: iterate through switch cases
   // We need to find cases that don't end with a terminating statement
   // and are followed by another case
-
-  // Get the compound statement body if it exists
-  const CompoundStmt *CS = dyn_cast<CompoundStmt>(Body);
-  if (!CS)
-    return;
 
   // Iterate through the body to find case labels and check for termination
   SmallVector<std::pair<const SwitchCase *, const Stmt *>, 16> CaseStmts;

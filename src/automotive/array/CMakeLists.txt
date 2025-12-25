@@ -8,6 +8,7 @@ add_clang_library(clangTidyAutomotiveArrayComponent STATIC
   AvoidPointerArithmeticBoundsCheck.cpp
   AvoidPointerArithmeticCheck.cpp
   AvoidPointerToVLACheck.cpp
+  AvoidTempArrayDecayCheck.cpp
   AvoidVariableLengthArrayCheck.cpp
   MissingExternalArraySizeCheck.cpp
   PartialArrayInitCheck.cpp

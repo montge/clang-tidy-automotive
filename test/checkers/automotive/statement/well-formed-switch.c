@@ -114,3 +114,11 @@ void test_continue_in_loop(int x) {
         }
     }
 }
+
+// Test for compound statement requirement
+void test_missing_compound_body(int x) {
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: switch statement body must be a compound statement
+    switch (x)
+        case 1:
+            break;
+}

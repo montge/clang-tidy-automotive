@@ -64,6 +64,7 @@
 #include "AvoidUnionCppCheck.h"
 #include "AvoidUnionTypePunningCheck.h"
 #include "AvoidUnrelatedPointerConversionCheck.h"
+#include "AvoidUnrelatedPointerSubtractionCheck.h"
 #include "AvoidUnsignedWrapAroundCheck.h"
 #include "AvoidUnusedVariadicTemplateCheck.h"
 #include "AvoidVirtualBaseClassCheck.h"
@@ -394,6 +395,10 @@ void Cpp23Component::addCheckFactories(
   // hierarchy
   CheckFactories.registerCheck<cpp23::AvoidUnrelatedPointerConversionCheck>(
       "automotive-cpp23-req-10.1");
+
+  // MISRA C++:2023 Rule 12.2 - Pointer subtraction between unrelated pointers
+  CheckFactories.registerCheck<cpp23::AvoidUnrelatedPointerSubtractionCheck>(
+      "automotive-cpp23-req-12.2");
 
   // MISRA C++:2023 Rule 10.2 - Conversions from void* to typed pointer
   CheckFactories.registerCheck<cpp23::AvoidVoidPointerCastCheck>(
