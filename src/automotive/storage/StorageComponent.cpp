@@ -20,6 +20,7 @@
 #include "MissingStaticForInternalCheck.h"
 #include "MultipleExternalDefinitionCheck.h"
 #include "StaticStorageClassCheck.h"
+#include "ThreadObjectStorageCheck.h"
 
 namespace clang::tidy::automotive {
 
@@ -76,6 +77,11 @@ void StorageComponent::addCheckFactories(
   // Rule 8.8 - Static storage class for internal linkage (Required)
   CheckFactories.registerCheck<StaticStorageClassCheck>(
       "automotive-c25-req-8.8");
+
+  // Rule 22.13 - Thread object storage duration (Required)
+  // Thread objects shall have static storage duration
+  CheckFactories.registerCheck<ThreadObjectStorageCheck>(
+      "automotive-c25-req-22.13");
 }
 
 } // namespace clang::tidy::automotive
