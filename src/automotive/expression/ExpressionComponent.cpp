@@ -122,6 +122,12 @@ void ExpressionComponent::addCheckFactories(
   // Rule 23.8 - Generic default position (Required)
   CheckFactories.registerCheck<GenericDefaultPositionCheck>(
       "automotive-c25-req-23.8");
+
+  // Rule 23.7 - Generic selection argument evaluation (Advisory)
+  // A generic selection expanded from a macro should not evaluate its argument
+  // multiple times (side effects would be evaluated multiple times)
+  CheckFactories.registerCheck<GenericSideEffectCheck>(
+      "automotive-c25-adv-23.7");
 }
 
 } // namespace clang::tidy::automotive
