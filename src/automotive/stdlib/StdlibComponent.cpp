@@ -21,6 +21,7 @@
 #include "AvoidWcharHeaderCheck.h"
 #include "AvoidstdlibsystemcallCheck.h"
 #include "ErrnoTestingCheck.h"
+#include "ErrnoUsageCheck.h"
 #include "ExitCheck.h"
 #include "MemorySyncOrderCheck.h"
 #include "TgmathConsistentTypeCheck.h"
@@ -77,6 +78,12 @@ void StdlibComponent::addCheckFactories(
   // Rule 21.9 - bsearch/qsort prohibition (Required)
   CheckFactories.registerCheck<AvoidBsearchQsortCheck>(
       "automotive-c23-req-21.9");
+
+  // Rule 22.8 - errno shall be zero before call (Required)
+  // Rule 22.9 - errno shall be tested after call (Required)
+  // Combined check for errno-setting function usage
+  CheckFactories.registerCheck<ErrnoUsageCheck>("automotive-c25-req-22.8");
+  CheckFactories.registerCheck<ErrnoUsageCheck>("automotive-c25-req-22.9");
 
   // Rule 22.10 - errno testing (Required)
   // errno shall only be tested after an errno-setting function
