@@ -9,8 +9,8 @@
     "cpp2023_requirements": 180,
     "status_counts": {
       "implemented": 205,
-      "missing": 124,
-      "excluded": 76
+      "missing": 122,
+      "excluded": 78
     }
   },
   "requirements": {
@@ -2551,11 +2551,13 @@
       },
       "Rule_18_1_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_18_1_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "cert-err52-cpp"
+        ],
+        "status": "excluded",
         "category": "required",
         "decidability": "unknown",
-        "notes": ""
+        "notes": "Covered by clang-tidy cert-err52-cpp (setjmp/longjmp prohibition)"
       },
       "Rule_18_3_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_18_3_1.rst",
@@ -3288,11 +3290,13 @@
       },
       "Rule_6_9_1": {
         "file": "docs/requirements/misra-cpp-2023/Rule_6_9_1.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "cert-err58-cpp"
+        ],
+        "status": "excluded",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Covered by clang-tidy cert-err58-cpp (static initialization exceptions)"
       },
       "Rule_6_9_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_6_9_2.rst",
