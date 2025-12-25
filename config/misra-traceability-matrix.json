@@ -8,8 +8,8 @@
     "c2025_requirements": 225,
     "cpp2023_requirements": 180,
     "status_counts": {
-      "implemented": 212,
-      "missing": 119,
+      "implemented": 217,
+      "missing": 114,
       "excluded": 74
     }
   },
@@ -2693,11 +2693,13 @@
       },
       "Rule_19_2_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_19_2_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-req-19.2.2"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "Macro parameters shall be parenthesized"
       },
       "Rule_19_2_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_19_2_3.rst",
@@ -2727,19 +2729,23 @@
       },
       "Rule_19_3_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_19_3_3.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-req-19.3.3"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "#if expression shall evaluate to 0 or 1"
       },
       "Rule_19_3_4": {
         "file": "docs/requirements/misra-cpp-2023/Rule_19_3_4.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-req-19.3.4"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "unknown",
-        "notes": ""
+        "notes": "Undefined identifiers in #if/#elif"
       },
       "Rule_19_3_5": {
         "file": "docs/requirements/misra-cpp-2023/Rule_19_3_5.rst",
@@ -3683,19 +3689,23 @@
       },
       "Rule_9_6_2": {
         "file": "docs/requirements/misra-cpp-2023/Rule_9_6_2.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-req-9.6.2"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "goto shall reference label in enclosing block"
       },
       "Rule_9_6_3": {
         "file": "docs/requirements/misra-cpp-2023/Rule_9_6_3.rst",
-        "check_ids": [],
-        "status": "missing",
+        "check_ids": [
+          "automotive-cpp23-req-9.6.3"
+        ],
+        "status": "implemented",
         "category": "required",
         "decidability": "decidable",
-        "notes": ""
+        "notes": "goto shall jump forward only"
       },
       "Rule_9_6_4": {
         "file": "docs/requirements/misra-cpp-2023/Rule_9_6_4.rst",

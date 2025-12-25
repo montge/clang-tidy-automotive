@@ -92,6 +92,21 @@ void PreprocessorComponent::addCheckFactories(
   // Rule 20.9 - Undefined identifiers in #if/#elif (Required)
   CheckFactories.registerCheck<IfUndefinedIdentifierCheck>(
       "automotive-c25-req-20.9");
+
+  // MISRA C++:2023 Rule 19.2.2 - Macro parameters shall be parenthesized
+  // (Required)
+  CheckFactories.registerCheck<MacroParenthesesCheck>(
+      "automotive-cpp23-req-19.2.2");
+
+  // MISRA C++:2023 Rule 19.3.3 - #if expression shall evaluate to 0 or 1
+  // (Required)
+  CheckFactories.registerCheck<IfExpressionValueCheck>(
+      "automotive-cpp23-req-19.3.3");
+
+  // MISRA C++:2023 Rule 19.3.4 - Undefined identifiers in #if/#elif
+  // shall be avoided (Required)
+  CheckFactories.registerCheck<IfUndefinedIdentifierCheck>(
+      "automotive-cpp23-req-19.3.4");
 }
 
 } // namespace clang::tidy::automotive
