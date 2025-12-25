@@ -16,8 +16,13 @@ namespace clang::tidy::automotive {
 /// Detects switch statements that are not well-formed according to MISRA.
 ///
 /// MISRA C:2025 Rule 16.1: All switch statements shall be well-formed.
-/// - Every non-empty case shall end with a break, continue, return, or throw
-/// - Every switch shall have a default clause
+/// A well-formed switch must:
+/// - Have a compound statement as its body
+/// - Have at least two switch clauses (enforced by automotive-c23-req-16.6)
+/// - Have every clause terminated by break/return/continue/goto/throw or
+/// [[fallthrough]]
+/// - The last clause may be unterminated
+/// - Have a default clause (unless all enum values are covered)
 class WellFormedSwitchCheck : public ClangTidyCheck {
 public:
   WellFormedSwitchCheck(StringRef Name, ClangTidyContext *Context)

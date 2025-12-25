@@ -11,6 +11,7 @@ add_automotive_component(clangTidyAutomotivePreprocessorComponent
   AvoidMultipleHashOperatorsCheck.cpp
   AvoidReservedMacroIdentifierCheck.cpp
   AvoidUndefCheck.cpp
+  MacroParenthesesCheck.cpp
   MissingHeaderGuardCheck.cpp
   PreprocessorComponent.cpp
   PreprocessorDirectiveInMacroArgCheck.cpp
