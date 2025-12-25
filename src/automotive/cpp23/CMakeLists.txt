@@ -10,12 +10,15 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidCArrayCheck.cpp
   AvoidCharacterComparisonMismatchCheck.cpp
   AvoidCharacterTypeMismatchCheck.cpp
+  CheckStreamStateCheck.cpp
+  AvoidCompositeNarrowingCheck.cpp
   AvoidConstCastCheck.cpp
   AvoidConstexprMutableCheck.cpp
   AvoidConstOnlyOverloadCheck.cpp
   AvoidCStyleCastCheck.cpp
   AvoidCtimeCppCheck.cpp
   AvoidDanglingReferenceCheck.cpp
+  AvoidDiscardedSideEffectsCheck.cpp
   AvoidDynamicCastCheck.cpp
   AvoidDynamicExceptionSpecCheck.cpp
   AvoidDynamicMemoryCppCheck.cpp
@@ -28,12 +31,14 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidImplicitConversionCheck.cpp
   AvoidImplicitConversionOperatorCheck.cpp
   AvoidImplicitLambdaCaptureCheck.cpp
+  AvoidImplicitUpcastCheck.cpp
   AvoidInlineTypeDefinitionCheck.cpp
   AvoidLambdaThisCaptureCheck.cpp
   AvoidMemberPointerConversionCheck.cpp
   AvoidModifyingByValueParamCheck.cpp
   AvoidNarrowingConversionCheck.cpp
   AvoidNestedSwitchLabelCheck.cpp
+  AvoidNonArrayPointerArithCheck.cpp
   AvoidNonCompoundBodyCheck.cpp
   AvoidNoreturnReturnCheck.cpp
   AvoidNullLiteralAssignmentCheck.cpp
@@ -48,6 +53,8 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidSingleClauseSwitchCppCheck.cpp
   AvoidSlicingCheck.cpp
   AvoidStatementExpressionCheck.cpp
+  AvoidTagNameHidingCheck.cpp
+  AvoidTemplateRefTemporaryCheck.cpp
   AvoidThrowInNoexceptCheck.cpp
   AvoidThrowingDestructorCheck.cpp
   AvoidTypeidOnDereferencedPointerCheck.cpp
@@ -61,6 +68,7 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidUnsignedWrapAroundCheck.cpp
   AvoidUnusedVariadicTemplateCheck.cpp
   AvoidVirtualBaseClassCheck.cpp
+  AvoidVirtualCallInCtorDtorCheck.cpp
   AvoidVirtualFunctionDefaultArgCheck.cpp
   AvoidVoidPointerCastCheck.cpp
   AvoidVolatileCheck.cpp
