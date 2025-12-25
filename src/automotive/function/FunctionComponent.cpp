@@ -12,6 +12,7 @@
 #include "AvoidQualifiedFunctionTypeCheck.h"
 #include "AvoidStaticInArrayParamCheck.h"
 #include "FunctionDeclarationMismatchCheck.h"
+#include "FunctionIdentifierUsageCheck.h"
 #include "ImplicitFunctionDeclCheck.h"
 #include "StaticInlineCheck.h"
 #include "UncompleteFunctionPrototypeCheck.h"
@@ -40,6 +41,10 @@ void FunctionComponent::addCheckFactories(
   // Rule 17.10 - Noreturn with non-void return type (Required)
   CheckFactories.registerCheck<AvoidNoreturnNonVoidCheck>(
       "automotive-c23-req-17.10");
+
+  // Rule 17.12 - Function identifier usage (Advisory)
+  CheckFactories.registerCheck<FunctionIdentifierUsageCheck>(
+      "automotive-c25-adv-17.12");
 
   // Rule 17.13 - Qualified function type (Required)
   CheckFactories.registerCheck<AvoidQualifiedFunctionTypeCheck>(

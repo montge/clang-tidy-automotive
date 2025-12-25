@@ -6,6 +6,7 @@ add_automotive_component(clangTidyAutomotiveFunctionComponent
   AvoidStaticInArrayParamCheck.cpp
   FunctionComponent.cpp
   FunctionDeclarationMismatchCheck.cpp
+  FunctionIdentifierUsageCheck.cpp
   ImplicitFunctionDeclCheck.cpp
   StaticInlineCheck.cpp
   UncompleteFunctionPrototypeCheck.cpp
