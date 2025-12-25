@@ -4,21 +4,20 @@
 void test_missing_else_violation(int x) {
   if (x == 1) {
     // action 1
-  // CHECK-MESSAGES: :[[@LINE+1]]:4: warning: if...else if chain should terminate with an else clause
   } else if (x == 2) {
     // action 2
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: if...else if chain should terminate with an else clause
   }
 }
 
 void test_nested_missing_else_violation(int x, int y) {
   if (x == 1) {
     // action 1
-  // CHECK-MESSAGES: :[[@LINE+1]]:4: warning: if...else if chain should terminate with an else clause
   } else if (x == 2) {
     // action 2
-  // CHECK-MESSAGES: :[[@LINE+1]]:4: warning: if...else if chain should terminate with an else clause
   } else if (x == 3) {
     // action 3
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: if...else if chain should terminate with an else clause
   }
 }
 

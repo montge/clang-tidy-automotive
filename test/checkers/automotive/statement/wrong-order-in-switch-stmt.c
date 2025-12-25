@@ -5,7 +5,7 @@ void test_default_in_middle_violation(int x) {
   switch (x) {
   case 1:
     break;
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: default clause should be the first or last clause
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: default statement neither first or last
   default:
     break;
   case 2:
