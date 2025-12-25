@@ -7,6 +7,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "Cpp23Component.h"
+#include "AvoidArrayToPointerDecayCheck.h"
 #include "AvoidAssignmentInSubExpressionCheck.h"
 #include "AvoidAssignmentResultCheck.h"
 #include "AvoidCStyleCastCheck.h"
@@ -64,6 +65,7 @@
 #include "DefaultArgumentOrderCheck.h"
 #include "ExplicitConstructorCheck.h"
 #include "ExplicitLambdaCaptureCheck.h"
+#include "LocaleConstPointerCheck.h"
 #include "MissingReturnCheck.h"
 #include "NoexceptMoveCheck.h"
 #include "NoreturnVoidReturnCheck.h"
@@ -385,6 +387,15 @@ void Cpp23Component::addCheckFactories(
   // MISRA C++:2023 Rule 8.5.1 - Default argument ordering and consistency
   CheckFactories.registerCheck<cpp23::DefaultArgumentOrderCheck>(
       "automotive-cpp23-req-8.5.1");
+
+  // MISRA C++:2023 Rule 25.5 - Pointers returned by localeconv, getenv,
+  // setlocale, strerror must be const-qualified (Mandatory)
+  CheckFactories.registerCheck<cpp23::LocaleConstPointerCheck>(
+      "automotive-cpp23-mand-25.5");
+
+  // MISRA C++:2023 Rule 5.10 - Array to pointer decay should be avoided
+  CheckFactories.registerCheck<cpp23::AvoidArrayToPointerDecayCheck>(
+      "automotive-cpp23-req-5.10");
 }
 
 } // namespace clang::tidy::automotive
