@@ -1,5 +1,4 @@
 // Test file for: automotive-missing-return-void
-// Related MISRA C:2025 Rule: 15.6
 //
 // This file tests that functions with [[noreturn]] should have void return type
 

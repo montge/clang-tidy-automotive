@@ -13,18 +13,12 @@
 
 namespace clang::tidy::automotive {
 
-/// @ingroup misra-c25-function
 /// @brief Detects static keyword in array parameter declarations.
 ///
 /// The declaration of an array parameter shall not contain the static keyword
 /// between the [ ]. The C99 static keyword in array parameters specifies a
 /// minimum array size but is not widely understood and has subtle semantics
 /// that can lead to undefined behavior if violated.
-///
-/// @par MISRA C:2025 Rule 17.6
-/// The declaration of an array parameter shall not contain the static keyword
-/// between the [ ].
-/// @par Category: Mandatory
 ///
 /// Example:
 /// @code
@@ -37,9 +31,6 @@ class AvoidStaticInArrayParamCheck : public ClangTidyCheck {
 public:
   AvoidStaticInArrayParamCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
-
-  /// Destructor.
-  ~AvoidStaticInArrayParamCheck() override = default;
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };

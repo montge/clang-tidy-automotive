@@ -18,7 +18,8 @@ namespace {
 
 class InvalidHeaderCharPPCallbacks : public PPCallbacks {
 public:
-  explicit InvalidHeaderCharPPCallbacks(ClangTidyCheck &Check) : Check(Check) {}
+  InvalidHeaderCharPPCallbacks(ClangTidyCheck &Check)
+      : Check(Check) {}
 
   void InclusionDirective(SourceLocation HashLoc, const Token &IncludeTok,
                           StringRef FileName, bool IsAngled,
@@ -27,44 +28,41 @@ public:
                           StringRef RelativePath, const Module *SuggestedModule,
                           bool ModuleImported,
                           SrcMgr::CharacteristicKind FileType) override {
-    std::string InvalidChars = buildInvalidCharsList(FileName);
-    if (InvalidChars.empty())
-      return;
+    // Check for invalid characters in the filename
+    bool HasSingleQuote = FileName.contains('\'');
+    bool HasDoubleQuote = FileName.contains('"');
+    bool HasBackslash = FileName.contains('\\');
 
-    Check.diag(FilenameRange.getBegin(),
-               "header file name contains invalid character(s): %0")
-        << InvalidChars;
+    if (HasSingleQuote || HasDoubleQuote || HasBackslash) {
+      std::string InvalidChars;
+      if (HasSingleQuote)
+        InvalidChars += "'";
+      if (HasDoubleQuote) {
+        if (!InvalidChars.empty())
+          InvalidChars += ", ";
+        InvalidChars += "\"";
+      }
+      if (HasBackslash) {
+        if (!InvalidChars.empty())
+          InvalidChars += ", ";
+        InvalidChars += "\\";
+      }
+
+      Check.diag(FilenameRange.getBegin(),
+                 "header file name contains invalid character(s): %0")
+          << InvalidChars;
+    }
   }
 
 private:
-  /// Build a comma-separated list of invalid characters found in the filename.
-  // LCOV_EXCL_START - invalid chars in header names cause preprocessor errors
-  static std::string buildInvalidCharsList(StringRef FileName) {
-    llvm::SmallVector<const char *, 3> Found;
-    if (FileName.contains('\''))
-      Found.push_back("'");
-    if (FileName.contains('"'))
-      Found.push_back("\"");
-    if (FileName.contains('\\'))
-      Found.push_back("\\");
-
-    std::string Result;
-    for (size_t I = 0; I < Found.size(); ++I) {
-      if (I > 0)
-        Result += ", ";
-      Result += Found[I];
-    }
-    return Result;
-  }
-  // LCOV_EXCL_STOP
-
   ClangTidyCheck &Check;
 };
 
 } // anonymous namespace
 
 void AvoidInvalidHeaderCharCheck::registerPPCallbacks(
-    const SourceManager &SM, Preprocessor *PP, Preprocessor *ModuleExpanderPP) {
+    const SourceManager &SM, Preprocessor *PP,
+    Preprocessor *ModuleExpanderPP) {
   PP->addPPCallbacks(std::make_unique<InvalidHeaderCharPPCallbacks>(*this));
 }
 

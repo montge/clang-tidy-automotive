@@ -21,9 +21,7 @@ namespace {
 class SideEffectFinder : public RecursiveASTVisitor<SideEffectFinder> {
 public:
   bool hasSideEffect() const { return FoundSideEffect; }
-  SourceLocation getSideEffectLoc() const {
-    return SideEffectLoc;
-  } // LCOV_EXCL_LINE - unused getter
+  SourceLocation getSideEffectLoc() const { return SideEffectLoc; }
   StringRef getSideEffectKind() const { return SideEffectKind; }
 
   bool VisitUnaryOperator(UnaryOperator *UO) {
@@ -48,14 +46,12 @@ public:
     return true;
   }
 
-  // LCOV_EXCL_START - same pattern as VisitBinaryOperator for assignment
   bool VisitCompoundAssignOperator(CompoundAssignOperator *CAO) {
     FoundSideEffect = true;
     SideEffectLoc = CAO->getOperatorLoc();
     SideEffectKind = "compound assignment";
     return false;
   }
-  // LCOV_EXCL_STOP
 
   bool VisitCallExpr(CallExpr *CE) {
     // Function calls may have side effects
@@ -65,7 +61,6 @@ public:
     return false;
   }
 
-  // LCOV_EXCL_START - C++ specific, same pattern as other side effect checks
   bool VisitCXXNewExpr(CXXNewExpr *NE) {
     FoundSideEffect = true;
     SideEffectLoc = NE->getBeginLoc();
@@ -79,7 +74,6 @@ public:
     SideEffectKind = "delete expression";
     return false;
   }
-  // LCOV_EXCL_STOP
 
 private:
   bool FoundSideEffect = false;
@@ -91,10 +85,10 @@ private:
 
 void AvoidSideEffectInSizeofCheck::registerMatchers(MatchFinder *Finder) {
   // Match sizeof expressions with an argument expression (not just a type)
-  Finder->addMatcher(unaryExprOrTypeTraitExpr(ofKind(UETT_SizeOf),
-                                              hasArgumentOfType(anything()))
-                         .bind("sizeof"),
-                     this);
+  Finder->addMatcher(
+      unaryExprOrTypeTraitExpr(ofKind(UETT_SizeOf), hasArgumentOfType(anything()))
+          .bind("sizeof"),
+      this);
 }
 
 void AvoidSideEffectInSizeofCheck::check(
@@ -118,9 +112,7 @@ void AvoidSideEffectInSizeofCheck::check(
 
   // Visit the argument expression to find side effects
   SideEffectFinder Finder;
-  Finder.TraverseStmt(
-      const_cast<Expr *>(ArgExpr)); // NOSONAR(S859): const_cast required by
-                                    // RecursiveASTVisitor API
+  Finder.TraverseStmt(const_cast<Expr *>(ArgExpr));
 
   if (Finder.hasSideEffect()) {
     diag(SizeofExpr->getBeginLoc(),

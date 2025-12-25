@@ -1,17 +1,13 @@
 // RUN: %check_clang_tidy %s automotive-c23-mand-17.6 %t -- -- -std=c99
 // RUN: %check_clang_tidy %s automotive-c23-mand-17.6 %t -- -- -std=c11
 
-// MISRA C:2025 Rule 17.6 (Mandatory)
-// The declaration of an array parameter shall not contain the static keyword
-// between the [ ].
-
 // Non-compliant: static in array parameter
 void func_static(int arr[static 10]);
-// CHECK-MESSAGES: :[[@LINE-1]]:22: warning: array parameter 'arr' uses 'static' keyword which is not permitted by MISRA C [automotive-c23-mand-17.6]
+// CHECK-MESSAGES: :[[@LINE-1]]:22: warning: array parameter 'arr' uses 'static' keyword which is not permitted [automotive-c23-mand-17.6]
 
 // Non-compliant: static with size expression
 void func_static_expr(int arr[static 5 + 5]);
-// CHECK-MESSAGES: :[[@LINE-1]]:27: warning: array parameter 'arr' uses 'static' keyword which is not permitted by MISRA C [automotive-c23-mand-17.6]
+// CHECK-MESSAGES: :[[@LINE-1]]:27: warning: array parameter 'arr' uses 'static' keyword which is not permitted [automotive-c23-mand-17.6]
 
 // Compliant: regular sized array parameter (decays to pointer)
 void func_sized(int arr[10]);
@@ -27,7 +23,7 @@ void func_const_ptr(const int *arr);
 
 // Function definitions to avoid incomplete type warnings
 void func_static(int arr[static 10]) {
-// CHECK-MESSAGES: :[[@LINE-1]]:22: warning: array parameter 'arr' uses 'static' keyword which is not permitted by MISRA C [automotive-c23-mand-17.6]
+// CHECK-MESSAGES: :[[@LINE-1]]:22: warning: array parameter 'arr' uses 'static' keyword which is not permitted [automotive-c23-mand-17.6]
   (void)arr;
 }
 

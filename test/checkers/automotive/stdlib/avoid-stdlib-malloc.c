@@ -1,9 +1,8 @@
-// Test file for: automotive-c23-req-21.3
-// Related MISRA C:2025 Rule: 21.3, Directive 4.12
+// Test file for: automotive-avoid-stdlib-malloc
 //
 // This file tests the detection of dynamic memory allocation functions
 
-// RUN: clang-tidy %s --checks='-*,automotive-c23-req-21.3' -- 2>&1 | FileCheck %s
+// RUN: %check_clang_tidy %s automotive-avoid-stdlib-malloc %t
 
 #include <stdlib.h>
 
@@ -12,19 +11,26 @@
 //===----------------------------------------------------------------------===//
 
 void test_malloc_violations(void) {
-    // CHECK-DAG: warning: use of 'malloc' is not allowed in safety-critical code
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: use of malloc
     void *p1 = malloc(100);
 
-    // CHECK-DAG: warning: use of 'calloc' is not allowed in safety-critical code
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: use of calloc
     void *p2 = calloc(10, sizeof(int));
 
-    // CHECK-DAG: warning: use of 'realloc' is not allowed in safety-critical code
+    // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: use of realloc
     p1 = realloc(p1, 200);
 
-    // CHECK-DAG: warning: use of 'free' is not allowed in safety-critical code
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: use of free
     free(p1);
-    // CHECK-DAG: warning: use of 'free' is not allowed in safety-critical code
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: use of free
     free(p2);
+}
+
+void test_aligned_alloc(void) {
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: use of aligned_alloc
+    void *p = aligned_alloc(16, 256);
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: use of free
+    free(p);
 }
 
 //===----------------------------------------------------------------------===//
