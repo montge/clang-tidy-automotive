@@ -124,81 +124,81 @@ int compliant23;
 //===----------------------------------------------------------------------===//
 
 // Literal values other than 0 or 1
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if 2
 int violation1;
 #endif
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if 3
 int violation2;
 #endif
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if 10
 int violation3;
 #endif
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if -1
 int violation4;
 #endif
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if 0xFF
 int violation5;
 #endif
 
 // Arithmetic expressions (result may not be 0 or 1)
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if VERSION_MAJOR + 1
 int violation6;
 #endif
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if VERSION_MAJOR - 1
 int violation7;
 #endif
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if VERSION_MAJOR * 2
 int violation8;
 #endif
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if VERSION_MAJOR / 2
 int violation9;
 #endif
 
 // Bitwise operations (except for single identifier used in boolean context)
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if VERSION_MAJOR & 0x01
 int violation10;
 #endif
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if VERSION_MAJOR | 0x02
 int violation11;
 #endif
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if VERSION_MAJOR ^ 0x01
 int violation12;
 #endif
 
 // Left/right shift operations
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if 1 << 2
 int violation13;
 #endif
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if 8 >> 1
 int violation14;
 #endif
 
 // Conditional operator (ternary) - result depends on values
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if FEATURE_ENABLED ? 5 : 3
 int violation15;
 #endif
@@ -206,28 +206,28 @@ int violation15;
 // elif violations
 #if 0
 int dummy2;
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #elif directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #elif directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #elif 2
 int violation16;
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #elif directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #elif directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #elif VERSION_MAJOR + 1
 int violation17;
 #endif
 
 // Complex expressions with arithmetic
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if (VERSION_MAJOR + TWO) * THREE
 int violation18;
 #endif
 
 // Modulo operation
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if VERSION_MAJOR % 2
 int violation19;
 #endif
 
 // Bitwise NOT (result depends on the value)
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
+// CHECK-MESSAGES: :[[@LINE+1]]:2: warning: #if directive condition shall evaluate to 0 or 1 [automotive-c25-req-20.8]
 #if ~ZERO
 int violation20;
 #endif
