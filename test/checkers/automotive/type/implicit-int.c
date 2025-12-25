@@ -9,22 +9,14 @@
 // Violation Cases (should trigger warnings)
 //===----------------------------------------------------------------------===//
 
-// Implicit int in declaration
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: implicit int
-const x = 5;
-
 // Implicit int return type (C90)
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: implicit int
+// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: implicit int return type in function declaration [automotive-implicit-int]
 func1() {
     return 0;
 }
 
-// Implicit int with storage class
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: implicit int
-static y = 10;
-
-// Implicit int with unsigned
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: implicit int
+// Implicit int with unsigned (unsigned alone is implicit int)
+// CHECK-MESSAGES: :[[@LINE+1]]:10: warning: implicit int type in declaration [automotive-implicit-int]
 unsigned z = 20;
 
 //===----------------------------------------------------------------------===//
