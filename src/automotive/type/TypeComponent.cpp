@@ -46,6 +46,24 @@ void TypeComponent::addCheckFactories(ClangTidyCheckFactories &CheckFactories) {
   // MISRA C:2025 Rule 9.6 - Mixed designators in initializer
   CheckFactories.registerCheck<AvoidMixedDesignatorCheck>(
       "automotive-c25-req-9.6");
+
+  // MISRA C:2025 Rule 5.7 - Tag name shall be unique (Required)
+  CheckFactories.registerCheck<DuplicateTagNameCheck>("automotive-c25-req-5.7");
+
+  // MISRA C:2025 Rule 5.6 - Typedef name shall be unique (Required)
+  CheckFactories.registerCheck<DuplicateTypedefNameCheck>(
+      "automotive-c25-req-5.6");
+
+  // MISRA C:2025 Rule 9.2 - Explicit enumerator values (Required)
+  CheckFactories.registerCheck<ExplicitEnumeratorValuesCheck>(
+      "automotive-c25-req-9.2");
+
+  // MISRA C:2025 Rule 11.10 - Atomic void restriction (Required)
+  CheckFactories.registerCheck<AvoidAtomicVoidCheck>(
+      "automotive-c25-req-11.10");
+
+  // MISRA C:2025 Rule 19.2 - Union shall not be used (Advisory)
+  CheckFactories.registerCheck<AvoidUnionCheck>("automotive-c25-adv-19.2");
 }
 
 } // namespace clang::tidy::automotive

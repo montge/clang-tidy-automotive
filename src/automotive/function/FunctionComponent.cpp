@@ -54,6 +54,28 @@ void FunctionComponent::addCheckFactories(
   // Rule 1.5 - Obsolescent language features (Required)
   CheckFactories.registerCheck<ObsolescentFeaturesCheck>(
       "automotive-c25-req-1.5");
+
+  // MISRA C:2025 Rule 17.6 - Static keyword in array parameters (Mandatory)
+  CheckFactories.registerCheck<AvoidStaticInArrayParamCheck>(
+      "automotive-c25-mand-17.6");
+
+  // MISRA C:2025 Rule 17.10 - Noreturn with non-void return type (Required)
+  CheckFactories.registerCheck<AvoidNoreturnNonVoidCheck>(
+      "automotive-c25-req-17.10");
+
+  // MISRA C:2025 Rule 17.13 - Qualified function type (Required)
+  CheckFactories.registerCheck<AvoidQualifiedFunctionTypeCheck>(
+      "automotive-c25-req-17.13");
+
+  // MISRA C:2025 Rule 17.1 - stdarg.h shall not be used (Required)
+  // Registered in StdlibComponent
+
+  // MISRA C:2025 Rule 17.3 - Implicit function declaration (Mandatory)
+  CheckFactories.registerCheck<ImplicitFunctionDeclCheck>(
+      "automotive-c25-mand-17.3");
+
+  // MISRA C:2025 Rule 17.7 - Return value not discarded (Required)
+  // Note: This is partially covered by compiler warnings
 }
 
 } // namespace clang::tidy::automotive

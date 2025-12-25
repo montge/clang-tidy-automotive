@@ -82,6 +82,41 @@ void StatementComponent::addCheckFactories(
   // Rule 16.1 - Well-formed switch (Required)
   CheckFactories.registerCheck<WellFormedSwitchCheck>(
       "automotive-c25-req-16.1");
+
+  // MISRA C:2025 Rule 15.2 - goto shall reference label in enclosing block
+  CheckFactories.registerCheck<GotoLabelSameBlockCheck>(
+      "automotive-c25-req-15.2");
+
+  // MISRA C:2025 Rule 15.3 - goto shall only jump forward (Required)
+  CheckFactories.registerCheck<ForwardGotoLabelCheck>(
+      "automotive-c25-req-15.3");
+
+  // MISRA C:2025 Rule 15.1 - goto should not be used (Advisory)
+  CheckFactories.registerCheck<AvoidGotoCheck>("automotive-c25-adv-15.1");
+
+  // MISRA C:2025 Rule 16.4 - switch shall have default clause (Required)
+  CheckFactories.registerCheck<MissingDefaultInSwitchStmtCheck>(
+      "automotive-c25-req-16.4");
+
+  // MISRA C:2025 Rule 16.5 - default shall be first or last (Required)
+  CheckFactories.registerCheck<WrongOrderInSwitchStmtCheck>(
+      "automotive-c25-req-16.5");
+
+  // MISRA C:2025 Rule 16.3 - break shall terminate switch clause (Required)
+  CheckFactories.registerCheck<MissingBreakInCaseStmtCheck>(
+      "automotive-c25-req-16.3");
+
+  // MISRA C:2025 Rule 16.6 - switch shall have at least two clauses (Required)
+  CheckFactories.registerCheck<AvoidSingleClauseSwitchCheck>(
+      "automotive-c25-req-16.6");
+
+  // MISRA C:2025 Rule 15.6 - loop/selection body shall be compound (Required)
+  CheckFactories.registerCheck<MissingCompoundStmtCheck>(
+      "automotive-c25-req-15.6");
+
+  // MISRA C:2025 Rule 15.4 - single break/goto to exit loop (Advisory)
+  CheckFactories.registerCheck<MultipleLoopTerminatorsCheck>(
+      "automotive-c25-adv-15.4");
 }
 
 } // namespace clang::tidy::automotive

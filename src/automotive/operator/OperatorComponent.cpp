@@ -21,6 +21,14 @@ void OperatorComponent::addCheckFactories(
   // Rule 12.2 - Shift operator bounds (Required)
   CheckFactories.registerCheck<WrongShiftOperandCheck>(
       "automotive-c23-req-12.2");
+
+  // MISRA C:2025 Rule 12.2 - Shift operator bounds (Required)
+  CheckFactories.registerCheck<WrongShiftOperandCheck>(
+      "automotive-c25-req-12.2");
+
+  // MISRA C:2025 Rule 12.1 - Comma operator shall not be used (Required)
+  CheckFactories.registerCheck<AvoidCommaOperatorCheck>(
+      "automotive-c25-req-12.1");
 }
 
 } // namespace clang::tidy::automotive

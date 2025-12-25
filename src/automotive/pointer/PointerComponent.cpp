@@ -71,6 +71,26 @@ void PointerComponent::addCheckFactories(
   // C:2025 Rule 18.4 - Pointer arithmetic (Advisory)
   CheckFactories.registerCheck<AvoidPointerArithmeticC25Check>(
       "automotive-c25-adv-18.4");
+
+  // MISRA C:2025 Rule 11.2 - Pointer conversions (Required)
+  CheckFactories.registerCheck<AvoidIncompatiblePointerConversionCheck>(
+      "automotive-c25-req-11.2");
+
+  // MISRA C:2025 Rule 11.4 - Pointer to/from integer cast (Advisory)
+  CheckFactories.registerCheck<AvoidPointerIntegerCastCheck>(
+      "automotive-c25-adv-11.4");
+
+  // MISRA C:2025 Rule 11.9 - NULL macro for null pointer (Required)
+  CheckFactories.registerCheck<WrongNullPointerValueCheck>(
+      "automotive-c25-req-11.9");
+
+  // MISRA C:2025 Rule 11.11 - Implicit NULL comparison (Required)
+  CheckFactories.registerCheck<AvoidImplicitNullComparisonCheck>(
+      "automotive-c25-req-11.11");
+
+  // MISRA C:2025 Rule 18.6 - Address of automatic object escaping (Required)
+  CheckFactories.registerCheck<AvoidAutoAddressEscapeCheck>(
+      "automotive-c25-req-18.6");
 }
 
 } // namespace clang::tidy::automotive
