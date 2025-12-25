@@ -19,6 +19,7 @@
 #include "AvoidReservedMacroIdentifierCheck.h"
 #include "AvoidUndefCheck.h"
 #include "MissingHeaderGuardCheck.h"
+#include "PreprocessorDirectiveInMacroArgCheck.h"
 #include "UnusedMacroCheck.h"
 
 namespace clang::tidy::automotive {
@@ -71,6 +72,10 @@ void PreprocessorComponent::addCheckFactories(
   // Rule 20.14 - #if/#endif same file (Required)
   CheckFactories.registerCheck<AvoidCrossFileIfCheck>(
       "automotive-c23-req-20.14");
+
+  // Rule 20.6 - Preprocessing directive in macro argument (Required)
+  CheckFactories.registerCheck<PreprocessorDirectiveInMacroArgCheck>(
+      "automotive-c25-req-20.6");
 }
 
 } // namespace clang::tidy::automotive

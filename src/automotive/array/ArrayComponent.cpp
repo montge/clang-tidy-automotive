@@ -13,6 +13,7 @@
 #include "AvoidPartialArrayInitCheck.h"
 #include "AvoidPointerArithmeticBoundsCheck.h"
 #include "AvoidPointerArithmeticCheck.h"
+#include "AvoidPointerToVLACheck.h"
 #include "AvoidVariableLengthArrayCheck.h"
 #include "MissingExternalArraySizeCheck.h"
 #include "PartialArrayInitCheck.h"
@@ -49,6 +50,10 @@ void ArrayComponent::addCheckFactories(
 
   // Rule 9.7 - Partial array initialization (Advisory)
   CheckFactories.registerCheck<PartialArrayInitCheck>("automotive-c25-adv-9.7");
+
+  // Rule 18.10 - Pointers to variably-modified array types (Mandatory)
+  CheckFactories.registerCheck<AvoidPointerToVLACheck>(
+      "automotive-c25-mand-18.10");
 }
 
 } // namespace clang::tidy::automotive

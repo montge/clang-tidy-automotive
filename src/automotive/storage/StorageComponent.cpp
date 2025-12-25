@@ -19,6 +19,7 @@
 #include "MissingPriorDeclarationCheck.h"
 #include "MissingStaticForInternalCheck.h"
 #include "MultipleExternalDefinitionCheck.h"
+#include "StaticStorageClassCheck.h"
 
 namespace clang::tidy::automotive {
 
@@ -71,6 +72,10 @@ void StorageComponent::addCheckFactories(
   // Rule 8.4 - Prior declaration for external definitions (Required)
   CheckFactories.registerCheck<MissingPriorDeclarationCheck>(
       "automotive-c23-req-8.4");
+
+  // Rule 8.8 - Static storage class for internal linkage (Required)
+  CheckFactories.registerCheck<StaticStorageClassCheck>(
+      "automotive-c25-req-8.8");
 }
 
 } // namespace clang::tidy::automotive

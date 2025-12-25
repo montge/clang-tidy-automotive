@@ -6,6 +6,7 @@ add_clang_library(clangTidyAutomotiveLiteralComponent STATIC
   AvoidStringLiteralToNonConstCheck.cpp
   AvoidTrigraphCheck.cpp
   AvoidUnsignedLiteralWithoutSuffixCheck.cpp
+  IntConstMacroFormCheck.cpp
   LiteralComponent.cpp
   UnterminatedEscapeSequenceCheck.cpp
 )

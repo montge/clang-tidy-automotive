@@ -1,53 +1,91 @@
 
 add_clang_library(clangTidyAutomotiveCpp23Component STATIC
+  PARTIAL_SOURCES_INTENDED
+  AutoTypeRestrictionCheck.cpp
+  AvoidAsmCheck.cpp
   AvoidAssignmentInSubExpressionCheck.cpp
   AvoidAssignmentResultCheck.cpp
+  AvoidBoolArithmeticCheck.cpp
+  AvoidCArrayCheck.cpp
   AvoidCharacterComparisonMismatchCheck.cpp
   AvoidCharacterTypeMismatchCheck.cpp
-  AvoidIdentifierShadowingCheck.cpp
-  AvoidOverloadedLogicalOperatorCheck.cpp
-  AvoidUninitializedArrayCheck.cpp
   AvoidConstCastCheck.cpp
+  AvoidConstexprMutableCheck.cpp
+  AvoidConstOnlyOverloadCheck.cpp
   AvoidCStyleCastCheck.cpp
   AvoidCtimeCppCheck.cpp
+  AvoidDanglingReferenceCheck.cpp
   AvoidDynamicCastCheck.cpp
   AvoidDynamicExceptionSpecCheck.cpp
   AvoidDynamicMemoryCppCheck.cpp
+  AvoidExceptionAcrossBoundaryCheck.cpp
   AvoidExceptionCheck.cpp
   AvoidFloatingPointEqualityCheck.cpp
   AvoidFloatingPointLoopCounterCheck.cpp
+  AvoidForLoopVarModificationCheck.cpp
+  AvoidIdentifierShadowingCheck.cpp
   AvoidImplicitConversionCheck.cpp
-  AvoidImplicitLambdaCaptureCheck.cpp
   AvoidImplicitConversionOperatorCheck.cpp
+  AvoidImplicitLambdaCaptureCheck.cpp
+  AvoidInlineTypeDefinitionCheck.cpp
+  AvoidLambdaThisCaptureCheck.cpp
+  AvoidMemberPointerConversionCheck.cpp
   AvoidModifyingByValueParamCheck.cpp
-  MissingReturnCheck.cpp
   AvoidNarrowingConversionCheck.cpp
   AvoidNestedSwitchLabelCheck.cpp
-  AvoidNoreturnReturnCheck.cpp
-  NoreturnVoidReturnCheck.cpp
-  AvoidNullLiteralAssignmentCheck.cpp
-  AvoidReallocCheck.cpp
-  UninitializedAutoVarCheck.cpp
   AvoidNonCompoundBodyCheck.cpp
+  AvoidNoreturnReturnCheck.cpp
+  AvoidNullLiteralAssignmentCheck.cpp
+  AvoidObjectSlicingCheck.cpp
+  AvoidOffsetofCheck.cpp
+  AvoidOverlappingCopyCheck.cpp
+  AvoidOverloadedLogicalOperatorCheck.cpp
+  AvoidReallocCheck.cpp
   AvoidReinterpretCastCheck.cpp
   AvoidReturnLocalAddressCheck.cpp
+  AvoidSignedBitwiseCheck.cpp
   AvoidSingleClauseSwitchCppCheck.cpp
   AvoidSlicingCheck.cpp
   AvoidStatementExpressionCheck.cpp
   AvoidThrowInNoexceptCheck.cpp
   AvoidThrowingDestructorCheck.cpp
+  AvoidTypeidOnDereferencedPointerCheck.cpp
+  AvoidTypePunningCheck.cpp
+  AvoidUnaryMinusOnUnsignedCheck.cpp
+  AvoidUnboundedLoopCheck.cpp
+  AvoidUninitializedArrayCheck.cpp
   AvoidUnionCppCheck.cpp
+  AvoidUnionTypePunningCheck.cpp
+  AvoidUnrelatedPointerConversionCheck.cpp
+  AvoidUnsignedWrapAroundCheck.cpp
+  AvoidUnusedVariadicTemplateCheck.cpp
+  AvoidVirtualBaseClassCheck.cpp
+  AvoidVirtualFunctionDefaultArgCheck.cpp
+  AvoidVoidPointerCastCheck.cpp
+  AvoidVolatileCheck.cpp
+  AvoidWideVariableScopeCheck.cpp
   Cpp23Component.cpp
+  DefaultArgumentOrderCheck.cpp
+  ExceptionBaseClassCheck.cpp
   ExplicitConstructorCheck.cpp
+  ExplicitEnumTypeCheck.cpp
   ExplicitLambdaCaptureCheck.cpp
+  MissingReturnCheck.cpp
   NoexceptMoveCheck.cpp
+  NoreturnVoidReturnCheck.cpp
   ProperConceptDefinitionCheck.cpp
+  RequireExplicitConversionCheck.cpp
+  RequireVirtualDestructorCheck.cpp
   RuleOfFiveCheck.cpp
   SinglePointOfExitCheck.cpp
   SuboptimalBreakContinueCheck.cpp
   UnconstrainedTemplateCheck.cpp
+  UninitializedAutoVarCheck.cpp
+  UninitializedVariableCheck.cpp
   UseAddressofCheck.cpp
+  UseNodiscardCheck.cpp
+  UseNullptrCheck.cpp
+  UseOverrideCheck.cpp
   UseUnnamedNamespaceCheck.cpp
-  AvoidInlineTypeDefinitionCheck.cpp
   VirtualDestructorCheck.cpp
 )

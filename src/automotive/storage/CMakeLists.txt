@@ -12,5 +12,6 @@ add_clang_library(clangTidyAutomotiveStorageComponent STATIC
   MissingPriorDeclarationCheck.cpp
   MissingStaticForInternalCheck.cpp
   MultipleExternalDefinitionCheck.cpp
+  StaticStorageClassCheck.cpp
   StorageComponent.cpp
 )

@@ -13,5 +13,6 @@ add_clang_library(clangTidyAutomotivePreprocessorComponent STATIC
   AvoidUndefCheck.cpp
   MissingHeaderGuardCheck.cpp
   PreprocessorComponent.cpp
+  PreprocessorDirectiveInMacroArgCheck.cpp
   UnusedMacroCheck.cpp
 )

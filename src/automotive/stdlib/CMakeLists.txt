@@ -17,4 +17,5 @@ add_clang_library(clangTidyAutomotiveStdlibComponent STATIC
   ErrnoTestingCheck.cpp
   ExitCheck.cpp
   StdlibComponent.cpp
+  TgmathOperandTypeCheck.cpp
 )

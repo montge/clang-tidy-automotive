@@ -22,6 +22,7 @@
 #include "AvoidstdlibsystemcallCheck.h"
 #include "ErrnoTestingCheck.h"
 #include "ExitCheck.h"
+#include "TgmathOperandTypeCheck.h"
 
 namespace clang::tidy::automotive {
 
@@ -78,6 +79,11 @@ void StdlibComponent::addCheckFactories(
   // Rule 22.10 - errno testing (Required)
   // errno shall only be tested after an errno-setting function
   CheckFactories.registerCheck<ErrnoTestingCheck>("automotive-c23-req-22.10");
+
+  // Rule 21.22 - tgmath.h operand types (Mandatory)
+  // All operand arguments to type-generic macros shall have appropriate type
+  CheckFactories.registerCheck<TgmathOperandTypeCheck>(
+      "automotive-c25-mand-21.22");
 }
 
 } // namespace clang::tidy::automotive

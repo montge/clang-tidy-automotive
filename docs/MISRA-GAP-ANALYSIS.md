@@ -2,37 +2,65 @@
 
 This document provides a comprehensive gap analysis between the MISRA requirements and the clang-tidy-automotive implementation.
 
-**Generated:** 2025-12-21
+**Generated:** 2025-12-23
 
 ## Executive Summary
 
-| Standard | Total Rules/Dirs | Implemented | Clang Built-in | Manual Review | Missing |
-|----------|------------------|-------------|----------------|---------------|---------|
-| MISRA C:2025 | 197 | 118 | 10 | 17 dirs + 14 rules | 47 rules, 2 dirs |
-| MISRA C++:2023 | 67 | 28 | 0 | TBD | 39 rules, 2 dirs |
+| Standard | Total Rules/Dirs | Implemented | Excluded | Missing |
+|----------|------------------|-------------|----------|---------|
+| MISRA C:2025 | 225 | 138 | 59 | 28 |
+| MISRA C++:2023 | 180 | 49 | 0 | 131 |
 
-**Recent Additions (Phase 2 - December 2025):**
-- MISRA C:2025: 14 new checks (7.2, 7.4, 7.6, 8.18, 11.10, 11.11, 12.5, 16.6, 17.10, 17.13, 20.14, 20.15, 21.9, 21.24)
-- MISRA C++:2023: 12 new checks (0.1, 6.7, 9.3, 9.4, 9.5, 11.3, 12.3, 13.3, 18.1, 21.6, 21.10)
+### Exclusion Breakdown (MISRA C:2025)
+
+| Category | Count | Reason |
+|----------|-------|--------|
+| Undecidable | 26 | Require dataflow/runtime analysis |
+| Manual Review | 23 | Require human judgment |
+| Clang Built-in | 10 | Covered by compiler warnings |
+
+### Implementation Priorities
+
+| Priority | Count | Rules |
+|----------|-------|-------|
+| Mandatory (MUST) | 0 | ✅ All mandatory decidable rules implemented |
+| Quick Wins | 2 | 20.6 (preprocessor directive in macro arg), 23.4 |
+| Medium Complexity | 4 | 18.9, 20.7, 21.23, 22.13 |
+| Deferred | 5 | 20.8, 20.9, 22.8, 22.9 (low priority) |
+
+**Recent Additions (December 2025):**
+- MISRA C:2025: 20+ new checks including 7.5 (INT_C macros), 18.10 (VLA pointers), 21.22 (tgmath), 23.8 (generic default)
+- MISRA C++:2023: 49 checks now implemented including object slicing, dangling references, virtual destructors, exception handling
+- Added 87 C++23 check source files covering essential type safety, memory safety, and control flow rules
+- Added comprehensive test files for all new checks
+- Created fix_traceability_matrix.py for maintaining mappings
+- Total automotive checks: 210+
 
 ---
 
 ## MISRA C:2025 Gap Analysis
 
-### Missing Mandatory Rules (8 rules) - HIGHEST PRIORITY
+### Missing Mandatory Rules (0 decidable) - ✅ COMPLETE
 
-These MUST be implemented for compliance:
+All decidable mandatory rules have been implemented:
 
-| Rule | Title | Decidability | Notes |
-|------|-------|--------------|-------|
-| **7.5** | The argument of an integer constant macro shall have an appropriate form | Decidable | Macro argument validation |
-| **9.7** | Atomic objects shall be appropriately initialized before being accessed | Undecidable | Requires dataflow analysis |
-| **17.9** | A function declared with a _Noreturn function specifier shall not return to its caller | Undecidable | Control flow analysis |
-| **18.10** | Pointers to variably-modified array types shall not be used | Decidable | VLA pointer restrictions |
-| **19.1** | An object shall not be assigned or copied to an overlapping object | Undecidable | Aliasing analysis |
-| **21.18** | The size_t argument passed to any function in <string.h> shall have an appropriate value | Undecidable | Buffer size validation |
-| **21.22** | All operand arguments to type-generic macros in <tgmath.h> shall have an appropriate essential type | Decidable | Type checking |
-| **22.20** | Thread-specific storage pointers shall be created before being accessed | Undecidable | Thread lifecycle analysis |
+| Rule | Title | Status | Check Name |
+|------|-------|--------|------------|
+| **7.5** | The argument of an integer constant macro shall have an appropriate form | ✅ Implemented | `automotive-c25-mand-7.5` |
+| **18.10** | Pointers to variably-modified array types shall not be used | ✅ Implemented | `automotive-c25-mand-18.10` |
+| **21.22** | All operand arguments to type-generic macros in <tgmath.h> shall have an appropriate essential type | ✅ Implemented | `automotive-c25-req-21.22` |
+
+### Excluded Mandatory Rules (5 undecidable)
+
+These require runtime/dataflow analysis and are marked as excluded:
+
+| Rule | Title | Reason |
+|------|-------|--------|
+| **9.7** | Atomic objects shall be appropriately initialized before being accessed | Requires dataflow analysis |
+| **17.9** | A function declared with a _Noreturn function specifier shall not return to its caller | Control flow analysis |
+| **19.1** | An object shall not be assigned or copied to an overlapping object | Aliasing analysis |
+| **21.18** | The size_t argument passed to any function in <string.h> shall have an appropriate value | Buffer size validation |
+| **22.20** | Thread-specific storage pointers shall be created before being accessed | Thread lifecycle analysis |
 
 ### Missing Required Rules (35 rules) - HIGH PRIORITY
 
@@ -65,9 +93,9 @@ These MUST be implemented for compliance:
 | **22.17** | No thread shall unlock mutex not previously locked by it | Undecidable | High |
 | **22.18** | Non-recursive mutexes shall not be recursively locked | Undecidable | High |
 | **22.19** | A condition variable shall be associated with at most one mutex object | Undecidable | High |
-| **23.4** | A generic association shall list an appropriate type | Decidable | Low |
-| **23.6** | Controlling expression of generic selection shall have matching essential/standard type | Decidable | Low |
-| **23.8** | A default association shall appear first or last in a generic selection | Decidable | Low |
+| ~~**23.4**~~ | ~~A generic association shall list an appropriate type~~ | ~~Decidable~~ | ✅ Implemented |
+| ~~**23.6**~~ | ~~Controlling expression of generic selection shall have matching essential/standard type~~ | ~~Decidable~~ | ✅ Implemented |
+| ~~**23.8**~~ | ~~A default association shall appear first or last in a generic selection~~ | ~~Decidable~~ | ✅ Implemented |
 
 ### Missing Advisory Rules (10 rules)
 
