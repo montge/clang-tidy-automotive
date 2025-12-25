@@ -1,5 +1,6 @@
 
 add_clang_library(clangTidyAutomotiveStorageComponent STATIC
+  AvoidExternInSourceFileCheck.cpp
   AvoidGlobalObjectCheck.cpp
   AvoidMultipleAlignmentCheck.cpp
   AvoidZeroAlignmentCheck.cpp
