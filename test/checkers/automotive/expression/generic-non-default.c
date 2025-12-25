@@ -22,7 +22,7 @@ void test_only_default(void) {
 void test_only_default_in_expression(void) {
     int x = 5;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: generic selection should contain at least one non-default association [automotive-c25-adv-23.3]
+    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: generic selection should contain at least one non-default association [automotive-c25-adv-23.3]
     if (_Generic(x, default: 1) > 0) {
         // This generic selection provides no type-specific behavior
     }
