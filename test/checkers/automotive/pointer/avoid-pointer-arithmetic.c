@@ -14,20 +14,20 @@ void test_pointer_addition_violations(void) {
     int *ptr = arr;
 
     // Pointer + integer
-    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: pointer arithmetic using '+' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: pointer arithmetic using '+' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
     ptr = ptr + 1;
 
     // Integer + pointer
-    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: pointer arithmetic using '+' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: pointer arithmetic using '+' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
     ptr = 2 + ptr;
 
     // Pointer + offset
     int offset = 3;
-    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: pointer arithmetic using '+' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: pointer arithmetic using '+' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
     ptr = ptr + offset;
 
     // Using result directly
-    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: pointer arithmetic using '+' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:19: warning: pointer arithmetic using '+' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
     int x = *(ptr + 1);
 
     (void)x;
@@ -43,20 +43,20 @@ void test_pointer_subtraction_violations(void) {
     int *ptr2 = &arr[2];
 
     // Pointer - integer
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: pointer arithmetic using '-' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: pointer arithmetic using '-' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
     ptr1 = ptr1 - 1;
 
     // Pointer - offset
     int offset = 2;
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: pointer arithmetic using '-' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: pointer arithmetic using '-' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
     ptr1 = ptr1 - offset;
 
     // Pointer difference (ptr1 - ptr2)
-    // CHECK-MESSAGES: :[[@LINE+1]]:20: warning: pointer difference using '-' operator on pointer types 'int *' and 'int *' [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:27: warning: pointer difference using '-' operator on pointer types 'int *' and 'int *' [automotive-c25-adv-18.4]
     ptrdiff_t diff = ptr1 - ptr2;
 
     // Using result directly
-    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: pointer arithmetic using '-' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:20: warning: pointer arithmetic using '-' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
     int y = *(ptr1 - 1);
 
     (void)diff; (void)y;
@@ -71,20 +71,20 @@ void test_compound_assignment_violations(void) {
     int *ptr = arr;
 
     // Compound assignment +=
-    // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: compound assignment '+=' operator used on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: compound assignment '+=' operator used on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
     ptr += 1;
 
     // Compound assignment += with variable
     int offset = 2;
-    // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: compound assignment '+=' operator used on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: compound assignment '+=' operator used on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
     ptr += offset;
 
     // Compound assignment -=
-    // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: compound assignment '-=' operator used on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: compound assignment '-=' operator used on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
     ptr -= 1;
 
     // Compound assignment -= with variable
-    // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: compound assignment '-=' operator used on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: compound assignment '-=' operator used on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
     ptr -= offset;
 }
 
@@ -97,19 +97,19 @@ void test_various_pointer_types(void) {
     char *cptr = str;
 
     // Character pointer arithmetic
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: pointer arithmetic using '+' operator on pointer type 'char *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: pointer arithmetic using '+' operator on pointer type 'char *'; use array subscript notation instead [automotive-c25-adv-18.4]
     cptr = cptr + 1;
 
     double darr[5];
     double *dptr = darr;
 
     // Double pointer arithmetic
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: pointer arithmetic using '+' operator on pointer type 'double *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: pointer arithmetic using '+' operator on pointer type 'double *'; use array subscript notation instead [automotive-c25-adv-18.4]
     dptr = dptr + 2;
 
     void *vptr = str;
     // Void pointer arithmetic (implementation-defined but still checked)
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: pointer arithmetic using '+' operator on pointer type 'void *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: pointer arithmetic using '+' operator on pointer type 'void *'; use array subscript notation instead [automotive-c25-adv-18.4]
     vptr = vptr + 1;
 }
 
@@ -207,11 +207,11 @@ void test_complex_expressions(void) {
     int *ptr = arr;
 
     // Multiple arithmetic operations
-    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: pointer arithmetic using '+' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:25: warning: pointer arithmetic using '+' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
     int value1 = *((ptr + 1));
 
     // Nested operations
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: pointer arithmetic using '+' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: pointer arithmetic using '+' operator on pointer type 'int *'; use array subscript notation instead [automotive-c25-adv-18.4]
     ptr = (ptr + 2);
 
     (void)value1;

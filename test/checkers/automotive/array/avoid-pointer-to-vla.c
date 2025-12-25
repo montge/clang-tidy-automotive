@@ -14,36 +14,36 @@ void test_pointer_to_vla_violations(void) {
     int m = 5;
 
     // Pointer to VLA with variable size
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
     int (*p1)[n];
 
     // Pointer to VLA with expression
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
     int (*p2)[n + 5];
 
     // Pointer to multi-dimensional VLA
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
     int (*p3)[n][m];
 
     // Pointer to VLA with complex expression
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
     int (*p4)[n * 2 + m];
 }
 
 void function_with_vla_pointer_param(int size) {
     // Local pointer to VLA
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
     int (*local_ptr)[size];
 
     // Pointer to 2D VLA
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
     int (*ptr_2d)[size][10];
 }
 
 void pointer_to_vla_in_loop(void) {
     for (int i = 1; i < 10; i++) {
         // Pointer to VLA declared in loop
-        // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
+        // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
         int (*arr_ptr)[i];
     }
 }
@@ -53,11 +53,11 @@ void nested_scope_vla_pointer(void) {
     {
         int inner_m = 15;
         // Pointer to VLA using outer scope variable
-        // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
+        // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
         int (*p1)[outer_n];
 
         // Pointer to VLA using inner scope variable
-        // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
+        // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
         int (*p2)[inner_m];
     }
 }
@@ -122,7 +122,7 @@ static const int FILE_SIZE = 128;
 void edge_case_file_const_pointer(void) {
     // Note: FILE_SIZE is not a constant expression in C99 for array bounds
     // This may still be considered a VLA pointer in strict C99
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: pointer to variably-modified array type shall not be used [automotive-c25-mand-18.10]
     int (*p)[FILE_SIZE];
 }
 
