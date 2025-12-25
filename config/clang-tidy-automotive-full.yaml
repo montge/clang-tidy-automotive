@@ -1,0 +1,44 @@
+# Full MISRA Automotive Configuration with Thread Safety Analysis
+#
+# This configuration enables:
+# 1. All automotive MISRA checks (C:2023, C:2025, C++:2023)
+# 2. Clang Thread Safety Analysis (TSA) warnings
+# 3. Clang Static Analyzer checks for concurrency
+#
+# Usage:
+#   clang-tidy -config-file=config/clang-tidy-automotive-full.yaml your_file.c --
+#
+# For TSA to work, annotate your code with thread safety attributes:
+#   __attribute__((capability("mutex")))
+#   __attribute__((guarded_by(mutex)))
+#   __attribute__((requires_capability(mutex)))
+#   __attribute__((acquire_capability(mutex)))
+#   __attribute__((release_capability(mutex)))
+
+Checks: >
+  -*,
+  automotive-*,
+  clang-analyzer-core.*,
+  clang-analyzer-unix.Malloc,
+  clang-analyzer-unix.MismatchedDeallocator,
+  clang-analyzer-deadcode.*,
+  clang-analyzer-security.*
+
+# Enable Clang Thread Safety Analysis via extra compiler arguments
+ExtraArgs:
+  - '-Wthread-safety'
+  - '-Wthread-safety-negative'
+  - '-Wthread-safety-beta'
+  - '-Wthread-safety-verbose'
+
+WarningsAsErrors: ''
+
+# Analyze headers in the project (adjust regex as needed)
+HeaderFilterRegex: '.*'
+
+CheckOptions:
+  # Thread safety check options (when using our checks)
+  - key: automotive-c25-mand-22.18.WarnOnTrylock
+    value: true
+  - key: automotive-c25-req-22.19.StrictMode
+    value: true
