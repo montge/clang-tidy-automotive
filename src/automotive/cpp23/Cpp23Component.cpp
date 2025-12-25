@@ -13,11 +13,13 @@
 #include "AvoidCStyleCastCheck.h"
 #include "AvoidCharacterComparisonMismatchCheck.h"
 #include "AvoidCharacterTypeMismatchCheck.h"
+#include "AvoidCompositeNarrowingCheck.h"
 #include "AvoidConstCastCheck.h"
 #include "AvoidConstOnlyOverloadCheck.h"
 #include "AvoidConstexprMutableCheck.h"
 #include "AvoidCtimeCppCheck.h"
 #include "AvoidDanglingReferenceCheck.h"
+#include "AvoidDiscardedSideEffectsCheck.h"
 #include "AvoidDynamicCastCheck.h"
 #include "AvoidDynamicExceptionSpecCheck.h"
 #include "AvoidDynamicMemoryCppCheck.h"
@@ -30,11 +32,13 @@
 #include "AvoidImplicitConversionCheck.h"
 #include "AvoidImplicitConversionOperatorCheck.h"
 #include "AvoidImplicitLambdaCaptureCheck.h"
+#include "AvoidImplicitUpcastCheck.h"
 #include "AvoidInlineTypeDefinitionCheck.h"
 #include "AvoidMemberPointerConversionCheck.h"
 #include "AvoidModifyingByValueParamCheck.h"
 #include "AvoidNarrowingConversionCheck.h"
 #include "AvoidNestedSwitchLabelCheck.h"
+#include "AvoidNonArrayPointerArithCheck.h"
 #include "AvoidNonCompoundBodyCheck.h"
 #include "AvoidNoreturnReturnCheck.h"
 #include "AvoidNullLiteralAssignmentCheck.h"
@@ -47,6 +51,10 @@
 #include "AvoidSingleClauseSwitchCppCheck.h"
 #include "AvoidSlicingCheck.h"
 #include "AvoidStatementExpressionCheck.h"
+#include "AvoidTagNameHidingCheck.h"
+#include "AvoidTemplateRefTemporaryCheck.h"
+#include "CheckStreamStateCheck.h"
+// errors
 #include "AvoidThrowInNoexceptCheck.h"
 #include "AvoidThrowingDestructorCheck.h"
 #include "AvoidTypePunningCheck.h"
@@ -59,6 +67,7 @@
 #include "AvoidUnsignedWrapAroundCheck.h"
 #include "AvoidUnusedVariadicTemplateCheck.h"
 #include "AvoidVirtualBaseClassCheck.h"
+#include "AvoidVirtualCallInCtorDtorCheck.h"
 #include "AvoidVirtualFunctionDefaultArgCheck.h"
 #include "AvoidVoidPointerCastCheck.h"
 #include "AvoidWideVariableScopeCheck.h"
@@ -164,6 +173,10 @@ void Cpp23Component::addCheckFactories(
   // MISRA C++:2023 Rule 17.1.1 - Concepts shall be properly defined
   CheckFactories.registerCheck<ProperConceptDefinitionCheck>(
       "automotive-cpp23-adv-17.1.1");
+  // MISRA C++:2023 Rule 17.8 - Virtual functions shall not be called during
+  // construction or destruction
+  CheckFactories.registerCheck<AvoidVirtualCallInCtorDtorCheck>(
+      "automotive-cpp23-req-17.8");
 
   // MISRA C++:2023 Rule 9.3 - Compound statement body
   CheckFactories.registerCheck<AvoidNonCompoundBodyCheck>(
@@ -287,6 +300,11 @@ void Cpp23Component::addCheckFactories(
   CheckFactories.registerCheck<cpp23::AvoidUnusedVariadicTemplateCheck>(
       "automotive-cpp23-adv-16.6.1");
 
+  // MISRA C++:2023 Rule 16.6 - Non-type template parameter of reference type
+  // should not bind to a temporary
+  CheckFactories.registerCheck<cpp23::AvoidTemplateRefTemporaryCheck>(
+      "automotive-cpp23-adv-16.6");
+
   // MISRA C++:2023 Rule 8.0 - Single point of exit
   CheckFactories.registerCheck<cpp23::SinglePointOfExitCheck>(
       "automotive-cpp23-adv-8.0");
@@ -363,6 +381,11 @@ void Cpp23Component::addCheckFactories(
   CheckFactories.registerCheck<cpp23::AvoidWideVariableScopeCheck>(
       "automotive-cpp23-req-5.7");
 
+  // MISRA C++:2023 Rule 5.7 (Advisory) - A tag name should not hide other
+  // identifiers
+  CheckFactories.registerCheck<cpp23::AvoidTagNameHidingCheck>(
+      "automotive-cpp23-adv-5.7.1");
+
   // MISRA C++:2023 Rule 5.13 - Type punning prevention
   CheckFactories.registerCheck<cpp23::AvoidTypePunningCheck>(
       "automotive-cpp23-req-5.13");
@@ -375,6 +398,10 @@ void Cpp23Component::addCheckFactories(
   // MISRA C++:2023 Rule 10.2 - Conversions from void* to typed pointer
   CheckFactories.registerCheck<cpp23::AvoidVoidPointerCastCheck>(
       "automotive-cpp23-req-10.2");
+
+  // MISRA C++:2023 Rule 10.4 - Composite expression assigned to narrower type
+  CheckFactories.registerCheck<cpp23::AvoidCompositeNarrowingCheck>(
+      "automotive-cpp23-req-10.4");
 
   // MISRA C++:2023 Rule 10.4.1 - A conversion function shall be explicit
   CheckFactories.registerCheck<cpp23::RequireExplicitConversionCheck>(
@@ -396,6 +423,26 @@ void Cpp23Component::addCheckFactories(
   // MISRA C++:2023 Rule 5.10 - Array to pointer decay should be avoided
   CheckFactories.registerCheck<cpp23::AvoidArrayToPointerDecayCheck>(
       "automotive-cpp23-req-5.10");
+
+  // MISRA C++:2023 Rule 19.2 - A reference or pointer to a derived class shall
+  // not be implicitly cast to a reference or pointer to a base class
+  CheckFactories.registerCheck<cpp23::AvoidImplicitUpcastCheck>(
+      "automotive-cpp23-req-19.2");
+
+  // MISRA C++:2023 Rule 8.7 - Pointer arithmetic shall not be applied to a
+  // pointer to object of non-array type (Partial)
+  CheckFactories.registerCheck<cpp23::AvoidNonArrayPointerArithCheck>(
+      "automotive-cpp23-req-8.7");
+
+  // MISRA C++:2023 Rule 30.0 - Standard library stream objects shall not be
+  // used while in a fail state (Partial)
+  CheckFactories.registerCheck<cpp23::CheckStreamStateCheck>(
+      "automotive-cpp23-adv-30.0");
+
+  // MISRA C++:2023 Rule 28.3 - A function with side effects shall not be
+  // called from a context where those side effects would be discarded
+  CheckFactories.registerCheck<cpp23::AvoidDiscardedSideEffectsCheck>(
+      "automotive-cpp23-req-28.3");
 }
 
 } // namespace clang::tidy::automotive
