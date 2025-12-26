@@ -75,8 +75,23 @@ public:
 
   void MacroDefined(const Token &MacroNameTok,
                     const MacroDirective *MD) override {
+    SourceLocation Loc = MacroNameTok.getLocation();
+
+    // Skip macros with invalid locations (compiler built-ins)
+    if (Loc.isInvalid())
+      return;
+
     // Skip macros defined in system headers
-    if (SM.isInSystemHeader(MacroNameTok.getLocation()))
+    if (SM.isInSystemHeader(Loc))
+      return;
+
+    // Skip compiler built-in macros from predefines or command line buffers
+    if (SM.isWrittenInBuiltinFile(Loc) || SM.isWrittenInCommandLineFile(Loc))
+      return;
+
+    // Skip macros from non-file sources (empty filename = compiler-internal)
+    StringRef FileName = SM.getFilename(Loc);
+    if (FileName.empty())
       return;
 
     StringRef MacroName = MacroNameTok.getIdentifierInfo()->getName();
@@ -90,8 +105,23 @@ public:
 
   void MacroUndefined(const Token &MacroNameTok, const MacroDefinition &MD,
                       const MacroDirective *Undef) override {
+    SourceLocation Loc = MacroNameTok.getLocation();
+
+    // Skip undefs with invalid locations
+    if (Loc.isInvalid())
+      return;
+
     // Skip undefs in system headers
-    if (Undef && SM.isInSystemHeader(Undef->getLocation()))
+    if (SM.isInSystemHeader(Loc))
+      return;
+
+    // Skip undefs from predefines or command line buffers
+    if (SM.isWrittenInBuiltinFile(Loc) || SM.isWrittenInCommandLineFile(Loc))
+      return;
+
+    // Skip undefs from non-file sources
+    StringRef FileName = SM.getFilename(Loc);
+    if (FileName.empty())
       return;
 
     StringRef MacroName = MacroNameTok.getIdentifierInfo()->getName();
