@@ -5,7 +5,7 @@ void test_nested_case_violation(int x, int y) {
   switch (x) {
   case 1:
     if (y > 0) {
-      // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: case statement at the wrong place
+      // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: case statement at the wrong place [automotive-x-req-16.2]
       case 2:
         break;
     }
@@ -19,7 +19,7 @@ void test_case_in_loop_violation(int x) {
   switch (x) {
   case 1:
     for (int i = 0; i < 10; i++) {
-      // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: case statement at the wrong place
+      // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: case statement at the wrong place [automotive-x-req-16.2]
       case 2:
         break;
     }
@@ -31,7 +31,7 @@ void test_default_nested_violation(int x) {
   switch (x) {
   case 1:
     {
-      // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: case statement at the wrong place
+      // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: default statement at the wrong place [automotive-x-req-16.2]
       default:
         break;
     }

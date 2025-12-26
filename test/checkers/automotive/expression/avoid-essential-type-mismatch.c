@@ -4,20 +4,20 @@
 #include <stdbool.h>
 
 void test_bool_arithmetic_violation(bool flag) {
-  // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: operand of essential type 'Boolean' is inappropriate for arithmetic operation
+  // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: operand of essential type 'Boolean' is inappropriate for arithmetic operation [automotive-c25-req-10.1]
   int x = flag + 1;
   (void)x;
 }
 
 void test_bool_bitwise_violation(bool a, bool b) {
-  // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: operand of essential type 'Boolean' is inappropriate for bitwise operation
-  // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: operand of essential type 'Boolean' is inappropriate for bitwise operation
+  // CHECK-MESSAGES: :[[@LINE+2]]:11: warning: operand of essential type 'Boolean' is inappropriate for bitwise operation [automotive-c25-req-10.1]
+  // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: operand of essential type 'Boolean' is inappropriate for bitwise operation [automotive-c25-req-10.1]
   int y = a & b;
   (void)y;
 }
 
 void test_char_arithmetic_violation(char c) {
-  // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: operand of essential type 'Character' is inappropriate for arithmetic operation
+  // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: operand of essential type 'Character' is inappropriate for arithmetic operation [automotive-c25-req-10.1]
   char d = c + 1;
   (void)d;
 }
