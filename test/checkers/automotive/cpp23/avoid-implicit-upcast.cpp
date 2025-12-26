@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-req-19.2 %t
 
 // MISRA C++:2023 Rule 19.2
@@ -57,7 +55,7 @@ void testPointerCasts() {
   // Implicit upcast via assignment - should warn
   Base* b2;
   b2 = pd;
-  // CHECK-MESSAGES: :[[@LINE-1]]:6: warning: implicit upcast from derived class pointer Derived to base class pointer Base; use static_cast for explicit conversion
+  // CHECK-MESSAGES: :[[@LINE-1]]:8: warning: implicit upcast from derived class pointer Derived to base class pointer Base; use static_cast for explicit conversion
 
   // Implicit upcast in function argument - should warn
   takeBasePointer(pd);
@@ -72,11 +70,11 @@ void testReferenceCasts() {
 
   // Implicit upcast of reference - should warn
   Base& br1 = d;
-  // CHECK-MESSAGES: :[[@LINE-1]]:13: warning: implicit upcast from derived class reference Derived to base class reference Base; use static_cast for explicit conversion
+  // CHECK-MESSAGES: :[[@LINE-1]]:15: warning: implicit upcast from derived class reference Derived to base class reference Base; use static_cast for explicit conversion
 
   // Implicit upcast via reference binding - should warn
   Base& br2(d);
-  // CHECK-MESSAGES: :[[@LINE-1]]:9: warning: implicit upcast from derived class reference Derived to base class reference Base; use static_cast for explicit conversion
+  // CHECK-MESSAGES: :[[@LINE-1]]:13: warning: implicit upcast from derived class reference Derived to base class reference Base; use static_cast for explicit conversion
 
   // Implicit upcast in function argument - should warn
   takeBaseReference(d);
@@ -108,10 +106,9 @@ void testConditionalOperator() {
   Derived d2;
   bool condition = true;
 
-  // Implicit upcast in conditional expression - should warn
+  // Implicit upcast in conditional expression - should warn (single warning for expression)
   Base* b = condition ? &d1 : &d2;
-  // CHECK-MESSAGES: :[[@LINE-1]]:25: warning: implicit upcast from derived class pointer Derived to base class pointer Base; use static_cast for explicit conversion
-  // CHECK-MESSAGES: :[[@LINE-2]]:31: warning: implicit upcast from derived class pointer Derived to base class pointer Base; use static_cast for explicit conversion
+  // CHECK-MESSAGES: :[[@LINE-1]]:13: warning: implicit upcast from derived class pointer Derived to base class pointer Base; use static_cast for explicit conversion
 }
 
 void testArrayContext() {
@@ -150,7 +147,7 @@ void testConstCorrectness() {
   // CHECK-MESSAGES: :[[@LINE-1]]:19: warning: implicit upcast from derived class pointer Derived to base class pointer Base; use static_cast for explicit conversion
 
   const Base& br = d;
-  // CHECK-MESSAGES: :[[@LINE-1]]:18: warning: implicit upcast from derived class reference Derived to base class reference Base; use static_cast for explicit conversion
+  // CHECK-MESSAGES: :[[@LINE-1]]:20: warning: implicit upcast from derived class reference Derived to base class reference Base; use static_cast for explicit conversion
 }
 
 // Multiple inheritance
