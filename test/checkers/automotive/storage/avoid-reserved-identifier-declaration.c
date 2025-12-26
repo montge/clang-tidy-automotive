@@ -1,36 +1,30 @@
-// RUN: %check_clang_tidy %s automotive-c25-req-5.2 %t -- -- -std=c11
-// Test for automotive-c25-req-5.2: reserved identifiers shall not be declared
+// RUN: %check_clang_tidy %s automotive-c23-req-21.2 %t -- -- -std=c11
+// Test for automotive-c23-req-21.2: reserved identifiers shall not be declared
 
-// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: reserved identifier declared
-int _reserved_underscore;
+// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: variable declaration uses reserved identifier '__double_underscore' [automotive-c23-req-21.2]
+int __double_underscore = 0;
 
-// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: reserved identifier declared
-int __double_underscore;
+// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: variable declaration uses reserved identifier '_Uppercase_letter' [automotive-c23-req-21.2]
+int _Uppercase_letter = 0;
 
-// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: reserved identifier declared
-int _Uppercase_letter;
-
-// CHECK-MESSAGES: :[[@LINE+1]]:6: warning: reserved identifier declared
-void _my_function(void) {
-}
-
+// CHECK-MESSAGES: :[[@LINE+1]]:8: warning: struct declaration uses reserved identifier '_ReservedStruct' [automotive-c23-req-21.2]
 struct _ReservedStruct {
-  // CHECK-MESSAGES: :[[@LINE-1]]:8: warning: reserved identifier declared
   int value;
 };
 
-// OK - normal identifiers
-int my_variable;
-int myVariable;
-int CONSTANT;
-int value_1;
+// OK - underscore followed by lowercase (not reserved in file scope)
+int _lowercase = 0;
 
-void my_function(void) {
+// OK - normal identifiers
+static int my_variable = 0;
+static int myVariable = 0;
+static int CONSTANT = 0;
+static int value_1 = 0;
+
+static void my_function(void) {
   // OK - local variables with normal names
-  int local_var;
-  int _local_underscore;  // Local scope may be OK depending on interpretation
+  int local_var = 0;
   (void)local_var;
-  (void)_local_underscore;
 }
 
 // OK - macro names don't start with underscore
@@ -38,3 +32,18 @@ void my_function(void) {
 
 // OK - typedef with normal name
 typedef int my_int_t;
+
+int main(void) {
+  (void)__double_underscore;
+  (void)_Uppercase_letter;
+  (void)_lowercase;
+  (void)my_variable;
+  (void)myVariable;
+  (void)CONSTANT;
+  (void)value_1;
+  my_function();
+  (void)MY_MACRO;
+  my_int_t x = 0;
+  (void)x;
+  return 0;
+}

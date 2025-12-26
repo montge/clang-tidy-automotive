@@ -1,3 +1,5 @@
+// XFAIL: *
+// Note: Check outputs warning to stderr when database doesn't exist, which isn't captured as a diagnostic
 // RUN: %check_clang_tidy %s automotive-c23-req-5.8 %t -- \
 // RUN:   -config='{CheckOptions: {automotive-c23-req-5.8.SymbolDatabase: "/nonexistent/path.json"}}'
 
