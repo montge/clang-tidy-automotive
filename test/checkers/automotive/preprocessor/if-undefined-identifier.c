@@ -1,6 +1,6 @@
 // XFAIL: *
+// Note: Check crashes - needs investigation
 // RUN: %check_clang_tidy %s automotive-c25-req-20.9 %t
-// XFAIL: Check crashes - needs investigation
 
 // MISRA C:2025 Rule 20.9 - All identifiers used in the controlling expression
 // of #if or #elif preprocessing directives shall be #define'd before

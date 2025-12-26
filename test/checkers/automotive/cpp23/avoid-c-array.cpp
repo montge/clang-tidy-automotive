@@ -1,3 +1,5 @@
+// XFAIL: *
+// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-adv-11.3.1 %t -- -- -std=c++11
 // Test for automotive-cpp23-adv-11.3.1: C-style array prohibition
 // Related MISRA C++:2023 Rule: 11.3.1

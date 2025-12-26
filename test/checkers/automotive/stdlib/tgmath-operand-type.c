@@ -1,5 +1,5 @@
 // XFAIL: *
-// XFAIL: Check needs implementation for tgmath macros
+// Note: Check needs implementation for tgmath macros
 // Test file for: automotive-c25-mand-21.22
 // Related MISRA C:2025 Rule: 21.22
 //

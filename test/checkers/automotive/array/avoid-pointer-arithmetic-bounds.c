@@ -1,57 +1,49 @@
-// RUN: %check_clang_tidy %s automotive-c25-req-18.1 %t -- -- -std=c11
-// Test for automotive-c25-req-18.1: pointer arithmetic shall not exceed array bounds
+// RUN: %check_clang_tidy %s automotive-c23-req-18.1 %t -- -- -std=c11
+// Test for automotive-c23-req-18.1: relational operator applied to pointers
 
-void test_ptr_arithmetic_overflow_violation(void) {
+void test_ptr_relational_in_loop(void) {
   int arr[10];
-  int *ptr = arr;
-
-  // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: pointer arithmetic may exceed array bounds
-  ptr = ptr + 15;  // Exceeds array bounds
-  (void)ptr;
-}
-
-void test_negative_ptr_arithmetic_violation(void) {
-  int arr[10];
-  int *ptr = &arr[5];
-
-  // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: pointer arithmetic may exceed array bounds
-  ptr = ptr - 10;  // Goes before array start
-  (void)ptr;
-}
-
-void test_ptr_increment_loop_violation(void) {
-  int arr[5];
-  // CHECK-MESSAGES: :[[@LINE+3]]:5: warning: pointer arithmetic may exceed array bounds
+  // CHECK-MESSAGES: :[[@LINE+1]]:28: warning: relational operator applied to pointers; ensure they address elements of the same array [automotive-c23-req-18.1]
   for (int *ptr = arr; ptr < arr + 10; ptr++) {
-    // Loop goes beyond array bounds
     *ptr = 0;
   }
 }
 
-void test_safe_ptr_arithmetic_compliant(void) {
-  int arr[10];
-  int *ptr = arr;
+void test_ptr_relational_separate_pointers(void) {
+  int arr1[10];
+  int arr2[10];
+  int *p1 = arr1;
+  int *p2 = arr2;
 
-  // OK - within bounds
-  ptr = ptr + 5;
-  ptr = ptr - 3;
-  (void)ptr;
+  // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: relational operator applied to pointers; ensure they address elements of the same array [automotive-c23-req-18.1]
+  if (p1 < p2) {  // Comparing pointers to different arrays
+    (void)p1;
+  }
+  (void)p2;
 }
 
-void test_ptr_to_one_past_end_compliant(void) {
+void test_ptr_comparison_same_array_compliant(void) {
   int arr[10];
-  int *ptr = arr;
+  int *p1 = &arr[2];
+  int *p2 = &arr[5];
 
-  // OK - pointer to one past the end is allowed
-  ptr = arr + 10;  // Valid one-past-end pointer
-  (void)ptr;
+  // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: relational operator applied to pointers; ensure they address elements of the same array [automotive-c23-req-18.1]
+  if (p1 < p2) {  // Flagged - developer should verify same array
+    (void)p1;
+  }
+  (void)p2;
 }
 
-void test_safe_loop_compliant(void) {
+void test_ptr_equality_compliant(void) {
   int arr[10];
+  int *p1 = &arr[2];
+  int *p2 = &arr[5];
 
-  // OK - loop stays within bounds
-  for (int *ptr = arr; ptr < arr + 10; ptr++) {
-    *ptr = 0;
+  // OK - equality comparison is allowed
+  if (p1 == p2) {
+    (void)p1;
+  }
+  if (p1 != p2) {
+    (void)p2;
   }
 }

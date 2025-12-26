@@ -1,5 +1,5 @@
 // XFAIL: *
-// XFAIL: Check needs implementation
+// Note: Check needs implementation
 // RUN: %check_clang_tidy %s automotive-c25-req-20.6 %t -- -- -std=c11
 // Test for automotive-c25-req-20.6: preprocessor directives in macro arguments
 

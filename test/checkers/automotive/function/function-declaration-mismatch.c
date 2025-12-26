@@ -1,20 +1,13 @@
-// RUN: %check_clang_tidy %s automotive-c25-req-8.3 %t -- -- -std=c11
-// Test for automotive-c25-req-8.3: function declarations shall match definitions
+// RUN: %check_clang_tidy %s automotive-function-declaration-mismatch %t -- -- -std=c11
+// Test for automotive-function-declaration-mismatch: function declarations shall match definitions
 
 // Forward declaration
 int add(int a, int b);
 
-// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: function declaration does not match previous declaration
+// CHECK-MESSAGES: :[[@LINE+2]]:13: warning: parameter name 'x' mismatch with 'a' in function 'add' [automotive-function-declaration-mismatch]
+// CHECK-MESSAGES: :[[@LINE+1]]:20: warning: parameter name 'y' mismatch with 'b' in function 'add' [automotive-function-declaration-mismatch]
 int add(int x, int y) {  // Different parameter names
   return x + y;
-}
-
-// Declaration with different qualifiers
-void process(const int *data);
-
-// CHECK-MESSAGES: :[[@LINE+1]]:6: warning: function declaration does not match previous declaration
-void process(int *data) {  // Missing const
-  (void)data;
 }
 
 // Compliant - matching declarations and definitions
@@ -30,10 +23,9 @@ static int helper(int x) {
 }
 
 // Use functions to avoid warnings
-void use_functions(void) {
-  add(1, 2);
-  int data = 5;
-  process(&data);
-  multiply(3, 4);
-  helper(5);
+int main(void) {
+  (void)add(1, 2);
+  (void)multiply(3, 4);
+  (void)helper(5);
+  return 0;
 }

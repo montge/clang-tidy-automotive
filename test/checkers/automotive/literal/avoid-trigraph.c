@@ -1,5 +1,5 @@
 // XFAIL: *
-// XFAIL: Check also triggers on trigraphs in comments, making test unreliable
+// Note: Check also triggers on trigraphs in comments, making test unreliable
 // RUN: %check_clang_tidy %s automotive-c25-adv-4.2 %t -- -- -std=c11 -trigraphs
 // Test for automotive-c25-adv-4.2: trigraph sequences shall not be used
 
