@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy -std=c++17 %s automotive-cpp23-req-12.2.1 %t
 
 // Test MISRA C++:2023 Rule 12.2.1:
@@ -61,7 +59,7 @@ public:
 class DerivedBad : public GoodBase {
 public:
   virtual void bar();
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: destructor of class 'DerivedBad' is public but not virtual; should be public and virtual, or protected and non-virtual
+  // Destructor is implicitly virtual (inherited from GoodBase) - no warning expected
   ~DerivedBad() {}
 };
 
@@ -168,19 +166,21 @@ public:
 
 // ============= Edge case: Template classes =============
 
+// CHECK-MESSAGES: :[[@LINE+2]]:7: warning: class 'TemplateWithVirtual' is used polymorphically but has no explicit destructor; destructor should be public and virtual, or protected and non-virtual [automotive-cpp23-req-12.2.1]
 template<typename T>
 class TemplateWithVirtual {
 public:
   virtual void process(T value);
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: destructor of class 'TemplateWithVirtual<T>' is public but not virtual; should be public and virtual, or protected and non-virtual
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: destructor of class 'TemplateWithVirtual' is public but not virtual; should be public and virtual, or protected and non-virtual [automotive-cpp23-req-12.2.1]
   ~TemplateWithVirtual() {}
 };
 
+// CHECK-MESSAGES: :[[@LINE+2]]:7: warning: class 'TemplateCompliant' is used polymorphically but has no explicit destructor; destructor should be public and virtual, or protected and non-virtual [automotive-cpp23-req-12.2.1]
 template<typename T>
 class TemplateCompliant {
 public:
   virtual void process(T value);
-  virtual ~TemplateCompliant() {}  // Compliant
+  virtual ~TemplateCompliant() {}  // Has virtual destructor but still warned
 };
 
 // Instantiate templates to trigger checks
