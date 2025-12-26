@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: Check doesn't recognize throw/return as valid switch case endings
 // RUN: %check_clang_tidy %s automotive-cpp23-req-9.5.2 %t -- -- -std=c++17
 // Test for automotive-cpp23-req-9.5.2: switch clauses shall end with break/throw
 
