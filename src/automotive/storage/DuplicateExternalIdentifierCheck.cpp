@@ -33,15 +33,15 @@ void DuplicateExternalIdentifierCheck::loadSymbolDatabase() {
 
   auto BufferOrErr = llvm::MemoryBuffer::getFile(SymbolDatabase);
   if (!BufferOrErr) {
-    llvm::errs() << "Warning: Cannot open symbol database '" << SymbolDatabase
-                 << "'. Run automotive-collect-external-symbols first.\n";
+    // Silently continue - the check requires a pre-collected symbol database.
+    // Users should run automotive-collect-external-symbols first.
     return;
   }
 
   auto Buffer = std::move(*BufferOrErr);
   auto JsonOrErr = llvm::json::parse(Buffer->getBuffer());
   if (!JsonOrErr) {
-    llvm::errs() << "Warning: Invalid JSON in symbol database.\n";
+    // Silently continue on invalid JSON
     return;
   }
 
