@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy -std=c++17 %s automotive-cpp23-req-12.4.1 %t
 
 // Test virtual function default arguments prohibition (MISRA C++:2023 Rule 12.4.1)
@@ -8,23 +6,18 @@
 
 class Base {
 public:
-  // CHECK-MESSAGES: :[[@LINE+2]]:34: warning: virtual function 'Base::foo' has default argument for parameter 'x'
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: note: virtual function declared here
+  // CHECK-MESSAGES: :[[@LINE+1]]:28: warning: virtual function 'Base::foo' has default argument for parameter 'x' [automotive-cpp23-req-12.4.1]
   virtual void foo(int x = 0);
 
-  // CHECK-MESSAGES: :[[@LINE+2]]:35: warning: virtual function 'Base::bar' has default argument for parameter 'y'
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: note: virtual function declared here
+  // CHECK-MESSAGES: :[[@LINE+1]]:35: warning: virtual function 'Base::bar' has default argument for parameter 'y' [automotive-cpp23-req-12.4.1]
   virtual void bar(int x, int y = 1);
 
-  // CHECK-MESSAGES: :[[@LINE+4]]:33: warning: virtual function 'Base::baz' has default argument for parameter 'a'
-  // CHECK-MESSAGES: :[[@LINE+3]]:3: note: virtual function declared here
-  // CHECK-MESSAGES: :[[@LINE+2]]:40: warning: virtual function 'Base::baz' has default argument for parameter 'b'
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: note: virtual function declared here
+  // CHECK-MESSAGES: :[[@LINE+2]]:28: warning: virtual function 'Base::baz' has default argument for parameter 'a' [automotive-cpp23-req-12.4.1]
+  // CHECK-MESSAGES: :[[@LINE+1]]:39: warning: virtual function 'Base::baz' has default argument for parameter 'b' [automotive-cpp23-req-12.4.1]
   virtual void baz(int a = 0, int b = 1);
 
   // Pure virtual with default argument
-  // CHECK-MESSAGES: :[[@LINE+2]]:37: warning: virtual function 'Base::pureFunc' has default argument for parameter 'x'
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: note: virtual function declared here
+  // CHECK-MESSAGES: :[[@LINE+1]]:33: warning: virtual function 'Base::pureFunc' has default argument for parameter 'x' [automotive-cpp23-req-12.4.1]
   virtual void pureFunc(int x = 5) = 0;
 
   virtual ~Base() = default;
@@ -33,30 +26,23 @@ public:
 class Derived : public Base {
 public:
   // Override with default argument
-  // CHECK-MESSAGES: :[[@LINE+2]]:29: warning: virtual function 'Derived::foo' has default argument for parameter 'x'
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: note: virtual function declared here
+  // CHECK-MESSAGES: :[[@LINE+1]]:20: warning: virtual function 'Derived::foo' has default argument for parameter 'x' [automotive-cpp23-req-12.4.1]
   void foo(int x = 1) override;
 
   // Override with different default than base
-  // CHECK-MESSAGES: :[[@LINE+2]]:30: warning: virtual function 'Derived::bar' has default argument for parameter 'y'
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: note: virtual function declared here
+  // CHECK-MESSAGES: :[[@LINE+1]]:27: warning: virtual function 'Derived::bar' has default argument for parameter 'y' [automotive-cpp23-req-12.4.1]
   void bar(int x, int y = 2) override;
 
-  // CHECK-MESSAGES: :[[@LINE+2]]:34: warning: virtual function 'Derived::pureFunc' has default argument for parameter 'x'
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: note: virtual function declared here
+  // CHECK-MESSAGES: :[[@LINE+1]]:25: warning: virtual function 'Derived::pureFunc' has default argument for parameter 'x' [automotive-cpp23-req-12.4.1]
   void pureFunc(int x = 10) override;
 };
 
 class VirtualWithMultipleDefaults {
 public:
-  // CHECK-MESSAGES: :[[@LINE+4]]:34: warning: virtual function 'VirtualWithMultipleDefaults::func' has default argument for parameter 'a'
-  // CHECK-MESSAGES: :[[@LINE+3]]:3: note: virtual function declared here
-  // CHECK-MESSAGES: :[[@LINE+2]]:41: warning: virtual function 'VirtualWithMultipleDefaults::func' has default argument for parameter 'b'
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: note: virtual function declared here
+  // CHECK-MESSAGES: :[[@LINE+3]]:29: warning: virtual function 'VirtualWithMultipleDefaults::func' has default argument for parameter 'a' [automotive-cpp23-req-12.4.1]
+  // CHECK-MESSAGES: :[[@LINE+2]]:40: warning: virtual function 'VirtualWithMultipleDefaults::func' has default argument for parameter 'b' [automotive-cpp23-req-12.4.1]
+  // CHECK-MESSAGES: :[[@LINE+1]]:51: warning: virtual function 'VirtualWithMultipleDefaults::func' has default argument for parameter 'c' [automotive-cpp23-req-12.4.1]
   virtual void func(int a = 1, int b = 2, int c = 3);
-  // Note: Third parameter should also trigger warning
-  // CHECK-MESSAGES: :[[@LINE-2]]:48: warning: virtual function 'VirtualWithMultipleDefaults::func' has default argument for parameter 'c'
-  // CHECK-MESSAGES: :[[@LINE-4]]:3: note: virtual function declared here
 
   virtual ~VirtualWithMultipleDefaults() = default;
 };
@@ -114,7 +100,6 @@ public:
 
 class FinalDerived : public FinalBase {
 public:
-  // CHECK-MESSAGES: :[[@LINE+2]]:32: warning: virtual function 'FinalDerived::method' has default argument for parameter 'x'
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: note: virtual function declared here
+  // CHECK-MESSAGES: :[[@LINE+1]]:23: warning: virtual function 'FinalDerived::method' has default argument for parameter 'x' [automotive-cpp23-req-12.4.1]
   void method(int x = 5) final;  // Violation - final is still virtual
 };
