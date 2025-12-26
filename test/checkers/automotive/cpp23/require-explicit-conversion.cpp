@@ -1,17 +1,15 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-adv-10.4.1 %t
 // Test for automotive-cpp23-adv-10.4.1: A conversion function shall be explicit
 
 class ImplicitConverter {
 public:
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: conversion function to 'int' shall be marked explicit to prevent implicit conversions
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: conversion function to 'int' shall be marked explicit to prevent implicit conversions [automotive-cpp23-adv-10.4.1]
   operator int() const { return value_; }
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: conversion function to 'bool' shall be marked explicit to prevent implicit conversions
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: conversion function to 'bool' shall be marked explicit to prevent implicit conversions [automotive-cpp23-adv-10.4.1]
   operator bool() const { return value_ != 0; }
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: conversion function to 'double' shall be marked explicit to prevent implicit conversions
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: conversion function to 'double' shall be marked explicit to prevent implicit conversions [automotive-cpp23-adv-10.4.1]
   operator double() const { return static_cast<double>(value_); }
 
 private:
@@ -35,7 +33,8 @@ private:
 template<typename T>
 class TemplateConverter {
 public:
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: conversion function to 'T' shall be marked explicit to prevent implicit conversions
+  // CHECK-MESSAGES: :[[@LINE+2]]:3: warning: conversion function to 'T' shall be marked explicit to prevent implicit conversions [automotive-cpp23-adv-10.4.1]
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: conversion function to 'int' shall be marked explicit to prevent implicit conversions [automotive-cpp23-adv-10.4.1]
   operator T() const { return val_; }
 
 private:
