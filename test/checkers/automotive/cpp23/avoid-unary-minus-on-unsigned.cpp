@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-req-6.0.4 %t -- -- -std=c++11
 // Test for automotive-cpp23-req-6.0.4
 // Related MISRA C++:2023 Rule: 6.0.4
@@ -13,99 +11,99 @@
 
 void test_unary_minus_unsigned_int() {
     unsigned int x = 5;
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     int y = -x;
 
     unsigned int a = 10;
-    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     unsigned int b = -a;
 }
 
 void test_unary_minus_uint32() {
     unsigned int val = 10;
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     auto neg = -val;
 }
 
 void test_unary_minus_unsigned_long() {
     unsigned long x = 100UL;
-    // CHECK-MESSAGES: :[[@LINE+1]]:19: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:23: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     unsigned long y = -x;
 }
 
 void test_unary_minus_unsigned_long_long() {
     unsigned long long x = 1000ULL;
-    // CHECK-MESSAGES: :[[@LINE+1]]:24: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:28: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     unsigned long long y = -x;
 }
 
 void test_unary_minus_unsigned_short() {
     unsigned short x = 10;
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     int y = -x;
 }
 
 void test_unary_minus_unsigned_char() {
     unsigned char x = 5;
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     int y = -x;
 }
 
 void test_unary_minus_size_t() {
     typedef unsigned long size_t;
     size_t s = 100;
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     size_t neg = -s;
 }
 
 void test_unary_minus_in_expression() {
     unsigned int x = 10;
     unsigned int y = 20;
-    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     int result = -x + y;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:23: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     int result2 = x + -y;
 }
 
 void test_unary_minus_with_const() {
     const unsigned int x = 5;
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     int y = -x;
 }
 
 void test_unary_minus_with_volatile() {
     volatile unsigned int x = 5;
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     int y = -x;
 }
 
-void test_unary_minus_return() {
+int test_unary_minus_return() {
     unsigned int x = 5;
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     return -x;
 }
 
 void test_unary_minus_in_function_call() {
     void process(int);
     unsigned int x = 5;
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     process(-x);
 }
 
 void test_unary_minus_in_array_subscript() {
     int arr[10];
     unsigned int idx = 5;
-    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:19: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     int val = arr[-idx];  // Also dangerous for array access!
 }
 
 void test_unary_minus_with_parentheses() {
     unsigned int x = 5;
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     int y = -(x);
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned
+    // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: unary minus operator shall not be applied to an expression whose underlying type is unsigned; consider using a signed type or explicit cast [automotive-cpp23-req-6.0.4]
     int z = -((x));
 }
 

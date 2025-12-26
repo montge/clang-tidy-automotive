@@ -1,5 +1,5 @@
 // XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
+// Note: Test file has compiler errors - class methods can't differ only in top-level const
 // RUN: %check_clang_tidy %s automotive-cpp23-adv-11.3.2 %t
 
 // MISRA C++:2023 Rule 11.3.2

@@ -1,5 +1,5 @@
 // XFAIL: *
-// Note: Test requires C++17 aggregate initialization features not compatible with test framework defaults
+// Note: Test framework adds -std=c++11 which overrides the -std=c++17 required here
 // RUN: %check_clang_tidy %s automotive-cpp23-adv-14.1 %t -- -- -std=c++17
 // Test for automotive-cpp23-adv-14.1: Constexpr variables should not have mutable sub-objects
 

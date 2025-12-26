@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-req-8.7 %t
 
 // MISRA C++:2023 Rule 8.7 (Partial)
@@ -8,16 +6,16 @@
 void test_address_of_non_array() {
   int x = 42;
   int *p1 = &x + 1;
-  // CHECK-MESSAGES: :[[@LINE-1]]:15: warning: pointer arithmetic applied to address of non-array variable 'x' [automotive-cpp23-req-8.7]
+  // CHECK-MESSAGES: :[[@LINE-1]]:16: warning: pointer arithmetic applied to address of non-array variable 'x' [automotive-cpp23-req-8.7]
   // CHECK-MESSAGES: :[[@LINE-3]]:7: note: variable declared here
 
   int *p2 = &x - 1;
-  // CHECK-MESSAGES: :[[@LINE-1]]:15: warning: pointer arithmetic applied to address of non-array variable 'x' [automotive-cpp23-req-8.7]
-  // CHECK-MESSAGES: :[[@LINE-4]]:7: note: variable declared here
+  // CHECK-MESSAGES: :[[@LINE-1]]:16: warning: pointer arithmetic applied to address of non-array variable 'x' [automotive-cpp23-req-8.7]
+  // CHECK-MESSAGES: :[[@LINE-7]]:7: note: variable declared here
 
   int *p3 = 1 + &x;
   // CHECK-MESSAGES: :[[@LINE-1]]:15: warning: pointer arithmetic applied to address of non-array variable 'x' [automotive-cpp23-req-8.7]
-  // CHECK-MESSAGES: :[[@LINE-7]]:7: note: variable declared here
+  // CHECK-MESSAGES: :[[@LINE-11]]:7: note: variable declared here
 
   // Note: Once assigned to a variable, we can't track if it points to an array
   int *p4 = &x;
@@ -107,16 +105,9 @@ void test_pointer_to_pointer() {
   int *px = &x;
   int **ppx = &px;
   int **result = &px + 1;
-  // CHECK-MESSAGES: :[[@LINE-1]]:21: warning: pointer arithmetic applied to address of non-array variable 'px' [automotive-cpp23-req-8.7]
+  // CHECK-MESSAGES: :[[@LINE-1]]:22: warning: pointer arithmetic applied to address of non-array variable 'px' [automotive-cpp23-req-8.7]
   // CHECK-MESSAGES: :[[@LINE-4]]:8: note: variable declared here
 }
 
-// Compliant: Standard library containers (std::vector, etc. are not arrays)
-#include <vector>
-
-void test_vector() {
-  std::vector<int> vec(10);
-  // std::vector is not an array type, but this check focuses on obvious
-  // violations with primitive types and simple new expressions
-  // Container iterators are compliant
-}
+// Note: Standard library containers (std::vector, etc.) would be compliant
+// but we can't test them without standard library headers
