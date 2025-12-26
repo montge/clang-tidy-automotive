@@ -1,22 +1,22 @@
-// RUN: %check_clang_tidy %s automotive-c25-req-17.3 %t -- -- -std=c99
-// Test for automotive-c25-req-17.3: implicit function declarations shall not be used
+// RUN: %check_clang_tidy %s automotive-implicit-function-decl %t -- -- -std=c89
+// Test for automotive-implicit-function-decl: function calls without prior declaration
 
-// Note: In C99 and later, implicit function declarations are not allowed
-// This test verifies the check catches attempts to use undeclared functions
+// Note: In C89, implicit function declarations were allowed but are unsafe.
+// This test verifies the check catches attempts to use undeclared functions.
 
 void test_undeclared_function_call(void) {
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: implicit declaration of function
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: function 'undeclared_function' is called without a prior declaration [automotive-implicit-function-decl]
   undeclared_function();  // No declaration exists
 }
 
 void test_undeclared_with_args(void) {
   int x = 10;
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: implicit declaration of function
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: function 'another_undeclared' is called without a prior declaration [automotive-implicit-function-decl]
   another_undeclared(x, 20);
 }
 
 void test_undeclared_with_return(void) {
-  // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: implicit declaration of function
+  // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: function 'get_value' is called without a prior declaration [automotive-implicit-function-decl]
   int y = get_value();  // Undeclared function with return
   (void)y;
 }

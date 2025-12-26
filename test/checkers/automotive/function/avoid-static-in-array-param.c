@@ -1,14 +1,14 @@
-// RUN: %check_clang_tidy %s automotive-c25-req-17.6 %t -- -- -std=c11
-// Test for automotive-c25-req-17.6: static in array parameter shall be honored
+// RUN: %check_clang_tidy %s automotive-c25-mand-17.6 %t -- -- -std=c11
+// Test for automotive-c25-mand-17.6: static in array parameter shall be honored
 
 #include <stddef.h>
 
-// CHECK-MESSAGES: :[[@LINE+2]]:32: warning: array parameter with static qualifier
+// CHECK-MESSAGES: :[[@LINE+1]]:33: warning: array parameter 'arr' uses 'static' keyword which is not permitted by MISRA C [automotive-c25-mand-17.6]
 void func_with_static_array(int arr[static 10]) {
   (void)arr;
 }
 
-// CHECK-MESSAGES: :[[@LINE+2]]:35: warning: array parameter with static qualifier
+// CHECK-MESSAGES: :[[@LINE+1]]:36: warning: array parameter 'arr' uses 'static' keyword which is not permitted by MISRA C [automotive-c25-mand-17.6]
 void func_with_static_array_2d(int arr[static 5][10]) {
   (void)arr;
 }
