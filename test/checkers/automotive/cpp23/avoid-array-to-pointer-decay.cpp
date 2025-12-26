@@ -1,8 +1,7 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-req-5.10 %t
 
-#include <cstddef>
+// Note: Not including <cstddef> as test runs with -nostdinc++
+using size_t = decltype(sizeof(0));
 
 void sink(int *p);
 void sink_const(const int *p);
@@ -11,27 +10,27 @@ void sink_const(const int *p);
 
 void test_function_call() {
     int arr[10];
+    // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: array 'int[10]' decays to pointer; explicit conversion or use of std::array/std::span recommended [automotive-cpp23-req-5.10]
     sink(arr);
-    // CHECK-MESSAGES: :[[@LINE-1]]:10: warning: array 'int[10]' decays to pointer
 }
 
 void test_assignment() {
     int arr[10];
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: array 'int[10]' decays to pointer; explicit conversion or use of std::array/std::span recommended [automotive-cpp23-req-5.10]
     int *p = arr;
-    // CHECK-MESSAGES: :[[@LINE-1]]:14: warning: array 'int[10]' decays to pointer
 }
 
 void test_pointer_arithmetic() {
     int arr[10];
+    // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: array 'int[10]' decays to pointer; explicit conversion or use of std::array/std::span recommended [automotive-cpp23-req-5.10]
     int *p = arr + 1;
-    // CHECK-MESSAGES: :[[@LINE-1]]:14: warning: array 'int[10]' decays to pointer
 }
 
 void test_comparison() {
     int arr[10];
     int *p = nullptr;
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: array 'int[10]' decays to pointer; explicit conversion or use of std::array/std::span recommended [automotive-cpp23-req-5.10]
     bool b = (arr == p);
-    // CHECK-MESSAGES: :[[@LINE-1]]:15: warning: array 'int[10]' decays to pointer
 }
 
 // Test compliant cases - no warning expected
