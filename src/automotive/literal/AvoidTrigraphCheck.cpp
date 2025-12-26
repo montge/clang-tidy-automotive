@@ -87,8 +87,50 @@ private:
 
     SourceLocation FileStart = SM.getLocForStartOfFile(FID);
 
-    for (size_t Pos = 0; Pos < Buffer.size() - 2; ++Pos) {
-      if (Buffer[Pos] != '?' || Buffer[Pos + 1] != '?')
+    bool InBlockComment = false;
+    bool InLineComment = false;
+
+    for (size_t Pos = 0; Pos < Buffer.size(); ++Pos) {
+      char C = Buffer[Pos];
+
+      // Track comment state
+      if (InBlockComment) {
+        // Look for end of block comment
+        if (C == '*' && Pos + 1 < Buffer.size() && Buffer[Pos + 1] == '/') {
+          InBlockComment = false;
+          ++Pos; // Skip the '/'
+        }
+        continue;
+      }
+
+      if (InLineComment) {
+        // Line comments end at newline
+        if (C == '\n') {
+          InLineComment = false;
+        }
+        continue;
+      }
+
+      // Check for start of comments
+      if (C == '/') {
+        if (Pos + 1 < Buffer.size()) {
+          if (Buffer[Pos + 1] == '/') {
+            InLineComment = true;
+            ++Pos;
+            continue;
+          } else if (Buffer[Pos + 1] == '*') {
+            InBlockComment = true;
+            ++Pos;
+            continue;
+          }
+        }
+      }
+
+      // Not in a comment - check for trigraphs
+      if (C != '?' || Pos + 2 >= Buffer.size())
+        continue;
+
+      if (Buffer[Pos + 1] != '?')
         continue;
 
       char ThirdChar = Buffer[Pos + 2];
