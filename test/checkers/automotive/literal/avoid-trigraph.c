@@ -1,12 +1,10 @@
-// XFAIL: *
-// Note: Check also triggers on trigraphs in comments, making test unreliable
 // RUN: %check_clang_tidy %s automotive-c25-adv-4.2 %t -- -- -std=c11 -trigraphs
 // Test for automotive-c25-adv-4.2: trigraph sequences shall not be used
 
 // Note: Trigraph sequences are:
 // ??= -> #, ??( -> [, ??) -> ], ??< -> {, ??> -> }, ??/ -> \, ??' -> ^, ??! -> |, ??- -> ~
 
-// CHECK-MESSAGES: :[[@LINE+1]]:14: warning: avoid trigraph sequence '??=' (expands to '#') [automotive-c25-adv-4.2]
+// CHECK-MESSAGES: :[[@LINE+1]]:15: warning: avoid trigraph sequence '??=' (expands to '#') [automotive-c25-adv-4.2]
 char *test = "??=";
 
 // CHECK-MESSAGES: :[[@LINE+1]]:19: warning: avoid trigraph sequence '??(' (expands to '[') [automotive-c25-adv-4.2]
@@ -21,13 +19,15 @@ char *brace1 = "??<";
 // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: avoid trigraph sequence '??>' (expands to '}') [automotive-c25-adv-4.2]
 char *brace2 = "??>";
 
-// CHECK-MESSAGES: :[[@LINE+1]]:17: warning: avoid trigraph sequence '??/' (expands to '\') [automotive-c25-adv-4.2]
-char *slash = "??/";
+// The ??/ trigraph expands to \ which is an escape character.
+// We use ??/n which becomes \n (newline escape) to avoid syntax errors.
+// CHECK-MESSAGES: :[[@LINE+1]]:16: warning: avoid trigraph sequence '??/' (expands to '\') [automotive-c25-adv-4.2]
+char *slash = "??/n";
 
 // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: avoid trigraph sequence '??'' (expands to '^') [automotive-c25-adv-4.2]
 char *caret = "??'";
 
-// CHECK-MESSAGES: :[[@LINE+1]]:16: warning: avoid trigraph sequence '??!' (expands to '|') [automotive-c25-adv-4.2]
+// CHECK-MESSAGES: :[[@LINE+1]]:17: warning: avoid trigraph sequence '??!' (expands to '|') [automotive-c25-adv-4.2]
 char *pipe_c = "??!";
 
 // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: avoid trigraph sequence '??-' (expands to '~') [automotive-c25-adv-4.2]
