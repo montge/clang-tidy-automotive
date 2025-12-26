@@ -1,6 +1,6 @@
 // XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
-// RUN: %check_clang_tidy %s automotive-cpp23-adv-14.1 %t
+// Note: Test requires C++17 aggregate initialization features not compatible with test framework defaults
+// RUN: %check_clang_tidy %s automotive-cpp23-adv-14.1 %t -- -- -std=c++17
 // Test for automotive-cpp23-adv-14.1: Constexpr variables should not have mutable sub-objects
 
 struct S {
@@ -32,23 +32,23 @@ struct WithMutableBase : S {
 };
 
 // Non-compliant: constexpr variable with direct mutable member
-// CHECK-MESSAGES: :[[@LINE+1]]:12: warning: constexpr variable 'obj1' should not have mutable sub-objects (MISRA C++:2023 Rule 14.1)
+// CHECK-MESSAGES: :[[@LINE+1]]:13: warning: constexpr variable 'obj1' should not have mutable sub-objects (MISRA C++:2023 Rule 14.1) [automotive-cpp23-adv-14.1]
 constexpr S obj1{1, 2};
 
 // Non-compliant: constexpr variable with multiple mutable members
-// CHECK-MESSAGES: :[[@LINE+1]]:12: warning: constexpr variable 'obj2' should not have mutable sub-objects (MISRA C++:2023 Rule 14.1)
+// CHECK-MESSAGES: :[[@LINE+1]]:13: warning: constexpr variable 'obj2' should not have mutable sub-objects (MISRA C++:2023 Rule 14.1) [automotive-cpp23-adv-14.1]
 constexpr U obj2{1, 2};
 
 // Non-compliant: constexpr variable with nested mutable member
-// CHECK-MESSAGES: :[[@LINE+1]]:17: warning: constexpr variable 'obj3' should not have mutable sub-objects (MISRA C++:2023 Rule 14.1)
+// CHECK-MESSAGES: :[[@LINE+1]]:18: warning: constexpr variable 'obj3' should not have mutable sub-objects (MISRA C++:2023 Rule 14.1) [automotive-cpp23-adv-14.1]
 constexpr Nested obj3{{1, 2}, 3};
 
 // Non-compliant: constexpr variable with deeply nested mutable member
-// CHECK-MESSAGES: :[[@LINE+1]]:21: warning: constexpr variable 'obj4' should not have mutable sub-objects (MISRA C++:2023 Rule 14.1)
+// CHECK-MESSAGES: :[[@LINE+1]]:22: warning: constexpr variable 'obj4' should not have mutable sub-objects (MISRA C++:2023 Rule 14.1) [automotive-cpp23-adv-14.1]
 constexpr DeepNested obj4{{{1, 2}, 3}};
 
 // Non-compliant: constexpr variable with base class containing mutable member
-// CHECK-MESSAGES: :[[@LINE+1]]:26: warning: constexpr variable 'obj5' should not have mutable sub-objects (MISRA C++:2023 Rule 14.1)
+// CHECK-MESSAGES: :[[@LINE+1]]:27: warning: constexpr variable 'obj5' should not have mutable sub-objects (MISRA C++:2023 Rule 14.1) [automotive-cpp23-adv-14.1]
 constexpr WithMutableBase obj5{{1, 2}, 3};
 
 // Compliant: constexpr variable without mutable members
@@ -66,13 +66,13 @@ struct ArrayContainer {
 };
 
 // Non-compliant: array of structs with mutable members
-// CHECK-MESSAGES: :[[@LINE+1]]:23: warning: constexpr variable 'obj9' should not have mutable sub-objects (MISRA C++:2023 Rule 14.1)
+// CHECK-MESSAGES: :[[@LINE+1]]:26: warning: constexpr variable 'obj9' should not have mutable sub-objects (MISRA C++:2023 Rule 14.1) [automotive-cpp23-adv-14.1]
 constexpr ArrayContainer obj9{{{1, 2}, {3, 4}, {5, 6}}};
 
 // Test with member variable declarations
 class MyClass {
   // Non-compliant: constexpr static member with mutable sub-objects
-  // CHECK-MESSAGES: :[[@LINE+1]]:26: warning: constexpr variable 'member1' should not have mutable sub-objects (MISRA C++:2023 Rule 14.1)
+  // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: constexpr variable 'member1' should not have mutable sub-objects (MISRA C++:2023 Rule 14.1) [automotive-cpp23-adv-14.1]
   static constexpr S member1{1, 2};
 
   // Compliant: constexpr static member without mutable sub-objects
