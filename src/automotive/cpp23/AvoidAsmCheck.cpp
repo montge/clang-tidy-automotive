@@ -24,10 +24,14 @@ void AvoidAsmCheck::check(const MatchFinder::MatchResult &Result) {
   if (!AS)
     return;
 
-  if (Result.SourceManager->isInSystemHeader(AS->getBeginLoc()))
+  SourceLocation Loc = AS->getAsmLoc();
+  if (!Loc.isValid())
     return;
 
-  diag(AS->getBeginLoc(), "the asm declaration shall not be used");
+  if (Result.SourceManager->isInSystemHeader(Loc))
+    return;
+
+  diag(Loc, "the asm declaration shall not be used");
 }
 
 } // namespace clang::tidy::automotive::cpp23

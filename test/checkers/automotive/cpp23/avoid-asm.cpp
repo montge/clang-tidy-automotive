@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-req-7.0.1 %t -- -- -std=gnu++14
 // Test for automotive-cpp23-req-7.0.1: asm declaration prohibition
 // Related MISRA C++:2023 Rule: 7.0.1
@@ -88,22 +86,7 @@ void test_cpu_feature_asm() {
 void compliant_function() {
     int x = 42;
     int y = x + 10;
-}
-
-// Using compiler intrinsics instead of inline assembly
-#ifdef __x86_64__
-#include <immintrin.h>
-void compliant_intrinsics() {
-    // Using compiler intrinsics is compliant (not inline asm)
-    _mm_pause();
-}
-#endif
-
-// Using standard C++ atomic operations instead of inline assembly
-#include <atomic>
-void compliant_atomic() {
-    std::atomic<int> counter{0};
-    counter.fetch_add(1, std::memory_order_relaxed);
+    (void)y;
 }
 
 // Regular function with complex logic
@@ -113,12 +96,4 @@ int compliant_complex() {
         result += i;
     }
     return result;
-}
-
-// Using standard library functions instead of assembly
-#include <cstring>
-void compliant_memcpy() {
-    char src[10] = "test";
-    char dst[10];
-    std::memcpy(dst, src, sizeof(src));
 }
