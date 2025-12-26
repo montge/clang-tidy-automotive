@@ -1,12 +1,10 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-req-19.0.3 %t -- -- -std=c++17
 // Test for automotive-cpp23-req-19.0.3: macros shall not be named after C/C++ keywords
 
-// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: macro name conflicts with C keyword
+// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: macro name 'int' conflicts with C keyword [automotive-cpp23-req-19.0.3]
 #define int myint
 
-// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: macro name conflicts with C keyword
+// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: macro name 'while' conflicts with C keyword [automotive-cpp23-req-19.0.3]
 #define while something
 
 // OK - normal macro names
