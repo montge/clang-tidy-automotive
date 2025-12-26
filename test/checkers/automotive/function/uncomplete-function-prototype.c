@@ -1,14 +1,15 @@
-// RUN: %check_clang_tidy %s automotive-c25-req-8.2 %t -- -- -std=c11
-// Test for automotive-c25-req-8.2: functions shall have complete prototypes
+// RUN: %check_clang_tidy %s automotive-uncomplete-function-prototype %t -- -- -std=c89
+// Test for automotive-uncomplete-function-prototype: functions shall have complete prototypes
 
-// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: function has incomplete prototype
+// CHECK-MESSAGES: :[[@LINE+2]]:5: warning: function is not in prototype form [automotive-uncomplete-function-prototype]
+// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: function with no parameters must use 'void' in prototype [automotive-uncomplete-function-prototype]
 int old_style_func();  // K&R style - no parameters specified
 
-// CHECK-MESSAGES: :[[@LINE+1]]:6: warning: function has incomplete prototype
+// CHECK-MESSAGES: :[[@LINE+2]]:6: warning: function is not in prototype form [automotive-uncomplete-function-prototype]
+// CHECK-MESSAGES: :[[@LINE+1]]:6: warning: function with no parameters must use 'void' in prototype [automotive-uncomplete-function-prototype]
 void empty_parens_func();  // Empty parentheses
 
-// CHECK-MESSAGES: :[[@LINE+2]]:5: warning: function has incomplete prototype
-// K&R style definition
+// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: function is not in prototype form [automotive-uncomplete-function-prototype]
 int kr_definition(x, y)
 int x;
 int y;
@@ -32,20 +33,13 @@ int variadic_func(const char *fmt, ...) {
   return 0;
 }
 
-// OK - function pointer with complete prototype
-typedef int (*func_ptr_t)(int, int);
+// OK - declaration with prototype
+int declared_func(int x);
 
-void use_func_ptr(func_ptr_t fp) {
-  int result = fp(1, 2);
-  (void)result;
+int declared_func(int x) {
+  return x * 2;
 }
 
-// CHECK-MESSAGES: :[[@LINE+1]]:22: warning: function has incomplete prototype
-typedef int (*incomplete_fp_t)();  // Function pointer without params
-
-void test_calls(void) {
-  old_style_func();  // Call to incomplete prototype
-  empty_parens_func();  // Call to incomplete prototype
-  no_params_func();  // OK
-  complete_func(1, 2);  // OK
+int main(void) {
+  return 0;
 }
