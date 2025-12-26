@@ -61,14 +61,25 @@ public:
 
   void MacroDefined(const Token &MacroNameTok,
                     const MacroDirective *MD) override {
+    SourceLocation Loc = MacroNameTok.getLocation();
+
     // Skip macros defined in system headers
-    if (SM.isInSystemHeader(MacroNameTok.getLocation()))
+    if (SM.isInSystemHeader(Loc))
+      return;
+
+    // Skip built-in/predefined macros (they have invalid or special locations)
+    if (!Loc.isValid() || !Loc.isFileID())
+      return;
+
+    // Skip macros not from actual source files (compiler built-ins)
+    // These have a FileID but no associated FileEntry
+    FileID FID = SM.getFileID(Loc);
+    if (!SM.getFileEntryRefForID(FID))
       return;
 
     StringRef MacroName = MacroNameTok.getIdentifierInfo()->getName();
     if (isReservedIdentifier(MacroName)) {
-      Check.diag(MacroNameTok.getLocation(),
-                 "#define of reserved identifier '%0'")
+      Check.diag(Loc, "#define of reserved identifier '%0'")
           << MacroName;
     }
   }

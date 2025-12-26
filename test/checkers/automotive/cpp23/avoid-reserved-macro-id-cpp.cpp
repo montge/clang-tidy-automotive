@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: Check reports system/compiler-internal macros which need to be filtered out
 // RUN: %check_clang_tidy %s automotive-cpp23-req-19.0.2 %t -- -- -std=c++17
 // Test for automotive-cpp23-req-19.0.2: macro identifiers shall not be reserved
 

@@ -1,8 +1,5 @@
 // RUN: %check_clang_tidy %s automotive-avoid-reserved-macro-identifier %t
 
-// System header may define reserved identifiers
-// CHECK-MESSAGES: warning: #define of reserved identifier '__GCC_HAVE_DWARF2_CFI_ASM' [automotive-avoid-reserved-macro-identifier]
-
 // Test: Reserved identifiers starting with underscore + uppercase
 // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: #define of reserved identifier '_Reserved' [automotive-avoid-reserved-macro-identifier]
 #define _Reserved 1
