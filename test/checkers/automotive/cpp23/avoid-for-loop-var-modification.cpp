@@ -6,12 +6,12 @@
 void test_loop_var_modification() {
   // Non-compliant: loop variable modified with increment operator
   for (int i = 0; i < 10; i++) {
-    i++;  // CHECK-MESSAGES: :[[@LINE]]:5: warning: loop variable 'i' should not be modified in the loop body [automotive-cpp23-req-9.5.1]
+    i++;  // CHECK-MESSAGES: :[[@LINE]]:6: warning: loop variable 'i' should not be modified in the loop body [automotive-cpp23-req-9.5.1]
   }
 
   // Non-compliant: loop variable modified with decrement operator
   for (int j = 10; j > 0; j--) {
-    j--;  // CHECK-MESSAGES: :[[@LINE]]:5: warning: loop variable 'j' should not be modified in the loop body [automotive-cpp23-req-9.5.1]
+    j--;  // CHECK-MESSAGES: :[[@LINE]]:6: warning: loop variable 'j' should not be modified in the loop body [automotive-cpp23-req-9.5.1]
   }
 
   // Non-compliant: loop variable modified with assignment
@@ -61,13 +61,13 @@ void test_nested_loops() {
     for (int j = 0; j < 5; j++) {
       // Compliant: inner loop variable not modified
     }
-    i++;  // CHECK-MESSAGES: :[[@LINE]]:5: warning: loop variable 'i' should not be modified in the loop body [automotive-cpp23-req-9.5.1]
+    i++;  // CHECK-MESSAGES: :[[@LINE]]:6: warning: loop variable 'i' should not be modified in the loop body [automotive-cpp23-req-9.5.1]
   }
 
   // Compliant: only inner loop variable modified (and caught)
   for (int i = 0; i < 10; i++) {
     for (int j = 0; j < 5; j++) {
-      j++;  // CHECK-MESSAGES: :[[@LINE]]:7: warning: loop variable 'j' should not be modified in the loop body [automotive-cpp23-req-9.5.1]
+      j++;  // CHECK-MESSAGES: :[[@LINE]]:8: warning: loop variable 'j' should not be modified in the loop body [automotive-cpp23-req-9.5.1]
     }
   }
 }
