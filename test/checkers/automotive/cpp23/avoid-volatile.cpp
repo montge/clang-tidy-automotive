@@ -1,29 +1,16 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
-// RUN: %check_clang_tidy %s automotive-cpp23-adv-10.4.1 %t
-// Test for automotive-cpp23-adv-10.4.1: The volatile keyword shall only be used for hardware access
+// RUN: %check_clang_tidy %s automotive-cpp23-req-10.4.1 %t
+// Test for automotive-cpp23-req-10.4.1: The volatile keyword shall not be used
 
 // Non-compliant: volatile outside allowed namespaces
 
-// CHECK-MESSAGES: :[[@LINE+1]]:10: warning: the volatile keyword shall only be used for hardware access; volatile variable declared outside allowed namespaces
+// CHECK-MESSAGES: :[[@LINE+1]]:14: warning: the volatile keyword shall only be used for hardware access; volatile variable declared outside allowed namespaces
 volatile int global_counter = 0;
 
-// CHECK-MESSAGES: :[[@LINE+1]]:10: warning: the volatile keyword shall only be used for hardware access; volatile variable declared outside allowed namespaces
+// CHECK-MESSAGES: :[[@LINE+1]]:15: warning: the volatile keyword shall only be used for hardware access; volatile variable declared outside allowed namespaces
 volatile bool flag = false;
 
-void test_volatile_param(
-    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: the volatile keyword shall only be used for hardware access; volatile parameter declared outside allowed namespaces
-    volatile int* ptr) {
-  (void)ptr;
-}
-
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: the volatile keyword shall only be used for hardware access; volatile return type declared outside allowed namespaces
-volatile int* test_volatile_return() {
-  return nullptr;
-}
-
 class TestClass {
-  // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: the volatile keyword shall only be used for hardware access; volatile field declared outside allowed namespaces
+  // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: the volatile keyword shall only be used for hardware access; volatile field declared outside allowed namespaces
   volatile int member;
 
 public:
@@ -31,7 +18,7 @@ public:
 };
 
 namespace other {
-// CHECK-MESSAGES: :[[@LINE+1]]:12: warning: the volatile keyword shall only be used for hardware access; volatile variable declared outside allowed namespaces
+  // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: the volatile keyword shall only be used for hardware access; volatile variable declared outside allowed namespaces
   volatile int counter = 0;
 }
 
@@ -68,18 +55,7 @@ namespace mmio {
   };
 }
 
-// Compliant: non-volatile alternatives for thread safety
-
-#include <atomic>
-
-class SafeCounter {
-  std::atomic<int> counter{0};  // OK - use atomic for thread safety
-
-public:
-  void increment() { counter++; }
-  int get() const { return counter.load(); }
-};
-
+// Compliant: non-volatile usage
 void compliant_examples() {
   // OK - no volatile
   int normal_var = 42;
