@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-req-6.3 %t
 
 // Test: Loop counters should have well-defined bounds (MISRA C++:2023 Rule 6.3)
@@ -51,7 +49,7 @@ void test_compliant_while_with_break() {
 
 void test_for_no_condition() {
     int count = 0;
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: loop has no condition; ensure loop has well-defined termination bounds
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: loop has no condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
     for (;;) {
         count++;
         if (count > 10) break;
@@ -59,7 +57,7 @@ void test_for_no_condition() {
 }
 
 void test_for_no_condition_infinite() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: loop has no condition; ensure loop has well-defined termination bounds
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: loop has no condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
     for (;;) {
         // Infinite loop
     }
@@ -68,14 +66,14 @@ void test_for_no_condition_infinite() {
 // ============= Violations: While loop with constant true =============
 
 void test_while_true_literal() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: while loop has constant true condition; ensure loop has well-defined termination bounds
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: while loop has constant true condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
     while (true) {
         // Unbounded loop
     }
 }
 
 void test_while_one() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: while loop has constant true condition; ensure loop has well-defined termination bounds
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: while loop has constant true condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
     while (1) {
         // Unbounded loop with integer literal
     }
@@ -83,7 +81,7 @@ void test_while_one() {
 
 void test_while_true_with_break() {
     int x = 0;
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: while loop has constant true condition; ensure loop has well-defined termination bounds
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: while loop has constant true condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
     while (true) {
         x++;
         if (x > 10) break;
@@ -92,7 +90,7 @@ void test_while_true_with_break() {
 }
 
 void test_while_constant_expr() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: while loop has constant true condition; ensure loop has well-defined termination bounds
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: while loop has constant true condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
     while (2 + 2) {
         // Constant expression that evaluates to true
     }
@@ -101,14 +99,14 @@ void test_while_constant_expr() {
 // ============= Violations: Do-while loop with constant true =============
 
 void test_do_while_true() {
-    // CHECK-MESSAGES: :[[@LINE+3]]:14: warning: do-while loop has constant true condition; ensure loop has well-defined termination bounds
+    // CHECK-MESSAGES: :[[@LINE+3]]:14: warning: do-while loop has constant true condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
     do {
         // Unbounded loop
     } while (true);
 }
 
 void test_do_while_one() {
-    // CHECK-MESSAGES: :[[@LINE+3]]:14: warning: do-while loop has constant true condition; ensure loop has well-defined termination bounds
+    // CHECK-MESSAGES: :[[@LINE+3]]:14: warning: do-while loop has constant true condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
     do {
         // Unbounded loop
     } while (1);
@@ -116,7 +114,7 @@ void test_do_while_one() {
 
 void test_do_while_constant() {
     int counter = 0;
-    // CHECK-MESSAGES: :[[@LINE+4]]:14: warning: do-while loop has constant true condition; ensure loop has well-defined termination bounds
+    // CHECK-MESSAGES: :[[@LINE+4]]:14: warning: do-while loop has constant true condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
     do {
         counter++;
         if (counter > 5) break;
@@ -126,21 +124,21 @@ void test_do_while_constant() {
 // ============= Violations: For loop with constant true condition =============
 
 void test_for_true_condition() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: for loop has constant true condition; ensure loop has well-defined termination bounds
+    // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: for loop has constant true condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
     for (int i = 0; true; i++) {
         if (i > 10) break;
     }
 }
 
 void test_for_one_condition() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: for loop has constant true condition; ensure loop has well-defined termination bounds
+    // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: for loop has constant true condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
     for (int i = 0; 1; i++) {
         if (i > 10) break;
     }
 }
 
 void test_for_constant_expr_condition() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: for loop has constant true condition; ensure loop has well-defined termination bounds
+    // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: for loop has constant true condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
     for (int i = 0; 5 > 3; i++) {
         // Constant expression
     }
@@ -201,7 +199,7 @@ void test_template_constant_loop() {
 
 void test_nested_loops() {
     for (int i = 0; i < 10; i++) {
-        // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: while loop has constant true condition; ensure loop has well-defined termination bounds
+        // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: while loop has constant true condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
         while (true) {
             if (i > 5) break;
         }
@@ -209,14 +207,14 @@ void test_nested_loops() {
 }
 
 void test_parenthesized_condition() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: while loop has constant true condition; ensure loop has well-defined termination bounds
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: while loop has constant true condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
     while ((true)) {
         // Parenthesized constant
     }
 }
 
 void test_compound_constant() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: while loop has constant true condition; ensure loop has well-defined termination bounds
+    // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: while loop has constant true condition; ensure loop has well-defined termination bounds [automotive-cpp23-req-6.3]
     while (1 && 1) {
         // Compound constant expression
     }
