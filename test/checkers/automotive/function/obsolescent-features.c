@@ -1,15 +1,24 @@
-// RUN: %check_clang_tidy %s automotive-c25-req-1.5 %t -- -- -std=c11
-// Test for automotive-c25-req-1.5: obsolescent language features
+// RUN: %check_clang_tidy %s automotive-uncomplete-function-prototype %t -- -- -std=c89
+// Test for automotive-uncomplete-function-prototype: function not in prototype form
 
-// CHECK-MESSAGES: :[[@LINE+2]]:5: warning: obsolescent feature: function 'old_style' uses old-style declaration
-// K&R style declaration - obsolescent
-int old_style();
+// K&R style function definition - obsolescent
+// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: function is not in prototype form [automotive-uncomplete-function-prototype]
+int old_style(x, y)
+int x;
+int y;
+{
+  return x + y;
+}
 
-// OK - modern prototype style
-int modern_style(int x, int y);
+// OK - modern prototype style function definition
+int modern_style(int x, int y) {
+  return x + y;
+}
 
 // OK - void parameter list
-int no_params(void);
+int no_params(void) {
+  return 0;
+}
 
 int main(void) {
   return 0;
