@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-req-12.2 %t -- -- -std=c++11
 // Test for automotive-cpp23-req-12.2
 // Related MISRA C++:2023 Rule: 12.2 (Partial)
@@ -20,8 +18,7 @@ void test_different_variables() {
     int* p1 = &a;
     int* p2 = &b;
 
-    // Note: This pattern (through intermediate variables) is not currently detected
-    // The check focuses on direct address-of expressions and new allocations
+    // CHECK-MESSAGES: :[[@LINE+1]]:25: warning: pointer subtraction between pointers to different objects 'a' and 'b' results in undefined behavior [automotive-cpp23-req-12.2]
     ptrdiff_t diff = p1 - p2;
 }
 
@@ -29,7 +26,7 @@ void test_direct_address_of() {
     int x = 1;
     int y = 2;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: pointer subtraction between pointers to different objects 'x' and 'y' results in undefined behavior
+    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: pointer subtraction between pointers to different objects 'x' and 'y' results in undefined behavior [automotive-cpp23-req-12.2]
     ptrdiff_t d = &x - &y;
 }
 
@@ -42,27 +39,27 @@ void test_different_members() {
     S obj;
 
     // Direct address-of on different members
-    // CHECK-MESSAGES: :[[@LINE+1]]:29: warning: pointer subtraction between pointers to different objects 'a' and 'b' results in undefined behavior
+    // CHECK-MESSAGES: :[[@LINE+1]]:29: warning: pointer subtraction between pointers to different objects 'a' and 'b' results in undefined behavior [automotive-cpp23-req-12.2]
     ptrdiff_t diff = &obj.a - &obj.b;
 }
 
 void test_different_new_allocations() {
     // Direct subtraction of new expressions
-    // CHECK-MESSAGES: :[[@LINE+1]]:34: warning: pointer subtraction between pointers from different 'new' expressions results in undefined behavior
+    // CHECK-MESSAGES: :[[@LINE+1]]:34: warning: pointer subtraction between pointers from different 'new' expressions results in undefined behavior [automotive-cpp23-req-12.2]
     ptrdiff_t diff = new int(10) - new int(20);
 }
 
 void test_new_vs_addressof() {
     int x = 10;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:34: warning: pointer subtraction between 'new' allocation and address-of expression results in undefined behavior
+    // CHECK-MESSAGES: :[[@LINE+1]]:34: warning: pointer subtraction between 'new' allocation and address-of expression results in undefined behavior [automotive-cpp23-req-12.2]
     ptrdiff_t diff = new int(20) - &x;
 }
 
 void test_addressof_vs_new() {
     int x = 10;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:25: warning: pointer subtraction between 'new' allocation and address-of expression results in undefined behavior
+    // CHECK-MESSAGES: :[[@LINE+1]]:25: warning: pointer subtraction between 'new' allocation and address-of expression results in undefined behavior [automotive-cpp23-req-12.2]
     ptrdiff_t diff = &x - new int(20);
 }
 
@@ -71,7 +68,7 @@ void test_with_casts() {
     int b = 20;
 
     // Casts are stripped to reveal the underlying address-of expressions
-    // CHECK-MESSAGES: :[[@LINE+1]]:44: warning: pointer subtraction between pointers to different objects 'a' and 'b' results in undefined behavior
+    // CHECK-MESSAGES: :[[@LINE+1]]:44: warning: pointer subtraction between pointers to different objects 'a' and 'b' results in undefined behavior [automotive-cpp23-req-12.2]
     ptrdiff_t diff = static_cast<int*>(&a) - static_cast<int*>(&b);
 }
 
@@ -79,7 +76,7 @@ void test_global_variables() {
     static int g1 = 1;
     static int g2 = 2;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:26: warning: pointer subtraction between pointers to different objects 'g1' and 'g2' results in undefined behavior
+    // CHECK-MESSAGES: :[[@LINE+1]]:26: warning: pointer subtraction between pointers to different objects 'g1' and 'g2' results in undefined behavior [automotive-cpp23-req-12.2]
     ptrdiff_t diff = &g1 - &g2;
 }
 
