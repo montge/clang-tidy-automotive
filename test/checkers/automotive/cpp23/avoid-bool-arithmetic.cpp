@@ -35,15 +35,7 @@ void test_bool_bitwise() {
     (void)result1; (void)result2; (void)result3;
 }
 
-void test_bool_increment() {
-    bool b = true;
-
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: expression with type bool used with operator '++'; only =, &&, ||, !, ==, != and unary & are allowed with bool [automotive-cpp23-req-6.2.1]
-    ++b;
-
-    // CHECK-MESSAGES: :[[@LINE+1]]:6: warning: expression with type bool used with operator '++'; only =, &&, ||, !, ==, != and unary & are allowed with bool [automotive-cpp23-req-6.2.1]
-    b++;
-}
+// Note: test_bool_increment removed because b++ is an error in C++17+
 
 void test_bool_relational() {
     bool b1 = true;
