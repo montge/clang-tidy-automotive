@@ -1,6 +1,4 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
-// RUN: %check_clang_tidy %s automotive-cpp23-req-18.3.1 %t
+// RUN: %check_clang_tidy %s automotive-cpp23-adv-18.3.1 %t
 
 // Mock std::exception for testing (without including <exception>)
 namespace std {
@@ -44,37 +42,37 @@ public:
 class AnotherBadException {};
 
 void test_primitive_types() {
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing primitive type 'int' is not allowed; exceptions must derive from std::exception (MISRA C++:2023 Rule 18.3.1)
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing primitive type 'int' is not allowed; exceptions must derive from std::exception (MISRA C++:2023 Rule 18.3.1) [automotive-cpp23-adv-18.3.1]
   throw 42;
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing primitive type 'long' is not allowed; exceptions must derive from std::exception (MISRA C++:2023 Rule 18.3.1)
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing primitive type 'long' is not allowed; exceptions must derive from std::exception (MISRA C++:2023 Rule 18.3.1) [automotive-cpp23-adv-18.3.1]
   throw 42L;
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing primitive type 'double' is not allowed; exceptions must derive from std::exception (MISRA C++:2023 Rule 18.3.1)
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing primitive type 'double' is not allowed; exceptions must derive from std::exception (MISRA C++:2023 Rule 18.3.1) [automotive-cpp23-adv-18.3.1]
   throw 3.14;
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing primitive type 'bool' is not allowed; exceptions must derive from std::exception (MISRA C++:2023 Rule 18.3.1)
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing primitive type 'bool' is not allowed; exceptions must derive from std::exception (MISRA C++:2023 Rule 18.3.1) [automotive-cpp23-adv-18.3.1]
   throw true;
 }
 
 void test_string_literals() {
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing C-string literal is not allowed; exceptions must derive from std::exception (MISRA C++:2023 Rule 18.3.1)
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing C-string literal is not allowed; exceptions must derive from std::exception (MISRA C++:2023 Rule 18.3.1) [automotive-cpp23-adv-18.3.1]
   throw "error message";
 
   const char* msg = "error";
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing pointer type 'const char *' is not allowed; exceptions must derive from std::exception (MISRA C++:2023 Rule 18.3.1)
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing pointer type 'const char *' is not allowed; exceptions must derive from std::exception (MISRA C++:2023 Rule 18.3.1) [automotive-cpp23-adv-18.3.1]
   throw msg;
 }
 
 void test_bad_classes() {
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing class 'BadException' that does not derive from std::exception is not allowed (MISRA C++:2023 Rule 18.3.1)
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing class 'BadException' that does not derive from std::exception is not allowed (MISRA C++:2023 Rule 18.3.1) [automotive-cpp23-adv-18.3.1]
   throw BadException();
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing class 'AnotherBadException' that does not derive from std::exception is not allowed (MISRA C++:2023 Rule 18.3.1)
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing class 'AnotherBadException' that does not derive from std::exception is not allowed (MISRA C++:2023 Rule 18.3.1) [automotive-cpp23-adv-18.3.1]
   throw AnotherBadException();
 
   BadException e;
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing class 'BadException' that does not derive from std::exception is not allowed (MISRA C++:2023 Rule 18.3.1)
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing class 'BadException' that does not derive from std::exception is not allowed (MISRA C++:2023 Rule 18.3.1) [automotive-cpp23-adv-18.3.1]
   throw e;
 }
 
@@ -101,7 +99,7 @@ void test_compliant_exceptions() {
 
 void test_rethrow() {
   try {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: throwing class 'BadException' that does not derive from std::exception is not allowed (MISRA C++:2023 Rule 18.3.1)
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: throwing class 'BadException' that does not derive from std::exception is not allowed (MISRA C++:2023 Rule 18.3.1) [automotive-cpp23-adv-18.3.1]
     throw BadException();
   } catch (...) {
     // OK: re-throw is allowed (throw without operand)
@@ -111,7 +109,7 @@ void test_rethrow() {
 
 void test_pointer_exceptions() {
   BadException* e = new BadException();
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing pointer type 'BadException *' is not allowed; exceptions must derive from std::exception (MISRA C++:2023 Rule 18.3.1)
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: throwing pointer type 'BadException *' is not allowed; exceptions must derive from std::exception (MISRA C++:2023 Rule 18.3.1) [automotive-cpp23-adv-18.3.1]
   throw e;
 
   MyException* me = new MyException();
