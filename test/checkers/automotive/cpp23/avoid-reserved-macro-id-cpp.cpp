@@ -1,12 +1,12 @@
 // XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
+// Note: Check reports system/compiler-internal macros which need to be filtered out
 // RUN: %check_clang_tidy %s automotive-cpp23-req-19.0.2 %t -- -- -std=c++17
 // Test for automotive-cpp23-req-19.0.2: macro identifiers shall not be reserved
 
-// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: macro identifier is reserved
+// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: #define of reserved identifier '_RESERVED' [automotive-cpp23-req-19.0.2]
 #define _RESERVED 1
 
-// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: macro identifier is reserved
+// CHECK-MESSAGES: :[[@LINE+1]]:9: warning: #define of reserved identifier '__DOUBLE_UNDERSCORE' [automotive-cpp23-req-19.0.2]
 #define __DOUBLE_UNDERSCORE 2
 
 // OK - normal macro names

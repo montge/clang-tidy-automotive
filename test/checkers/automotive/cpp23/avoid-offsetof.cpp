@@ -1,9 +1,7 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
-// RUN: %check_clang_tidy %s automotive-cpp23-req-21.2.1 %t -- -- -std=c++11
+// RUN: %check_clang_tidy %s automotive-cpp23-req-21.2.4 %t -- -- -std=c++11
 
-// Test for automotive-cpp23-req-21.2.1: offsetof prohibition
-// Related MISRA C++:2023 Rule: 21.2.1
+// Test for automotive-cpp23-req-21.2.4: offsetof prohibition
+// Related MISRA C++:2023 Rule: 21.2.4
 //
 // The offsetof macro shall not be used in C++.
 
@@ -32,31 +30,31 @@ public:
 //===----------------------------------------------------------------------===//
 
 void test_offsetof_usage() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: the macro offsetof shall not be used
+    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: the macro offsetof shall not be used [automotive-cpp23-req-21.2.4]
     size_t offset1 = offsetof(StandardLayout, a);
     (void)offset1;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: the macro offsetof shall not be used
+    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: the macro offsetof shall not be used [automotive-cpp23-req-21.2.4]
     size_t offset2 = offsetof(StandardLayout, b);
     (void)offset2;
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: the macro offsetof shall not be used
+    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: the macro offsetof shall not be used [automotive-cpp23-req-21.2.4]
     size_t offset3 = offsetof(StandardLayout, c);
     (void)offset3;
 
     // Even with non-standard-layout types (which would be UB)
-    // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: the macro offsetof shall not be used
+    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: the macro offsetof shall not be used [automotive-cpp23-req-21.2.4]
     size_t offset4 = offsetof(NonStandardLayout, a);
     (void)offset4;
 }
 
 void test_offsetof_in_expression() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:19: warning: the macro offsetof shall not be used
+    // CHECK-MESSAGES: :[[@LINE+1]]:23: warning: the macro offsetof shall not be used [automotive-cpp23-req-21.2.4]
     if (sizeof(int) < offsetof(StandardLayout, b)) {
         // Some code
     }
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: the macro offsetof shall not be used
+    // CHECK-MESSAGES: :[[@LINE+1]]:24: warning: the macro offsetof shall not be used [automotive-cpp23-req-21.2.4]
     size_t array[1] = {offsetof(StandardLayout, c)};
     (void)array;
 }
