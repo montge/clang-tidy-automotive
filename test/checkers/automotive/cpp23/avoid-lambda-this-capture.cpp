@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-req-8.1.1 %t -- -- -std=c++14 -Wno-c++14-extensions
 // Test for automotive-cpp23-req-8.1.1
 // Related MISRA C++:2023 Rule: 8.1.1
@@ -14,33 +12,33 @@ class TestClass {
   int member = 42;
 
   void test_implicit_this_capture_by_copy() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: lambda implicitly captures 'this' via [=]; use explicit [this] or [*this] capture instead
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: lambda implicitly captures 'this' via [=]; use explicit [this] or [*this] capture instead [automotive-cpp23-req-8.1.1]
     auto f = [=]() { return member; };
     (void)f;
   }
 
   void test_implicit_this_capture_by_ref() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: lambda implicitly captures 'this' via [&]; use explicit [this] capture instead
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: lambda implicitly captures 'this' via [&]; use explicit [this] capture instead [automotive-cpp23-req-8.1.1]
     auto f = [&]() { return member; };
     (void)f;
   }
 
   void test_implicit_this_with_explicit_var_copy() {
     int x = 1;
-    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: lambda implicitly captures 'this' via [=]; use explicit [this] or [*this] capture instead
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: lambda implicitly captures 'this' via [=]; use explicit [this] or [*this] capture instead [automotive-cpp23-req-8.1.1]
     auto f = [=, &x]() { return member + x; };
     (void)f;
   }
 
   void test_implicit_this_with_explicit_var_ref() {
     int x = 1;
-    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: lambda implicitly captures 'this' via [&]; use explicit [this] capture instead
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: lambda implicitly captures 'this' via [&]; use explicit [this] capture instead [automotive-cpp23-req-8.1.1]
     auto f = [&, x]() { return member + x; };
     (void)f;
   }
 
   void test_method_call_implicit_this() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: lambda implicitly captures 'this' via [=]; use explicit [this] or [*this] capture instead
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: lambda implicitly captures 'this' via [=]; use explicit [this] or [*this] capture instead [automotive-cpp23-req-8.1.1]
     auto f = [=]() { return getMember(); };
     (void)f;
   }
@@ -52,7 +50,7 @@ struct NestedCapture {
   int value = 10;
 
   void outer() {
-    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: lambda implicitly captures 'this' via [=]; use explicit [this] or [*this] capture instead
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: lambda implicitly captures 'this' via [=]; use explicit [this] or [*this] capture instead [automotive-cpp23-req-8.1.1]
     auto f = [=]() {
       return value;
     };
