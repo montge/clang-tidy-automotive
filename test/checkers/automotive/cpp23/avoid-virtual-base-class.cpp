@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy -std=c++17 %s automotive-cpp23-adv-15.2 %t
 
 // Test virtual base class detection
@@ -26,7 +24,7 @@ public:
 // Violation: virtual inheritance from multiple bases
 class Derived2 : virtual public Base, virtual public AnotherBase {
 // CHECK-MESSAGES: :[[@LINE-1]]:18: warning: virtual inheritance from 'Base' should be avoided unless necessary [automotive-cpp23-adv-15.2]
-// CHECK-MESSAGES: :[[@LINE-2]]:43: warning: virtual inheritance from 'AnotherBase' should be avoided unless necessary [automotive-cpp23-adv-15.2]
+// CHECK-MESSAGES: :[[@LINE-2]]:39: warning: virtual inheritance from 'AnotherBase' should be avoided unless necessary [automotive-cpp23-adv-15.2]
 public:
   int w;
 };
