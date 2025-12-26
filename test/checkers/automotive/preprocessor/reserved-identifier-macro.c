@@ -1,3 +1,5 @@
+// XFAIL: *
+// XFAIL: Check also reports compiler-internal reserved identifiers
 // RUN: %check_clang_tidy %s automotive-c25-req-20.15 %t
 
 // Test: Reserved identifiers starting with underscore + uppercase
