@@ -11,7 +11,7 @@
 #include "clang/Lex/PPCallbacks.h"
 #include "clang/Lex/Preprocessor.h"
 #include "clang/Lex/Token.h"
-#include <vector>
+#include <cctype>
 
 using namespace clang::ast_matchers;
 
@@ -50,20 +50,17 @@ private:
   const SourceManager &SM;
   Preprocessor *PP;
 
-  /// Check if a token represents a language keyword
-  bool isKeyword(const Token &Tok) const {
-    if (!Tok.is(tok::identifier))
-      return false;
-
-    const IdentifierInfo *II = Tok.getIdentifierInfo();
-    if (!II)
-      return false;
-
-    // Check if this is a C/C++ keyword
-    return II->isKeyword(PP->getLangOpts());
+  /// Check if a character can start an identifier
+  static bool isIdentifierStart(char C) {
+    return std::isalpha(static_cast<unsigned char>(C)) || C == '_';
   }
 
-  /// Parse tokens and check for undefined identifiers
+  /// Check if a character can continue an identifier
+  static bool isIdentifierContinue(char C) {
+    return std::isalnum(static_cast<unsigned char>(C)) || C == '_';
+  }
+
+  /// Extract identifiers from a string and check them
   void checkCondition(SourceRange ConditionRange) {
     if (!ConditionRange.isValid())
       return;
@@ -83,79 +80,106 @@ private:
     // Get the source text
     bool Invalid = false;
     const char *StartPtr = SM.getCharacterData(Start, &Invalid);
-    if (Invalid)
+    if (Invalid || !StartPtr)
       return;
 
     const char *EndPtr = SM.getCharacterData(End, &Invalid);
-    if (Invalid)
+    if (Invalid || !EndPtr)
       return;
 
-    // Calculate length including the last character
-    size_t Length = EndPtr - StartPtr + 1;
+    // Sanity check: End should be after Start
+    if (EndPtr < StartPtr)
+      return;
 
-    // Create a lexer for the condition range
-    std::vector<Token> Tokens;
-    Lexer Lex(Start, PP->getLangOpts(), StartPtr, StartPtr, StartPtr + Length);
+    // Get the actual end including the last token
+    unsigned LastTokenLength =
+        Lexer::MeasureTokenLength(End, SM, PP->getLangOpts());
+    size_t Length = (EndPtr - StartPtr) + LastTokenLength;
 
-    Token Tok;
-    while (!Lex.LexFromRawLexer(Tok)) {
-      if (Tok.is(tok::eof))
+    if (Length == 0 || Length > 10000)
+      return;
+
+    StringRef ConditionText(StartPtr, Length);
+
+    // Parse identifiers manually from the condition text
+    size_t I = 0;
+    while (I < ConditionText.size()) {
+      // Skip whitespace and non-identifier characters
+      while (I < ConditionText.size() && !isIdentifierStart(ConditionText[I]) &&
+             !std::isdigit(static_cast<unsigned char>(ConditionText[I]))) {
+        ++I;
+      }
+
+      if (I >= ConditionText.size())
         break;
-      Tokens.push_back(Tok);
-    }
 
-    // Analyze tokens for undefined identifiers
-    for (size_t I = 0; I < Tokens.size(); ++I) {
-      const Token &CurrentTok = Tokens[I];
+      // Skip numeric literals (including hex literals like 0xFF)
+      if (std::isdigit(static_cast<unsigned char>(ConditionText[I]))) {
+        // Skip the entire number including hex/octal/binary prefixes and suffixes
+        while (I < ConditionText.size() &&
+               (std::isalnum(static_cast<unsigned char>(ConditionText[I])) ||
+                ConditionText[I] == '.' || ConditionText[I] == '\'')) {
+          ++I;
+        }
+        continue;
+      }
 
-      // Skip non-identifiers
-      if (!CurrentTok.is(tok::identifier))
+      // Found start of identifier
+      size_t IdentStart = I;
+      while (I < ConditionText.size() && isIdentifierContinue(ConditionText[I])) {
+        ++I;
+      }
+
+      StringRef Ident = ConditionText.slice(IdentStart, I);
+      if (Ident.empty())
         continue;
 
-      const IdentifierInfo *II = CurrentTok.getIdentifierInfo();
-      if (!II)
-        continue;
+      // Skip the 'defined' operator and its operand
+      if (Ident == "defined") {
+        // Skip whitespace
+        while (I < ConditionText.size() &&
+               std::isspace(static_cast<unsigned char>(ConditionText[I]))) {
+          ++I;
+        }
 
-      // Skip C/C++ keywords
-      if (isKeyword(CurrentTok))
-        continue;
-
-      // Check if this is the 'defined' operator
-      StringRef Name = II->getName();
-      if (Name == "defined") {
-        // Skip the next token(s) which are the operand of 'defined'
-        // Format: defined(X) or defined X
-        size_t NextIdx = I + 1;
-        if (NextIdx < Tokens.size()) {
-          if (Tokens[NextIdx].is(tok::l_paren)) {
-            // Skip the opening paren, the identifier, and closing paren
-            // Skip until we find the matching closing paren
-            int ParenDepth = 1;
-            NextIdx++;
-            while (NextIdx < Tokens.size() && ParenDepth > 0) {
-              if (Tokens[NextIdx].is(tok::l_paren))
-                ParenDepth++;
-              else if (Tokens[NextIdx].is(tok::r_paren))
-                ParenDepth--;
-              NextIdx++;
-            }
-            I = NextIdx - 1; // -1 because the for loop will increment
-          } else if (Tokens[NextIdx].is(tok::identifier)) {
-            // Skip the identifier that follows 'defined'
-            I = NextIdx;
+        if (I < ConditionText.size() && ConditionText[I] == '(') {
+          // defined(MACRO) form - skip to closing paren
+          int Depth = 1;
+          ++I;
+          while (I < ConditionText.size() && Depth > 0) {
+            if (ConditionText[I] == '(')
+              ++Depth;
+            else if (ConditionText[I] == ')')
+              --Depth;
+            ++I;
+          }
+        } else if (I < ConditionText.size() && isIdentifierStart(ConditionText[I])) {
+          // defined MACRO form - skip the identifier
+          while (I < ConditionText.size() && isIdentifierContinue(ConditionText[I])) {
+            ++I;
           }
         }
         continue;
       }
 
+      // Look up the identifier in the preprocessor's identifier table
+      IdentifierInfo &II = PP->getIdentifierTable().get(Ident);
+
+      // Skip C/C++ keywords
+      if (II.isKeyword(PP->getLangOpts()))
+        continue;
+
       // Check if this identifier is defined as a macro
-      MacroDefinition MD = PP->getMacroDefinition(II);
+      MacroDefinition MD = PP->getMacroDefinition(&II);
       if (!MD) {
+        // Calculate the source location for this identifier
+        SourceLocation IdentLoc = Start.getLocWithOffset(IdentStart);
+
         // Undefined identifier - issue warning
-        Check.diag(CurrentTok.getLocation(),
+        Check.diag(IdentLoc,
                    "identifier '%0' used in preprocessing directive is not "
                    "defined; did you mean to use 'defined(%0)'?")
-            << Name;
+            << Ident;
       }
     }
   }
