@@ -11,36 +11,36 @@
 
 // Basic violation: single bit-field in union
 union BadUnion1 {
-    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: bit-field shall not be declared as a member of a union
+    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: bit-field shall not be declared as a member of a union [automotive-c25-req-6.3]
     unsigned int flags : 8;
     int value;
 };
 
 // Multiple bit-fields in union
 union BadUnion2 {
-    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: bit-field shall not be declared as a member of a union
+    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: bit-field shall not be declared as a member of a union [automotive-c25-req-6.3]
     unsigned int a : 4;
-    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: bit-field shall not be declared as a member of a union
+    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: bit-field shall not be declared as a member of a union [automotive-c25-req-6.3]
     unsigned int b : 4;
 };
 
 // Mixed bit-field and regular members
 union BadUnion3 {
     int regular_field;
-    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: bit-field shall not be declared as a member of a union
+    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: bit-field shall not be declared as a member of a union [automotive-c25-req-6.3]
     unsigned int bits : 16;
 };
 
 // Signed bit-field in union
 union BadUnion4 {
-    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: bit-field shall not be declared as a member of a union
+    // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: bit-field shall not be declared as a member of a union [automotive-c25-req-6.3]
     int sign : 1;
     unsigned int value;
 };
 
 // Bool bit-field in union
 union BadUnion5 {
-    // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: bit-field shall not be declared as a member of a union
+    // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: bit-field shall not be declared as a member of a union [automotive-c25-req-6.3]
     _Bool flag : 1;
     int data;
 };

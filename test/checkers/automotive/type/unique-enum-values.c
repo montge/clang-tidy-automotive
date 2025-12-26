@@ -1,10 +1,10 @@
-// RUN: %check_clang_tidy %s automotive-c25-req-8.10 %t -- -- -std=c11
-// Test for automotive-c25-req-8.10: enum constants shall have unique values
+// RUN: %check_clang_tidy %s automotive-unique-enum-value %t -- -- -std=c11
+// Test for automotive-unique-enum-value: enum constants shall have unique values
 
 enum DuplicateValues {
   VALUE_A = 1,
   VALUE_B = 2,
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: enum constant has duplicate value
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: duplicate enum value '1' from 'VALUE_A' [automotive-unique-enum-value]
   VALUE_C = 1,  // Duplicate of VALUE_A
   VALUE_D = 3
 };
@@ -12,9 +12,9 @@ enum DuplicateValues {
 enum AnotherDuplicate {
   FIRST = 0,
   SECOND = 1,
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: enum constant has duplicate value
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: duplicate enum value '0' from 'FIRST' [automotive-unique-enum-value]
   THIRD = 0,  // Duplicate of FIRST
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: enum constant has duplicate value
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: duplicate enum value '1' from 'SECOND' [automotive-unique-enum-value]
   FOURTH = 1  // Duplicate of SECOND
 };
 

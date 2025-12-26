@@ -4,7 +4,7 @@
 // This file tests the detection of _Generic expressions that are not
 // expanded from a macro.
 
-// RUN: %check_clang_tidy %s automotive-c25-adv-23.1 %t
+// RUN: %check_clang_tidy %s automotive-c25-adv-23.1 %t -- -- -std=c11
 
 //===----------------------------------------------------------------------===//
 // Compliant Cases (should NOT trigger warnings)
@@ -115,8 +115,8 @@ void test_multiple_direct_generics(void) {
 void test_nested_generic_direct(void) {
     int x = 5;
 
-    // CHECK-MESSAGES: :[[@LINE+2]]:35: warning: generic selection should only be expanded from a macro, not used directly in source code [automotive-c25-adv-23.1]
-    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: generic selection should only be expanded from a macro, not used directly in source code [automotive-c25-adv-23.1]
+    // CHECK-MESSAGES: :[[@LINE+2]]:18: warning: generic selection should only be expanded from a macro, not used directly in source code [automotive-c25-adv-23.1]
+    // CHECK-MESSAGES: :[[@LINE+1]]:35: warning: generic selection should only be expanded from a macro, not used directly in source code [automotive-c25-adv-23.1]
     int result = _Generic(x, int: _Generic(x, int: 1, default: 2), default: 0);
 
     (void)result;
