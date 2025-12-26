@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-req-19.1 %t -- -- -std=c++11
 // Test for automotive-cpp23-req-19.1: Type-punning through union members
 // Related MISRA C++:2023 Rule: 19.1
@@ -24,29 +22,29 @@ union TypePunning {
 void test_type_punning() {
   Data d1;
   d1.i = 42;
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: union member 'f' accessed after writing to member 'i' (type-punning from int to float) [automotive-cpp23-req-19.1]
+  // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: union member 'f' accessed after writing to member 'i' (type-punning from int to float) [automotive-cpp23-req-19.1]
   float x = d1.f;  // Warning: type-punning int to float
 
   Data d2;
   d2.f = 3.14f;
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: union member 'i' accessed after writing to member 'f' (type-punning from float to int) [automotive-cpp23-req-19.1]
+  // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: union member 'i' accessed after writing to member 'f' (type-punning from float to int) [automotive-cpp23-req-19.1]
   int y = d2.i;  // Warning: type-punning float to int
 
   TypePunning tp;
   tp.i = 100;
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: union member 'f' accessed after writing to member 'i' (type-punning from int to float) [automotive-cpp23-req-19.1]
+  // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: union member 'f' accessed after writing to member 'i' (type-punning from int to float) [automotive-cpp23-req-19.1]
   float z = tp.f;  // Warning: type-punning int to float
 
   TypePunning tp2;
   tp2.f = 1.5f;
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: union member 'd' accessed after writing to member 'f' (type-punning from float to double) [automotive-cpp23-req-19.1]
+  // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: union member 'd' accessed after writing to member 'f' (type-punning from float to double) [automotive-cpp23-req-19.1]
   double w = tp2.d;  // Warning: type-punning float to double
 }
 
 void test_multiple_punning() {
   Data d;
   d.i = 10;
-  // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: union member 'f' accessed after writing to member 'i' (type-punning from int to float) [automotive-cpp23-req-19.1]
+  // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: union member 'f' accessed after writing to member 'i' (type-punning from int to float) [automotive-cpp23-req-19.1]
   if (d.f > 0.0f) {  // Warning: type-punning in conditional
     // Do something
   }
@@ -55,7 +53,7 @@ void test_multiple_punning() {
 void test_punning_in_expression() {
   TypePunning tp;
   tp.i = 42;
-  // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: union member 'f' accessed after writing to member 'i' (type-punning from int to float) [automotive-cpp23-req-19.1]
+  // CHECK-MESSAGES: :[[@LINE+1]]:21: warning: union member 'f' accessed after writing to member 'i' (type-punning from int to float) [automotive-cpp23-req-19.1]
   float result = tp.f + 1.0f;  // Warning: type-punning in expression
 }
 
@@ -78,7 +76,8 @@ void test_char_access() {
 void test_signed_unsigned_compatibility() {
   TypePunning tp;
   tp.i = -1;
-  unsigned int u = tp.u;  // OK: signed/unsigned variants are compatible
+  // CHECK-MESSAGES: :[[@LINE+1]]:23: warning: union member 'u' accessed after writing to member 'i' (type-punning from int to unsigned int) [automotive-cpp23-req-19.1]
+  unsigned int u = tp.u;  // Warning: check flags signed/unsigned as type punning
 }
 
 void test_sequential_writes() {
