@@ -99,10 +99,25 @@ void CheckFilePointerValidityCheck::check(
     auto Parents = Result.Context->getParents(*FopenCall);
     bool HasNullCheck = false;
 
-    // Check if immediately used in an if statement condition
+    // Check if immediately used in an if/while statement condition
     if (!Parents.empty()) {
-      if (Parents[0].get<IfStmt>() || Parents[0].get<ConditionalOperator>()) {
+      // Direct use in if condition
+      if (Parents[0].get<IfStmt>()) {
         HasNullCheck = true;
+      }
+
+      // Direct use in while condition
+      if (Parents[0].get<WhileStmt>()) {
+        HasNullCheck = true;
+      }
+
+      // Check if used as condition of ternary operator (not as true/false
+      // branch)
+      if (const auto *Cond = Parents[0].get<ConditionalOperator>()) {
+        // Only consider it checked if the fopen IS the condition itself
+        if (Cond->getCond()->IgnoreParenImpCasts() == FopenCall) {
+          HasNullCheck = true;
+        }
       }
 
       // Check if assigned to a variable that's later checked
@@ -118,6 +133,21 @@ void CheckFilePointerValidityCheck::check(
       if (Parents[0].get<VarDecl>()) {
         // Variable declaration with initializer; we'll check usage later
         HasNullCheck = true;
+      }
+
+      // Check for implicit cast (e.g., in ternary true/false branch)
+      // Need to look further up the tree
+      if (Parents[0].get<ImplicitCastExpr>()) {
+        auto GrandParents = Result.Context->getParents(Parents[0]);
+        if (!GrandParents.empty()) {
+          if (const auto *Cond = GrandParents[0].get<ConditionalOperator>()) {
+            // If the fopen is in the condition part of the ternary
+            const Expr *CondExpr = Cond->getCond()->IgnoreParenImpCasts();
+            if (CondExpr == FopenCall) {
+              HasNullCheck = true;
+            }
+          }
+        }
       }
     }
 

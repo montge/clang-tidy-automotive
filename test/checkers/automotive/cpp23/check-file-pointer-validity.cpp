@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: Check has false positives (flagging ternary/if conditions as unchecked)
 // RUN: %check_clang_tidy %s automotive-cpp23-adv-21.2 %t
 
 #include <stdio.h>
@@ -8,8 +6,8 @@ void test_uninitialized_file_pointer() {
   FILE *fp;
   // CHECK-MESSAGES: :[[@LINE-1]]:9: warning: FILE* variable 'fp' declared without initialization; using an uninitialized FILE* is undefined behavior [automotive-cpp23-adv-21.2]
 
-  // Using uninitialized pointer (this check doesn't track usage yet,
-  // but declaration is flagged)
+  // Using uninitialized pointer
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: FILE* variable 'fp' closed here; ensure it is not used afterwards without being reassigned [automotive-cpp23-adv-21.2]
   fclose(fp); // Using uninitialized fp
 }
 
@@ -25,26 +23,31 @@ void test_static_file_pointer() {
 
 void test_fopen_without_null_check_simple() {
   // Direct use without null check
+  // CHECK-MESSAGES: :[[@LINE+1]]:24: warning: FILE* returned from fopen may be NULL and should be checked before use [automotive-cpp23-adv-21.2]
   fread(nullptr, 1, 1, fopen("test.txt", "r"));
-  // CHECK-MESSAGES: :[[@LINE-1]]:28: warning: FILE* returned from fopen may be NULL and should be checked before use [automotive-cpp23-adv-21.2]
 }
 
 void test_fopen_with_assignment() {
   FILE *fp = fopen("test.txt", "r"); // OK - assigned to variable
 
   if (fp != nullptr) {
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: FILE* variable 'fp' closed here; ensure it is not used afterwards without being reassigned [automotive-cpp23-adv-21.2]
     fclose(fp);
   }
 }
 
 void test_fopen_in_if_condition() {
   if (FILE *fp = fopen("test.txt", "r")) { // OK - checked in condition
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: FILE* variable 'fp' closed here; ensure it is not used afterwards without being reassigned [automotive-cpp23-adv-21.2]
     fclose(fp);
   }
 }
 
 void test_fopen_with_ternary() {
-  FILE *fp = fopen("test.txt", "r") ? fopen("test.txt", "r") : nullptr; // OK - checked with ternary
+  // First fopen is condition (checked), second fopen in true branch is NOT checked
+  // CHECK-MESSAGES: :[[@LINE+1]]:39: warning: FILE* returned from fopen may be NULL and should be checked before use [automotive-cpp23-adv-21.2]
+  FILE *fp = fopen("test.txt", "r") ? fopen("test.txt", "r") : nullptr;
+  (void)fp;
 }
 
 void test_fclose_usage() {
