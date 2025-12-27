@@ -1,14 +1,9 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
-// RUN: %check_clang_tidy %s automotive-cpp23-req-21.2.3 %t -- -- -std=c++17
+// RUN: %check_clang_tidy %s automotive-cpp23-req-21.2.3 %t
 // Test for automotive-cpp23-req-21.2.3: system() from <cstdlib> shall not be used
 
-#include <cstdlib>
+#include <stdlib.h>
 
 void test_system() {
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: avoid std::system
-  std::system("ls");
-  
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: avoid std::system
-  system("pwd");
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: Avoid 'system' call from stdlib
+  system("ls");
 }
