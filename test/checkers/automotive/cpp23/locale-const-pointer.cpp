@@ -1,10 +1,4 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-mand-25.5 %t
-
-#include <clocale>
-#include <cstdlib>
-#include <cstring>
 
 // Simulated declarations for testing without full headers
 extern "C" {

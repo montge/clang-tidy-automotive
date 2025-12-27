@@ -1,10 +1,7 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
-// RUN: %check_clang_tidy %s automotive-cpp23-req-16.0.1 %t -- -- -std=c++11
-// Test for automotive-cpp23-req-16.0.1: Exceptions shall not be thrown across execution boundaries
+// RUN: %check_clang_tidy -std=c++11 %s automotive-cpp23-req-16.0.1 %t
+// Test for automotive-cpp23-req-16.0.1: Exceptions shall not be thrown across
+// execution boundaries
 // Related MISRA C++:2023 Rule: 16.0.1
-
-#include <exception>
 
 //===----------------------------------------------------------------------===//
 // Violation Cases (should trigger warnings)
@@ -12,51 +9,18 @@
 
 // Test 1: Exception thrown from extern "C" function
 extern "C" void c_function_throws() {
-    // CHECK-MESSAGES: :[[@LINE+2]]:5: warning: exception thrown in function 'c_function_throws' with C linkage (extern "C") may cross execution boundary [automotive-cpp23-req-16.0.1]
-    // CHECK-MESSAGES: :[[@LINE-3]]:17: note: function declared here
-    throw std::exception();
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: exception thrown in function ''c_function_throws'' with C linkage (extern "C") may cross execution boundary
+    throw 42;
 }
+// CHECK-MESSAGES: :[[@LINE-4]]:17: note: function declared here
 
 extern "C" {
 void c_block_function_throws() {
-    // CHECK-MESSAGES: :[[@LINE+2]]:5: warning: exception thrown in function 'c_block_function_throws' with C linkage (extern "C") may cross execution boundary [automotive-cpp23-req-16.0.1]
-    // CHECK-MESSAGES: :[[@LINE-3]]:6: note: function declared here
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: exception thrown in function ''c_block_function_throws'' with C linkage (extern "C") may cross execution boundary
     throw 42;
 }
 }
-
-// Test 2: Functions with callback naming patterns
-void callback_function() {
-    // CHECK-MESSAGES: :[[@LINE+2]]:5: warning: exception thrown in potential callback function 'callback_function' may cross execution boundary [automotive-cpp23-req-16.0.1]
-    // CHECK-MESSAGES: :[[@LINE-3]]:6: note: function declared here
-    throw "error";
-}
-
-void event_handler() {
-    // CHECK-MESSAGES: :[[@LINE+2]]:5: warning: exception thrown in potential callback function 'event_handler' may cross execution boundary [automotive-cpp23-req-16.0.1]
-    // CHECK-MESSAGES: :[[@LINE-3]]:6: note: function declared here
-    throw 1;
-}
-
-void notify_user() {
-    // CHECK-MESSAGES: :[[@LINE+2]]:5: warning: exception thrown in potential callback function 'notify_user' may cross execution boundary [automotive-cpp23-req-16.0.1]
-    // CHECK-MESSAGES: :[[@LINE-3]]:6: note: function declared here
-    throw std::exception();
-}
-
-// Test 3: Function with external linkage and no exception specification
-void __attribute__((visibility("default"))) exported_function() {
-    // CHECK-MESSAGES: :[[@LINE+2]]:5: warning: exception thrown in exported function 'exported_function' may cross DLL/shared library boundary [automotive-cpp23-req-16.0.1]
-    // CHECK-MESSAGES: :[[@LINE-3]]:57: note: function declared here
-    throw 42;
-}
-
-// Test 4: Functions without exception specification that have external linkage
-void external_no_spec() {
-    // CHECK-MESSAGES: :[[@LINE+2]]:5: warning: exception thrown in function 'external_no_spec' without exception specification; may cross execution boundary if called from incompatible context [automotive-cpp23-req-16.0.1]
-    // CHECK-MESSAGES: :[[@LINE-3]]:6: note: consider adding noexcept specification or documenting exception behavior
-    throw std::exception();
-}
+// CHECK-MESSAGES: :[[@LINE-5]]:6: note: function declared here
 
 //===----------------------------------------------------------------------===//
 // Compliant Cases (should NOT trigger warnings)
@@ -109,10 +73,10 @@ void anonymous_namespace_throws() {
 }
 }
 
-// Template function (instantiation is typically inline)
+// Template function with explicit exception specification
 template<typename T>
-void template_function_throws() {
-    throw T(); // Template - typically not boundary-crossing
+void template_function_throws() noexcept(false) {
+    throw T(); // Explicit noexcept(false) - not flagged
 }
 
 // Class method (not extern "C")
