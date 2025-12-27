@@ -26,6 +26,7 @@
 #include "../statement/MissingBreakInCaseStmtCheck.h"
 #include "../statement/ForwardGotoLabelCheck.h"
 #include "../expression/AvoidSideEffectInSizeofCheck.h"
+#include "../expression/AvoidSizeofArrayParameterCheck.h"
 #include "../expression/AvoidSideEffectInLogicalOperandCheck.h"
 #include "../expression/AvoidAssignmentInExpressionCheck.h"
 #include "AutoTypeRestrictionCheck.h"
@@ -687,6 +688,11 @@ void Cpp23Component::addCheckFactories(
   // (Mandatory)
   CheckFactories.registerCheck<AvoidSideEffectInSizeofCheck>(
       "automotive-cpp23-mand-7.5.3");
+
+  // MISRA C++:2023 Rule 7.6.1 - sizeof should not be used on an array
+  // parameter (Advisory)
+  CheckFactories.registerCheck<AvoidSizeofArrayParameterCheck>(
+      "automotive-cpp23-adv-7.6.1");
 
   // MISRA C++:2023 Rule 8.14 - Right hand operand of logical operators
   // shall not contain side effects (Required)
