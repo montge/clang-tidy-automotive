@@ -15,47 +15,43 @@ using namespace clang::ast_matchers;
 namespace clang::tidy::automotive::cpp23 {
 
 void AvoidTypePunningCheck::registerMatchers(MatchFinder *Finder) {
-  // Match dereferencing of reinterpret_cast pointer results
-  // Pattern: *(reinterpret_cast<T*>(expr))
+  // Common matcher for cast expressions (reinterpret_cast or C-style cast)
+  auto castMatcher = expr(ignoringParenImpCasts(
+      anyOf(cxxReinterpretCastExpr().bind("reinterpret_cast"),
+            cStyleCastExpr().bind("c_cast"))));
+
+  // Match dereferencing of cast pointer results
+  // Pattern: *(reinterpret_cast<T*>(expr)) or *((T*)expr)
   Finder->addMatcher(
       unaryOperator(hasOperatorName("*"),
-                    hasUnaryOperand(expr(hasType(pointerType()),
-                                         anyOf(cxxReinterpretCastExpr().bind(
-                                                   "reinterpret_cast"),
-                                               cStyleCastExpr().bind("c_cast")))
+                    hasUnaryOperand(expr(hasType(pointerType()), castMatcher)
                                         .bind("cast_expr")))
           .bind("deref"),
       this);
 
-  // Match member access through reinterpret_cast pointer
-  // Pattern: reinterpret_cast<T*>(expr)->member
+  // Match member access through cast pointer
+  // Pattern: reinterpret_cast<T*>(expr)->member or ((T*)expr)->member
   Finder->addMatcher(
-      memberExpr(
-          hasObjectExpression(
-              expr(hasType(pointerType()),
-                   anyOf(cxxReinterpretCastExpr().bind("reinterpret_cast"),
-                         cStyleCastExpr().bind("c_cast")))
-                  .bind("cast_expr")))
+      memberExpr(isArrow(),
+                 hasObjectExpression(
+                     expr(hasType(pointerType()),
+                          ignoringParenImpCasts(anyOf(
+                              cxxReinterpretCastExpr().bind("reinterpret_cast"),
+                              cStyleCastExpr().bind("c_cast"))))
+                         .bind("cast_expr")))
           .bind("member_access"),
       this);
 
-  // Match array subscript through reinterpret_cast pointer
-  // Pattern: reinterpret_cast<T*>(expr)[index]
+  // Match array subscript through cast pointer
+  // Pattern: reinterpret_cast<T*>(expr)[index] or ((T*)expr)[index]
   Finder->addMatcher(
       arraySubscriptExpr(
           hasBase(expr(hasType(pointerType()),
-                       anyOf(cxxReinterpretCastExpr().bind("reinterpret_cast"),
-                             cStyleCastExpr().bind("c_cast")))
+                       ignoringParenImpCasts(anyOf(
+                           cxxReinterpretCastExpr().bind("reinterpret_cast"),
+                           cStyleCastExpr().bind("c_cast"))))
                       .bind("cast_expr")))
           .bind("subscript"),
-      this);
-
-  // Match dereferencing of C-style cast pointer results for cross-type access
-  // This catches patterns like: *(float*)&x where x is int
-  Finder->addMatcher(
-      unaryOperator(hasOperatorName("&"),
-                    hasUnaryOperand(declRefExpr().bind("addr_of_expr")))
-          .bind("address_of"),
       this);
 }
 
@@ -125,8 +121,6 @@ void AvoidTypePunningCheck::check(const MatchFinder::MatchResult &Result) {
   const auto *ReinterpretCast =
       Result.Nodes.getNodeAs<CXXReinterpretCastExpr>("reinterpret_cast");
   const auto *CStyleCast = Result.Nodes.getNodeAs<CStyleCastExpr>("c_cast");
-  const auto *TheCastExpr = Result.Nodes.getNodeAs<Expr>("cast_expr");
-  (void)TheCastExpr; // May be unused
 
   // Determine which pattern we matched
   const Expr *AccessExpr = nullptr;
@@ -171,6 +165,7 @@ void AvoidTypePunningCheck::check(const MatchFinder::MatchResult &Result) {
   // For pointers, extract the pointee types for comparison
   QualType ToPointee;
   QualType FromPointee;
+  bool IsIntegerToPointerCast = false;
 
   if (const auto *ToPtr = ToType->getAs<PointerType>()) {
     ToPointee = ToPtr->getPointeeType();
@@ -180,15 +175,26 @@ void AvoidTypePunningCheck::check(const MatchFinder::MatchResult &Result) {
 
   if (const auto *FromPtr = FromType->getAs<PointerType>()) {
     FromPointee = FromPtr->getPointeeType();
+  } else if (FromType->isIntegerType()) {
+    // Casting from integer to pointer (e.g., *(int*)addr)
+    // This is type-punning: we're treating an integer as a memory address
+    // and then accessing it as a specific type
+    IsIntegerToPointerCast = true;
+    FromPointee = FromType; // Use the integer type as "from" type
   } else {
-    // Casting from non-pointer (e.g., integer to pointer)
-    // This is suspicious but we focus on pointer-to-pointer casts
     return;
   }
 
-  // Check if the types are compatible
-  if (areTypesCompatible(FromPointee, ToPointee, *Result.Context))
-    return;
+  // For integer-to-pointer casts, always warn (except for void* or char* targets)
+  if (IsIntegerToPointerCast) {
+    // Allow casting to void* or char* (common for low-level memory access)
+    if (ToPointee->isVoidType() || isCharacterType(ToPointee))
+      return;
+  } else {
+    // For pointer-to-pointer casts, check if the types are compatible
+    if (areTypesCompatible(FromPointee, ToPointee, *Result.Context))
+      return;
+  }
 
   // Report the violation
   SourceLocation DiagLoc = AccessExpr->getBeginLoc();
@@ -204,7 +210,10 @@ void AvoidTypePunningCheck::check(const MatchFinder::MatchResult &Result) {
         << AccessKind << FromPointee << ToPointee;
   }
 
-  diag(Cast->getBeginLoc(), "cast occurs here", DiagnosticIDs::Note);
+  // For reinterpret_cast, point to the keyword; for C-style cast, point to the
+  // opening paren
+  SourceLocation NoteLoc = Cast->getBeginLoc();
+  diag(NoteLoc, "cast occurs here", DiagnosticIDs::Note);
 }
 
 } // namespace clang::tidy::automotive::cpp23

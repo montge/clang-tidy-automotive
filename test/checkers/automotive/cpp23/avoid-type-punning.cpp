@@ -1,5 +1,3 @@
-// XFAIL: *
-// Note: Check implementation incomplete - not detecting all C-style cast patterns
 // RUN: %check_clang_tidy %s automotive-cpp23-req-5.13 %t
 // Test for automotive-cpp23-req-5.13: Type-punning prevention
 
@@ -27,13 +25,13 @@ public:
 void test_reinterpret_cast_dereference() {
   int x = 42;
 
-  // CHECK-MESSAGES: :[[@LINE+2]]:3: warning: type-punning through dereferencing reinterpret_cast from int to float results in undefined behavior
-  // CHECK-MESSAGES: :[[@LINE+1]]:15: note: cast occurs here
+  // CHECK-MESSAGES: :[[@LINE+2]]:3: warning: type-punning through dereferencing reinterpret_cast from 'int' to 'float' results in undefined behavior
+  // CHECK-MESSAGES: :[[@LINE+1]]:4: note: cast occurs here
   *reinterpret_cast<float*>(&x) = 3.14f;
 
   float f = 1.5f;
-  // CHECK-MESSAGES: :[[@LINE+2]]:3: warning: type-punning through dereferencing reinterpret_cast from float to int results in undefined behavior
-  // CHECK-MESSAGES: :[[@LINE+1]]:13: note: cast occurs here
+  // CHECK-MESSAGES: :[[@LINE+2]]:13: warning: type-punning through dereferencing reinterpret_cast from 'float' to 'int' results in undefined behavior
+  // CHECK-MESSAGES: :[[@LINE+1]]:14: note: cast occurs here
   int val = *reinterpret_cast<int*>(&f);
   (void)val;
 }
@@ -41,8 +39,8 @@ void test_reinterpret_cast_dereference() {
 void test_reinterpret_cast_member_access() {
   A obj_a{10};
 
-  // CHECK-MESSAGES: :[[@LINE+2]]:3: warning: type-punning through member access through reinterpret_cast from A to B results in undefined behavior
-  // CHECK-MESSAGES: :[[@LINE+1]]:27: note: cast occurs here
+  // CHECK-MESSAGES: :[[@LINE+2]]:13: warning: type-punning through member access through reinterpret_cast from 'A' to 'B' results in undefined behavior
+  // CHECK-MESSAGES: :[[@LINE+1]]:13: note: cast occurs here
   int bad = reinterpret_cast<B*>(&obj_a)->value;
   (void)bad;
 }
@@ -50,8 +48,8 @@ void test_reinterpret_cast_member_access() {
 void test_reinterpret_cast_array_subscript() {
   int buffer[10] = {0};
 
-  // CHECK-MESSAGES: :[[@LINE+2]]:3: warning: type-punning through array subscript through reinterpret_cast from int to float results in undefined behavior
-  // CHECK-MESSAGES: :[[@LINE+1]]:18: note: cast occurs here
+  // CHECK-MESSAGES: :[[@LINE+2]]:17: warning: type-punning through array subscript through reinterpret_cast from 'int' to 'float' results in undefined behavior
+  // CHECK-MESSAGES: :[[@LINE+1]]:17: note: cast occurs here
   float first = reinterpret_cast<float*>(buffer)[0];
   (void)first;
 }
@@ -59,14 +57,14 @@ void test_reinterpret_cast_array_subscript() {
 void test_c_style_cast_dereference() {
   long addr = 0x1234;
 
-  // CHECK-MESSAGES: :[[@LINE+2]]:3: warning: type-punning through dereferencing C-style cast from long to int results in undefined behavior
-  // CHECK-MESSAGES: :[[@LINE+1]]:14: note: cast occurs here
+  // CHECK-MESSAGES: :[[@LINE+2]]:14: warning: type-punning through dereferencing C-style cast from 'long' to 'int' results in undefined behavior
+  // CHECK-MESSAGES: :[[@LINE+1]]:15: note: cast occurs here
   int data = *(int*)addr;
   (void)data;
 
   double d = 3.14159;
-  // CHECK-MESSAGES: :[[@LINE+2]]:3: warning: type-punning through dereferencing C-style cast from double to long results in undefined behavior
-  // CHECK-MESSAGES: :[[@LINE+1]]:19: note: cast occurs here
+  // CHECK-MESSAGES: :[[@LINE+2]]:15: warning: type-punning through dereferencing C-style cast from 'double' to 'long' results in undefined behavior
+  // CHECK-MESSAGES: :[[@LINE+1]]:16: note: cast occurs here
   long bits = *(long*)&d;
   (void)bits;
 }
@@ -74,8 +72,8 @@ void test_c_style_cast_dereference() {
 void test_c_style_cast_member_access() {
   A obj{100};
 
-  // CHECK-MESSAGES: :[[@LINE+2]]:3: warning: type-punning through member access through C-style cast from A to B results in undefined behavior
-  // CHECK-MESSAGES: :[[@LINE+1]]:18: note: cast occurs here
+  // CHECK-MESSAGES: :[[@LINE+2]]:16: warning: type-punning through member access through C-style cast from 'A' to 'B' results in undefined behavior
+  // CHECK-MESSAGES: :[[@LINE+1]]:17: note: cast occurs here
   int result = ((B*)&obj)->value;
   (void)result;
 }
