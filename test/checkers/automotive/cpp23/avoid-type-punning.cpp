@@ -1,9 +1,9 @@
 // XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
+// Note: Check implementation incomplete - not detecting all C-style cast patterns
 // RUN: %check_clang_tidy %s automotive-cpp23-req-5.13 %t
 // Test for automotive-cpp23-req-5.13: Type-punning prevention
 
-#include <cstring>
+#include <string.h>
 
 struct A {
   int value;
@@ -113,7 +113,7 @@ void test_compliant_memcpy() {
   float f;
 
   // OK - using memcpy for type reinterpretation
-  std::memcpy(&f, &x, sizeof(f));
+  memcpy(&f, &x, sizeof(f));
   (void)f;
 }
 

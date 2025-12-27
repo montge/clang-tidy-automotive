@@ -1,34 +1,8 @@
 // XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
+// Note: Check has false positives (flagging ternary/if conditions as unchecked)
 // RUN: %check_clang_tidy %s automotive-cpp23-adv-21.2 %t
 
-#include <cstdio>
-
-// Mock FILE declaration for testing (normally from stdio.h)
-typedef struct _IO_FILE FILE;
-
-extern "C" {
-FILE *fopen(const char *filename, const char *mode);
-FILE *freopen(const char *filename, const char *mode, FILE *stream);
-FILE *tmpfile(void);
-FILE *fdopen(int fd, const char *mode);
-int fclose(FILE *stream);
-int fread(void *ptr, unsigned long size, unsigned long nmemb, FILE *stream);
-int fwrite(const void *ptr, unsigned long size, unsigned long nmemb, FILE *stream);
-int fgetc(FILE *stream);
-int fputc(int c, FILE *stream);
-char *fgets(char *s, int size, FILE *stream);
-int fputs(const char *s, FILE *stream);
-int fprintf(FILE *stream, const char *format, ...);
-int fscanf(FILE *stream, const char *format, ...);
-int fseek(FILE *stream, long offset, int whence);
-long ftell(FILE *stream);
-void rewind(FILE *stream);
-int fflush(FILE *stream);
-int feof(FILE *stream);
-int ferror(FILE *stream);
-void clearerr(FILE *stream);
-}
+#include <stdio.h>
 
 void test_uninitialized_file_pointer() {
   FILE *fp;

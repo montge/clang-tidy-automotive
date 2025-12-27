@@ -1,17 +1,14 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-mand-25.5.2 %t -- -- -std=c++17
 // Test for automotive-cpp23-mand-25.5.2: getenv/setlocale pointers shall be const
 
-#include <cstdlib>
-#include <clocale>
+extern "C" char *getenv(const char *name);
 
 void test_getenv() {
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: pointer from getenv shall only be used as pointer to const
-  char* env = std::getenv("PATH");
-  
+  // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: pointer returned by 'getenv' shall only be used as pointer to const-qualified type
+  char* env = getenv("PATH");
+
   // OK - const pointer
-  const char* env_const = std::getenv("HOME");
+  const char* env_const = getenv("HOME");
   (void)env;
   (void)env_const;
 }

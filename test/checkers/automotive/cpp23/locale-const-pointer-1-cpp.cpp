@@ -1,16 +1,14 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-req-25.5.1 %t -- -- -std=c++17
 // Test for automotive-cpp23-req-25.5.1: localeconv pointer shall be const
 
-#include <clocale>
+extern "C" struct lconv *localeconv();
 
 void test_localeconv() {
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: pointer from localeconv shall only be used as pointer to const
-  struct lconv* lc = std::localeconv();
-  
+  // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: pointer returned by 'localeconv' shall only be used as pointer to const-qualified type
+  struct lconv* lc = localeconv();
+
   // OK - const pointer
-  const struct lconv* lc_const = std::localeconv();
+  const struct lconv* lc_const = localeconv();
   (void)lc;
   (void)lc_const;
 }
