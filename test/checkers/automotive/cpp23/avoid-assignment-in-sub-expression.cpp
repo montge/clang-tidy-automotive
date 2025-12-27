@@ -1,19 +1,17 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
-// RUN: %check_clang_tidy %s automotive-cpp23-req-6.2 %t -- -- -std=c++17
-// Test for automotive-cpp23-req-6.2: assignments shall not be used as sub-expressions
+// RUN: %check_clang_tidy %s automotive-c23-adv-13.4 %t
+// Test for MISRA C:2023 Rule 13.4: The result of an assignment operator
+// shall not be used
 
 void test_assignment_in_condition_violation(int x) {
   int y;
-  // CHECK-MESSAGES: :[[@LINE+1]]:7: warning: assignment used in sub-expression
+  // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: Avoid using the result of an assignment operator '='
   if (y = x) {
-    // action
   }
 }
 
 void test_assignment_in_while_violation(int x) {
   int y;
-  // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: assignment used in sub-expression
+  // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: Avoid using the result of an assignment operator '='
   while (y = x) {
     x--;
   }
@@ -21,7 +19,7 @@ void test_assignment_in_while_violation(int x) {
 
 void test_assignment_in_for_condition_violation(int n) {
   int i;
-  // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: assignment used in sub-expression
+  // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: Avoid using the result of an assignment operator '='
   for (i = 0; i = n; i++) {
     n--;
   }
@@ -29,13 +27,13 @@ void test_assignment_in_for_condition_violation(int n) {
 
 void test_chained_assignment_violation(int x) {
   int a, b;
-  // CHECK-MESSAGES: warning: assignment used in sub-expression
+  // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: Avoid using the result of an assignment operator '='
   a = b = x;
 }
 
-void test_assignment_in_return_violation(int x) {
+int test_assignment_in_return_violation(int x) {
   int y;
-  // CHECK-MESSAGES: :[[@LINE+1]]:10: warning: assignment used in sub-expression
+  // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: Avoid using the result of an assignment operator '='
   return y = x;
 }
 
@@ -44,7 +42,6 @@ void test_separate_assignment_compliant(int x) {
   int y;
   y = x;
   if (y) {
-    // action
   }
 }
 

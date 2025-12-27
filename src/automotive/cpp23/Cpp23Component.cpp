@@ -601,10 +601,10 @@ void Cpp23Component::addCheckFactories(
   CheckFactories.registerCheck<cpp23::UseOverrideCheck>(
       "automotive-cpp23-req-13.3.2");
 
-  // MISRA C++:2023 Rule 16.6.1 - A forwarding reference shall not bind
+  // MISRA C++:2023 Rule 16.6.2 - A forwarding reference shall not bind
   // to a temporary (Advisory)
   CheckFactories.registerCheck<cpp23::AvoidTemplateRefTemporaryCheck>(
-      "automotive-cpp23-adv-16.6.1");
+      "automotive-cpp23-adv-16.6.2");
 
   // MISRA C++:2023 Rule 17.3.1 - typeid shall not be used on a dereferenced
   // pointer (Advisory)
