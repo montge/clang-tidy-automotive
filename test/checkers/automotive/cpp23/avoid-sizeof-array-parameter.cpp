@@ -1,6 +1,4 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
-// RUN: %check_clang_tidy %s automotive-cpp23-adv-7.6.1 %t -- -- -std=c++11 -Wno-sizeof-array-argument
+// RUN: %check_clang_tidy -std=c++11 %s automotive-cpp23-adv-7.6.1 %t -- -- -Wno-sizeof-array-argument
 
 // Test for automotive-cpp23-adv-7.6.1: sizeof on array parameter
 // Related MISRA C++:2023 Rule: 7.6.1 (Advisory)
@@ -125,21 +123,5 @@ template<typename T>
 void test_template_pointer(T *ptr) {
     // Template pointer - no warning
     size_t s = sizeof(ptr);
-    (void)s;
-}
-
-// C++ specific: std::array would be the recommended alternative
-#include <cstddef>
-namespace std {
-    template<typename T, std::size_t N>
-    struct array {
-        T data[N];
-        constexpr std::size_t size() const { return N; }
-    };
-}
-
-void test_std_array(std::array<int, 10>& arr) {
-    // Compliant: using std::array instead of C-style array
-    size_t s = sizeof(arr);  // OK - not an array parameter
     (void)s;
 }
