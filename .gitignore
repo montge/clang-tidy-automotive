@@ -38,6 +38,9 @@ compile_commands.json
 # SonarCloud token (local only)
 .sonar-token
 
+# Local working files (not committed)
+.local/
+
 # Coverage artifacts (large files excluded, keep coverage.lcov for SonarCloud)
 coverage/*
 !coverage/coverage.lcov

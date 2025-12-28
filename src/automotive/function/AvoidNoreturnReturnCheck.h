@@ -17,17 +17,6 @@ namespace clang::tidy::automotive {
 ///
 /// MISRA C:2025 Rule 17.9 (Mandatory):
 /// A noreturn function shall not return to its caller.
-///
-/// Functions declared with _Noreturn must not contain return statements
-/// that would return control to the caller.
-///
-/// Example:
-/// \code
-///   _Noreturn void fatal_error(void) {
-///     cleanup();
-///     return;  // Warning: noreturn function shall not return
-///   }
-/// \endcode
 class AvoidNoreturnReturnCheck : public ClangTidyCheck {
 public:
   AvoidNoreturnReturnCheck(StringRef Name, ClangTidyContext *Context)
