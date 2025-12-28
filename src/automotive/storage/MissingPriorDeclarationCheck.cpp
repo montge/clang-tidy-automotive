@@ -57,6 +57,15 @@ void MissingPriorDeclarationCheck::check(
     if (FD->isImplicit())
       return;
 
+    // Skip C++ member functions - MISRA C Rule 8.4 is for C, and C++ member
+    // functions defined inline in the class are both declaration and definition
+    if (isa<CXXMethodDecl>(FD))
+      return;
+
+    // Skip functions with empty names (like constructors/operators)
+    if (FD->getName().empty())
+      return;
+
     // Check if this is the first declaration (no prior declaration exists)
     const FunctionDecl *FirstDecl = FD->getFirstDecl();
     if (FirstDecl == FD) {
