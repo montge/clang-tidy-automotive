@@ -10,15 +10,13 @@
 
 namespace clang::tidy::automotive {
 
-// tgmath.h defines type-generic macros that expand to functions from math.h
-// We primarily check for header inclusion, but also flag some common usages
-static const StringRef AvoidFunctions[] = {
-    "acos", "asin",  "atan", "atan2", "ceil",  "cos", "cosh",  "exp",
-    "fabs", "floor", "fmod", "frexp", "ldexp", "log", "log10", "modf",
-    "pow",  "sin",   "sinh", "sqrt",  "tan",   "tanh"};
+// MISRA C:2012 Rule 21.11: The standard header file <tgmath.h> shall not be used
+// We ONLY check for header inclusion - standard math functions from <math.h>
+// or <cmath> are perfectly fine. The issue is the type-generic macros in tgmath.h
+// that make code harder to analyze statically.
 
 AvoidTgmathHeaderCheck::AvoidTgmathHeaderCheck(StringRef Name,
                                                ClangTidyContext *Context)
-    : AvoidApiCheck(Name, Context, "tgmath.h", AvoidFunctions) {}
+    : AvoidApiCheck(Name, Context, "tgmath.h", {}) {}
 
 } // namespace clang::tidy::automotive

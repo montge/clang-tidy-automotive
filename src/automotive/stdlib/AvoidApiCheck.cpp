@@ -42,15 +42,20 @@ private:
 void AvoidApiCheck::registerPPCallbacks(const SourceManager &SM,
                                         Preprocessor *PP,
                                         Preprocessor *ModuleExpanderPP) {
-
-  PP->addPPCallbacks(
-      std::make_unique<AvoidApiPPCallbacks>(*this, HeaderName, FunctionNames));
+  // Only register callbacks if we have a header to check or functions to flag
+  if (!HeaderName.empty() || !FunctionNames.empty()) {
+    PP->addPPCallbacks(
+        std::make_unique<AvoidApiPPCallbacks>(*this, HeaderName, FunctionNames));
+  }
 }
 
 void AvoidApiCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(callExpr(callee(functionDecl(hasAnyName(FunctionNames))))
-                         .bind("functionCall"),
-                     this);
+  // Only register function matchers if we have functions to check
+  if (!FunctionNames.empty()) {
+    Finder->addMatcher(callExpr(callee(functionDecl(hasAnyName(FunctionNames))))
+                           .bind("functionCall"),
+                       this);
+  }
 }
 
 void AvoidApiCheck::check(const MatchFinder::MatchResult &Result) {
@@ -74,10 +79,18 @@ void AvoidApiPPCallbacks::InclusionDirective(
     StringRef RelativePath, const Module *SuggestedModule, bool ModuleImported,
     SrcMgr::CharacteristicKind FileType) {
   // Check if the included header matches the prohibited header
-  if (!HeaderName.empty() && IncludedFilename == HeaderName) {
-    Check.diag(DirectiveLoc,
-               "inclusion of <%0> is not allowed in safety-critical code")
-        << HeaderName;
+  // Compare the full filename or just the basename for flexibility
+  if (!HeaderName.empty()) {
+    bool matches = (IncludedFilename == HeaderName);
+    // Also check if the filename ends with the header name (for path-qualified includes)
+    if (!matches && IncludedFilename.ends_with(HeaderName)) {
+      matches = true;
+    }
+    if (matches) {
+      Check.diag(DirectiveLoc,
+                 "inclusion of <%0> is not allowed in safety-critical code")
+          << HeaderName;
+    }
   }
 }
 

@@ -54,7 +54,8 @@ protected:
   /// \param FunctionNames List of function names to flag.
   AvoidApiCheck(StringRef Name, ClangTidyContext *Context, StringRef Header,
                 const std::initializer_list<llvm::StringRef> &FunctionNames)
-      : ClangTidyCheck(Name, Context) {}
+      : ClangTidyCheck(Name, Context), FunctionNames(FunctionNames),
+        HeaderName(Header) {}
 
   /// Destructor.
   ~AvoidApiCheck() override = default;
@@ -65,7 +66,7 @@ protected:
   /// \param FunctionNames List of function names to flag.
   AvoidApiCheck(StringRef Name, ClangTidyContext *Context,
                 const std::initializer_list<llvm::StringRef> &FunctionNames)
-      : ClangTidyCheck(Name, Context) {}
+      : ClangTidyCheck(Name, Context), FunctionNames(FunctionNames) {}
 
   /// Constructs the check with header and function name array.
   /// \param Name The name of the check as registered.

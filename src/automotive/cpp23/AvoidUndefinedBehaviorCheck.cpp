@@ -80,6 +80,11 @@ void AvoidUndefinedBehaviorCheck::check(
 void AvoidUndefinedBehaviorCheck::checkDivisionByZero(
     const BinaryOperator *BinOp, ASTContext *Context) {
 
+  // Skip system headers - evaluating complex template types can cause
+  // infinite recursion in getTypeInfoImpl() (e.g., std::function)
+  if (Context->getSourceManager().isInSystemHeader(BinOp->getBeginLoc()))
+    return;
+
   const Expr *RHS = BinOp->getRHS()->IgnoreParenImpCasts();
 
   // Try to evaluate the RHS as a constant
@@ -108,6 +113,11 @@ void AvoidUndefinedBehaviorCheck::checkDivisionByZero(
 
 void AvoidUndefinedBehaviorCheck::checkShiftAmount(
     const BinaryOperator *BinOp, ASTContext *Context) {
+
+  // Skip system headers - evaluating complex template types can cause
+  // infinite recursion in getTypeInfoImpl() (e.g., std::function)
+  if (Context->getSourceManager().isInSystemHeader(BinOp->getBeginLoc()))
+    return;
 
   const Expr *LHS = BinOp->getLHS()->IgnoreParenImpCasts();
   const Expr *RHS = BinOp->getRHS()->IgnoreParenImpCasts();

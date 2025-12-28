@@ -78,10 +78,12 @@ void PointerComponent::addCheckFactories(
   CheckFactories.registerCheck<WrongNullPointerValueCheck>(
       "automotive-wrong-null-pointer-value");
 
-  // MISRA C:2025 Rule 18.8 - Pointer arithmetic on array elements (Required)
-  // Note: Rule 18.10 (VLA pointers) is handled in ArrayComponent
+  // WrongPointerArithmeticCheck provides additional pointer arithmetic validation
+  // Note: Rule 18.8 (VLAs) is handled by AvoidVariableLengthArrayCheck
+  // Note: Rule 18.1 (pointer bounds) is handled by AvoidPointerArithmeticBoundsCheck
+  // This check is overly strict for most codebases - use automotive-strict-pointer-arithmetic
   CheckFactories.registerCheck<WrongPointerArithmeticCheck>(
-      "automotive-c25-req-18.8");
+      "automotive-strict-pointer-arithmetic");
 }
 
 } // namespace clang::tidy::automotive

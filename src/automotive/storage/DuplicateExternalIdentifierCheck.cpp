@@ -81,6 +81,8 @@ void DuplicateExternalIdentifierCheck::loadSymbolDatabase() {
       Info.Kind = Kind->str();
     if (auto Type = SymObj->getString("type"))
       Info.Type = Type->str();
+    if (auto IsDef = SymObj->getBoolean("isDefinition"))
+      Info.IsDefinition = *IsDef;
 
     ExternalSymbols[*Name].push_back(Info);
   }
@@ -109,6 +111,7 @@ void DuplicateExternalIdentifierCheck::check(
   std::string Kind;
   SourceLocation Loc;
   std::string CurrentFile;
+  bool IsCurrentDefinition = false;
 
   if (const auto *VD = Result.Nodes.getNodeAs<VarDecl>("var")) {
     if (Result.SourceManager->isInSystemHeader(VD->getLocation()))
@@ -117,6 +120,7 @@ void DuplicateExternalIdentifierCheck::check(
     Kind = "variable";
     Loc = VD->getLocation();
     CurrentFile = Result.SourceManager->getFilename(Loc).str();
+    IsCurrentDefinition = VD->isThisDeclarationADefinition();
   } else if (const auto *FD = Result.Nodes.getNodeAs<FunctionDecl>("func")) {
     if (Result.SourceManager->isInSystemHeader(FD->getLocation()))
       return;
@@ -126,11 +130,17 @@ void DuplicateExternalIdentifierCheck::check(
     Kind = "function";
     Loc = FD->getLocation();
     CurrentFile = Result.SourceManager->getFilename(Loc).str();
+    IsCurrentDefinition = FD->isThisDeclarationADefinition();
   } else {
     return;
   }
 
   if (Name.empty() || CurrentFile.empty())
+    return;
+
+  // Only check definitions - Rule 5.8 prohibits multiple definitions
+  // not the normal pattern of declaration in header + definition in source
+  if (!IsCurrentDefinition)
     return;
 
   // Look up this symbol in the database
@@ -140,20 +150,21 @@ void DuplicateExternalIdentifierCheck::check(
 
   const auto &Occurrences = It->second;
 
-  // Find occurrences in OTHER files (not the current file)
-  std::vector<const SymbolInfo *> OtherFileOccurrences;
+  // Find DEFINITIONS in OTHER files (not the current file)
+  // This excludes the normal header declaration + source definition pattern
+  std::vector<const SymbolInfo *> OtherFileDefinitions;
   for (const auto &Occ : Occurrences) {
-    if (Occ.File != CurrentFile) {
-      OtherFileOccurrences.push_back(&Occ);
+    if (Occ.File != CurrentFile && Occ.IsDefinition) {
+      OtherFileDefinitions.push_back(&Occ);
     }
   }
 
-  // If there are occurrences in other files, report a violation
-  if (!OtherFileOccurrences.empty()) {
+  // If there are definitions in other files, report a violation
+  if (!OtherFileDefinitions.empty()) {
     // Deduplicate locations using a set
     std::set<std::string> UniqueLocationKeys;
     std::vector<std::string> UniqueLocations;
-    for (const auto *Occ : OtherFileOccurrences) {
+    for (const auto *Occ : OtherFileDefinitions) {
       std::string Key = getLocationKey(*Occ);
       if (UniqueLocationKeys.insert(Key).second) {
         UniqueLocations.push_back(Key);
@@ -178,7 +189,7 @@ void DuplicateExternalIdentifierCheck::check(
           " more location(s)";
     }
 
-    diag(Loc, "external %0 '%1' is not unique; also declared at %2")
+    diag(Loc, "external %0 '%1' has multiple definitions; also defined at %2")
         << Kind << Name << OtherLocations;
   }
 }
