@@ -10,6 +10,11 @@ on:
     branches: [main, develop]
   workflow_dispatch:
 
+# Restrict permissions to minimum required
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
   sonarcloud:
     name: SonarCloud
