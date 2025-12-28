@@ -1,4 +1,3 @@
-// XFAIL: *
 // RUN: %check_clang_tidy %s automotive-c25-req-2.2 %t
 
 // MISRA C:2025 Rule 2.2: Dead code shall not exist
@@ -13,7 +12,7 @@ void test_dead_code() {
   42;      // Literal has no effect
 
   int y;
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: dead code: variable reference has no effect [automotive-c25-req-2.2]
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: dead code: expression has no effect [automotive-c25-req-2.2]
   y;       // Variable reference has no effect
 
   // Valid code - has side effect
@@ -52,7 +51,7 @@ void test_pointer_operations() {
   int x = 0;
   int *p = &x;
 
-  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: dead code: operation has no effect [automotive-c25-req-2.2]
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: dead code: expression has no effect [automotive-c25-req-2.2]
   *p;      // Dereference with no effect
 
   // Valid - assignment through pointer

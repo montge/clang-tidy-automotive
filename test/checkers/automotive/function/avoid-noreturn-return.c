@@ -3,6 +3,9 @@
 
 #include <stdlib.h>
 
+// Helper functions (forward declaration)
+void cleanup_resources(void);
+
 // Violation: noreturn function with return statement
 _Noreturn void fatal_error(void) {
   cleanup_resources();

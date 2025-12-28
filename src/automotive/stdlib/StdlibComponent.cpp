@@ -220,8 +220,8 @@ void StdlibComponent::addCheckFactories(
   // MISRA C:2025 Rule 22.10 - errno testing (Required)
   CheckFactories.registerCheck<ErrnoTestingCheck>("automotive-c25-req-22.10");
 
-  // MISRA C:2025 Rule 21.23 - Thread-specific storage functions (Required)
-  CheckFactories.registerCheck<TssUsageCheck>("automotive-c25-req-21.23");
+  // MISRA C:2025 Rule 22.12 - Thread-specific storage functions (Required)
+  CheckFactories.registerCheck<TssUsageCheck>("automotive-c25-req-22.12");
 
   // MISRA C:2025 Rule 21.26 - mtx_timedlock mutex type (Required)
   CheckFactories.registerCheck<MtxTimedlockTypeCheck>(
@@ -230,10 +230,6 @@ void StdlibComponent::addCheckFactories(
   // MISRA C:2025 Rule 21.18 - size_t argument validity (Mandatory)
   CheckFactories.registerCheck<WrongSizetArgumentCheck>(
       "automotive-c25-mand-21.18");
-
-  // MISRA C:2025 Rule 21.22 - errno testing (Mandatory)
-  // errno shall only be tested when the function indicates an error
-  CheckFactories.registerCheck<ErrnoTestingCheck>("automotive-c25-mand-21.22");
 
   // MISRA C:2025 Rule 22.20 - Thread synchronization nesting (Mandatory)
   CheckFactories.registerCheck<AvoidNestedSyncCallsCheck>(
