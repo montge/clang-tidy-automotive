@@ -5,6 +5,7 @@ add_clang_library(clangTidyAutomotiveStdlibComponent STATIC
   AvoidBsearchQsortCheck.cpp
   AvoidCtypeHeaderCheck.cpp
   AvoidMemcmpOnStringsCheck.cpp
+  AvoidNestedSyncCallsCheck.cpp
   AvoidSetjmpHeaderCheck.cpp
   AvoidSignalHeaderCheck.cpp
   AvoidStdargHeaderCheck.cpp
@@ -20,9 +21,16 @@ add_clang_library(clangTidyAutomotiveStdlibComponent STATIC
   ErrnoUsageCheck.cpp
   ExitCheck.cpp
   MemorySyncOrderCheck.cpp
+  MtxTimedlockTypeCheck.cpp
+  MutexUnlockThreadCheck.cpp
   RecursiveMutexLockCheck.cpp
+  SpuriousWakeupCheck.cpp
   StdlibComponent.cpp
-  TgmathOperandTypeCheck.cpp
   TgmathConsistentTypeCheck.cpp
+  TgmathOperandTypeCheck.cpp
   ThreadJoinDetachCheck.cpp
+  ThreadSpecificStorageCheck.cpp
+  TssUsageCheck.cpp
+  UnsynchronizedAccessCheck.cpp
+  WrongSizetArgumentCheck.cpp
 )

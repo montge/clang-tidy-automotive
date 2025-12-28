@@ -59,6 +59,10 @@ void ArrayComponent::addCheckFactories(
   // Rule 18.10 - Pointers to variably-modified array types (Mandatory)
   CheckFactories.registerCheck<AvoidPointerToVLACheck>(
       "automotive-c25-mand-18.10");
+
+  // MISRA C:2025 Rule 8.19 - Variable-length arrays should not be used (Advisory)
+  CheckFactories.registerCheck<AvoidVariableLengthArrayCheck>(
+      "automotive-c25-adv-8.19");
 }
 
 } // namespace clang::tidy::automotive

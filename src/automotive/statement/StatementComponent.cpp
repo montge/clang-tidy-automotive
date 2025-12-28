@@ -10,6 +10,7 @@
 #include "AvoidBooleanInSwitchCheck.h"
 #include "AvoidGotoCheck.h"
 #include "AvoidSingleClauseSwitchCheck.h"
+#include "DeadCodeCheck.h"
 #include "ForwardGotoLabelCheck.h"
 #include "GotoLabelSameBlockCheck.h"
 #include "MissingBreakInCaseStmtCheck.h"
@@ -74,6 +75,9 @@ void StatementComponent::addCheckFactories(
   // Rule 2.1 - Unreachable code (Required)
   CheckFactories.registerCheck<UnreachableCodeCheck>(
       "automotive-c23-req-2.1");
+
+  // Rule 2.2 - Dead code (Required)
+  CheckFactories.registerCheck<DeadCodeCheck>("automotive-c25-req-2.2");
 }
 
 } // namespace clang::tidy::automotive

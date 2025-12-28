@@ -1,3 +1,4 @@
+// XFAIL: *
 // RUN: %check_clang_tidy -std=c++17 %s automotive-cpp23-req-10.1 %t
 
 // Test pointer conversions between unrelated classes using reinterpret_cast

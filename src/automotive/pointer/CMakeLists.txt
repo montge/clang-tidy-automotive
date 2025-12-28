@@ -12,4 +12,5 @@ add_clang_library(clangTidyAutomotivePointerComponent STATIC
   AvoidPointerTypeCastCheck.cpp
   PointerComponent.cpp
   WrongNullPointerValueCheck.cpp
+  WrongPointerArithmeticCheck.cpp
 )

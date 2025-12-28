@@ -19,6 +19,7 @@
 #include "AvoidPointerToFloatCastCheck.h"
 #include "AvoidPointerTypeCastCheck.h"
 #include "WrongNullPointerValueCheck.h"
+#include "WrongPointerArithmeticCheck.h"
 
 namespace clang::tidy::automotive {
 
@@ -76,6 +77,10 @@ void PointerComponent::addCheckFactories(
 
   CheckFactories.registerCheck<WrongNullPointerValueCheck>(
       "automotive-wrong-null-pointer-value");
+
+  // MISRA C:2025 Rule 18.10 - Pointer arithmetic on array elements (Mandatory)
+  CheckFactories.registerCheck<WrongPointerArithmeticCheck>(
+      "automotive-c25-mand-18.10");
 }
 
 } // namespace clang::tidy::automotive

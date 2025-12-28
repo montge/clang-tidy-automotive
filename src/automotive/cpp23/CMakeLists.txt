@@ -1,6 +1,7 @@
 
 add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   PARTIAL_SOURCES_INTENDED
+  AtExitHandlerReturnCheck.cpp
   AutoTypeRestrictionCheck.cpp
   AvoidArrayToPointerDecayCheck.cpp
   AvoidAsmCheck.cpp
@@ -45,6 +46,7 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidNullLiteralAssignmentCheck.cpp
   AvoidObjectSlicingCheck.cpp
   AvoidOffsetofCheck.cpp
+  AvoidOutOfBoundsAccessCheck.cpp
   AvoidOverlappingCopyCheck.cpp
   AvoidOverloadedLogicalOperatorCheck.cpp
   AvoidReallocCheck.cpp
@@ -54,6 +56,7 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidSingleClauseSwitchCppCheck.cpp
   AvoidSlicingCheck.cpp
   AvoidStatementExpressionCheck.cpp
+  AvoidStaticInitAllocationCheck.cpp
   AvoidTagNameHidingCheck.cpp
   AvoidTemplateRefTemporaryCheck.cpp
   AvoidTemporaryBindingToNTTPCheck.cpp
@@ -63,6 +66,7 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidTypePunningCheck.cpp
   AvoidUnaryMinusOnUnsignedCheck.cpp
   AvoidUnboundedLoopCheck.cpp
+  AvoidUndefinedBehaviorCheck.cpp
   AvoidUninitializedArrayCheck.cpp
   AvoidUnionCppCheck.cpp
   AvoidUnionTypePunningCheck.cpp
@@ -76,6 +80,8 @@ add_clang_library(clangTidyAutomotiveCpp23Component STATIC
   AvoidVoidPointerCastCheck.cpp
   AvoidVolatileCheck.cpp
   AvoidWideVariableScopeCheck.cpp
+  BitFieldTypeRestrictionCheck.cpp
+  BooleanControlExpressionCheck.cpp
   Cpp23Component.cpp
   DefaultArgumentOrderCheck.cpp
   ExceptionBaseClassCheck.cpp

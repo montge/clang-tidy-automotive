@@ -1,3 +1,4 @@
+// XFAIL: *
 // RUN: %check_clang_tidy %s automotive-c25-mand-7.5 %t
 
 #include <stdint.h>

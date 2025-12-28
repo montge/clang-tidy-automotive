@@ -60,6 +60,12 @@ public:
     CheckFactories.registerCheck<misc::NoRecursionCheck>(
         "automotive-c23-req-17.2");
 
+    /* C 2025
+    ---------------------------------------------------------------- */
+    // Rule 17.11 - A function should not call itself directly or indirectly (Advisory)
+    CheckFactories.registerCheck<misc::NoRecursionCheck>(
+        "automotive-c25-adv-17.11");
+
     /* C 2012
     ---------------------------------------------------------------- */
     CheckFactories.registerCheck<cert::FloatLoopCounter>(

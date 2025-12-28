@@ -22,6 +22,10 @@ void ReturnComponent::addCheckFactories(
       "automotive-missing-return-value-handling");
   CheckFactories.registerCheck<NoReturnVoidCheck>(
       "automotive-missing-return-void");
+
+  // MISRA C:2025 Rule 17.12 - A function shall have a single point of exit (Required)
+  CheckFactories.registerCheck<MultipleReturnStmtCheck>(
+      "automotive-c25-req-17.12");
 }
 
 } // namespace clang::tidy::automotive

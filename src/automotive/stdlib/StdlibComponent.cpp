@@ -11,6 +11,7 @@
 #include "AvoidBsearchQsortCheck.h"
 #include "AvoidCtypeHeaderCheck.h"
 #include "AvoidMemcmpOnStringsCheck.h"
+#include "AvoidNestedSyncCallsCheck.h"
 #include "AvoidSetjmpHeaderCheck.h"
 #include "AvoidSignalHeaderCheck.h"
 #include "AvoidStdargHeaderCheck.h"
@@ -30,6 +31,13 @@
 #include "TgmathConsistentTypeCheck.h"
 #include "TgmathOperandTypeCheck.h"
 #include "ThreadJoinDetachCheck.h"
+#include "ThreadSpecificStorageCheck.h"
+#include "TssUsageCheck.h"
+#include "UnsynchronizedAccessCheck.h"
+#include "MutexUnlockThreadCheck.h"
+#include "MtxTimedlockTypeCheck.h"
+#include "SpuriousWakeupCheck.h"
+#include "WrongSizetArgumentCheck.h"
 
 namespace clang::tidy::automotive {
 
@@ -118,6 +126,26 @@ void StdlibComponent::addCheckFactories(
   CheckFactories.registerCheck<ThreadJoinDetachCheck>(
       "automotive-c25-req-22.11");
 
+  // Rule 22.13 - A mutex shall not be locked more than once by a thread
+  // (Required) - detects recursive locking of non-recursive mutexes
+  CheckFactories.registerCheck<RecursiveMutexLockCheck>(
+      "automotive-c25-req-22.13");
+
+  // Rule 22.15 - Thread-specific storage pointers shall be retrieved from
+  // the same thread that created them (Required)
+  CheckFactories.registerCheck<ThreadSpecificStorageCheck>(
+      "automotive-c25-req-22.15");
+
+  // Rule 22.16 - An object shall not be accessed from competing threads
+  // without synchronization (Required)
+  CheckFactories.registerCheck<UnsynchronizedAccessCheck>(
+      "automotive-c25-req-22.16");
+
+  // Rule 22.17 - A mutex shall be unlocked from the same thread that locked it
+  // (Required)
+  CheckFactories.registerCheck<MutexUnlockThreadCheck>(
+      "automotive-c25-req-22.17");
+
   // Rule 22.18 - A non-recursive mutex shall not be recursively locked
   // (Mandatory)
   CheckFactories.registerCheck<RecursiveMutexLockCheck>(
@@ -127,6 +155,10 @@ void StdlibComponent::addCheckFactories(
   // mutex object (Required)
   CheckFactories.registerCheck<CondVarMutexAssociationCheck>(
       "automotive-c25-req-22.19");
+
+  // Rule 22.20 - Spurious wakeups shall be handled correctly (Required)
+  CheckFactories.registerCheck<SpuriousWakeupCheck>(
+      "automotive-c25-req-22.20");
 
   // MISRA C:2025 Rule 21.1 - #define/#undef reserved identifiers (Required)
   // Note: Registered in PreprocessorComponent
@@ -187,6 +219,25 @@ void StdlibComponent::addCheckFactories(
 
   // MISRA C:2025 Rule 22.10 - errno testing (Required)
   CheckFactories.registerCheck<ErrnoTestingCheck>("automotive-c25-req-22.10");
+
+  // MISRA C:2025 Rule 21.23 - Thread-specific storage functions (Required)
+  CheckFactories.registerCheck<TssUsageCheck>("automotive-c25-req-21.23");
+
+  // MISRA C:2025 Rule 21.26 - mtx_timedlock mutex type (Required)
+  CheckFactories.registerCheck<MtxTimedlockTypeCheck>(
+      "automotive-c25-req-21.26");
+
+  // MISRA C:2025 Rule 21.18 - size_t argument validity (Mandatory)
+  CheckFactories.registerCheck<WrongSizetArgumentCheck>(
+      "automotive-c25-mand-21.18");
+
+  // MISRA C:2025 Rule 21.22 - errno testing (Mandatory)
+  // errno shall only be tested when the function indicates an error
+  CheckFactories.registerCheck<ErrnoTestingCheck>("automotive-c25-mand-21.22");
+
+  // MISRA C:2025 Rule 22.20 - Thread synchronization nesting (Mandatory)
+  CheckFactories.registerCheck<AvoidNestedSyncCallsCheck>(
+      "automotive-c25-mand-22.20");
 }
 
 } // namespace clang::tidy::automotive

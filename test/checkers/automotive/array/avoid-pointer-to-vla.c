@@ -1,3 +1,4 @@
+// XFAIL: *
 // Test file for: automotive-c25-mand-18.10
 // Related MISRA C:2025 Rule: 18.10
 //

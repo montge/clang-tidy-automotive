@@ -8,6 +8,7 @@
 
 #include "OperatorComponent.h"
 #include "AvoidCommaOperatorCheck.h"
+#include "WrongConditionalOperandTypeCheck.h"
 #include "WrongShiftOperandCheck.h"
 
 namespace clang::tidy::automotive {
@@ -29,6 +30,11 @@ void OperatorComponent::addCheckFactories(
   // MISRA C:2025 Rule 12.1 - Comma operator shall not be used (Required)
   CheckFactories.registerCheck<AvoidCommaOperatorCheck>(
       "automotive-c25-req-12.1");
+
+  // MISRA C:2025 Rule 7.5 - Incompatible pointer/integer in conditional
+  // (Mandatory)
+  CheckFactories.registerCheck<WrongConditionalOperandTypeCheck>(
+      "automotive-c25-mand-7.5");
 }
 
 } // namespace clang::tidy::automotive

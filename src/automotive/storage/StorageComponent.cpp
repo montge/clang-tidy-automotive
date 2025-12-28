@@ -13,6 +13,7 @@
 #include "AvoidReservedIdentifierDeclarationCheck.h"
 #include "AvoidRestrictTypeCheck.h"
 #include "AvoidTentativeDefinitionInHeaderCheck.h"
+#include "AvoidUninitializedAtomicCheck.h"
 #include "AvoidUninitializedReadCheck.h"
 #include "AvoidZeroAlignmentCheck.h"
 #include "DuplicateExternalIdentifierCheck.h"
@@ -92,6 +93,10 @@ void StorageComponent::addCheckFactories(
       "automotive-avoid-restrict-type");
   CheckFactories.registerCheck<MissingStaticForInternalCheck>(
       "automotive-missing-static-internal-linkage");
+
+  // MISRA C:2025 Rule 9.7 - Atomic object initialization (Mandatory)
+  CheckFactories.registerCheck<AvoidUninitializedAtomicCheck>(
+      "automotive-c25-mand-9.7");
 }
 
 } // namespace clang::tidy::automotive
