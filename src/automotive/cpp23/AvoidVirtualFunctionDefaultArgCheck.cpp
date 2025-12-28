@@ -30,16 +30,29 @@ void AvoidVirtualFunctionDefaultArgCheck::check(
   if (!Method)
     return;
 
+  // Skip if method has invalid location (e.g., template instantiations)
+  if (Method->getLocation().isInvalid())
+    return;
+
   // Skip system headers
   if (Result.SourceManager->isInSystemHeader(Method->getLocation()))
+    return;
+
+  // Skip template instantiations - check the template pattern instead
+  if (Method->isTemplateInstantiation())
     return;
 
   // Check each parameter for default arguments
   for (unsigned i = 0; i < Method->getNumParams(); ++i) {
     const ParmVarDecl *Param = Method->getParamDecl(i);
     if (Param->hasDefaultArg()) {
+      const Expr *DefaultArg = Param->getDefaultArg();
+      // Skip if default argument has invalid location
+      if (!DefaultArg || DefaultArg->getBeginLoc().isInvalid())
+        continue;
+
       // Report the issue at the parameter location
-      diag(Param->getDefaultArg()->getBeginLoc(),
+      diag(DefaultArg->getBeginLoc(),
            "virtual function '%0' has default argument for parameter '%1'")
           << Method->getQualifiedNameAsString() << Param->getNameAsString();
 
