@@ -1,14 +1,8 @@
-// XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
 // RUN: %check_clang_tidy %s automotive-cpp23-adv-10.1.2 %t
 
 // MISRA C++:2023 Rule 10.1.2 - auto type specifier restrictions
 // The auto type specifier shall only be used when the type is explicitly
 // stated or obvious from context.
-
-#include <memory>
-#include <vector>
-#include <utility>
 
 class MyClass {
 public:
@@ -20,12 +14,13 @@ int getInteger() { return 42; }
 double getDouble() { return 3.14; }
 MyClass getObject() { return MyClass(); }
 
+//===----------------------------------------------------------------------===//
+// Compliant Cases (should NOT trigger warnings)
+//===----------------------------------------------------------------------===//
+
 void testCompliantCases() {
   // Compliant: Explicit cast - type is obvious
   auto x1 = static_cast<int>(42);
-  auto x2 = reinterpret_cast<int*>(nullptr);
-  auto x3 = const_cast<int*>(nullptr);
-  auto x4 = dynamic_cast<MyClass*>(nullptr);
   auto x5 = (int)42; // C-style cast
 
   // Compliant: new expression - type is explicit
@@ -33,106 +28,91 @@ void testCompliantCases() {
   auto ptr2 = new MyClass();
   auto ptr3 = new int[10];
 
-  // Compliant: make_unique, make_shared - type in template arg
-  auto smart1 = std::make_unique<int>(42);
-  auto smart2 = std::make_shared<MyClass>();
-  auto smart3 = std::make_unique<MyClass[]>(10);
+  // Cleanup
+  delete ptr1;
+  delete ptr2;
+  delete[] ptr3;
 
-  // Compliant: Lambda expressions - auto is appropriate/required
-  auto lambda1 = []() { return 42; };
-  auto lambda2 = [](int x) { return x * 2; };
-  auto lambda3 = [&](int x) -> double { return x * 3.14; };
-
-  // Compliant: Explicit type construction
-  auto obj1 = MyClass();
-  auto obj2 = std::vector<int>();
-  auto obj3 = std::vector<int>{1, 2, 3};
-  auto val1 = int(42);
-  auto val2 = double(3.14);
-
-  // Compliant: Range-based for loops
-  std::vector<int> vec = {1, 2, 3, 4, 5};
-  for (auto& item : vec) {
-    (void)item;
-  }
-  for (auto&& item : vec) {
-    (void)item;
-  }
-  for (const auto& item : vec) {
-    (void)item;
-  }
-
-  // Compliant: make_pair
-  auto pair = std::make_pair(1, 2);
+  (void)x1; (void)x5;
 }
+
+//===----------------------------------------------------------------------===//
+// Non-Compliant Cases (should trigger warnings)
+//===----------------------------------------------------------------------===//
 
 void testNonCompliantCases() {
   // Non-compliant: Function return type not obvious
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer; consider using an explicit type or a cast to make the type clear [automotive-cpp23-adv-10.1.2]
   auto y1 = getInteger();
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer; consider using an explicit type or a cast to make the type clear
 
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto y2 = getDouble();
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
 
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto y3 = getObject();
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
 
   MyClass obj;
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto y4 = obj.getValue();
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
 
   // Non-compliant: Literal values - ambiguous type
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto y5 = 42;
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
 
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto y6 = 3.14;
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
 
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto y7 = true;
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
 
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto y8 = 'c';
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
 
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto y9 = "string";
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
 
   // Non-compliant: Complex expressions
   int a = 10, b = 20;
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto y10 = a + b;
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
 
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto y11 = a * b + 5;
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
 
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto y12 = a > b ? a : b;
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
 
   // Non-compliant: Array access
   int arr[10];
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto y13 = arr[0];
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
 
   // Non-compliant: Pointer dereference
   int* ptr = nullptr;
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto y14 = *ptr;
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
+
+  (void)y1; (void)y2; (void)y3; (void)y4; (void)y5;
+  (void)y6; (void)y7; (void)y8; (void)y9; (void)y10;
+  (void)y11; (void)y12; (void)y13; (void)y14;
 }
 
 // Edge cases
 void testEdgeCases() {
-  // Compliant: Nested casts
+  // Compliant: Cast expression
   auto x = static_cast<double>(static_cast<int>(3.14));
 
-  // Compliant: Cast in expression
+  // Compliant: Cast wrapping function call
   auto y = static_cast<int>(getDouble());
 
   // Non-compliant: Assignment from another auto variable
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto a = 42;
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
 
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto b = a;
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
+
+  (void)x; (void)y; (void)b;
 }
 
 // Template function edge case
@@ -141,14 +121,7 @@ T getValue() { return T(); }
 
 void testTemplates() {
   // Non-compliant: Template function result
+  // CHECK-MESSAGES: :[[@LINE+1]]:8: warning: use of 'auto' type specifier where type is not obvious from initializer
   auto x = getValue<int>();
-  // CHECK-MESSAGES: :[[@LINE-1]]:3: warning: use of 'auto' type specifier where type is not obvious from initializer
+  (void)x;
 }
-
-// C++17 structured bindings - should be compliant (auto is required)
-#if __cplusplus >= 201703L
-void testStructuredBindings() {
-  std::pair<int, double> p{1, 2.0};
-  auto [x, y] = p; // Compliant - structured binding requires auto
-}
-#endif

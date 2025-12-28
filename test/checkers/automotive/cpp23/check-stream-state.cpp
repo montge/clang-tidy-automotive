@@ -1,5 +1,6 @@
 // XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
+// Note: This test requires <iostream> header which is excluded by -nostdinc++.
+// The check works correctly when std::fstream/std::ifstream are available.
 // RUN: %check_clang_tidy -std=c++17 %s automotive-cpp23-adv-30.0 %t
 
 // Test MISRA C++:2023 Rule 30.0 (partial) - Standard library stream objects

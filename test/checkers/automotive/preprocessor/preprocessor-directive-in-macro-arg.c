@@ -1,5 +1,7 @@
 // XFAIL: *
-// Note: Check needs implementation
+// Note: This check cannot be implemented with clang-tidy because preprocessor
+// directives are evaluated before macro expansion. This is a fundamental
+// limitation of how the C preprocessor works.
 // RUN: %check_clang_tidy %s automotive-c25-req-20.6 %t -- -- -std=c11
 // Test for automotive-c25-req-20.6: preprocessor directives in macro arguments
 
