@@ -19,20 +19,32 @@ void DuplicateTypedefNameCheck::registerMatchers(MatchFinder *Finder) {
 
 void DuplicateTypedefNameCheck::check(const MatchFinder::MatchResult &Result) {
   const auto *MatchedDecl = Result.Nodes.getNodeAs<TypedefDecl>("typedef");
-  if (!MatchedDecl || MatchedDecl->isImplicit())
+
+  if (!MatchedDecl) {
     return;
+  }
 
+  // Skip implicit typedef declarations
+  if (MatchedDecl->isImplicit()) {
+    return;
+  }
+
+  // Get the typedef name
   StringRef TypedefName = MatchedDecl->getName();
-  auto It = SeenTypedefs.find(TypedefName);
 
+  // Check if we've seen this name before
+  auto It = SeenTypedefs.find(TypedefName);
   if (It != SeenTypedefs.end()) {
     const TypedefDecl *FirstDecl = It->second;
+
+    // Emit diagnostic for the duplicate
     diag(MatchedDecl->getLocation(),
          "duplicate typedef name '%0', previously declared")
         << TypedefName;
     diag(FirstDecl->getLocation(), "previous declaration is here",
          DiagnosticIDs::Note);
   } else {
+    // First occurrence, store it
     SeenTypedefs[TypedefName] = MatchedDecl;
   }
 }

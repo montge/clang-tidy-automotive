@@ -13,17 +13,11 @@
 
 namespace clang::tidy::automotive {
 
-/// @ingroup misra-c25-expression
 /// @brief Detects inappropriate essential type mixing in operations.
 ///
-/// Implements MISRA Rule 10.1: Operands shall not be of an inappropriate
-/// essential type. This check enforces the Essential Type Model which
+/// This check enforces the Essential Type Model which
 /// categorizes types into Boolean, Character, Signed, Unsigned, Floating,
 /// and Enum, and detects inappropriate mixing of these categories.
-///
-/// @par MISRA C:2023 Rule 10.1
-/// Operands shall not be of an inappropriate essential type.
-/// @par Category: Required
 ///
 /// Common violations detected:
 /// - Boolean types used in arithmetic operations
@@ -44,9 +38,6 @@ public:
   AvoidInappropriateEssentialTypeCheck(StringRef Name,
                                        ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
-
-  /// Destructor.
-  ~AvoidInappropriateEssentialTypeCheck() override = default;
 
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
@@ -74,19 +65,6 @@ private:
 
   /// Get a human-readable name for an essential type
   StringRef getEssentialTypeName(EssentialType ET) const;
-
-  /// Handle binary operator checking
-  void handleBinaryOperator(const BinaryOperator *BinOp,
-                            const SourceManager &SM);
-
-  /// Handle unary operator checking
-  void handleUnaryOperator(const UnaryOperator *UnOp, const SourceManager &SM);
-
-  /// Check and report inappropriate arithmetic operand
-  void checkArithmeticOperand(const Expr *Operand, EssentialType ET);
-
-  /// Check and report inappropriate bitwise operand
-  void checkBitwiseOperand(const Expr *Operand, EssentialType ET);
 };
 
 } // namespace clang::tidy::automotive

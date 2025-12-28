@@ -13,17 +13,11 @@
 
 namespace clang::tidy::automotive {
 
-/// @ingroup misra-c25-storage
 /// @brief Detects reads from uninitialized local variables.
 ///
 /// Objects with automatic storage duration must be initialized before their
 /// value is read. Reading from an uninitialized variable leads to undefined
 /// behavior.
-///
-/// @par MISRA C:2025 Rule 9.1
-/// The value of an object with automatic storage duration shall not be read
-/// before it has been set.
-/// @par Category: Required
 ///
 /// Example:
 /// @code
@@ -42,9 +36,6 @@ class AvoidUninitializedReadCheck : public ClangTidyCheck {
 public:
   AvoidUninitializedReadCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
-
-  /// Destructor.
-  ~AvoidUninitializedReadCheck() override = default;
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };

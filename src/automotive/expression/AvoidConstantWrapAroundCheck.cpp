@@ -19,69 +19,6 @@ namespace clang::tidy::automotive {
 
 namespace {
 
-/// Helper to evaluate both operands of a binary expression.
-/// Returns true if both operands evaluate to integer constants.
-bool evaluateBinaryOperands(BinaryOperator *BO, ASTContext &Context,
-                            llvm::APSInt &LHSVal, llvm::APSInt &RHSVal) {
-  Expr::EvalResult LHS;
-  Expr::EvalResult RHS;
-  if (!BO->getLHS()->EvaluateAsRValue(LHS, Context) ||
-      !BO->getRHS()->EvaluateAsRValue(RHS, Context))
-    return false;
-
-  if (!LHS.Val.isInt() || !RHS.Val.isInt())
-    return false;
-
-  LHSVal = LHS.Val.getInt();
-  RHSVal = RHS.Val.getInt();
-  return true;
-}
-
-/// Check if subtraction wraps around (LHS < RHS for unsigned).
-bool checkSubtractionWrapAround(BinaryOperator *BO, ASTContext &Context) {
-  llvm::APSInt LHSVal;
-  llvm::APSInt RHSVal;
-  if (!evaluateBinaryOperands(BO, Context, LHSVal, RHSVal))
-    return false;
-
-  return LHSVal.ult(RHSVal);
-}
-
-/// Check if addition wraps around (result < either operand for unsigned).
-bool checkAdditionWrapAround(BinaryOperator *BO, ASTContext &Context) {
-  Expr::EvalResult Result;
-  if (!BO->EvaluateAsRValue(Result, Context) || !Result.Val.isInt())
-    return false;
-
-  llvm::APSInt LHSVal;
-  llvm::APSInt RHSVal;
-  if (!evaluateBinaryOperands(BO, Context, LHSVal, RHSVal))
-    return false;
-
-  const llvm::APSInt &ResultVal = Result.Val.getInt();
-  return ResultVal.ult(LHSVal) || ResultVal.ult(RHSVal);
-}
-
-/// Check if multiplication wraps around (result/lhs != rhs).
-bool checkMultiplicationWrapAround(BinaryOperator *BO, ASTContext &Context) {
-  Expr::EvalResult Result;
-  if (!BO->EvaluateAsRValue(Result, Context) || !Result.Val.isInt())
-    return false;
-
-  llvm::APSInt LHSVal;
-  llvm::APSInt RHSVal;
-  if (!evaluateBinaryOperands(BO, Context, LHSVal, RHSVal))
-    return false;
-
-  if (LHSVal.isZero() || RHSVal.isZero())
-    return false;
-
-  const llvm::APSInt &ResultVal = Result.Val.getInt();
-  llvm::APInt QuotientInt = ResultVal.udiv(LHSVal);
-  llvm::APSInt Quotient(QuotientInt, /*isUnsigned=*/true);
-  return Quotient != RHSVal;
-}
-
 /// Visitor to check for wrap-around in binary and unary operations
 class WrapAroundChecker : public RecursiveASTVisitor<WrapAroundChecker> {
 public:
@@ -94,43 +31,76 @@ public:
     if (!BO->getType()->isUnsignedIntegerType())
       return true;
 
-    bool HasWrapAround = false;
-    switch (BO->getOpcode()) {
-    case BO_Sub:
-      HasWrapAround = checkSubtractionWrapAround(BO, Context);
-      break;
-    case BO_Add:
-      HasWrapAround = checkAdditionWrapAround(BO, Context);
-      break;
-    case BO_Mul:
-      HasWrapAround = checkMultiplicationWrapAround(BO, Context);
-      break;
-    default:
-      return true;
+    // Check for subtraction where LHS < RHS (will wrap)
+    if (BO->getOpcode() == BO_Sub) {
+      Expr::EvalResult LHS, RHS;
+      if (BO->getLHS()->EvaluateAsRValue(LHS, Context) &&
+          BO->getRHS()->EvaluateAsRValue(RHS, Context)) {
+        if (LHS.Val.isInt() && RHS.Val.isInt()) {
+          if (LHS.Val.getInt().ult(RHS.Val.getInt())) {
+            FoundWrapAround = true;
+            WrapAroundLoc = BO->getOperatorLoc();
+            return false;
+          }
+        }
+      }
     }
 
-    if (HasWrapAround) {
-      FoundWrapAround = true;
-      WrapAroundLoc = BO->getOperatorLoc();
-      return false;
+    // Check for addition or multiplication that exceeds the type's max value
+    if (BO->getOpcode() == BO_Add || BO->getOpcode() == BO_Mul) {
+      Expr::EvalResult Result;
+      if (BO->EvaluateAsRValue(Result, Context)) {
+        if (Result.Val.isInt()) {
+          Expr::EvalResult LHS, RHS;
+          if (BO->getLHS()->EvaluateAsRValue(LHS, Context) &&
+              BO->getRHS()->EvaluateAsRValue(RHS, Context)) {
+            if (LHS.Val.isInt() && RHS.Val.isInt()) {
+              const llvm::APSInt &LHSVal = LHS.Val.getInt();
+              const llvm::APSInt &RHSVal = RHS.Val.getInt();
+              const llvm::APSInt &ResultVal = Result.Val.getInt();
+
+              // For addition: if result < either operand, wrap occurred
+              if (BO->getOpcode() == BO_Add) {
+                if (ResultVal.ult(LHSVal) || ResultVal.ult(RHSVal)) {
+                  FoundWrapAround = true;
+                  WrapAroundLoc = BO->getOperatorLoc();
+                  return false;
+                }
+              }
+              // For multiplication: check if result/lhs != rhs (simplified
+              // overflow check)
+              else if (BO->getOpcode() == BO_Mul) {
+                if (!LHSVal.isZero() && !RHSVal.isZero()) {
+                  // Check if we can divide back and get the original value
+                  llvm::APInt QuotientInt = ResultVal.udiv(LHSVal);
+                  llvm::APSInt Quotient(QuotientInt, /*isUnsigned=*/true);
+                  if (Quotient != RHSVal) {
+                    FoundWrapAround = true;
+                    WrapAroundLoc = BO->getOperatorLoc();
+                    return false;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
+
     return true;
   }
 
   bool VisitUnaryOperator(UnaryOperator *UO) {
-    if (UO->getOpcode() != UO_Minus)
-      return true;
-    if (!UO->getType()->isUnsignedIntegerType())
-      return true;
-
-    Expr::EvalResult Operand;
-    if (!UO->getSubExpr()->EvaluateAsRValue(Operand, Context))
-      return true;
-
-    if (Operand.Val.isInt() && !Operand.Val.getInt().isZero()) {
-      FoundWrapAround = true;
-      WrapAroundLoc = UO->getOperatorLoc();
-      return false;
+    // Unary minus on unsigned type (except for 0)
+    if (UO->getOpcode() == UO_Minus && UO->getType()->isUnsignedIntegerType()) {
+      Expr::EvalResult Operand;
+      if (UO->getSubExpr()->EvaluateAsRValue(Operand, Context)) {
+        if (Operand.Val.isInt() && !Operand.Val.getInt().isZero()) {
+          FoundWrapAround = true;
+          WrapAroundLoc = UO->getOperatorLoc();
+          return false;
+        }
+      }
     }
     return true;
   }
@@ -178,9 +148,7 @@ void AvoidConstantWrapAroundCheck::check(
 
   // Walk the initializer to find wrap-around operations
   WrapAroundChecker Checker(*Result.Context);
-  Checker.TraverseStmt(
-      const_cast<Expr *>(InitExpr)); // NOSONAR(S859): const_cast required by
-                                     // RecursiveASTVisitor API
+  Checker.TraverseStmt(const_cast<Expr *>(InitExpr));
 
   if (Checker.foundWrapAround()) {
     diag(

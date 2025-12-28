@@ -9,22 +9,10 @@
 #include "DuplicateTagNameCheck.h"
 #include "clang/AST/ASTContext.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
-#include "llvm/ADT/STLExtras.h"
 
 using namespace clang::ast_matchers;
 
 namespace clang::tidy::automotive {
-
-namespace {
-/// Returns the tag kind as a string ("struct", "union", or "enum").
-StringRef getTagKindName(const TagDecl *Tag) {
-  if (isa<EnumDecl>(Tag))
-    return "enum";
-  if (const auto *RD = dyn_cast<RecordDecl>(Tag))
-    return RD->isUnion() ? "union" : "struct";
-  return "tag";
-}
-} // namespace
 
 void DuplicateTagNameCheck::registerMatchers(MatchFinder *Finder) {
   // Match all tag declarations (struct, union, enum) that have a name
@@ -59,8 +47,17 @@ void DuplicateTagNameCheck::check(const MatchFinder::MatchResult &Result) {
   auto &Decls = TagNames[TagName];
 
   // Only add if we haven't seen this exact canonical declaration before
-  if (llvm::find(Decls, CanonicalTag) == Decls.end())
+  bool AlreadyTracked = false;
+  for (const TagDecl *ExistingDecl : Decls) {
+    if (ExistingDecl == CanonicalTag) {
+      AlreadyTracked = true;
+      break;
+    }
+  }
+
+  if (!AlreadyTracked) {
     Decls.push_back(CanonicalTag);
+  }
 }
 
 void DuplicateTagNameCheck::onEndOfTranslationUnit() {
@@ -75,8 +72,18 @@ void DuplicateTagNameCheck::onEndOfTranslationUnit() {
         const TagDecl *CurrentTag = Decls[i];
         const TagDecl *FirstTag = Decls[0];
 
-        StringRef TagKind = getTagKindName(CurrentTag);
-        StringRef FirstTagKind = getTagKindName(FirstTag);
+        // Get tag type name for better diagnostics
+        StringRef TagKind;
+        if (isa<EnumDecl>(CurrentTag))
+          TagKind = "enum";
+        else if (const auto *RD = dyn_cast<RecordDecl>(CurrentTag))
+          TagKind = RD->isUnion() ? "union" : "struct";
+
+        StringRef FirstTagKind;
+        if (isa<EnumDecl>(FirstTag))
+          FirstTagKind = "enum";
+        else if (const auto *RD = dyn_cast<RecordDecl>(FirstTag))
+          FirstTagKind = RD->isUnion() ? "union" : "struct";
 
         diag(CurrentTag->getLocation(),
              "duplicate tag name '%0'; %1 '%0' conflicts with %2 declared here")

@@ -17,124 +17,151 @@ namespace clang::tidy::automotive {
 void AvoidInappropriateEssentialTypeCheck::registerMatchers(
     MatchFinder *Finder) {
   // Match binary operators: arithmetic, bitwise, and relational
+  // We focus on operators where essential type violations are most common
   Finder->addMatcher(
-      binaryOperator(anyOf(hasAnyOperatorName("+", "-", "*", "/", "%"),
-                           hasAnyOperatorName("&", "|", "^", "<<", ">>"),
-                           hasAnyOperatorName("+=", "-=", "*=", "/=", "%=",
-                                              "&=", "|=", "^=", "<<=", ">>=")))
+      binaryOperator(anyOf(
+                         // Arithmetic operators
+                         hasAnyOperatorName("+", "-", "*", "/", "%"),
+                         // Bitwise operators
+                         hasAnyOperatorName("&", "|", "^", "<<", ">>"),
+                         // Compound assignment with arithmetic
+                         hasAnyOperatorName("+=", "-=", "*=", "/=", "%=", "&=",
+                                            "|=", "^=", "<<=", ">>=")))
           .bind("binop"),
       this);
 
   // Match unary operators that may have essential type issues
   Finder->addMatcher(
-      unaryOperator(anyOf(hasOperatorName("~"), hasOperatorName("+"),
-                          hasOperatorName("-")))
+      unaryOperator(anyOf(
+                        // Bitwise NOT
+                        hasOperatorName("~"),
+                        // Unary plus/minus
+                        hasOperatorName("+"), hasOperatorName("-")))
           .bind("unop"),
       this);
 }
 
-void AvoidInappropriateEssentialTypeCheck::checkArithmeticOperand(
-    const Expr *Operand, EssentialType ET) {
-  if (!isAppropriateForArithmetic(ET)) {
-    diag(Operand->getBeginLoc(),
-         "operand of essential type '%0' is inappropriate for arithmetic "
-         "operation")
-        << getEssentialTypeName(ET);
-  }
-}
-
-void AvoidInappropriateEssentialTypeCheck::checkBitwiseOperand(
-    const Expr *Operand, EssentialType ET) {
-  if (!isAppropriateForBitwise(ET)) {
-    diag(Operand->getBeginLoc(),
-         "operand of essential type '%0' is inappropriate for bitwise "
-         "operation")
-        << getEssentialTypeName(ET);
-  }
-}
-
-void AvoidInappropriateEssentialTypeCheck::handleBinaryOperator(
-    const BinaryOperator *BinOp, const SourceManager &SM) {
-  if (SM.isInSystemHeader(BinOp->getOperatorLoc()))
-    return;
-
-  const Expr *LHS = BinOp->getLHS()->IgnoreParenImpCasts();
-  const Expr *RHS = BinOp->getRHS()->IgnoreParenImpCasts();
-
-  EssentialType LHSET = getEssentialType(LHS->getType());
-  EssentialType RHSET = getEssentialType(RHS->getType());
-
-  bool IsArithmetic = BinOp->isAdditiveOp() || BinOp->isMultiplicativeOp();
-  bool IsBitwise = BinOp->isBitwiseOp() || BinOp->isShiftOp();
-
-  if (IsArithmetic) {
-    checkArithmeticOperand(LHS, LHSET);
-    checkArithmeticOperand(RHS, RHSET);
-  }
-
-  if (IsBitwise) {
-    checkBitwiseOperand(LHS, LHSET);
-    checkBitwiseOperand(RHS, RHSET);
-  }
-}
-
-void AvoidInappropriateEssentialTypeCheck::handleUnaryOperator(
-    const UnaryOperator *UnOp, const SourceManager &SM) {
-  if (SM.isInSystemHeader(UnOp->getOperatorLoc()))
-    return;
-
-  const Expr *SubExpr = UnOp->getSubExpr()->IgnoreParenImpCasts();
-  EssentialType ET = getEssentialType(SubExpr->getType());
-
-  if (UnOp->getOpcode() == UO_Not) {
-    checkBitwiseOperand(SubExpr, ET);
-    return;
-  }
-
-  if (UnOp->getOpcode() == UO_Plus || UnOp->getOpcode() == UO_Minus) {
-    if (!isAppropriateForArithmetic(ET)) {
-      diag(SubExpr->getBeginLoc(),
-           "operand of essential type '%0' is inappropriate for unary '%1' "
-           "operation")
-          << getEssentialTypeName(ET)
-          << (UnOp->getOpcode() == UO_Plus ? "+" : "-");
-    }
-  }
-}
-
 void AvoidInappropriateEssentialTypeCheck::check(
     const MatchFinder::MatchResult &Result) {
+
+  // Handle binary operators
   if (const auto *BinOp = Result.Nodes.getNodeAs<BinaryOperator>("binop")) {
-    handleBinaryOperator(BinOp, *Result.SourceManager);
-    return;
+    // Skip if in system header
+    if (Result.SourceManager->isInSystemHeader(BinOp->getOperatorLoc()))
+      return;
+
+    // Get essential types of both operands, ignoring implicit casts
+    // to get the underlying expression type
+    const Expr *LHS = BinOp->getLHS()->IgnoreParenImpCasts();
+    const Expr *RHS = BinOp->getRHS()->IgnoreParenImpCasts();
+
+    QualType LHSType = LHS->getType();
+    QualType RHSType = RHS->getType();
+
+    EssentialType LHSET = getEssentialType(LHSType);
+    EssentialType RHSET = getEssentialType(RHSType);
+
+    bool IsArithmetic = BinOp->isAdditiveOp() || BinOp->isMultiplicativeOp();
+    bool IsBitwise = BinOp->isBitwiseOp() || BinOp->isShiftOp();
+
+    // Check for inappropriate types in arithmetic operations
+    if (IsArithmetic) {
+      if (!isAppropriateForArithmetic(LHSET)) {
+        diag(LHS->getBeginLoc(),
+             "operand of essential type '%0' is inappropriate for arithmetic "
+             "operation")
+            << getEssentialTypeName(LHSET);
+      }
+      if (!isAppropriateForArithmetic(RHSET)) {
+        diag(RHS->getBeginLoc(),
+             "operand of essential type '%0' is inappropriate for arithmetic "
+             "operation")
+            << getEssentialTypeName(RHSET);
+      }
+    }
+
+    // Check for inappropriate types in bitwise operations
+    if (IsBitwise) {
+      if (!isAppropriateForBitwise(LHSET)) {
+        diag(LHS->getBeginLoc(),
+             "operand of essential type '%0' is inappropriate for bitwise "
+             "operation")
+            << getEssentialTypeName(LHSET);
+      }
+      if (!isAppropriateForBitwise(RHSET)) {
+        diag(RHS->getBeginLoc(),
+             "operand of essential type '%0' is inappropriate for bitwise "
+             "operation")
+            << getEssentialTypeName(RHSET);
+      }
+    }
   }
 
+  // Handle unary operators
   if (const auto *UnOp = Result.Nodes.getNodeAs<UnaryOperator>("unop")) {
-    handleUnaryOperator(UnOp, *Result.SourceManager);
+    // Skip if in system header
+    if (Result.SourceManager->isInSystemHeader(UnOp->getOperatorLoc()))
+      return;
+
+    const Expr *SubExpr = UnOp->getSubExpr()->IgnoreParenImpCasts();
+    QualType OpType = SubExpr->getType();
+    EssentialType ET = getEssentialType(OpType);
+
+    // Bitwise NOT
+    if (UnOp->getOpcode() == UO_Not) {
+      if (!isAppropriateForBitwise(ET)) {
+        diag(SubExpr->getBeginLoc(),
+             "operand of essential type '%0' is inappropriate for bitwise NOT "
+             "operation")
+            << getEssentialTypeName(ET);
+      }
+    }
+
+    // Unary plus/minus
+    if (UnOp->getOpcode() == UO_Plus || UnOp->getOpcode() == UO_Minus) {
+      if (!isAppropriateForArithmetic(ET)) {
+        diag(SubExpr->getBeginLoc(),
+             "operand of essential type '%0' is inappropriate for unary '%1' "
+             "operation")
+            << getEssentialTypeName(ET)
+            << (UnOp->getOpcode() == UO_Plus ? "+" : "-");
+      }
+    }
   }
 }
 
 AvoidInappropriateEssentialTypeCheck::EssentialType
 AvoidInappropriateEssentialTypeCheck::getEssentialType(QualType Type) const {
+  // Remove typedefs, const, volatile, etc. to get the canonical type
   Type = Type.getCanonicalType().getUnqualifiedType();
 
-  if (Type->isBooleanType())
+  // Boolean type
+  if (Type->isBooleanType()) {
     return EssentialType::Boolean;
+  }
 
-  if (Type->isAnyCharacterType())
+  // Character types
+  if (Type->isAnyCharacterType()) {
     return EssentialType::Character;
+  }
 
-  if (Type->isEnumeralType())
+  // Enumeration types
+  if (Type->isEnumeralType()) {
     return EssentialType::Enum;
+  }
 
-  if (Type->isFloatingType())
+  // Floating point types
+  if (Type->isFloatingType()) {
     return EssentialType::FloatingPoint;
+  }
 
+  // Integer types - distinguish signed from unsigned
   if (Type->isIntegerType()) {
-    if (Type->isUnsignedIntegerType())
+    if (Type->isUnsignedIntegerType()) {
       return EssentialType::UnsignedInt;
-    if (Type->isSignedIntegerType())
+    } else if (Type->isSignedIntegerType()) {
       return EssentialType::SignedInt;
+    }
   }
 
   return EssentialType::Other;
@@ -142,13 +169,40 @@ AvoidInappropriateEssentialTypeCheck::getEssentialType(QualType Type) const {
 
 bool AvoidInappropriateEssentialTypeCheck::isAppropriateForArithmetic(
     EssentialType ET) const {
-  return ET != EssentialType::Boolean && ET != EssentialType::Character;
+  // Boolean and Character types are inappropriate for arithmetic
+  // Signed, Unsigned, Floating, and Enum are generally appropriate
+  switch (ET) {
+  case EssentialType::Boolean:
+  case EssentialType::Character:
+    return false;
+  case EssentialType::SignedInt:
+  case EssentialType::UnsignedInt:
+  case EssentialType::FloatingPoint:
+  case EssentialType::Enum:
+    return true;
+  case EssentialType::Other:
+    return true; // Be conservative for unknown types
+  }
+  return true;
 }
 
 bool AvoidInappropriateEssentialTypeCheck::isAppropriateForBitwise(
     EssentialType ET) const {
-  return ET != EssentialType::Boolean && ET != EssentialType::Character &&
-         ET != EssentialType::FloatingPoint;
+  // Boolean, Character, and Floating types are inappropriate for bitwise
+  // Signed, Unsigned integers are appropriate
+  switch (ET) {
+  case EssentialType::Boolean:
+  case EssentialType::Character:
+  case EssentialType::FloatingPoint:
+    return false;
+  case EssentialType::SignedInt:
+  case EssentialType::UnsignedInt:
+  case EssentialType::Enum:
+    return true;
+  case EssentialType::Other:
+    return true; // Be conservative for unknown types
+  }
+  return true;
 }
 
 StringRef AvoidInappropriateEssentialTypeCheck::getEssentialTypeName(

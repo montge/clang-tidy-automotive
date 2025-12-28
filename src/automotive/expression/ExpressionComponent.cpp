@@ -8,26 +8,11 @@
 
 #include "ExpressionComponent.h"
 #include "AvoidAssignmentInExpressionCheck.h"
-#include "AvoidAtomicMemberAccessCheck.h"
-#include "AvoidCharacterArithmeticCheck.h"
-#include "AvoidCompositeExpressionMismatchCheck.h"
 #include "AvoidConstantWrapAroundCheck.h"
-#include "AvoidEssentialTypeMismatchCheck.h"
-#include "AvoidInappropriateCastCheck.h"
 #include "AvoidInappropriateEssentialTypeCheck.h"
-#include "AvoidNarrowingCompoundAssignmentCheck.h"
 #include "AvoidNonBooleanInConditionCheck.h"
-#include "AvoidSideEffectInInitializerCheck.h"
 #include "AvoidSideEffectInLogicalOperandCheck.h"
 #include "AvoidSideEffectInSizeofCheck.h"
-#include "AvoidSizeofArrayParameterCheck.h"
-#include "GenericAppropriateTypeCheck.h"
-#include "GenericDefaultPositionCheck.h"
-#include "GenericEssentialTypeCheck.h"
-#include "GenericFromMacroCheck.h"
-#include "GenericImplicitPointerCheck.h"
-#include "GenericNonDefaultCheck.h"
-#include "GenericSideEffectCheck.h"
 #include "InvariantControlCheck.h"
 
 namespace clang::tidy::automotive {
@@ -39,33 +24,9 @@ void ExpressionComponent::addCheckFactories(
   CheckFactories.registerCheck<AvoidInappropriateEssentialTypeCheck>(
       "automotive-c23-req-10.1");
 
-  // Rule 10.2 - Character arithmetic (Required)
-  CheckFactories.registerCheck<AvoidCharacterArithmeticCheck>(
-      "automotive-c23-req-10.2");
-
-  // Rule 10.3 - Narrowing assignment (Required)
-  CheckFactories.registerCheck<AvoidNarrowingCompoundAssignmentCheck>(
-      "automotive-c23-req-10.3");
-
-  // Rule 10.4 - Essential type mismatch (Required)
-  CheckFactories.registerCheck<AvoidEssentialTypeMismatchCheck>(
-      "automotive-c23-req-10.4");
-
-  // Rule 10.5 - Inappropriate cast (Advisory)
-  CheckFactories.registerCheck<AvoidInappropriateCastCheck>(
-      "automotive-c23-adv-10.5");
-
-  // Rules 10.6, 10.7, 10.8 - Composite expression mismatch (Required)
-  CheckFactories.registerCheck<AvoidCompositeExpressionMismatchCheck>(
-      "automotive-c23-req-10.6");
-
   // Rule 12.4 - Constant expression wrap-around (Advisory)
   CheckFactories.registerCheck<AvoidConstantWrapAroundCheck>(
       "automotive-c23-adv-12.4");
-
-  // Rules 13.1, 13.2, 13.3 - Side effects in initializers (Required)
-  CheckFactories.registerCheck<AvoidSideEffectInInitializerCheck>(
-      "automotive-c23-req-13.1");
 
   // Rule 13.4 - Assignment used as expression (Advisory)
   CheckFactories.registerCheck<AvoidAssignmentInExpressionCheck>(
@@ -79,10 +40,6 @@ void ExpressionComponent::addCheckFactories(
   CheckFactories.registerCheck<AvoidSideEffectInSizeofCheck>(
       "automotive-c23-mand-13.6");
 
-  // Rule 12.5 - sizeof on array parameter (Required)
-  CheckFactories.registerCheck<AvoidSizeofArrayParameterCheck>(
-      "automotive-c23-req-12.5");
-
   // Rule 14.3 - Invariant controlling expression (Required)
   CheckFactories.registerCheck<InvariantControlCheck>(
       "automotive-c23-req-14.3");
@@ -90,123 +47,6 @@ void ExpressionComponent::addCheckFactories(
   // Rule 14.4 - Non-boolean in condition (Required)
   CheckFactories.registerCheck<AvoidNonBooleanInConditionCheck>(
       "automotive-c23-req-14.4");
-
-  // Rule 12.6 - Atomic struct member access (Required)
-  CheckFactories.registerCheck<AvoidAtomicMemberAccessCheck>(
-      "automotive-c25-req-12.6");
-
-  // Rule 23.1 - Generic from macro (Advisory)
-  CheckFactories.registerCheck<GenericFromMacroCheck>(
-      "automotive-c25-adv-23.1");
-
-  // Rule 23.2 - Generic side effects in controlling expression (Required)
-  CheckFactories.registerCheck<GenericSideEffectCheck>(
-      "automotive-c25-req-23.2");
-
-  // Rule 23.3 - Generic non-default association (Advisory)
-  CheckFactories.registerCheck<GenericNonDefaultCheck>(
-      "automotive-c25-adv-23.3");
-
-  // Rule 23.4 - Generic appropriate type (Required)
-  CheckFactories.registerCheck<GenericAppropriateTypeCheck>(
-      "automotive-c25-req-23.4");
-
-  // Rule 23.5 - Generic implicit pointer conversion (Advisory)
-  CheckFactories.registerCheck<GenericImplicitPointerCheck>(
-      "automotive-c25-adv-23.5");
-
-  // Rule 23.6 - Generic essential type match (Required)
-  CheckFactories.registerCheck<GenericEssentialTypeCheck>(
-      "automotive-c25-req-23.6");
-
-  // Rule 23.8 - Generic default position (Required)
-  CheckFactories.registerCheck<GenericDefaultPositionCheck>(
-      "automotive-c25-req-23.8");
-
-  // Rule 23.7 - Generic selection argument evaluation (Advisory)
-  // A generic selection expanded from a macro should not evaluate its argument
-  // multiple times (side effects would be evaluated multiple times)
-  CheckFactories.registerCheck<GenericSideEffectCheck>(
-      "automotive-c25-adv-23.7");
-
-  // === MISRA C:2025 Chapter 10 - Essential Type Model ===
-
-  // MISRA C:2025 Rule 10.1 - Inappropriate essential type (Required)
-  CheckFactories.registerCheck<AvoidInappropriateEssentialTypeCheck>(
-      "automotive-c25-req-10.1");
-
-  // MISRA C:2025 Rule 10.2 - Character arithmetic (Required)
-  CheckFactories.registerCheck<AvoidCharacterArithmeticCheck>(
-      "automotive-c25-req-10.2");
-
-  // MISRA C:2025 Rule 10.3 - Narrowing assignment (Required)
-  CheckFactories.registerCheck<AvoidNarrowingCompoundAssignmentCheck>(
-      "automotive-c25-req-10.3");
-
-  // MISRA C:2025 Rule 10.4 - Essential type mismatch (Required)
-  CheckFactories.registerCheck<AvoidEssentialTypeMismatchCheck>(
-      "automotive-c25-req-10.4");
-
-  // MISRA C:2025 Rule 10.5 - Inappropriate cast (Advisory)
-  CheckFactories.registerCheck<AvoidInappropriateCastCheck>(
-      "automotive-c25-adv-10.5");
-
-  // MISRA C:2025 Rule 10.6 - Composite expression to wider type (Required)
-  CheckFactories.registerCheck<AvoidCompositeExpressionMismatchCheck>(
-      "automotive-c25-req-10.6");
-
-  // MISRA C:2025 Rule 10.7 - Composite expression with narrower type (Required)
-  CheckFactories.registerCheck<AvoidCompositeExpressionMismatchCheck>(
-      "automotive-c25-req-10.7");
-
-  // MISRA C:2025 Rule 10.8 - Composite expression cast (Required)
-  CheckFactories.registerCheck<AvoidCompositeExpressionMismatchCheck>(
-      "automotive-c25-req-10.8");
-
-  // === MISRA C:2025 Chapter 13 - Side Effects ===
-
-  // MISRA C:2025 Rule 13.1 - Side effects in initializer (Required)
-  CheckFactories.registerCheck<AvoidSideEffectInInitializerCheck>(
-      "automotive-c25-req-13.1");
-
-  // MISRA C:2025 Rule 13.2 - Evaluation order dependency (Required)
-  // Note: Partially covered by initializer check
-  CheckFactories.registerCheck<AvoidSideEffectInInitializerCheck>(
-      "automotive-c25-req-13.2");
-
-  // MISRA C:2025 Rule 13.3 - Increment/decrement side effect (Required)
-  CheckFactories.registerCheck<AvoidSideEffectInInitializerCheck>(
-      "automotive-c25-req-13.3");
-
-  // MISRA C:2025 Rule 13.4 - Assignment as expression (Advisory)
-  CheckFactories.registerCheck<AvoidAssignmentInExpressionCheck>(
-      "automotive-c25-adv-13.4");
-
-  // MISRA C:2025 Rule 13.5 - Logical operator side effects (Required)
-  CheckFactories.registerCheck<AvoidSideEffectInLogicalOperandCheck>(
-      "automotive-c25-req-13.5");
-
-  // MISRA C:2025 Rule 13.6 - sizeof side effects (Mandatory)
-  CheckFactories.registerCheck<AvoidSideEffectInSizeofCheck>(
-      "automotive-c25-mand-13.6");
-
-  // === MISRA C:2025 Chapter 12 - Expressions (additional) ===
-
-  // MISRA C:2025 Rule 12.4 - Constant wrap-around (Advisory)
-  CheckFactories.registerCheck<AvoidConstantWrapAroundCheck>(
-      "automotive-c25-adv-12.4");
-
-  // MISRA C:2025 Rule 12.5 - sizeof on array parameter (Mandatory)
-  CheckFactories.registerCheck<AvoidSizeofArrayParameterCheck>(
-      "automotive-c25-mand-12.5");
-
-  // MISRA C:2025 Rule 14.3 - Controlling expression invariant (Required)
-  CheckFactories.registerCheck<InvariantControlCheck>(
-      "automotive-c25-req-14.3");
-
-  // MISRA C:2025 Rule 14.4 - Non-boolean controlling expression (Required)
-  CheckFactories.registerCheck<AvoidNonBooleanInConditionCheck>(
-      "automotive-c25-req-14.4");
 }
 
 } // namespace clang::tidy::automotive

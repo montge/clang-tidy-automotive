@@ -13,7 +13,6 @@
 
 namespace clang::tidy::automotive {
 
-/// @ingroup misra-c25-statements
 /// @brief Detects goto statements where the target label is in a different
 /// block scope.
 ///
@@ -21,10 +20,6 @@ namespace clang::tidy::automotive {
 /// ensure that the control flow remains clear and predictable. This check
 /// verifies that both the goto statement and its target label share the same
 /// immediate compound statement (block) as their parent.
-///
-/// @par MISRA C:2023 Rule 15.2
-/// A goto statement and its corresponding label shall be in the same block.
-/// @par Category: Required
 ///
 /// Example:
 /// @code
@@ -54,9 +49,6 @@ public:
   /// \param Context The clang-tidy context for configuration.
   GotoLabelSameBlockCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
-
-  /// Destructor.
-  ~GotoLabelSameBlockCheck() override = default;
 
   /// Registers AST matchers for goto statements.
   /// \param Finder The match finder to register matchers with.

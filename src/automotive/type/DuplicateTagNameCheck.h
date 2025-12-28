@@ -23,8 +23,6 @@ namespace clang::tidy::automotive {
 /// confusion and violates the principle that identifiers should have unique
 /// meanings. This check ensures that each tag name is used only once.
 ///
-/// Related MISRA C:2023 Rule 5.7 - A tag name shall be a unique identifier.
-///
 /// Example:
 /// \code
 ///   struct Point { int x, y; };
@@ -37,9 +35,6 @@ public:
   /// \param Context The clang-tidy context for configuration.
   DuplicateTagNameCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
-
-  /// Destructor.
-  ~DuplicateTagNameCheck() override = default;
 
   /// Registers AST matchers for tag declarations.
   /// \param Finder The match finder to register matchers with.

@@ -20,8 +20,6 @@ namespace clang::tidy::automotive {
 /// support systems with limited character sets but are now obsolete and can
 /// lead to confusion.
 ///
-/// Related MISRA C:2023 Rule: 4.2 - Trigraph sequences should not be used.
-///
 /// The following trigraphs are detected:
 /// - ??= becomes #
 /// - ??( becomes [
@@ -45,9 +43,6 @@ public:
   /// \param Context The clang-tidy context for configuration.
   AvoidTrigraphCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
-
-  /// Destructor.
-  ~AvoidTrigraphCheck() override = default;
 
   /// Registers preprocessor callbacks for trigraph detection.
   /// \param SM The source manager.

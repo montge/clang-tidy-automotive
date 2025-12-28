@@ -13,18 +13,12 @@
 
 namespace clang::tidy::automotive {
 
-/// @ingroup misra-c25-preprocessor
 /// @brief Detects header files that lack proper include guard protection.
 ///
 /// Header files should be protected against multiple inclusion to prevent
 /// compilation errors and improve build performance. This can be achieved
 /// using either traditional include guards (#ifndef/#define/#endif pattern)
 /// or the #pragma once directive.
-///
-/// @par MISRA C:2023 Directive 4.10
-/// Precautions shall be taken in order to prevent the contents of a header
-/// file being included more than once.
-/// @par Category: Required
 ///
 /// Example of compliant code with traditional guards:
 /// @code
@@ -54,9 +48,6 @@ class MissingHeaderGuardCheck : public ClangTidyCheck {
 public:
   MissingHeaderGuardCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
-
-  /// Destructor.
-  ~MissingHeaderGuardCheck() override = default;
 
   void registerPPCallbacks(const SourceManager &SM, Preprocessor *PP,
                            Preprocessor *ModuleExpanderPP) override;

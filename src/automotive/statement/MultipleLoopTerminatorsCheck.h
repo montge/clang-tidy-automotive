@@ -13,17 +13,11 @@
 
 namespace clang::tidy::automotive {
 
-/// @ingroup misra-c25-statement
 /// @brief Detects loops with multiple break or goto terminators.
 ///
 /// There should be no more than one break or goto statement used to terminate
 /// any iteration statement. Multiple exit points from loops make control flow
 /// harder to understand and verify.
-///
-/// @par MISRA C:2025 Rule 15.4
-/// There should be no more than one break or goto statement used to terminate
-/// any iteration statement.
-/// @par Category: Advisory
 ///
 /// Example:
 /// @code
@@ -39,9 +33,6 @@ class MultipleLoopTerminatorsCheck : public ClangTidyCheck {
 public:
   MultipleLoopTerminatorsCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
-
-  /// Destructor.
-  ~MultipleLoopTerminatorsCheck() override = default;
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };

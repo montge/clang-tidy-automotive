@@ -1,22 +1,15 @@
 
 add_clang_library(clangTidyAutomotivePreprocessorComponent STATIC
   AvoidCodeBeforeIncludeCheck.cpp
-  AvoidCrossFileIfCheck.cpp
   AvoidHashOperatorCheck.cpp
-  AvoidIncludeSyntaxErrorCheck.cpp
   AvoidInvalidHeaderCharCheck.cpp
-  AvoidLanguageExtensionCheck.cpp
   AvoidMacroIdentifierConflictCheck.cpp
   AvoidMacroNamedAsCkeywordCheck.cpp
   AvoidMultipleHashOperatorsCheck.cpp
   AvoidReservedMacroIdentifierCheck.cpp
   AvoidUndefCheck.cpp
-  IfExpressionValueCheck.cpp
-  IfUndefinedIdentifierCheck.cpp
-  MacroParenthesesCheck.cpp
   MissingHeaderGuardCheck.cpp
   PreprocessorComponent.cpp
-  PreprocessorDirectiveInMacroArgCheck.cpp
-  ReservedIdentifierMacroCheck.cpp
+  PreprocessorFlowCheck.cpp
   UnusedMacroCheck.cpp
 )

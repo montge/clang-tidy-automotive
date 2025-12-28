@@ -22,9 +22,6 @@ namespace clang::tidy::automotive {
 /// type, having duplicate names reduces code clarity and may indicate
 /// design issues.
 ///
-/// Related MISRA C:2023 Rule: 5.6 - A typedef name shall be a unique
-/// identifier.
-///
 /// Example:
 /// \code
 ///   typedef int MyInt;
@@ -37,9 +34,6 @@ public:
   /// \param Context The clang-tidy context for configuration.
   DuplicateTypedefNameCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
-
-  /// Destructor.
-  ~DuplicateTypedefNameCheck() override = default;
 
   /// Registers AST matchers for typedef declarations.
   /// \param Finder The match finder to register matchers with.

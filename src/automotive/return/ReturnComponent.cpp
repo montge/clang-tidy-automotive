@@ -22,17 +22,6 @@ void ReturnComponent::addCheckFactories(
       "automotive-missing-return-value-handling");
   CheckFactories.registerCheck<NoReturnVoidCheck>(
       "automotive-missing-return-void");
-
-  // MISRA C:2025 Rule 17.4 - Single return point (Advisory)
-  CheckFactories.registerCheck<MultipleReturnStmtCheck>(
-      "automotive-c25-adv-17.4");
-
-  // MISRA C:2025 Rule 17.7 - Return value shall be used (Required)
-  CheckFactories.registerCheck<MissingReturnValueHandlingCheck>(
-      "automotive-c25-req-17.7");
-
-  // MISRA C:2025 Rule 17.8 - Non-void function shall return value (Required)
-  CheckFactories.registerCheck<NoReturnVoidCheck>("automotive-c25-req-17.8");
 }
 
 } // namespace clang::tidy::automotive

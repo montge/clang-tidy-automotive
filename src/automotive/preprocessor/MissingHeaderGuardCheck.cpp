@@ -18,15 +18,14 @@ namespace clang::tidy::automotive {
 namespace {
 
 /// Canonicalize a path by removing ./ and ../ components.
-std::string cleanPath(StringRef Path) {
+static std::string cleanPath(StringRef Path) {
   SmallString<256> Result = Path;
   llvm::sys::path::remove_dots(Result, true);
   return std::string(Result);
 }
 
-// LCOV_EXCL_START - only used in diagnostic path for missing header guards
 /// Generate a standard header guard macro name from a file path.
-std::string generateHeaderGuardName(StringRef FileName) {
+static std::string generateHeaderGuardName(StringRef FileName) {
   SmallString<256> Guard;
 
   // Get just the filename without directory
@@ -44,7 +43,6 @@ std::string generateHeaderGuardName(StringRef FileName) {
   Guard.push_back('_');
   return std::string(Guard);
 }
-// LCOV_EXCL_STOP
 
 class HeaderGuardPPCallbacks : public PPCallbacks {
 public:
@@ -54,23 +52,20 @@ public:
   void FileChanged(SourceLocation Loc, FileChangeReason Reason,
                    SrcMgr::CharacteristicKind FileType,
                    FileID PrevFID) override {
-    // Only track files we enter that are user files
-    if (Reason != EnterFile || FileType != SrcMgr::C_User)
-      return;
-
+    // Track header files that we enter
     SourceManager &SM = PP->getSourceManager();
-    OptionalFileEntryRef FE = SM.getFileEntryRefForID(SM.getFileID(Loc));
-    // LCOV_EXCL_START - defensive check for invalid file entry
-    if (!FE)
-      return;
-    // LCOV_EXCL_STOP
+    if (Reason == EnterFile && FileType == SrcMgr::C_User) {
+      if (OptionalFileEntryRef FE =
+              SM.getFileEntryRefForID(SM.getFileID(Loc))) {
+        std::string FileName = cleanPath(FE->getName());
 
-    std::string FileName = cleanPath(FE->getName());
-
-    // Only track .h and .hpp files (header files)
-    StringRef Extension = llvm::sys::path::extension(FileName);
-    if (Extension == ".h" || Extension == ".hpp")
-      Files[FileName] = *FE;
+        // Only track .h and .hpp files (header files)
+        StringRef Extension = llvm::sys::path::extension(FileName);
+        if (Extension == ".h" || Extension == ".hpp") {
+          Files[FileName] = *FE;
+        }
+      }
+    }
   }
 
   void PragmaDirective(SourceLocation Loc,
@@ -83,10 +78,8 @@ public:
                     const MacroDirective *MD) override {
     // Record all defined macros to check for header guard pattern
     const MacroInfo *MI = MD->getMacroInfo();
-    // LCOV_EXCL_START - defensive check, MacroDirective always has MacroInfo
     if (!MI)
       return;
-    // LCOV_EXCL_STOP
 
     Macros.emplace_back(MacroNameTok, MI);
   }
@@ -98,19 +91,17 @@ public:
     // Clang's preprocessor marks macros that are used as header guards
     for (const auto &MacroEntry : Macros) {
       const MacroInfo *MI = MacroEntry.second;
+
       if (!MI->isUsedForHeaderGuard())
         continue;
 
       // This file has a proper header guard, remove it from tracking
       OptionalFileEntryRef FE =
           SM.getFileEntryRefForID(SM.getFileID(MI->getDefinitionLoc()));
-      // LCOV_EXCL_START - defensive check for invalid file entry
-      if (!FE)
-        continue;
-      // LCOV_EXCL_STOP
-
-      std::string FileName = cleanPath(FE->getName());
-      Files.erase(FileName);
+      if (FE) {
+        std::string FileName = cleanPath(FE->getName());
+        Files.erase(FileName);
+      }
     }
 
     // Check for files with #pragma once
@@ -124,7 +115,6 @@ public:
     clearAllState();
   }
 
-  // LCOV_EXCL_START - diagnostic path requires test headers without guards
   void checkGuardlessHeaders() {
     for (const auto &FE : Files) {
       StringRef FileName = FE.getKey();
@@ -156,7 +146,6 @@ public:
                                         "\n\n#endif // " + GuardName + "\n");
     }
   }
-  // LCOV_EXCL_STOP
 
 private:
   void clearAllState() {

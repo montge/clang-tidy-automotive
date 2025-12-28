@@ -20,11 +20,6 @@ namespace clang::tidy::automotive {
 /// integer type. Such conversions are implementation-defined and may not
 /// preserve the pointer value correctly on all architectures.
 ///
-/// @par MISRA C:2025 Rule 11.4
-/// A conversion should not be performed between a pointer to object and an
-/// integer type.
-/// @par Category: Advisory
-///
 /// Example:
 /// @code
 ///   int *p;
@@ -36,9 +31,6 @@ class AvoidPointerIntegerCastCheck : public ClangTidyCheck {
 public:
   AvoidPointerIntegerCastCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
-
-  /// Destructor.
-  ~AvoidPointerIntegerCastCheck() override = default;
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 };

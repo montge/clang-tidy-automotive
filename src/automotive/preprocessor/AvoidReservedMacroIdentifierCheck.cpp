@@ -19,7 +19,7 @@ namespace clang::tidy::automotive {
 namespace {
 
 // Standard library reserved names that should not be defined/undefined
-const llvm::StringSet<> ReservedNames = {
+static const llvm::StringSet<> ReservedNames = {
     "assert",       "errno",     "math_errhandling",
     "setjmp",       "va_arg",    "va_copy",
     "va_end",       "va_start",  "offsetof",
@@ -61,25 +61,14 @@ public:
 
   void MacroDefined(const Token &MacroNameTok,
                     const MacroDirective *MD) override {
-    SourceLocation Loc = MacroNameTok.getLocation();
-
     // Skip macros defined in system headers
-    if (SM.isInSystemHeader(Loc))
-      return;
-
-    // Skip built-in/predefined macros (they have invalid or special locations)
-    if (!Loc.isValid() || !Loc.isFileID())
-      return;
-
-    // Skip macros not from actual source files (compiler built-ins)
-    // These have a FileID but no associated FileEntry
-    FileID FID = SM.getFileID(Loc);
-    if (!SM.getFileEntryRefForID(FID))
+    if (SM.isInSystemHeader(MacroNameTok.getLocation()))
       return;
 
     StringRef MacroName = MacroNameTok.getIdentifierInfo()->getName();
     if (isReservedIdentifier(MacroName)) {
-      Check.diag(Loc, "#define of reserved identifier '%0'")
+      Check.diag(MacroNameTok.getLocation(),
+                 "#define of reserved identifier '%0'")
           << MacroName;
     }
   }
