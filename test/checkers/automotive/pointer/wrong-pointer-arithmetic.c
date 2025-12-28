@@ -1,5 +1,6 @@
 // XFAIL: *
-// RUN: %check_clang_tidy %s automotive-c25-mand-18.10 %t
+// RUN: %check_clang_tidy %s automotive-c25-req-18.8 %t
+// Note: Check needs dataflow analysis to track array-origin pointers
 
 void test_pointer_arithmetic(void) {
   int x;

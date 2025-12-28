@@ -20,11 +20,15 @@ void AvoidPointerToVLACheck::registerMatchers(MatchFinder *Finder) {
   // - int (*p)[n] where n is a variable
   // - Multi-dimensional cases like int (*p)[n][m]
   // - Pointers to incomplete array types with variable bounds
-  Finder->addMatcher(
-      varDecl(hasType(pointerType(pointee(hasCanonicalType(
-                  anyOf(variableArrayType(), dependentSizedArrayType()))))))
-          .bind("ptrToVLA"),
-      this);
+
+  auto PointerToVLA = pointerType(pointee(hasCanonicalType(
+      anyOf(variableArrayType(), dependentSizedArrayType()))));
+
+  // Match variable declarations with pointer-to-VLA type
+  Finder->addMatcher(varDecl(hasType(PointerToVLA)).bind("ptrToVLA"), this);
+
+  // Match function parameters with pointer-to-VLA type
+  Finder->addMatcher(parmVarDecl(hasType(PointerToVLA)).bind("ptrToVLA"), this);
 }
 
 void AvoidPointerToVLACheck::check(const MatchFinder::MatchResult &Result) {

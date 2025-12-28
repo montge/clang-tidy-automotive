@@ -31,10 +31,10 @@ void OperatorComponent::addCheckFactories(
   CheckFactories.registerCheck<AvoidCommaOperatorCheck>(
       "automotive-c25-req-12.1");
 
-  // MISRA C:2025 Rule 7.5 - Incompatible pointer/integer in conditional
-  // (Mandatory)
+  // MISRA C:2025 Rule 10.9 - Incompatible pointer/integer in conditional
+  // (Required) - pointer and integer shall not be operands of conditional
   CheckFactories.registerCheck<WrongConditionalOperandTypeCheck>(
-      "automotive-c25-mand-7.5");
+      "automotive-c25-req-10.9");
 }
 
 } // namespace clang::tidy::automotive

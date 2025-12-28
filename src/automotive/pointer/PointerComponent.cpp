@@ -19,6 +19,7 @@
 #include "AvoidPointerToFloatCastCheck.h"
 #include "AvoidPointerTypeCastCheck.h"
 #include "WrongNullPointerValueCheck.h"
+#include "WrongPointerArithmeticCheck.h"
 
 namespace clang::tidy::automotive {
 
@@ -91,6 +92,11 @@ void PointerComponent::addCheckFactories(
   // MISRA C:2025 Rule 18.6 - Address of automatic object escaping (Required)
   CheckFactories.registerCheck<AvoidAutoAddressEscapeCheck>(
       "automotive-c25-req-18.6");
+
+  // MISRA C:2025 Rule 18.8 - Pointer arithmetic on array elements (Required)
+  // Note: Rule 18.10 (VLA pointers) is handled in ArrayComponent
+  CheckFactories.registerCheck<WrongPointerArithmeticCheck>(
+      "automotive-c25-req-18.8");
 }
 
 } // namespace clang::tidy::automotive

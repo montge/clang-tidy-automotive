@@ -1,4 +1,3 @@
-// XFAIL: *
 // RUN: %check_clang_tidy %s automotive-c25-req-21.23 %t -- -- -std=c11
 
 // Test for consistent types in multi-argument tgmath macros

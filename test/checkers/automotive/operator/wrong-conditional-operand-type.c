@@ -1,5 +1,4 @@
-// XFAIL: *
-// RUN: %check_clang_tidy %s automotive-c25-mand-7.5 %t
+// RUN: %check_clang_tidy %s automotive-c25-req-10.9 %t
 
 int *global_ptr;
 int global_int;
@@ -10,13 +9,13 @@ void test_conditional_operator(int cond) {
 
   // Violations: mixing pointer and integer (non-NULL)
   int *r1 = cond ? p : 5;
-  // CHECK-MESSAGES: :[[@LINE-1]]:20: warning: incompatible pointer and integer types used as operands to conditional operator
+  // CHECK-MESSAGES: :[[@LINE-1]]:18: warning: incompatible pointer and integer types used as operands to conditional operator
 
   int *r2 = cond ? 10 : p;
-  // CHECK-MESSAGES: :[[@LINE-1]]:20: warning: incompatible pointer and integer types used as operands to conditional operator
+  // CHECK-MESSAGES: :[[@LINE-1]]:18: warning: incompatible pointer and integer types used as operands to conditional operator
 
   void *r3 = cond ? p : x;
-  // CHECK-MESSAGES: :[[@LINE-1]]:21: warning: incompatible pointer and integer types used as operands to conditional operator
+  // CHECK-MESSAGES: :[[@LINE-1]]:19: warning: incompatible pointer and integer types used as operands to conditional operator
 
   // Allowed: NULL pointer constant (integer 0)
   int *r4 = cond ? p : 0;      // OK

@@ -1,6 +1,6 @@
 // XFAIL: *
-// RUN: %check_clang_tidy %s automotive-c25-req-21.23 %t -- -- -std=c11
-// Test for automotive-c25-req-21.23: Thread-specific storage functions
+// RUN: %check_clang_tidy %s automotive-c25-req-22.12 %t -- -- -std=c11
+// Test for automotive-c25-req-22.12: Thread-specific storage functions
 
 #include <threads.h>
 #include <stdlib.h>
