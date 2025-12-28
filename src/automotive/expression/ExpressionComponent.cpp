@@ -52,6 +52,11 @@ void ExpressionComponent::addCheckFactories(
   CheckFactories.registerCheck<AvoidCharacterArithmeticCheck>(
       "automotive-c23-req-10.2");
 
+  // Rule 10.4 - Essential type mismatch in arithmetic (Required)
+  // Both operands shall have the same essential type category
+  CheckFactories.registerCheck<AvoidEssentialTypeMismatchCheck>(
+      "automotive-c23-req-10.4");
+
   // Rule 10.6 - Composite expression type mismatch (Required)
   CheckFactories.registerCheck<AvoidCompositeExpressionMismatchCheck>(
       "automotive-c23-req-10.6");
