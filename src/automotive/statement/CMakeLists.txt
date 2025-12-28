@@ -10,6 +10,7 @@ add_clang_library(clangTidyAutomotiveStatementComponent STATIC
   MissingElseCheck.cpp
   MultipleLoopTerminatorsCheck.cpp
   StatementComponent.cpp
+  UnreachableCodeCheck.cpp
   UnstructuredSwitchStmtCheck.cpp
   UnusedLabelCheck.cpp
   WellFormedForLoopCheck.cpp

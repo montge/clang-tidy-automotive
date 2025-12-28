@@ -26,8 +26,17 @@ void PointerComponent::addCheckFactories(
     ClangTidyCheckFactories &CheckFactories) {
 
   // Rule 11.2 - Incompatible pointer conversion (Required)
+  // Note: This check also handles rules 11.5, 11.6, 11.7
   CheckFactories.registerCheck<AvoidIncompatiblePointerConversionCheck>(
       "automotive-c23-req-11.2");
+
+  // Rule 11.5 - void pointer to object pointer conversion (Advisory)
+  CheckFactories.registerCheck<AvoidIncompatiblePointerConversionCheck>(
+      "automotive-c23-adv-11.5");
+
+  // Rule 11.6 - void pointer to/from arithmetic conversion (Required)
+  CheckFactories.registerCheck<AvoidIncompatiblePointerConversionCheck>(
+      "automotive-c23-req-11.6");
 
   // Rule 11.3 - Incompatible pointer cast (Required)
   CheckFactories.registerCheck<AvoidIncompatiblePointerCastCheck>(

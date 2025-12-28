@@ -17,6 +17,7 @@
 #include "MissingDefaultInSwitchStmtCheck.h"
 #include "MissingElseCheck.h"
 #include "MultipleLoopTerminatorsCheck.h"
+#include "UnreachableCodeCheck.h"
 #include "UnstructuredSwitchStmtCheck.h"
 #include "UnusedLabelCheck.h"
 #include "WellFormedForLoopCheck.h"
@@ -69,6 +70,10 @@ void StatementComponent::addCheckFactories(
   // Rule 16.6 - Avoid single clause switch
   CheckFactories.registerCheck<AvoidSingleClauseSwitchCheck>(
       "automotive-c23-req-16.6");
+
+  // Rule 2.1 - Unreachable code (Required)
+  CheckFactories.registerCheck<UnreachableCodeCheck>(
+      "automotive-c23-req-2.1");
 }
 
 } // namespace clang::tidy::automotive
