@@ -716,6 +716,16 @@ void Cpp23Component::addCheckFactories(
   CheckFactories.registerCheck<cpp23::AvoidUndefinedBehaviorCheck>(
       "automotive-cpp23-req-0.3");
 
+  // MISRA C:2012 Rule 1.3 - There shall be no occurrence of undefined or
+  // critical unspecified behavior (Required)
+  // This is the C equivalent of C++ Rule 0.3
+  CheckFactories.registerCheck<cpp23::AvoidUndefinedBehaviorCheck>(
+      "automotive-c23-req-1.3");
+
+  // MISRA C:2025 Rule 1.3 - Same as C:2012
+  CheckFactories.registerCheck<cpp23::AvoidUndefinedBehaviorCheck>(
+      "automotive-c25-req-1.3");
+
   // MISRA C++:2023 Rule 10.1 - Memory shall not be allocated dynamically
   // during static initialization (Required)
   CheckFactories.registerCheck<cpp23::AvoidStaticInitAllocationCheck>(

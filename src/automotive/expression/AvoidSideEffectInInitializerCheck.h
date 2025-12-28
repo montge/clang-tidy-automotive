@@ -16,20 +16,19 @@ namespace clang::tidy::automotive {
 /// @ingroup misra-c25-expression
 /// @brief Detects side effects in initializer lists.
 ///
-/// Implements MISRA Rules 13.1, 13.2, 13.3:
-/// - 13.1: Initializer lists shall not contain persistent side effects
-/// - 13.2: Value of expression and side effects shall be same under any
-///   evaluation order
-/// - 13.3: Full expression with increment/decrement shall have no other
-///   side effects
+/// Implements MISRA C:2012 Rule 13.1:
+/// Initializer lists shall not contain persistent side effects
+///
+/// This check specifically targets initializer lists, not general expressions.
+/// For Rules 13.2/13.3 (unsequenced side effects), a separate check is needed.
 ///
 /// @par Category: Required
 ///
 /// Example:
 /// @code
 ///   int a = 0;
-///   int arr[] = {a++, a++};  // Warning: side effects in initializer
-///   int x = a++ + a++;       // Warning: unsequenced side effects
+///   int arr[] = {a++, a++};  // Warning: side effects in initializer list
+///   int arr2[] = {f(), g()}; // Warning: function calls in initializer list
 /// @endcode
 class AvoidSideEffectInInitializerCheck : public ClangTidyCheck {
 public:
@@ -44,7 +43,6 @@ public:
 
 private:
   bool hasSideEffect(const Expr *E) const;
-  unsigned countSideEffects(const Expr *E) const;
 };
 
 } // namespace clang::tidy::automotive

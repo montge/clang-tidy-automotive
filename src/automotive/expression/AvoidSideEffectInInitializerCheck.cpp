@@ -46,47 +46,27 @@ private:
 } // namespace
 
 void AvoidSideEffectInInitializerCheck::registerMatchers(MatchFinder *Finder) {
-  // Match initializer lists
+  // Match initializer lists only - Rule 13.1 is specifically about initializer lists
+  // Note: Rules 13.2/13.3 (unsequenced side effects) would need a separate check
   Finder->addMatcher(initListExpr().bind("initlist"), this);
-
-  // Match expressions with multiple side effects (unsequenced)
-  Finder->addMatcher(
-      binaryOperator(unless(isAssignmentOperator())).bind("binexpr"), this);
 }
 
 void AvoidSideEffectInInitializerCheck::check(
     const MatchFinder::MatchResult &Result) {
   // Rule 13.1: Side effects in initializer lists
-  if (const auto *InitList = Result.Nodes.getNodeAs<InitListExpr>("initlist")) {
-    if (Result.SourceManager->isInSystemHeader(InitList->getBeginLoc()))
-      return;
-
-    for (const Expr *Init : InitList->inits()) {
-      if (hasSideEffect(Init)) {
-        diag(Init->getBeginLoc(),
-             "initializer list element contains side effects which may not "
-             "be evaluated in the expected order");
-        return;
-      }
-    }
+  const auto *InitList = Result.Nodes.getNodeAs<InitListExpr>("initlist");
+  if (!InitList)
     return;
-  }
 
-  // Rules 13.2, 13.3: Multiple unsequenced side effects
-  if (const auto *BinExpr = Result.Nodes.getNodeAs<BinaryOperator>("binexpr")) {
-    if (Result.SourceManager->isInSystemHeader(BinExpr->getOperatorLoc()))
+  if (Result.SourceManager->isInSystemHeader(InitList->getBeginLoc()))
+    return;
+
+  for (const Expr *Init : InitList->inits()) {
+    if (hasSideEffect(Init)) {
+      diag(Init->getBeginLoc(),
+           "initializer list element contains side effects which may not "
+           "be evaluated in the expected order");
       return;
-
-    unsigned LHSCount = countSideEffects(BinExpr->getLHS());
-    unsigned RHSCount = countSideEffects(BinExpr->getRHS());
-
-    if (LHSCount > 0 && RHSCount > 0) {
-      diag(BinExpr->getOperatorLoc(),
-           "expression contains multiple side effects with unspecified "
-           "evaluation order");
-    } else if (LHSCount > 1 || RHSCount > 1) {
-      diag(BinExpr->getOperatorLoc(),
-           "sub-expression contains multiple side effects");
     }
   }
 }
@@ -96,14 +76,6 @@ bool AvoidSideEffectInInitializerCheck::hasSideEffect(const Expr *E) const {
   // NOSONAR(S859): const_cast required by RecursiveASTVisitor API
   Counter.TraverseStmt(const_cast<Expr *>(E));
   return Counter.hasSideEffect();
-}
-
-unsigned
-AvoidSideEffectInInitializerCheck::countSideEffects(const Expr *E) const {
-  SideEffectCounter Counter;
-  // NOSONAR(S859): const_cast required by RecursiveASTVisitor API
-  Counter.TraverseStmt(const_cast<Expr *>(E));
-  return Counter.getCount();
 }
 
 } // namespace clang::tidy::automotive

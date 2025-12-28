@@ -42,7 +42,10 @@ public:
   ~AvoidUndefinedBehaviorCheck() override = default;
 
   bool isLanguageVersionSupported(const LangOptions &LangOpts) const override {
-    return LangOpts.CPlusPlus;
+    // Support both C and C++ - division by zero and shift checks are
+    // applicable to both languages (MISRA C Rule 1.3, MISRA C++ Rule 0.3)
+    return LangOpts.CPlusPlus || LangOpts.C99 || LangOpts.C11 ||
+           LangOpts.C17 || LangOpts.C23;
   }
 
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;

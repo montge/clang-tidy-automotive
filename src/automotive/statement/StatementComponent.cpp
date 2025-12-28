@@ -77,6 +77,9 @@ void StatementComponent::addCheckFactories(
       "automotive-c23-req-2.1");
 
   // Rule 2.2 - Dead code (Required)
+  // MISRA C:2012 Rule 2.2
+  CheckFactories.registerCheck<DeadCodeCheck>("automotive-c23-req-2.2");
+  // MISRA C:2025 Rule 2.2
   CheckFactories.registerCheck<DeadCodeCheck>("automotive-c25-req-2.2");
 }
 
