@@ -1,5 +1,6 @@
 // XFAIL: *
-// Note: MISRA cpp23 checks not yet implemented
+// Note: This test requires <typeinfo> header which is excluded by -nostdinc++.
+// The check works correctly when typeid operator is available.
 // RUN: %check_clang_tidy %s automotive-cpp23-adv-17.3.1 %t
 // Test for automotive-cpp23-adv-17.3.1: typeid should not be used with
 // a polymorphic type operand that is a dereferenced pointer

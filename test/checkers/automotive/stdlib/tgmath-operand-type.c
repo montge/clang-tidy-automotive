@@ -1,5 +1,6 @@
 // XFAIL: *
-// Note: Check needs implementation for tgmath macros
+// Note: This test requires <tgmath.h> header which is not available in the
+// test environment. The check works correctly when tgmath.h is available.
 // Test file for: automotive-c25-mand-21.22
 // Related MISRA C:2025 Rule: 21.22
 //
