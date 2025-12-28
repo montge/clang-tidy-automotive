@@ -11,6 +11,7 @@
 
 #include "../../ClangTidyCheck.h"
 #include "llvm/ADT/StringMap.h"
+#include <set>
 #include <string>
 #include <vector>
 
@@ -49,11 +50,16 @@ private:
   };
 
   std::string SymbolDatabase;
+  /// Maximum number of locations to include in diagnostic (0 = unlimited).
+  unsigned MaxLocations;
   llvm::StringMap<std::vector<SymbolInfo>> ExternalSymbols;
   bool DatabaseLoaded = false;
 
   /// Loads the symbol database from JSON file.
   void loadSymbolDatabase();
+
+  /// Generates a location key for deduplication.
+  static std::string getLocationKey(const SymbolInfo &Info);
 };
 
 } // namespace clang::tidy::automotive

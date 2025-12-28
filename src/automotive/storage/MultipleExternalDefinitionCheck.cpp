@@ -19,11 +19,19 @@ namespace clang::tidy::automotive {
 MultipleExternalDefinitionCheck::MultipleExternalDefinitionCheck(
     StringRef Name, ClangTidyContext *Context)
     : ClangTidyCheck(Name, Context),
-      SymbolDatabase(Options.get("SymbolDatabase", "external_symbols.json")) {}
+      SymbolDatabase(Options.get("SymbolDatabase", "external_symbols.json")),
+      MaxLocations(Options.get("MaxLocations", 10U)) {}
 
 void MultipleExternalDefinitionCheck::storeOptions(
     ClangTidyOptions::OptionMap &Opts) {
   Options.store(Opts, "SymbolDatabase", SymbolDatabase);
+  Options.store(Opts, "MaxLocations", MaxLocations);
+}
+
+std::string
+MultipleExternalDefinitionCheck::getLocationKey(const SymbolInfo &Info) {
+  return Info.File + ":" + std::to_string(Info.Line) + ":" +
+         std::to_string(Info.Column);
 }
 
 void MultipleExternalDefinitionCheck::loadSymbolDatabase() {
@@ -150,14 +158,32 @@ void MultipleExternalDefinitionCheck::check(
 
   // If there are definitions in other files, report a violation
   if (!OtherFileDefinitions.empty()) {
-    // Build list of other locations for the message
+    // Deduplicate locations using a set
+    std::set<std::string> UniqueLocationKeys;
+    std::vector<std::string> UniqueLocations;
+    for (const auto *Occ : OtherFileDefinitions) {
+      std::string Key = getLocationKey(*Occ);
+      if (UniqueLocationKeys.insert(Key).second) {
+        UniqueLocations.push_back(Key);
+      }
+    }
+
+    // Build list of locations for the message
     std::string OtherLocations;
-    for (size_t I = 0; I < OtherFileDefinitions.size(); ++I) {
+    size_t NumToShow =
+        (MaxLocations > 0 && UniqueLocations.size() > MaxLocations)
+            ? MaxLocations
+            : UniqueLocations.size();
+    for (size_t I = 0; I < NumToShow; ++I) {
       if (I > 0)
         OtherLocations += ", ";
-      OtherLocations += OtherFileDefinitions[I]->File + ":" +
-                        std::to_string(OtherFileDefinitions[I]->Line) + ":" +
-                        std::to_string(OtherFileDefinitions[I]->Column);
+      OtherLocations += UniqueLocations[I];
+    }
+    if (MaxLocations > 0 && UniqueLocations.size() > MaxLocations) {
+      OtherLocations +=
+          " ... and " +
+          std::to_string(UniqueLocations.size() - MaxLocations) +
+          " more location(s)";
     }
 
     diag(Loc, "external %0 '%1' has multiple definitions; also defined at %2")

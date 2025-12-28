@@ -11,6 +11,7 @@
 
 #include "../../ClangTidyCheck.h"
 #include "llvm/Support/JSON.h"
+#include <set>
 #include <string>
 #include <vector>
 
@@ -63,12 +64,20 @@ public:
 private:
   std::string OutputFile;
   std::vector<ExternalSymbol> CollectedSymbols;
+  /// Set of "file:line:column:name" keys to track unique symbols.
+  std::set<std::string> SeenSymbols;
 
   /// Writes collected symbols to JSON file.
   void writeSymbolsToFile();
 
   /// Loads existing symbols from file (for appending across multiple runs).
   void loadExistingSymbols();
+
+  /// Checks if a symbol has already been collected.
+  bool isDuplicate(const ExternalSymbol &Symbol) const;
+
+  /// Generates a unique key for a symbol.
+  static std::string getSymbolKey(const ExternalSymbol &Symbol);
 };
 
 } // namespace clang::tidy::automotive
