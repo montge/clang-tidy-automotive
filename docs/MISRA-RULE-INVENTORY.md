@@ -14,15 +14,27 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 
 ## Summary Statistics
 
-| Category | Total | Implemented | Clang | Planned | Manual |
-|----------|-------|-------------|-------|---------|--------|
-| Directives | 18 | 5 | 0 | 0 | 13 |
-| Mandatory | 4 | 5 | 0 | 0 | 0 |
-| Required | 113 | 95 | 15 | 0 | 3 |
-| Advisory | 41 | 32 | 8 | 0 | 1 |
-| **Total** | **176** | **132** | **25** | **0** | **17** |
+### Registration Counts (December 2025)
 
-*Note: 122 MISRA C:2025 checks + 34 MISRA C++:2023 checks = 156 total automotive checks*
+| Standard | Registrations |
+|----------|---------------|
+| MISRA C:2025 (c25-*) | 92 |
+| MISRA C:2023 (c23-*) | 69 |
+| MISRA C++:2023 (cpp23-*) | 134 |
+| General Automotive | 63 |
+| **Total Registrations** | **358** |
+
+*Note: Many checks are registered under multiple rule IDs to cover both C:2023 and C:2025 numbering.*
+
+### Rule Coverage Summary
+
+| Category | Total Rules | Implemented | Excluded | Missing |
+|----------|-------------|-------------|----------|---------|
+| Directives | 18 | 5 | 13 | 0 |
+| Mandatory | 12 | 10 | 2 | 0 |
+| Required | 113 | 98 | 12 | 3 |
+| Advisory | 41 | 35 | 5 | 1 |
+| **Total** | **184** | **148** | **32** | **4** |
 
 ## Implemented Checks
 
