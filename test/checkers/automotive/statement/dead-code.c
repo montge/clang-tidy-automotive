@@ -76,3 +76,20 @@ void test_valid_expressions() {
   // OK - used in return
   int y = x * 2;
 }
+
+void test_self_assignment() {
+  int x = 5;
+
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: dead code: redundant self-assignment of 'x' [automotive-c25-req-2.2]
+  x = x;  // Self-assignment - redundant
+
+  int y = 10;
+  // CHECK-MESSAGES: :[[@LINE+1]]:3: warning: dead code: redundant self-assignment of 'y' [automotive-c25-req-2.2]
+  y = y;  // Self-assignment - redundant
+
+  // Valid cases - not self-assignment
+  int z = 0;
+  z = x;         // OK - different variables
+  z = z + 1;     // OK - not self-assignment
+  x = y;         // OK - different variables
+}

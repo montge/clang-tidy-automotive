@@ -40,6 +40,16 @@ void DeadCodeCheck::registerMatchers(MatchFinder *Finder) {
            unless(hasParent(conditionalOperator())))
           .bind("deadExpr"),
       this);
+
+  // Match self-assignments (x = x) which are always dead code
+  Finder->addMatcher(
+      binaryOperator(
+          unless(isExpansionInSystemHeader()),
+          isAssignmentOperator(),
+          hasLHS(ignoringParenImpCasts(declRefExpr().bind("lhs"))),
+          hasRHS(ignoringParenImpCasts(declRefExpr().bind("rhs"))))
+          .bind("selfAssign"),
+      this);
 }
 
 bool DeadCodeCheck::hasSideEffects(const Expr *E) const {
@@ -105,6 +115,23 @@ bool DeadCodeCheck::hasSideEffects(const Expr *E) const {
 }
 
 void DeadCodeCheck::check(const MatchFinder::MatchResult &Result) {
+  // Check for self-assignment (x = x)
+  if (const auto *SelfAssign =
+          Result.Nodes.getNodeAs<BinaryOperator>("selfAssign")) {
+    const auto *LHS = Result.Nodes.getNodeAs<DeclRefExpr>("lhs");
+    const auto *RHS = Result.Nodes.getNodeAs<DeclRefExpr>("rhs");
+    if (LHS && RHS) {
+      const auto *LHSDecl = dyn_cast<VarDecl>(LHS->getDecl());
+      const auto *RHSDecl = dyn_cast<VarDecl>(RHS->getDecl());
+      if (LHSDecl && RHSDecl && LHSDecl == RHSDecl) {
+        diag(SelfAssign->getBeginLoc(),
+             "dead code: redundant self-assignment of '%0'")
+            << LHSDecl->getName();
+      }
+    }
+    return;
+  }
+
   const auto *E = Result.Nodes.getNodeAs<Expr>("deadExpr");
   if (!E)
     return;
