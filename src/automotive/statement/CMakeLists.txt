@@ -11,6 +11,7 @@ add_automotive_component(clangTidyAutomotiveStatementComponent
   MissingElseCheck.cpp
   MultipleLoopTerminatorsCheck.cpp
   StatementComponent.cpp
+  UnreachableCodeCheck.cpp
   UnstructuredSwitchStmtCheck.cpp
   UnusedLabelCheck.cpp
   WellFormedForLoopCheck.cpp
