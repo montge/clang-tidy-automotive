@@ -61,9 +61,30 @@ public:
 
   void MacroDefined(const Token &MacroNameTok,
                     const MacroDirective *MD) override {
+    SourceLocation Loc = MacroNameTok.getLocation();
+
     // Skip macros defined in system headers
-    if (SM.isInSystemHeader(MacroNameTok.getLocation()))
+    if (SM.isInSystemHeader(Loc))
       return;
+
+    // Skip built-in macros (those defined in invalid/built-in locations)
+    if (!Loc.isValid() || SM.isWrittenInBuiltinFile(Loc))
+      return;
+
+    // Skip macros from command line or built-in buffer
+    if (Loc.isValid()) {
+      FileID FID = SM.getFileID(Loc);
+      if (const FileEntry *FE = SM.getFileEntryForID(FID)) {
+        StringRef Filename = FE->tryGetRealPathName();
+        if (Filename.empty())
+          return; // No real path means built-in
+        if (Filename == "<built-in>" || Filename == "<command line>")
+          return;
+      } else {
+        // No file entry means built-in or command-line
+        return;
+      }
+    }
 
     StringRef MacroName = MacroNameTok.getIdentifierInfo()->getName();
     if (isReservedIdentifier(MacroName)) {

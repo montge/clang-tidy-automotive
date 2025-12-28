@@ -9,6 +9,7 @@
 #include "StatementComponent.h"
 #include "AvoidBooleanInSwitchCheck.h"
 #include "AvoidGotoCheck.h"
+#include "AvoidSingleClauseSwitchCheck.h"
 #include "ForwardGotoLabelCheck.h"
 #include "GotoLabelSameBlockCheck.h"
 #include "MissingBreakInCaseStmtCheck.h"
@@ -18,6 +19,8 @@
 #include "MultipleLoopTerminatorsCheck.h"
 #include "UnstructuredSwitchStmtCheck.h"
 #include "UnusedLabelCheck.h"
+#include "WellFormedForLoopCheck.h"
+#include "WellFormedSwitchCheck.h"
 #include "WrongOrderInSwitchStmtCheck.h"
 
 namespace clang::tidy::automotive {
@@ -54,6 +57,18 @@ void StatementComponent::addCheckFactories(
   // Rule 15.4 - Multiple loop terminators (Advisory)
   CheckFactories.registerCheck<MultipleLoopTerminatorsCheck>(
       "automotive-c23-adv-15.4");
+
+  // Rule 14.2 - Well-formed for loop
+  CheckFactories.registerCheck<WellFormedForLoopCheck>(
+      "automotive-c25-req-14.2");
+
+  // Rule 16.1 - Well-formed switch statement
+  CheckFactories.registerCheck<WellFormedSwitchCheck>(
+      "automotive-c25-req-16.1");
+
+  // Rule 16.6 - Avoid single clause switch
+  CheckFactories.registerCheck<AvoidSingleClauseSwitchCheck>(
+      "automotive-c23-req-16.6");
 }
 
 } // namespace clang::tidy::automotive

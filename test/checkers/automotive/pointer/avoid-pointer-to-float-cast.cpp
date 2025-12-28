@@ -13,23 +13,23 @@ void test_pointer_to_float_violations() {
     void *vptr = &x;
 
     // Cast pointer to float via reference (reinterpret_cast)
-    // CHECK-MESSAGES: :[[@LINE+1]]:{{.*}}: warning: cast from pointer type 'int *' to floating-point type 'float' [automotive-c25-req-11.7]
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: cast from pointer type 'int *' to floating-point type 'float' [automotive-c25-req-11.7]
     float f1 = reinterpret_cast<float&>(ptr);
 
     // Cast pointer to double via reference (reinterpret_cast)
-    // CHECK-MESSAGES: :[[@LINE+1]]:{{.*}}: warning: cast from pointer type 'int *' to floating-point type 'double' [automotive-c25-req-11.7]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: cast from pointer type 'int *' to floating-point type 'double' [automotive-c25-req-11.7]
     double d1 = reinterpret_cast<double&>(ptr);
 
     // Cast void pointer to float via reference
-    // CHECK-MESSAGES: :[[@LINE+1]]:{{.*}}: warning: cast from pointer type 'void *' to floating-point type 'float' [automotive-c25-req-11.7]
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: cast from pointer type 'void *' to floating-point type 'float' [automotive-c25-req-11.7]
     float f2 = reinterpret_cast<float&>(vptr);
 
     // Cast void pointer to double via reference
-    // CHECK-MESSAGES: :[[@LINE+1]]:{{.*}}: warning: cast from pointer type 'void *' to floating-point type 'double' [automotive-c25-req-11.7]
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: cast from pointer type 'void *' to floating-point type 'double' [automotive-c25-req-11.7]
     double d2 = reinterpret_cast<double&>(vptr);
 
     // Cast pointer to long double via reference
-    // CHECK-MESSAGES: :[[@LINE+1]]:{{.*}}: warning: cast from pointer type 'int *' to floating-point type 'long double' [automotive-c25-req-11.7]
+    // CHECK-MESSAGES: :[[@LINE+1]]:22: warning: cast from pointer type 'int *' to floating-point type 'long double' [automotive-c25-req-11.7]
     long double ld = reinterpret_cast<long double&>(ptr);
 
     (void)f1; (void)d1; (void)f2; (void)d2; (void)ld;
@@ -49,15 +49,15 @@ void test_float_to_pointer_violations() {
     char *char_ptr;
 
     // Cast float to pointer via reference
-    // CHECK-MESSAGES: :[[@LINE+1]]:{{.*}}: warning: cast from floating-point type 'float' to pointer type 'int *' [automotive-c25-req-11.7]
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: cast from floating-point type 'float' to pointer type 'int *' [automotive-c25-req-11.7]
     int_ptr = reinterpret_cast<int*&>(f);
 
     // Cast double to pointer via reference
-    // CHECK-MESSAGES: :[[@LINE+1]]:{{.*}}: warning: cast from floating-point type 'double' to pointer type 'void *' [automotive-c25-req-11.7]
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: cast from floating-point type 'double' to pointer type 'void *' [automotive-c25-req-11.7]
     void_ptr = reinterpret_cast<void*&>(d);
 
     // Cast long double to pointer via reference
-    // CHECK-MESSAGES: :[[@LINE+1]]:{{.*}}: warning: cast from floating-point type 'long double' to pointer type 'char *' [automotive-c25-req-11.7]
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: cast from floating-point type 'long double' to pointer type 'char *' [automotive-c25-req-11.7]
     char_ptr = reinterpret_cast<char*&>(ld);
 
     (void)int_ptr; (void)void_ptr; (void)char_ptr;
@@ -73,11 +73,11 @@ void test_round_trip_violations() {
     int *restored_ptr;
 
     // Pointer to float via reference
-    // CHECK-MESSAGES: :[[@LINE+1]]:{{.*}}: warning: cast from pointer type 'int *' to floating-point type 'float' [automotive-c25-req-11.7]
+    // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: cast from pointer type 'int *' to floating-point type 'float' [automotive-c25-req-11.7]
     float f = reinterpret_cast<float&>(original_ptr);
 
     // Float back to pointer via reference
-    // CHECK-MESSAGES: :[[@LINE+1]]:{{.*}}: warning: cast from floating-point type 'float' to pointer type 'int *' [automotive-c25-req-11.7]
+    // CHECK-MESSAGES: :[[@LINE+1]]:20: warning: cast from floating-point type 'float' to pointer type 'int *' [automotive-c25-req-11.7]
     restored_ptr = reinterpret_cast<int*&>(f);
 
     (void)restored_ptr;

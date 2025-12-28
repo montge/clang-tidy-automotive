@@ -17,16 +17,16 @@ tss_t global_tss;
 void test_automatic_storage(void) {
   // Non-compliant: automatic storage duration
   mtx_t local_mutex;
-  // CHECK-MESSAGES: :[[@LINE-1]]:9: warning: thread synchronization object 'local_mutex' has automatic storage duration
+  // CHECK-MESSAGES: :[[@LINE-1]]:9: warning: thread synchronization object 'local_mutex' has automatic storage duration; use static storage to ensure lifetime across thread operations [automotive-c25-req-22.13]
 
   thrd_t local_thread;
-  // CHECK-MESSAGES: :[[@LINE-1]]:10: warning: thread synchronization object 'local_thread' has automatic storage duration
+  // CHECK-MESSAGES: :[[@LINE-1]]:10: warning: thread synchronization object 'local_thread' has automatic storage duration; use static storage to ensure lifetime across thread operations [automotive-c25-req-22.13]
 
   cnd_t local_cond;
-  // CHECK-MESSAGES: :[[@LINE-1]]:9: warning: thread synchronization object 'local_cond' has automatic storage duration
+  // CHECK-MESSAGES: :[[@LINE-1]]:9: warning: thread synchronization object 'local_cond' has automatic storage duration; use static storage to ensure lifetime across thread operations [automotive-c25-req-22.13]
 
   tss_t local_tss;
-  // CHECK-MESSAGES: :[[@LINE-1]]:9: warning: thread synchronization object 'local_tss' has automatic storage duration
+  // CHECK-MESSAGES: :[[@LINE-1]]:9: warning: thread synchronization object 'local_tss' has automatic storage duration; use static storage to ensure lifetime across thread operations [automotive-c25-req-22.13]
 
   (void)local_mutex;
   (void)local_thread;
@@ -50,10 +50,10 @@ void test_static_local(void) {
 void test_thread_local(void) {
   // Non-compliant: thread storage duration
   _Thread_local static mtx_t thread_mutex;
-  // CHECK-MESSAGES: :[[@LINE-1]]:30: warning: thread synchronization object 'thread_mutex' has thread storage duration
+  // CHECK-MESSAGES: :[[@LINE-1]]:30: warning: thread synchronization object 'thread_mutex' has thread storage duration; use static storage to ensure shared access across threads [automotive-c25-req-22.13]
 
   _Thread_local static thrd_t thread_thrd;
-  // CHECK-MESSAGES: :[[@LINE-1]]:31: warning: thread synchronization object 'thread_thrd' has thread storage duration
+  // CHECK-MESSAGES: :[[@LINE-1]]:31: warning: thread synchronization object 'thread_thrd' has thread storage duration; use static storage to ensure shared access across threads [automotive-c25-req-22.13]
 
   (void)thread_mutex;
   (void)thread_thrd;
@@ -65,7 +65,7 @@ extern cnd_t extern_cond;
 
 // Non-compliant: file scope with _Thread_local
 _Thread_local thrd_t tls_thread;
-// CHECK-MESSAGES: :[[@LINE-1]]:22: warning: thread synchronization object 'tls_thread' has thread storage duration
+// CHECK-MESSAGES: :[[@LINE-1]]:22: warning: thread synchronization object 'tls_thread' has thread storage duration; use static storage to ensure shared access across threads [automotive-c25-req-22.13]
 
 _Thread_local mtx_t tls_mutex;
-// CHECK-MESSAGES: :[[@LINE-1]]:21: warning: thread synchronization object 'tls_mutex' has thread storage duration
+// CHECK-MESSAGES: :[[@LINE-1]]:21: warning: thread synchronization object 'tls_mutex' has thread storage duration; use static storage to ensure shared access across threads [automotive-c25-req-22.13]

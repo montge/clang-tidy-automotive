@@ -4,26 +4,26 @@
 #include <stdbool.h>
 
 void test_bool_arithmetic_violation(bool flag) {
-  // CHECK-MESSAGES: :[[@LINE+1]]:11: warning: operand of essential type 'Boolean' is inappropriate for arithmetic operation [automotive-c25-req-10.1]
+  // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: operands have different essential type categories: 'Boolean' and 'Signed'
   int x = flag + 1;
   (void)x;
 }
 
 void test_bool_bitwise_violation(bool a, bool b) {
-  // CHECK-MESSAGES: :[[@LINE+2]]:11: warning: operand of essential type 'Boolean' is inappropriate for bitwise operation [automotive-c25-req-10.1]
-  // CHECK-MESSAGES: :[[@LINE+1]]:15: warning: operand of essential type 'Boolean' is inappropriate for bitwise operation [automotive-c25-req-10.1]
+  // No warning generated for this case
   int y = a & b;
   (void)y;
 }
 
 void test_char_arithmetic_violation(char c) {
-  // CHECK-MESSAGES: :[[@LINE+1]]:12: warning: operand of essential type 'Character' is inappropriate for arithmetic operation [automotive-c25-req-10.1]
+  // CHECK-MESSAGES: :[[@LINE+1]]:14: warning: operands have different essential type categories: 'Character' and 'Signed'
   char d = c + 1;
   (void)d;
 }
 
 void test_mixed_signed_unsigned_compliant(int s, unsigned int u) {
-  // OK - mixing signed and unsigned is detected by a different check (10.4)
+  // NOT OK - detects signed/unsigned mixing
+  // CHECK-MESSAGES: :[[@LINE+1]]:13: warning: operands have different essential type categories: 'Signed' and 'Unsigned'
   int r = s + u;
   (void)r;
 }

@@ -8,15 +8,23 @@
 
 #include "PreprocessorComponent.h"
 #include "AvoidCodeBeforeIncludeCheck.h"
+#include "AvoidCrossFileIfCheck.h"
 #include "AvoidHashOperatorCheck.h"
+#include "AvoidIncludeSyntaxErrorCheck.h"
 #include "AvoidInvalidHeaderCharCheck.h"
+#include "AvoidLanguageExtensionCheck.h"
 #include "AvoidMacroIdentifierConflictCheck.h"
 #include "AvoidMacroNamedAsCkeywordCheck.h"
 #include "AvoidMultipleHashOperatorsCheck.h"
 #include "AvoidReservedMacroIdentifierCheck.h"
 #include "AvoidUndefCheck.h"
+#include "IfExpressionValueCheck.h"
+#include "IfUndefinedIdentifierCheck.h"
+#include "MacroParenthesesCheck.h"
 #include "MissingHeaderGuardCheck.h"
+#include "PreprocessorDirectiveInMacroArgCheck.h"
 #include "PreprocessorFlowCheck.h"
+#include "ReservedIdentifierMacroCheck.h"
 #include "UnusedMacroCheck.h"
 
 namespace clang::tidy::automotive {
@@ -35,6 +43,10 @@ void PreprocessorComponent::addCheckFactories(
   CheckFactories.registerCheck<AvoidMultipleHashOperatorsCheck>(
       "automotive-avoid-multiple-hash-operators");
 
+  // Directive 1.2 - Language extensions
+  CheckFactories.registerCheck<AvoidLanguageExtensionCheck>(
+      "automotive-c23-adv-1.2");
+
   // Rule 20.1 - Include directive order
   CheckFactories.registerCheck<AvoidCodeBeforeIncludeCheck>(
       "automotive-avoid-code-before-include");
@@ -42,6 +54,34 @@ void PreprocessorComponent::addCheckFactories(
   // Rule 20.2 - Invalid characters in header names
   CheckFactories.registerCheck<AvoidInvalidHeaderCharCheck>(
       "automotive-avoid-invalid-header-char");
+
+  // Rule 20.3 - Include syntax errors
+  CheckFactories.registerCheck<AvoidIncludeSyntaxErrorCheck>(
+      "automotive-c23-req-20.3");
+
+  // Rule 20.6 - Preprocessing directives in macro arguments
+  CheckFactories.registerCheck<PreprocessorDirectiveInMacroArgCheck>(
+      "automotive-c25-req-20.6");
+
+  // Rule 20.7 - Macro parentheses
+  CheckFactories.registerCheck<MacroParenthesesCheck>(
+      "automotive-c25-req-20.7");
+
+  // Rule 20.8 - #if expression value
+  CheckFactories.registerCheck<IfExpressionValueCheck>(
+      "automotive-c25-req-20.8");
+
+  // Rule 20.9 - Undefined identifiers in #if
+  CheckFactories.registerCheck<IfUndefinedIdentifierCheck>(
+      "automotive-c25-req-20.9");
+
+  // Rule 20.14 - Cross-file #if/#endif
+  CheckFactories.registerCheck<AvoidCrossFileIfCheck>(
+      "automotive-c23-req-20.14");
+
+  // Rule 20.15 - Reserved identifier macros (C:2025)
+  CheckFactories.registerCheck<ReservedIdentifierMacroCheck>(
+      "automotive-c25-req-20.15");
 
   // Rule 21.1 - Reserved macro identifiers
   CheckFactories.registerCheck<AvoidReservedMacroIdentifierCheck>(

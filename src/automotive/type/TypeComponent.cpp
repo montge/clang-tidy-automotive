@@ -7,9 +7,13 @@
 //===----------------------------------------------------------------------===//
 
 #include "TypeComponent.h"
+#include "AvoidAtomicVoidCheck.h"
+#include "AvoidMixedDesignatorCheck.h"
+#include "AvoidPointerTypedefCheck.h"
 #include "AvoidUnionCheck.h"
 #include "DuplicateTagNameCheck.h"
 #include "DuplicateTypedefNameCheck.h"
+#include "ExplicitEnumeratorValuesCheck.h"
 #include "ImplicitIntCheck.h"
 #include "UniqueEnumValuesCheck.h"
 #include "UnusedTypeCheck.h"
@@ -18,10 +22,14 @@ namespace clang::tidy::automotive {
 
 void TypeComponent::addCheckFactories(ClangTidyCheckFactories &CheckFactories) {
 
+  CheckFactories.registerCheck<AvoidAtomicVoidCheck>("automotive-c23-req-11.10");
+  CheckFactories.registerCheck<AvoidMixedDesignatorCheck>("automotive-c25-req-9.6");
+  CheckFactories.registerCheck<AvoidPointerTypedefCheck>("automotive-c23-adv-dir-4.8");
   CheckFactories.registerCheck<AvoidUnionCheck>("automotive-avoid-union");
   CheckFactories.registerCheck<DuplicateTagNameCheck>("automotive-c23-req-5.7");
   CheckFactories.registerCheck<DuplicateTypedefNameCheck>(
       "automotive-c23-req-5.6");
+  CheckFactories.registerCheck<ExplicitEnumeratorValuesCheck>("automotive-c23-req-9.2");
   CheckFactories.registerCheck<ImplicitIntCheck>("automotive-implicit-int");
   CheckFactories.registerCheck<UniqueEnumValuesCheck>(
       "automotive-unique-enum-value");
