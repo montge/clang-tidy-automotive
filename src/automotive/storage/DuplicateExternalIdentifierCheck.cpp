@@ -19,11 +19,19 @@ namespace clang::tidy::automotive {
 DuplicateExternalIdentifierCheck::DuplicateExternalIdentifierCheck(
     StringRef Name, ClangTidyContext *Context)
     : ClangTidyCheck(Name, Context),
-      SymbolDatabase(Options.get("SymbolDatabase", "external_symbols.json")) {}
+      SymbolDatabase(Options.get("SymbolDatabase", "external_symbols.json")),
+      MaxLocations(Options.get("MaxLocations", 10U)) {}
 
 void DuplicateExternalIdentifierCheck::storeOptions(
     ClangTidyOptions::OptionMap &Opts) {
   Options.store(Opts, "SymbolDatabase", SymbolDatabase);
+  Options.store(Opts, "MaxLocations", MaxLocations);
+}
+
+std::string
+DuplicateExternalIdentifierCheck::getLocationKey(const SymbolInfo &Info) {
+  return Info.File + ":" + std::to_string(Info.Line) + ":" +
+         std::to_string(Info.Column);
 }
 
 void DuplicateExternalIdentifierCheck::loadSymbolDatabase() {
@@ -142,14 +150,32 @@ void DuplicateExternalIdentifierCheck::check(
 
   // If there are occurrences in other files, report a violation
   if (!OtherFileOccurrences.empty()) {
-    // Build list of other locations for the message
+    // Deduplicate locations using a set
+    std::set<std::string> UniqueLocationKeys;
+    std::vector<std::string> UniqueLocations;
+    for (const auto *Occ : OtherFileOccurrences) {
+      std::string Key = getLocationKey(*Occ);
+      if (UniqueLocationKeys.insert(Key).second) {
+        UniqueLocations.push_back(Key);
+      }
+    }
+
+    // Build list of locations for the message
     std::string OtherLocations;
-    for (size_t I = 0; I < OtherFileOccurrences.size(); ++I) {
+    size_t NumToShow =
+        (MaxLocations > 0 && UniqueLocations.size() > MaxLocations)
+            ? MaxLocations
+            : UniqueLocations.size();
+    for (size_t I = 0; I < NumToShow; ++I) {
       if (I > 0)
         OtherLocations += ", ";
-      OtherLocations += OtherFileOccurrences[I]->File + ":" +
-                        std::to_string(OtherFileOccurrences[I]->Line) + ":" +
-                        std::to_string(OtherFileOccurrences[I]->Column);
+      OtherLocations += UniqueLocations[I];
+    }
+    if (MaxLocations > 0 && UniqueLocations.size() > MaxLocations) {
+      OtherLocations +=
+          " ... and " +
+          std::to_string(UniqueLocations.size() - MaxLocations) +
+          " more location(s)";
     }
 
     diag(Loc, "external %0 '%1' is not unique; also declared at %2")

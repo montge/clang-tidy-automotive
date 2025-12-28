@@ -92,7 +92,22 @@ void ExternalSymbolCollectorCheck::check(
   if (Symbol.Name.empty() || Symbol.File.empty())
     return;
 
-  CollectedSymbols.push_back(Symbol);
+  // Deduplicate: only add if not already seen
+  if (!isDuplicate(Symbol)) {
+    SeenSymbols.insert(getSymbolKey(Symbol));
+    CollectedSymbols.push_back(Symbol);
+  }
+}
+
+std::string
+ExternalSymbolCollectorCheck::getSymbolKey(const ExternalSymbol &Symbol) {
+  return Symbol.File + ":" + std::to_string(Symbol.Line) + ":" +
+         std::to_string(Symbol.Column) + ":" + Symbol.Name;
+}
+
+bool ExternalSymbolCollectorCheck::isDuplicate(
+    const ExternalSymbol &Symbol) const {
+  return SeenSymbols.count(getSymbolKey(Symbol)) > 0;
 }
 
 void ExternalSymbolCollectorCheck::onEndOfTranslationUnit() {
@@ -138,8 +153,11 @@ void ExternalSymbolCollectorCheck::loadExistingSymbols() {
     if (auto Type = SymObj->getString("type"))
       Symbol.Type = Type->str();
 
-    if (!Symbol.Name.empty() && !Symbol.File.empty())
+    if (!Symbol.Name.empty() && !Symbol.File.empty()) {
+      // Add to seen set to prevent duplicates from future TUs
+      SeenSymbols.insert(getSymbolKey(Symbol));
       CollectedSymbols.push_back(Symbol);
+    }
   }
 }
 
