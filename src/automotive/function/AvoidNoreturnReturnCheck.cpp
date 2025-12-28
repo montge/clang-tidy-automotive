@@ -8,33 +8,50 @@
 
 #include "AvoidNoreturnReturnCheck.h"
 #include "clang/AST/ASTContext.h"
+#include "clang/AST/RecursiveASTVisitor.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
 
 using namespace clang::ast_matchers;
 
 namespace clang::tidy::automotive {
 
+namespace {
+// Helper visitor to find all return statements in a function body
+class ReturnFinder : public RecursiveASTVisitor<ReturnFinder> {
+public:
+  SmallVector<const ReturnStmt *, 4> Returns;
+
+  bool VisitReturnStmt(ReturnStmt *RS) {
+    Returns.push_back(RS);
+    return true;
+  }
+};
+} // namespace
+
 void AvoidNoreturnReturnCheck::registerMatchers(MatchFinder *Finder) {
-  // Match return statements in noreturn functions
+  // Match noreturn function definitions
   Finder->addMatcher(
-      returnStmt(hasAncestor(functionDecl(isNoReturn()).bind("func")))
-          .bind("return"),
+      functionDecl(isDefinition(), isNoReturn(),
+                   unless(isExpansionInSystemHeader()))
+          .bind("func"),
       this);
 }
 
 void AvoidNoreturnReturnCheck::check(const MatchFinder::MatchResult &Result) {
-  const auto *Return = Result.Nodes.getNodeAs<ReturnStmt>("return");
   const auto *Func = Result.Nodes.getNodeAs<FunctionDecl>("func");
 
-  if (!Return || !Func)
+  if (!Func || !Func->getBody())
     return;
 
-  if (Result.SourceManager->isInSystemHeader(Return->getReturnLoc()))
-    return;
+  // Find all return statements in the function body
+  ReturnFinder Finder;
+  Finder.TraverseStmt(const_cast<Stmt *>(Func->getBody()));
 
-  diag(Return->getReturnLoc(),
-       "_Noreturn function '%0' shall not return to its caller")
-      << Func->getName();
+  for (const auto *Return : Finder.Returns) {
+    diag(Return->getReturnLoc(),
+         "_Noreturn function '%0' shall not return to its caller")
+        << Func->getName();
+  }
 }
 
 } // namespace clang::tidy::automotive
