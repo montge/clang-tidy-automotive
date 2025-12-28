@@ -47,6 +47,7 @@ private:
     unsigned Column;
     std::string Kind;
     std::string Type;
+    bool IsDefinition = false;
   };
 
   std::string SymbolDatabase;

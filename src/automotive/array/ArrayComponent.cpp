@@ -60,6 +60,10 @@ void ArrayComponent::addCheckFactories(
   CheckFactories.registerCheck<AvoidPointerToVLACheck>(
       "automotive-c25-mand-18.10");
 
+  // MISRA C:2012/2023 Rule 18.8 - Variable-length arrays shall not be used (Required)
+  CheckFactories.registerCheck<AvoidVariableLengthArrayCheck>(
+      "automotive-c23-req-18.8");
+
   // MISRA C:2025 Rule 8.19 - Variable-length arrays should not be used (Advisory)
   CheckFactories.registerCheck<AvoidVariableLengthArrayCheck>(
       "automotive-c25-adv-8.19");
