@@ -15,14 +15,14 @@ struct AlignedStruct {
 
 // ============= Violations: Zero alignment =============
 
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: alignment specifier with value zero
+// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: alignment specifier with value zero results in undefined behavior [automotive-c25-adv-8.16]
 _Alignas(0) int zero_aligned;
 
-// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: alignment specifier with value zero
+// CHECK-MESSAGES: :[[@LINE+1]]:5: warning: alignment specifier with value zero results in undefined behavior [automotive-c25-adv-8.16]
     _Alignas(0) char zero_buffer[4];
 
 struct BadStruct {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: alignment specifier with value zero
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: alignment specifier with value zero results in undefined behavior [automotive-c25-adv-8.16]
     _Alignas(0) int bad_member;
 };
 
@@ -38,6 +38,6 @@ _Alignas(sizeof(double)) int size_aligned;
 
 // Multiple declarations
 _Alignas(4) int multi1;
-// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: alignment specifier with value zero
+// CHECK-MESSAGES: :[[@LINE+1]]:1: warning: alignment specifier with value zero results in undefined behavior [automotive-c25-adv-8.16]
 _Alignas(0) int multi2;
 _Alignas(8) int multi3;

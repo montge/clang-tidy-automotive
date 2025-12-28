@@ -11,16 +11,16 @@
 //===----------------------------------------------------------------------===//
 
 void test_small_int_const_violations(void) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: use of small integer constant macro 'INT8_C' may produce implementation-defined behavior
+    // CHECK-MESSAGES: :[[@LINE+1]]:16: warning: use of small integer constant macro 'INT8_C' may produce implementation-defined behavior; consider using a larger type or explicit constant [automotive-c23-req-7.6]
     int8_t a = INT8_C(42);
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: use of small integer constant macro 'INT16_C' may produce implementation-defined behavior
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: use of small integer constant macro 'INT16_C' may produce implementation-defined behavior; consider using a larger type or explicit constant [automotive-c23-req-7.6]
     int16_t b = INT16_C(1000);
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: use of small integer constant macro 'UINT8_C' may produce implementation-defined behavior
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: use of small integer constant macro 'UINT8_C' may produce implementation-defined behavior; consider using a larger type or explicit constant [automotive-c23-req-7.6]
     uint8_t c = UINT8_C(255);
 
-    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: use of small integer constant macro 'UINT16_C' may produce implementation-defined behavior
+    // CHECK-MESSAGES: :[[@LINE+1]]:18: warning: use of small integer constant macro 'UINT16_C' may produce implementation-defined behavior; consider using a larger type or explicit constant [automotive-c23-req-7.6]
     uint16_t d = UINT16_C(65535);
 
     (void)a;

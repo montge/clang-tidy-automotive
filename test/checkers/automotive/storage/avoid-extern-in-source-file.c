@@ -4,15 +4,15 @@
 
 // Non-compliant: extern variable declaration in source file
 extern int global_from_other_file;
-// CHECK-MESSAGES: :[[@LINE-1]]:12: warning: external variable declaration 'global_from_other_file' should be in a header file, not a source file
+// CHECK-MESSAGES: :[[@LINE-1]]:12: warning: external variable declaration 'global_from_other_file' should be in a header file, not a source file [automotive-c25-adv-8.19]
 
 // Non-compliant: extern function declaration in source file
 extern void external_function(void);
-// CHECK-MESSAGES: :[[@LINE-1]]:13: warning: external function declaration 'external_function' should be in a header file
+// CHECK-MESSAGES: :[[@LINE-1]]:13: warning: external function declaration 'external_function' should be in a header file, not a source file [automotive-c25-adv-8.19]
 
 // Non-compliant: extern with explicit keyword
 extern int another_extern_var;
-// CHECK-MESSAGES: :[[@LINE-1]]:12: warning: external variable declaration 'another_extern_var' should be in a header file, not a source file
+// CHECK-MESSAGES: :[[@LINE-1]]:12: warning: external variable declaration 'another_extern_var' should be in a header file, not a source file [automotive-c25-adv-8.19]
 
 // Compliant: function definition (not a declaration)
 void local_function(void) {

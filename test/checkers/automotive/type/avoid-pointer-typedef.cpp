@@ -6,30 +6,30 @@
 // ============= Violations: Type aliases hiding pointers =============
 
 // Violation - using declaration hiding pointer
+// CHECK-MESSAGES: :[[@LINE+1]]:7: warning: type alias 'IntPtr' hides pointer type; consider making the pointer explicit at point of use [automotive-c23-adv-dir-4.8]
 using IntPtr = int*;
-// CHECK-MESSAGES: :[[@LINE-1]]:7: warning: type alias 'IntPtr' hides pointer type
 
+// CHECK-MESSAGES: :[[@LINE+1]]:7: warning: type alias 'StringType' hides pointer type; consider making the pointer explicit at point of use [automotive-c23-adv-dir-4.8]
 using StringType = char*;
-// CHECK-MESSAGES: :[[@LINE-1]]:7: warning: type alias 'StringType' hides pointer type
 
+// CHECK-MESSAGES: :[[@LINE+1]]:7: warning: type alias 'ConstIntPtr' hides pointer type; consider making the pointer explicit at point of use [automotive-c23-adv-dir-4.8]
 using ConstIntPtr = const int*;
-// CHECK-MESSAGES: :[[@LINE-1]]:7: warning: type alias 'ConstIntPtr' hides pointer type
 
+// CHECK-MESSAGES: :[[@LINE+1]]:7: warning: type alias 'VoidPtr' hides pointer type; consider making the pointer explicit at point of use [automotive-c23-adv-dir-4.8]
 using VoidPtr = void*;
-// CHECK-MESSAGES: :[[@LINE-1]]:7: warning: type alias 'VoidPtr' hides pointer type
 
 struct Data { int value; };
+// CHECK-MESSAGES: :[[@LINE+1]]:7: warning: type alias 'DataPtr' hides pointer type; consider making the pointer explicit at point of use [automotive-c23-adv-dir-4.8]
 using DataPtr = Data*;
-// CHECK-MESSAGES: :[[@LINE-1]]:7: warning: type alias 'DataPtr' hides pointer type
 
 // ============= Violations: Traditional typedefs hiding pointers =============
 
 // Violation - typedef hiding pointer
+// CHECK-MESSAGES: :[[@LINE+1]]:17: warning: typedef 'DoublePtr' hides pointer type; consider making the pointer explicit at point of use [automotive-c23-adv-dir-4.8]
 typedef double* DoublePtr;
-// CHECK-MESSAGES: :[[@LINE-1]]:17: warning: typedef 'DoublePtr' hides pointer type
 
+// CHECK-MESSAGES: :[[@LINE+1]]:21: warning: typedef 'CString' hides pointer type; consider making the pointer explicit at point of use [automotive-c23-adv-dir-4.8]
 typedef const char* CString;
-// CHECK-MESSAGES: :[[@LINE-1]]:21: warning: typedef 'CString' hides pointer type
 
 // ============= Compliant: Function pointers =============
 

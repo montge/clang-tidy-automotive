@@ -11,7 +11,7 @@
 //===----------------------------------------------------------------------===//
 
 void test_missing_default(int x) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: switch statement does not have a 'default' clause
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: switch statement does not have a 'default' clause [automotive-c25-req-16.1]
     switch (x) {
     case 1:
         break;
@@ -22,7 +22,7 @@ void test_missing_default(int x) {
 
 void test_fallthrough(int x) {
     switch (x) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: case does not end with 'break', 'return', 'continue', or 'throw'
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: case does not end with 'break', 'return', 'continue', or 'throw'; implicit fall-through is not allowed [automotive-c25-req-16.1]
     case 1:
         x = 1;
     case 2:
@@ -35,10 +35,10 @@ void test_fallthrough(int x) {
 
 int test_multiple_fallthrough(int x) {
     switch (x) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: case does not end with 'break', 'return', 'continue', or 'throw'
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: case does not end with 'break', 'return', 'continue', or 'throw'; implicit fall-through is not allowed [automotive-c25-req-16.1]
     case 1:
         x = 1;
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: case does not end with 'break', 'return', 'continue', or 'throw'
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: case does not end with 'break', 'return', 'continue', or 'throw'; implicit fall-through is not allowed [automotive-c25-req-16.1]
     case 2:
         x = 2;
     case 3:
@@ -117,7 +117,7 @@ void test_continue_in_loop(int x) {
 
 // Test for compound statement requirement
 void test_missing_compound_body(int x) {
-    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: switch statement body must be a compound statement
+    // CHECK-MESSAGES: :[[@LINE+1]]:5: warning: switch statement body must be a compound statement [automotive-c25-req-16.1]
     switch (x)
         case 1:
             break;

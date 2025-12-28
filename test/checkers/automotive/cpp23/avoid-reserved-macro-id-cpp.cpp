@@ -1,4 +1,4 @@
-// RUN: %check_clang_tidy %s automotive-cpp23-req-19.0.2 %t -- -- -std=c++17
+// RUN: %check_clang_tidy %s automotive-cpp23-req-19.0.2 %t -- -- -std=c++17 -undef
 // Test for automotive-cpp23-req-19.0.2: macro identifiers shall not be reserved
 
 // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: #define of reserved identifier '_RESERVED' [automotive-cpp23-req-19.0.2]

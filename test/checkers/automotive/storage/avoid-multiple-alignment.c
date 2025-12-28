@@ -15,18 +15,18 @@ struct SingleAligned {
 
 // ============= Violations: Multiple alignment specifiers =============
 
-// CHECK-MESSAGES: :[[@LINE+1]]:13: warning: multiple alignment specifiers on single declaration
+// CHECK-MESSAGES: :[[@LINE+1]]:13: warning: multiple alignment specifiers on single declaration; use only one alignment specifier per declaration [automotive-c25-adv-8.17]
 _Alignas(4) _Alignas(8) int multi_aligned;
 
-// CHECK-MESSAGES: :[[@LINE+1]]:14: warning: multiple alignment specifiers on single declaration
+// CHECK-MESSAGES: :[[@LINE+1]]:14: warning: multiple alignment specifiers on single declaration; use only one alignment specifier per declaration [automotive-c25-adv-8.17]
 _Alignas(16) _Alignas(32) double multi_double;
 
 struct MultiAligned {
-    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: multiple alignment specifiers on single declaration
+    // CHECK-MESSAGES: :[[@LINE+1]]:17: warning: multiple alignment specifiers on single declaration; use only one alignment specifier per declaration [automotive-c25-adv-8.17]
     _Alignas(4) _Alignas(16) int multi_member;
 };
 
-// CHECK-MESSAGES: :[[@LINE+1]]:13: warning: multiple alignment specifiers on single declaration
+// CHECK-MESSAGES: :[[@LINE+1]]:13: warning: multiple alignment specifiers on single declaration; use only one alignment specifier per declaration [automotive-c25-adv-8.17]
 _Alignas(8) _Alignas(8) int same_alignment;  // Even same value is problematic
 
 // ============= Compliant: Alignment on type vs variable =============

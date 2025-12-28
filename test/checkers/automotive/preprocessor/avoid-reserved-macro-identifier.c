@@ -1,4 +1,4 @@
-// RUN: %check_clang_tidy %s automotive-avoid-reserved-macro-identifier %t
+// RUN: %check_clang_tidy %s automotive-avoid-reserved-macro-identifier %t -- -- -undef
 
 // Test: Reserved identifiers starting with underscore + uppercase
 // CHECK-MESSAGES: :[[@LINE+1]]:9: warning: #define of reserved identifier '_Reserved' [automotive-avoid-reserved-macro-identifier]
