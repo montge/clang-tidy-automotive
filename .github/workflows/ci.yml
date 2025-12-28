@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main, develop]
 
+# Restrict permissions to minimum required
+permissions:
+  contents: read
+
 jobs:
   format-check:
     name: Format Check
