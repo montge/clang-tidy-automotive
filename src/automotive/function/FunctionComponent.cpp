@@ -84,6 +84,7 @@ void FunctionComponent::addCheckFactories(
       "automotive-c25-adv-8.13");
 
   // MISRA C:2025 Rule 17.9 - Noreturn function shall not return (Mandatory)
+  // Note: This check may be superseded by clang-diagnostic-invalid-noreturn
   CheckFactories.registerCheck<AvoidNoreturnReturnCheck>(
       "automotive-c25-mand-17.9");
 }

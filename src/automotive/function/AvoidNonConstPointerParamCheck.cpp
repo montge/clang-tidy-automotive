@@ -17,76 +17,98 @@ namespace clang::tidy::automotive {
 
 namespace {
 
-/// Visitor to check if a parameter is modified
+/// Visitor to check if a pointer parameter is modified (written through)
 class ParameterModificationVisitor
     : public RecursiveASTVisitor<ParameterModificationVisitor> {
 public:
-  explicit ParameterModificationVisitor(const ParmVarDecl *Param)
-      : Param(Param), IsModified(false) {}
+  explicit ParameterModificationVisitor(const ParmVarDecl *Param,
+                                        ASTContext *Ctx)
+      : Param(Param), Context(Ctx), IsModified(false) {}
 
-  bool VisitDeclRefExpr(const DeclRefExpr *DRE) {
-    if (DRE->getDecl() != Param)
+  bool VisitUnaryOperator(UnaryOperator *UO) {
+    if (IsModified)
+      return false;
+
+    // Check for dereference that leads to modification
+    if (UO->getOpcode() == UO_Deref) {
+      if (isExprReferringToParam(UO->getSubExpr())) {
+        // Check if the dereference is being modified
+        if (isExprModified(UO)) {
+          IsModified = true;
+          return false;
+        }
+      }
+    }
+
+    // Check for increment/decrement on dereferenced pointer: (*p)++
+    if (UO->isIncrementDecrementOp()) {
+      if (auto *SubUO = dyn_cast<UnaryOperator>(UO->getSubExpr()->IgnoreParenImpCasts())) {
+        if (SubUO->getOpcode() == UO_Deref &&
+            isExprReferringToParam(SubUO->getSubExpr())) {
+          IsModified = true;
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  bool VisitMemberExpr(MemberExpr *ME) {
+    if (IsModified)
+      return false;
+
+    // Check for p->member or (*p).member modification
+    const Expr *Base = ME->getBase()->IgnoreParenImpCasts();
+
+    // Handle arrow operator: p->member
+    if (ME->isArrow()) {
+      if (isExprReferringToParam(Base)) {
+        if (isExprModified(ME)) {
+          IsModified = true;
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  bool VisitArraySubscriptExpr(ArraySubscriptExpr *ASE) {
+    if (IsModified)
+      return false;
+
+    // Check for p[i] modification
+    const Expr *Base = ASE->getBase()->IgnoreParenImpCasts();
+    if (isExprReferringToParam(Base)) {
+      if (isExprModified(ASE)) {
+        IsModified = true;
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  bool VisitCallExpr(CallExpr *CE) {
+    if (IsModified)
+      return false;
+
+    // Check if parameter is passed to a function expecting non-const pointer
+    const FunctionDecl *Callee = CE->getDirectCallee();
+    if (!Callee)
       return true;
 
-    // Check if this reference is on the left side of an assignment
-    const auto &Parents = Context->getParents(*DRE);
-    for (const auto &Parent : Parents) {
-      // Check for assignment operators
-      if (const auto *BinOp = Parent.get<BinaryOperator>()) {
-        if (BinOp->isAssignmentOp() && BinOp->getLHS()->IgnoreParenImpCasts() == DRE) {
-          IsModified = true;
-          return false;
-        }
-      }
-
-      // Check for increment/decrement
-      if (const auto *UnOp = Parent.get<UnaryOperator>()) {
-        if (UnOp->isIncrementDecrementOp()) {
-          IsModified = true;
-          return false;
-        }
-      }
-
-      // Check for compound assignment
-      if (const auto *CompoundAssign = Parent.get<CompoundAssignOperator>()) {
-        if (CompoundAssign->getLHS()->IgnoreParenImpCasts() == DRE) {
-          IsModified = true;
-          return false;
-        }
-      }
-
-      // Check if pointer is dereferenced and modified
-      if (const auto *UOp = Parent.get<UnaryOperator>()) {
-        if (UOp->getOpcode() == UO_Deref) {
-          // Check if the dereferenced value is modified
-          const auto &DerefParents = Context->getParents(*UOp);
-          for (const auto &DerefParent : DerefParents) {
-            if (const auto *DerefBinOp = DerefParent.get<BinaryOperator>()) {
-              if (DerefBinOp->isAssignmentOp() &&
-                  DerefBinOp->getLHS()->IgnoreParenImpCasts() == UOp) {
-                IsModified = true;
-                return false;
-              }
-            }
-          }
-        }
-      }
-
-      // Check if passed to a function that takes non-const pointer
-      if (const auto *Call = Parent.get<CallExpr>()) {
-        if (const FunctionDecl *Callee = Call->getDirectCallee()) {
-          for (unsigned I = 0; I < Call->getNumArgs(); ++I) {
-            if (Call->getArg(I)->IgnoreParenImpCasts() == DRE) {
-              if (I < Callee->getNumParams()) {
-                QualType ParamType = Callee->getParamDecl(I)->getType();
-                // If the parameter is a non-const pointer, it might be modified
-                if (ParamType->isPointerType() &&
-                    !ParamType->getPointeeType().isConstQualified()) {
-                  IsModified = true;
-                  return false;
-                }
-              }
-            }
+    for (unsigned I = 0; I < CE->getNumArgs(); ++I) {
+      const Expr *Arg = CE->getArg(I)->IgnoreParenImpCasts();
+      if (isExprReferringToParam(Arg)) {
+        if (I < Callee->getNumParams()) {
+          QualType ParamType = Callee->getParamDecl(I)->getType();
+          // If passed to non-const pointer parameter, assume it may be modified
+          if (ParamType->isPointerType() &&
+              !ParamType->getPointeeType().isConstQualified()) {
+            IsModified = true;
+            return false;
           }
         }
       }
@@ -97,12 +119,52 @@ public:
 
   bool isModified() const { return IsModified; }
 
-  void setContext(ASTContext *Ctx) { Context = Ctx; }
-
 private:
   const ParmVarDecl *Param;
+  ASTContext *Context;
   bool IsModified;
-  ASTContext *Context = nullptr;
+
+  /// Check if expression refers to the tracked parameter
+  bool isExprReferringToParam(const Expr *E) {
+    E = E->IgnoreParenImpCasts();
+    if (const auto *DRE = dyn_cast<DeclRefExpr>(E)) {
+      return DRE->getDecl() == Param;
+    }
+    return false;
+  }
+
+  /// Check if an expression is being modified (is LHS of assignment, etc.)
+  bool isExprModified(const Expr *E) {
+    const auto &Parents = Context->getParents(*E);
+    for (const auto &Parent : Parents) {
+      // Direct assignment: *p = value or p->member = value
+      if (const auto *BO = Parent.get<BinaryOperator>()) {
+        if (BO->isAssignmentOp() &&
+            BO->getLHS()->IgnoreParenImpCasts() == E) {
+          return true;
+        }
+      }
+
+      // Compound assignment: *p += value
+      if (const auto *CAO = Parent.get<CompoundAssignOperator>()) {
+        if (CAO->getLHS()->IgnoreParenImpCasts() == E) {
+          return true;
+        }
+      }
+
+      // Increment/decrement: (*p)++ or ++(*p)
+      if (const auto *UO = Parent.get<UnaryOperator>()) {
+        if (UO->isIncrementDecrementOp()) {
+          return true;
+        }
+        // Address-of could allow modification: &(*p) or &(p->member)
+        if (UO->getOpcode() == UO_AddrOf) {
+          return true; // Conservative: assume address taken means may be modified
+        }
+      }
+    }
+    return false;
+  }
 };
 
 } // namespace
@@ -119,18 +181,6 @@ void AvoidNonConstPointerParamCheck::registerMatchers(MatchFinder *Finder) {
                   .bind("param")))
           .bind("func"),
       this);
-}
-
-bool AvoidNonConstPointerParamCheck::isParameterModified(
-    const ParmVarDecl *Param, const FunctionDecl *Func) const {
-  if (!Func->hasBody())
-    return true; // Assume modified if no body
-
-  ParameterModificationVisitor Visitor(Param);
-  Visitor.setContext(&Func->getASTContext());
-  Visitor.TraverseStmt(Func->getBody());
-
-  return Visitor.isModified();
 }
 
 void AvoidNonConstPointerParamCheck::check(
@@ -163,7 +213,13 @@ void AvoidNonConstPointerParamCheck::check(
     return;
 
   // Check if the parameter is modified
-  if (!isParameterModified(Param, Func)) {
+  if (!Func->hasBody())
+    return; // Can't check without body
+
+  ParameterModificationVisitor Visitor(Param, Result.Context);
+  Visitor.TraverseStmt(Func->getBody());
+
+  if (!Visitor.isModified()) {
     diag(Param->getLocation(),
          "pointer parameter '%0' should be declared const as it is not modified")
         << Param->getName();

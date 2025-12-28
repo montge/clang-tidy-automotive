@@ -1,9 +1,8 @@
-// XFAIL: *
 // RUN: %check_clang_tidy %s automotive-c25-adv-8.13 %t
 
 // MISRA C:2025 Rule 8.13: Pointer parameters should be const if not modified
 
-// CHECK-MESSAGES: :[[@LINE+1]]:28: warning: pointer parameter 'p' should be declared const as it is not modified [automotive-c25-adv-8.13]
+// CHECK-MESSAGES: :[[@LINE+1]]:29: warning: pointer parameter 'p' should be declared const as it is not modified [automotive-c25-adv-8.13]
 void read_only_pointer(int *p) {
   int x = *p;  // Only reading through pointer
 }
@@ -13,7 +12,7 @@ void const_pointer(const int *p) {
   int x = *p;  // OK - already const
 }
 
-// CHECK-MESSAGES: :[[@LINE+1]]:35: warning: pointer parameter 'data' should be declared const as it is not modified [automotive-c25-adv-8.13]
+// CHECK-MESSAGES: :[[@LINE+1]]:20: warning: pointer parameter 'data' should be declared const as it is not modified [automotive-c25-adv-8.13]
 int sum_array(int *data, int size) {
   int total = 0;
   for (int i = 0; i < size; i++) {
@@ -31,17 +30,17 @@ int sum_array_const(const int *data, int size) {
   return total;
 }
 
-// Non-compliant - modifies through pointer
+// Compliant - modifies through pointer
 void modify_pointer(int *p) {
-  *p = 42;  // OK - modifies the value, no warning expected
+  *p = 42;  // Modifies the value, no warning expected
 }
 
-// Non-compliant - increments pointer
+// Compliant - increments through pointer
 void increment_value(int *p) {
-  (*p)++;   // OK - modifies the value, no warning expected
+  (*p)++;   // Modifies the value, no warning expected
 }
 
-// CHECK-MESSAGES: :[[@LINE+1]]:32: warning: pointer parameter 's' should be declared const as it is not modified [automotive-c25-adv-8.13]
+// CHECK-MESSAGES: :[[@LINE+1]]:25: warning: pointer parameter 's' should be declared const as it is not modified [automotive-c25-adv-8.13]
 int string_length(char *s) {
   int len = 0;
   while (*s++) {
@@ -64,7 +63,7 @@ struct Point {
   int y;
 };
 
-// CHECK-MESSAGES: :[[@LINE+1]]:36: warning: pointer parameter 'pt' should be declared const as it is not modified [automotive-c25-adv-8.13]
+// CHECK-MESSAGES: :[[@LINE+1]]:31: warning: pointer parameter 'pt' should be declared const as it is not modified [automotive-c25-adv-8.13]
 int get_x_coord(struct Point *pt) {
   return pt->x;  // Only reading
 }
@@ -74,9 +73,9 @@ int get_x_coord_const(const struct Point *pt) {
   return pt->x;
 }
 
-// Non-compliant - modifies struct member
+// Compliant - modifies struct member
 void set_x_coord(struct Point *pt, int x) {
-  pt->x = x;  // OK - modifies the struct, no warning expected
+  pt->x = x;  // Modifies the struct, no warning expected
 }
 
 // Compliant - void pointer (should be skipped)
@@ -85,7 +84,7 @@ void process_data(void *data, int size) {
   char *bytes = (char *)data;
 }
 
-// CHECK-MESSAGES: :[[@LINE+1]]:32: warning: pointer parameter 'arr' should be declared const as it is not modified [automotive-c25-adv-8.13]
+// CHECK-MESSAGES: :[[@LINE+1]]:19: warning: pointer parameter 'arr' should be declared const as it is not modified [automotive-c25-adv-8.13]
 int find_max(int *arr, int n) {
   int max = arr[0];
   for (int i = 1; i < n; i++) {
@@ -100,7 +99,7 @@ int find_max(int *arr, int n) {
 void helper(int *p);
 
 void caller(int *p) {
-  helper(p);  // OK - passed to non-const function, no warning expected
+  helper(p);  // Passed to non-const function, no warning expected
 }
 
 // Function pointer - should be skipped
