@@ -13,4 +13,5 @@ add_automotive_component(clangTidyAutomotivePointerComponent
   AvoidPointerTypeCastCheck.cpp
   PointerComponent.cpp
   WrongNullPointerValueCheck.cpp
+  WrongPointerArithmeticCheck.cpp
 )

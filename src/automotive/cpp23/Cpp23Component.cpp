@@ -129,6 +129,13 @@
 #include "UseOverrideCheck.h"
 #include "UseUnnamedNamespaceCheck.h"
 #include "VirtualDestructorCheck.h"
+// New MISRA C++:2023 checks
+#include "AvoidUndefinedBehaviorCheck.h"
+#include "AvoidStaticInitAllocationCheck.h"
+#include "AtExitHandlerReturnCheck.h"
+#include "BitFieldTypeRestrictionCheck.h"
+#include "AvoidOutOfBoundsAccessCheck.h"
+#include "BooleanControlExpressionCheck.h"
 
 namespace clang::tidy::automotive {
 
@@ -703,6 +710,36 @@ void Cpp23Component::addCheckFactories(
   // sub-expressions (Advisory)
   CheckFactories.registerCheck<AvoidAssignmentInExpressionCheck>(
       "automotive-cpp23-adv-7.4.2");
+
+  // MISRA C++:2023 Rule 0.3 - Statically-detectable undefined behavior
+  // shall not occur (Required)
+  CheckFactories.registerCheck<cpp23::AvoidUndefinedBehaviorCheck>(
+      "automotive-cpp23-req-0.3");
+
+  // MISRA C++:2023 Rule 10.1 - Memory shall not be allocated dynamically
+  // during static initialization (Required)
+  CheckFactories.registerCheck<cpp23::AvoidStaticInitAllocationCheck>(
+      "automotive-cpp23-req-10.1");
+
+  // MISRA C++:2023 Rule 10.2 - At-exit handlers shall terminate by
+  // returning (Required)
+  CheckFactories.registerCheck<cpp23::AtExitHandlerReturnCheck>(
+      "automotive-cpp23-req-10.2");
+
+  // MISRA C++:2023 Rule 12.2 - Bit-field types shall be restricted to
+  // bool or unsigned integer types (Required)
+  CheckFactories.registerCheck<cpp23::BitFieldTypeRestrictionCheck>(
+      "automotive-cpp23-req-12.2");
+
+  // MISRA C++:2023 Rule 13.1 - An object shall not be accessed out of
+  // bounds (Required)
+  CheckFactories.registerCheck<cpp23::AvoidOutOfBoundsAccessCheck>(
+      "automotive-cpp23-req-13.1");
+
+  // MISRA C++:2023 Rule 16.5 - A control expression shall be of
+  // essentially Boolean type (Required)
+  CheckFactories.registerCheck<cpp23::BooleanControlExpressionCheck>(
+      "automotive-cpp23-req-16.5");
 }
 
 } // namespace clang::tidy::automotive

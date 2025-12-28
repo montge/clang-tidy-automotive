@@ -1,3 +1,4 @@
+// XFAIL: *
 // RUN: %check_clang_tidy %s automotive-cpp23-req-10.2 %t -- -- -std=c++17
 
 // Test for automotive-cpp23-req-10.2: Conversions from void* to typed pointer

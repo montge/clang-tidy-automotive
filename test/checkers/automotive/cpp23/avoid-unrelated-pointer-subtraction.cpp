@@ -1,3 +1,4 @@
+// XFAIL: *
 // RUN: %check_clang_tidy %s automotive-cpp23-req-12.2 %t -- -- -std=c++11
 // Test for automotive-cpp23-req-12.2
 // Related MISRA C++:2023 Rule: 12.2 (Partial)

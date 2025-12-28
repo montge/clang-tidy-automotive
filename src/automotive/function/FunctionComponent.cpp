@@ -8,7 +8,9 @@
 
 #include "FunctionComponent.h"
 #include "AvoidFunctionParameterModificationCheck.h"
+#include "AvoidNonConstPointerParamCheck.h"
 #include "AvoidNoreturnNonVoidCheck.h"
+#include "AvoidNoreturnReturnCheck.h"
 #include "AvoidQualifiedFunctionTypeCheck.h"
 #include "AvoidStaticInArrayParamCheck.h"
 #include "FunctionDeclarationMismatchCheck.h"
@@ -76,6 +78,14 @@ void FunctionComponent::addCheckFactories(
 
   // MISRA C:2025 Rule 17.7 - Return value not discarded (Required)
   // Note: This is partially covered by compiler warnings
+
+  // MISRA C:2025 Rule 8.13 - Pointer parameters should be const (Advisory)
+  CheckFactories.registerCheck<AvoidNonConstPointerParamCheck>(
+      "automotive-c25-adv-8.13");
+
+  // MISRA C:2025 Rule 17.9 - Noreturn function shall not return (Mandatory)
+  CheckFactories.registerCheck<AvoidNoreturnReturnCheck>(
+      "automotive-c25-mand-17.9");
 }
 
 } // namespace clang::tidy::automotive
