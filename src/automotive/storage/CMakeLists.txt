@@ -1,9 +1,18 @@
-
 add_clang_library(clangTidyAutomotiveStorageComponent STATIC
+  AvoidExternInSourceFileCheck.cpp
   AvoidGlobalObjectCheck.cpp
+  AvoidMultipleAlignmentCheck.cpp
   AvoidReservedIdentifierDeclarationCheck.cpp
   AvoidRestrictTypeCheck.cpp
+  AvoidTentativeDefinitionInHeaderCheck.cpp
   AvoidUninitializedReadCheck.cpp
-  MissingStaticInternalLinkageCheck.cpp
+  AvoidZeroAlignmentCheck.cpp
+  DuplicateExternalIdentifierCheck.cpp
+  ExternalSymbolCollectorCheck.cpp
+  MissingPriorDeclarationCheck.cpp
+  MissingStaticForInternalCheck.cpp
+  MultipleExternalDefinitionCheck.cpp
+  StaticStorageClassCheck.cpp
   StorageComponent.cpp
+  ThreadObjectStorageCheck.cpp
 )

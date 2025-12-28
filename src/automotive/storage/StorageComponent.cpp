@@ -11,7 +11,7 @@
 #include "AvoidReservedIdentifierDeclarationCheck.h"
 #include "AvoidRestrictTypeCheck.h"
 #include "AvoidUninitializedReadCheck.h"
-#include "MissingStaticInternalLinkageCheck.h"
+#include "MissingStaticForInternalCheck.h"
 
 namespace clang::tidy::automotive {
 
@@ -32,7 +32,7 @@ void StorageComponent::addCheckFactories(
 
   CheckFactories.registerCheck<AvoidRestrictTypeCheck>(
       "automotive-avoid-restrict-type");
-  CheckFactories.registerCheck<MissingStaticInternalLinkageCheck>(
+  CheckFactories.registerCheck<MissingStaticForInternalCheck>(
       "automotive-missing-static-internal-linkage");
 }
 
