@@ -17,6 +17,7 @@
 #include "AvoidTempArrayDecayCheck.h"
 #include "AvoidVariableLengthArrayCheck.h"
 #include "MissingExternalArraySizeCheck.h"
+#include "MissingNestedBracesCheck.h"
 #include "PartialArrayInitCheck.h"
 
 namespace clang::tidy::automotive {
@@ -67,6 +68,13 @@ void ArrayComponent::addCheckFactories(
   // MISRA C:2025 Rule 8.19 - Variable-length arrays should not be used (Advisory)
   CheckFactories.registerCheck<AvoidVariableLengthArrayCheck>(
       "automotive-c25-adv-8.19");
+
+  // MISRA C:2012 Rule 9.2 - Initializer for aggregate shall be enclosed in braces
+  CheckFactories.registerCheck<MissingNestedBracesCheck>(
+      "automotive-c23-req-9.2-braces");
+  // MISRA C:2025 Rule 9.2 is about enum values (different rule), so use explicit name
+  CheckFactories.registerCheck<MissingNestedBracesCheck>(
+      "automotive-c25-req-9.2-braces");
 }
 
 } // namespace clang::tidy::automotive

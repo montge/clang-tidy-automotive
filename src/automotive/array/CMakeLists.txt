@@ -11,5 +11,6 @@ add_automotive_component(clangTidyAutomotiveArrayComponent
   AvoidTempArrayDecayCheck.cpp
   AvoidVariableLengthArrayCheck.cpp
   MissingExternalArraySizeCheck.cpp
+  MissingNestedBracesCheck.cpp
   PartialArrayInitCheck.cpp
 )
