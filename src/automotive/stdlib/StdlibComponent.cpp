@@ -213,6 +213,10 @@ void StdlibComponent::addCheckFactories(
   CheckFactories.registerCheck<AvoidWcharHeaderCheck>(
       "automotive-c25-req-21.21");
 
+  // MISRA C:2012 Rule 17.1 - stdarg.h (Required)
+  CheckFactories.registerCheck<AvoidStdargHeaderCheck>(
+      "automotive-c23-req-17.1");
+
   // MISRA C:2025 Rule 17.1 - stdarg.h (Required)
   CheckFactories.registerCheck<AvoidStdargHeaderCheck>(
       "automotive-c25-req-17.1");
