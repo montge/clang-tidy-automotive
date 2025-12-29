@@ -11,5 +11,6 @@ add_clang_library(clangTidyAutomotiveArrayComponent STATIC
   AvoidTempArrayDecayCheck.cpp
   AvoidVariableLengthArrayCheck.cpp
   MissingExternalArraySizeCheck.cpp
+  MissingNestedBracesCheck.cpp
   PartialArrayInitCheck.cpp
 )

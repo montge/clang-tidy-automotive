@@ -56,6 +56,12 @@ void StatementComponent::addCheckFactories(
       "automotive-missing-compound");
   CheckFactories.registerCheck<MissingElseCheck>("automotive-missing-else");
 
+  // Rule 15.7 - All if...else if constructs shall be terminated with else
+  // MISRA C:2012 Rule 15.7 (Required)
+  CheckFactories.registerCheck<MissingElseCheck>("automotive-c23-req-15.7");
+  // MISRA C:2025 Rule 15.7 (Required)
+  CheckFactories.registerCheck<MissingElseCheck>("automotive-c25-req-15.7");
+
   // Rule 15.4 - Multiple loop terminators (Advisory)
   CheckFactories.registerCheck<MultipleLoopTerminatorsCheck>(
       "automotive-c23-adv-15.4");
