@@ -8,6 +8,7 @@
 
 #include "OperatorComponent.h"
 #include "AvoidCommaOperatorCheck.h"
+#include "ExplicitPrecedenceCheck.h"
 #include "WrongConditionalOperandTypeCheck.h"
 #include "WrongShiftOperandCheck.h"
 
@@ -35,6 +36,14 @@ void OperatorComponent::addCheckFactories(
   // (Required) - pointer and integer shall not be operands of conditional
   CheckFactories.registerCheck<WrongConditionalOperandTypeCheck>(
       "automotive-c25-req-10.9");
+
+  // MISRA C:2012 Rule 12.1 - Precedence of operators should be explicit
+  // (Advisory)
+  CheckFactories.registerCheck<ExplicitPrecedenceCheck>(
+      "automotive-c23-adv-12.1");
+  // MISRA C:2025 - same rule, different numbering
+  CheckFactories.registerCheck<ExplicitPrecedenceCheck>(
+      "automotive-c25-adv-12.1-precedence");
 }
 
 } // namespace clang::tidy::automotive

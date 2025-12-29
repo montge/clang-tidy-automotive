@@ -74,8 +74,12 @@ void ExpressionComponent::addCheckFactories(
       "automotive-c23-req-13.1");
 
   // Rule 13.4 - Assignment used as expression (Advisory)
+  // MISRA C:2012 Rule 13.4
   CheckFactories.registerCheck<AvoidAssignmentInExpressionCheck>(
       "automotive-c23-adv-13.4");
+  // MISRA C:2025 Rule 13.4
+  CheckFactories.registerCheck<AvoidAssignmentInExpressionCheck>(
+      "automotive-c25-adv-13.4");
 
   // Rule 13.5 - Side effects in logical operator operands (Required)
   CheckFactories.registerCheck<AvoidSideEffectInLogicalOperandCheck>(
