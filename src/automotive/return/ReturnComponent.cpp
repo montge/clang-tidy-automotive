@@ -23,6 +23,11 @@ void ReturnComponent::addCheckFactories(
   CheckFactories.registerCheck<NoReturnVoidCheck>(
       "automotive-missing-return-void");
 
+  // MISRA C:2012 Rule 15.5 - A function should have a single point of exit
+  // (Advisory)
+  CheckFactories.registerCheck<MultipleReturnStmtCheck>(
+      "automotive-c23-adv-15.5");
+
   // MISRA C:2025 Rule 17.4 - Single return point (Advisory)
   CheckFactories.registerCheck<MultipleReturnStmtCheck>(
       "automotive-c25-adv-17.4");
