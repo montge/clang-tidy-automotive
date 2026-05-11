@@ -13,6 +13,7 @@
 #include "AvoidReservedIdentifierDeclarationCheck.h"
 #include "AvoidRestrictTypeCheck.h"
 #include "AvoidTentativeDefinitionInHeaderCheck.h"
+#include "AvoidUninitializedAtomicCheck.h"
 #include "AvoidUninitializedReadCheck.h"
 #include "AvoidZeroAlignmentCheck.h"
 #include "DuplicateExternalIdentifierCheck.h"
@@ -136,6 +137,11 @@ void StorageComponent::addCheckFactories(
   // There should be no external declarations in a source file
   CheckFactories.registerCheck<AvoidExternInSourceFileCheck>(
       "automotive-c25-adv-8.19");
+
+  // MISRA C:2025 Rule 9.7 - Atomic objects shall be appropriately initialized
+  // (Mandatory)
+  CheckFactories.registerCheck<AvoidUninitializedAtomicCheck>(
+      "automotive-c25-mand-9.7");
 }
 
 } // namespace clang::tidy::automotive

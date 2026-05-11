@@ -10,17 +10,24 @@ add_automotive_component(clangTidyAutomotiveExpressionComponent
   AvoidInappropriateEssentialTypeCheck.cpp
   AvoidNarrowingCompoundAssignmentCheck.cpp
   AvoidNonBooleanInConditionCheck.cpp
+  AvoidOverlappingAssignmentCheck.cpp
   AvoidSideEffectInInitializerCheck.cpp
   AvoidSideEffectInLogicalOperandCheck.cpp
   AvoidSideEffectInSizeofCheck.cpp
   AvoidSizeofArrayParameterCheck.cpp
   ExpressionComponent.cpp
   GenericAppropriateTypeCheck.cpp
+  GenericCompatibleTypesCheck.cpp
   GenericDefaultPositionCheck.cpp
+  GenericEssentialTypeCheck.cpp
   GenericFromMacroCheck.cpp
   GenericImplicitPointerCheck.cpp
+  GenericMacroNestingCheck.cpp
+  GenericNoExplicitDefaultCheck.cpp
   GenericNonDefaultCheck.cpp
+  GenericParameterTypeCheckCheck.cpp
+  GenericParameterUsageCheck.cpp
   GenericSideEffectCheck.cpp
-  GenericEssentialTypeCheck.cpp
+  GenericSuitableControllingExprCheck.cpp
   InvariantControlCheck.cpp
 )

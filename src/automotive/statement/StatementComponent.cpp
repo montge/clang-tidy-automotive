@@ -10,6 +10,7 @@
 #include "AvoidBooleanInSwitchCheck.h"
 #include "AvoidGotoCheck.h"
 #include "AvoidSingleClauseSwitchCheck.h"
+#include "DeadCodeCheck.h"
 #include "ForwardGotoLabelCheck.h"
 #include "GotoLabelSameBlockCheck.h"
 #include "MissingBreakInCaseStmtCheck.h"
@@ -117,6 +118,9 @@ void StatementComponent::addCheckFactories(
   // MISRA C:2025 Rule 15.4 - single break/goto to exit loop (Advisory)
   CheckFactories.registerCheck<MultipleLoopTerminatorsCheck>(
       "automotive-c25-adv-15.4");
+
+  // MISRA C:2025 Rule 2.2 - no dead code (Required)
+  CheckFactories.registerCheck<DeadCodeCheck>("automotive-c25-req-2.2");
 }
 
 } // namespace clang::tidy::automotive

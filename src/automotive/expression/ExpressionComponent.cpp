@@ -17,17 +17,24 @@
 #include "AvoidInappropriateEssentialTypeCheck.h"
 #include "AvoidNarrowingCompoundAssignmentCheck.h"
 #include "AvoidNonBooleanInConditionCheck.h"
+#include "AvoidOverlappingAssignmentCheck.h"
 #include "AvoidSideEffectInInitializerCheck.h"
 #include "AvoidSideEffectInLogicalOperandCheck.h"
 #include "AvoidSideEffectInSizeofCheck.h"
 #include "AvoidSizeofArrayParameterCheck.h"
 #include "GenericAppropriateTypeCheck.h"
+#include "GenericCompatibleTypesCheck.h"
 #include "GenericDefaultPositionCheck.h"
 #include "GenericEssentialTypeCheck.h"
 #include "GenericFromMacroCheck.h"
 #include "GenericImplicitPointerCheck.h"
+#include "GenericMacroNestingCheck.h"
+#include "GenericNoExplicitDefaultCheck.h"
 #include "GenericNonDefaultCheck.h"
+#include "GenericParameterTypeCheckCheck.h"
+#include "GenericParameterUsageCheck.h"
 #include "GenericSideEffectCheck.h"
+#include "GenericSuitableControllingExprCheck.h"
 #include "InvariantControlCheck.h"
 
 namespace clang::tidy::automotive {
@@ -211,6 +218,24 @@ void ExpressionComponent::addCheckFactories(
   // MISRA C:2025 Rule 14.4 - Non-boolean controlling expression (Required)
   CheckFactories.registerCheck<AvoidNonBooleanInConditionCheck>(
       "automotive-c25-req-14.4");
+
+  // MISRA C:2025 Rule 19.1 - Overlapping assignment (Mandatory)
+  CheckFactories.registerCheck<AvoidOverlappingAssignmentCheck>(
+      "automotive-c25-mand-19.1");
+
+  // Generic selection checks (_Generic, C11+) - additional analyses
+  CheckFactories.registerCheck<GenericCompatibleTypesCheck>(
+      "automotive-generic-compatible-types");
+  CheckFactories.registerCheck<GenericMacroNestingCheck>(
+      "automotive-generic-macro-nesting");
+  CheckFactories.registerCheck<GenericNoExplicitDefaultCheck>(
+      "automotive-generic-no-explicit-default");
+  CheckFactories.registerCheck<GenericParameterTypeCheckCheck>(
+      "automotive-generic-parameter-type-check");
+  CheckFactories.registerCheck<GenericParameterUsageCheck>(
+      "automotive-generic-parameter-usage");
+  CheckFactories.registerCheck<GenericSuitableControllingExprCheck>(
+      "automotive-generic-suitable-controlling-expr");
 }
 
 } // namespace clang::tidy::automotive

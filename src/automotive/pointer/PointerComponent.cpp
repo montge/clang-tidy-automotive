@@ -99,6 +99,10 @@ void PointerComponent::addCheckFactories(
   // This check is overly strict for most codebases - use automotive-strict-pointer-arithmetic
   CheckFactories.registerCheck<WrongPointerArithmeticCheck>(
       "automotive-strict-pointer-arithmetic");
+
+  // MISRA C:2025 Rule 18.8 - Pointer arithmetic on array elements (Required)
+  CheckFactories.registerCheck<WrongPointerArithmeticCheck>(
+      "automotive-c25-req-18.8");
 }
 
 } // namespace clang::tidy::automotive
