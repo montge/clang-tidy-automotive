@@ -1,6 +1,5 @@
 
-add_clang_library(clangTidyAutomotiveCpp23Component STATIC
-  PARTIAL_SOURCES_INTENDED
+add_automotive_component(clangTidyAutomotiveCpp23Component
   AtExitHandlerReturnCheck.cpp
   AutoTypeRestrictionCheck.cpp
   AvoidArrayToPointerDecayCheck.cpp
