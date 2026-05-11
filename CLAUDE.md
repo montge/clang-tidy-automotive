@@ -8,33 +8,89 @@ Clang-Tidy Automotive is a collection of clang-tidy checks inspired by automotiv
 
 ## Build Commands
 
+The project supports two build modes. Standalone is the default going forward.
+
+### Standalone build (recommended)
+
+Builds the automotive checks as an out-of-tree clang-tidy plugin against
+pre-installed LLVM 20 dev packages. Much faster than building all of LLVM.
+
 ```bash
-# Initial setup (run once)
-./download.sh      # Downloads LLVM source (version defined in version.env)
-./setup.sh         # Creates symlinks into LLVM tree and copies prepatched files
-./configure.sh     # Runs CMake with Ninja generator
+# Native Linux (Debian/Ubuntu with llvm-20-dev, libclang-20-dev installed)
+./build-standalone.sh
 
-# Build
-./build.sh         # Builds clang-tidy and clang-format via ninja
+# Docker (recommended on macOS — no native arm64 image, runs under emulation)
+docker build -t cta-build docker/
+docker run --rm -v "$(pwd):/workspace" -w /workspace cta-build ./build-standalone.sh
+```
 
-# Format code
+Produces:
+- `build-standalone/src/automotive/clangtidyautomotive.so` — the plugin
+- `build-standalone/clang-tidy/v20/clang-tidy-standalone` — vendored clang-tidy
+
+### In-tree build (legacy)
+
+Builds the full LLVM source tree with our checks linked in. Hours-long build.
+
+```bash
+./download.sh      # Downloads LLVM 20.1.8 source (~220MB tarball)
+./setup.sh         # Symlinks src/automotive into LLVM tree, copies prepatch files
+./configure.sh     # Runs CMake (Linux paths — requires apt-installed clang-20, lld-20)
+./build.sh         # Builds clang-tidy via ninja
+```
+
+### Format code
+
+```bash
 ./clang-format.sh  # Formats all .cpp and .h files in src/
 ```
 
 ## Running Checks
 
-```bash
-# Run a specific check on a test file
-./build/bin/clang-tidy --checks="automotive-avoid-goto" test/checkers/automotive/statement/avoid-goto.c --
+### With standalone plugin (via system clang-tidy-20)
 
-# Run with config file
-./build/bin/clang-tidy test.c -config-file=./.clang-tidy --
+```bash
+# List all automotive checks
+clang-tidy-20 -load=./build-standalone/src/automotive/clangtidyautomotive.so \
+              --checks='-*,automotive-*' --list-checks
+
+# Run a specific check on a test file
+clang-tidy-20 -load=./build-standalone/src/automotive/clangtidyautomotive.so \
+              --checks='-*,automotive-avoid-goto' \
+              test/checkers/automotive/statement/avoid-goto.c --
+```
+
+Note: the vendored `clang-tidy-standalone` binary has its own `ModuleRegistry`
+that's separate from the system clang-tidy's. The plugin currently only loads
+into the system `clang-tidy-20` (or any clang-tidy linked against the same
+`libclang-cpp.so.20` as the plugin).
+
+### With in-tree build
+
+```bash
+./build/bin/clang-tidy --checks="automotive-avoid-goto" \
+  test/checkers/automotive/statement/avoid-goto.c --
 ```
 
 ## Architecture
 
-### Integration with LLVM
-The project symlinks its source code into an LLVM source tree (directory name defined in `version.env`). Key integration points:
+The project supports two build modes via the `add_automotive_component()`
+macro in [cmake/AutomotiveBuildMode.cmake](src/automotive/cmake/AutomotiveBuildMode.cmake):
+
+- **Standalone (out-of-tree)**: each component is a static library with PIC,
+  linked into a single `clangtidyautomotive.so` MODULE. Driven by the top-level
+  [CMakeLists.txt](CMakeLists.txt) which uses `find_package(LLVM)`/`find_package(Clang)`
+  and pulls in [cmake/ClangTidyOutOfTree.cmake](cmake/ClangTidyOutOfTree.cmake)
+  to provide shims for `add_clang_library` and friends. The vendored
+  clang-tidy sources live in [clang-tidy/v20/](clang-tidy/v20/).
+
+- **In-tree (legacy)**: each component is an LLVM `add_clang_library` STATIC
+  target. Activated when `AUTOMOTIVE_IN_TREE=ON` (the default if symlinked
+  into a `llvm-project` checkout). Uses [prepatch/](prepatch/) files copied
+  over the LLVM source by [setup.sh](setup.sh).
+
+### Integration with LLVM (in-tree mode only)
+The legacy in-tree mode symlinks the source into an LLVM source tree (directory name defined in `version.env`). Key integration points:
 - `src/automotive/` → symlinked into `clang-tools-extra/clang-tidy/automotive/`
 - `test/checkers/automotive/` → symlinked into `clang-tools-extra/test/clang-tidy/checkers/automotive/`
 - `prepatch/` contains modified LLVM files that enable the automotive module
