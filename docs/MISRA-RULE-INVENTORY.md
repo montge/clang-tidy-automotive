@@ -14,17 +14,23 @@ This document provides a comprehensive mapping between MISRA C:2025 rules and th
 
 ## Summary Statistics
 
-### Registration Counts (December 2025)
+### Registration Counts (May 2026)
 
 | Standard | Registrations |
 |----------|---------------|
-| MISRA C:2025 (c25-*) | 92 |
-| MISRA C:2023 (c23-*) | 69 |
-| MISRA C++:2023 (cpp23-*) | 134 |
-| General Automotive | 63 |
-| **Total Registrations** | **358** |
+| MISRA C:2025 (c25-*) | 146 |
+| MISRA C:2023 (c23-*) | 72 |
+| MISRA C++:2023 (cpp23-*) | 133 |
+| Generic selection checks (generic-*) | 6 |
+| General Automotive (avoid-*, missing-*, etc.) | 55 |
+| **Total Registrations** | **412** |
 
-*Note: Many checks are registered under multiple rule IDs to cover both C:2023 and C:2025 numbering.*
+Verified against current source registrations and confirmed against
+`clang-tidy-20 --list-checks` output (406 unique checks loaded from
+`clangtidyautomotive.so`). The 6-check delta is from registrations that
+share the same check class under multiple IDs but get deduped at runtime.
+
+*Note: Many checks are registered under multiple rule IDs to cover both C:2023 and C:2025 numbering — the "Total Registrations" count includes these aliases.*
 
 ### Rule Coverage Summary
 
