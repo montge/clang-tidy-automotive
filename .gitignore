@@ -17,6 +17,7 @@ src/NoLintDirectiveHandler.h
 src/add_new_check.py
 src/rename_check.py
 build
+build-standalone
 test-build
 openspec
 test/checkers/automotive/automotive
